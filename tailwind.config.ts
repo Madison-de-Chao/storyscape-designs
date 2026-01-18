@@ -13,6 +13,10 @@ export default {
       },
     },
     extend: {
+      fontFamily: {
+        'serif-tc': ['"Noto Serif TC"', 'serif'],
+        'sans-tc': ['"Noto Sans TC"', 'sans-serif'],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -57,6 +61,20 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+        // Arc Zero 自定義色彩
+        arc: {
+          glow: "hsl(var(--arc-glow))",
+          shadow: "hsl(var(--arc-shadow))",
+        },
+        particle: "hsl(var(--particle))",
+        yi: "hsl(var(--yi-red))",
+        zen: {
+          gold: "hsl(var(--zen-gold))",
+          blue: "hsl(var(--wisdom-blue))",
+        },
+        void: {
+          deep: "hsl(var(--void-deep))",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -65,25 +83,36 @@ export default {
       },
       keyframes: {
         "accordion-down": {
-          from: {
-            height: "0",
-          },
-          to: {
-            height: "var(--radix-accordion-content-height)",
-          },
+          from: { height: "0" },
+          to: { height: "var(--radix-accordion-content-height)" },
         },
         "accordion-up": {
-          from: {
-            height: "var(--radix-accordion-content-height)",
-          },
-          to: {
-            height: "0",
-          },
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: "0" },
+        },
+        "fade-up": {
+          "0%": { opacity: "0", transform: "translateY(20px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
+        },
+        "glow-pulse": {
+          "0%, 100%": { opacity: "0.4" },
+          "50%": { opacity: "1" },
+        },
+        "float": {
+          "0%, 100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(-20px)" },
         },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "fade-up": "fade-up 0.8s ease-out forwards",
+        "glow-pulse": "glow-pulse 3s ease-in-out infinite",
+        "float": "float 6s ease-in-out infinite",
+      },
+      backgroundImage: {
+        'gradient-void': 'linear-gradient(180deg, hsl(222 50% 4%) 0%, hsl(222 47% 10%) 100%)',
+        'gradient-awakening': 'linear-gradient(135deg, hsl(38 80% 55% / 0.2) 0%, hsl(350 60% 45% / 0.1) 100%)',
       },
     },
   },
