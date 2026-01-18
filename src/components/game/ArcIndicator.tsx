@@ -2,16 +2,18 @@ import { motion } from 'framer-motion';
 import { useGameStore } from '@/stores/gameStore';
 
 const ArcIndicator = () => {
-  const arcValue = useGameStore((state) => state.arcValue);
+  const { getCurrentProgress, currentPart } = useGameStore();
+  const progress = getCurrentProgress();
+  const arcValue = progress.arcValue;
   
   // 計算弧度的角度（從180度開始，歸零時完成圓）
-  const arcAngle = (arcValue / 180) * 180; // 轉換為度數
+  const arcAngle = (arcValue / 180) * 180;
   const arcRadius = 40;
   const strokeWidth = 3;
   const center = 50;
 
   // 計算弧的路徑
-  const startAngle = 180; // 從左側開始
+  const startAngle = 180;
   const endAngle = 180 + arcAngle;
   
   const startX = center + arcRadius * Math.cos((startAngle * Math.PI) / 180);
@@ -25,9 +27,10 @@ const ArcIndicator = () => {
     ? `M ${startX} ${startY} A ${arcRadius} ${arcRadius} 0 ${largeArcFlag} 1 ${endX} ${endY}`
     : '';
 
-  // 顏色根據弧度變化
-  const progress = 1 - arcValue / 180;
-  const hue = 220 - progress * 180; // 藍色到金色
+  // 顏色根據弧度和當前部分變化
+  const baseHue = currentPart === 'yi' ? 38 : 350; // 金色 or 紅色
+  const progress1 = 1 - arcValue / 180;
+  const hue = baseHue;
 
   return (
     <motion.div
