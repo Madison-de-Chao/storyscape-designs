@@ -143,7 +143,6 @@ const TitleScreen = () => {
               <div className="text-3xl md:text-4xl font-serif-tc font-bold text-primary text-glow">
                 壹
               </div>
-              <p className="text-xs text-muted-foreground mt-3">看見問題</p>
             </div>
 
             {/* 底部裝飾線 */}
@@ -162,7 +161,6 @@ const TitleScreen = () => {
           {/* 第二部：伊 */}
           <button
             onClick={() => {
-              // 暫時也啟動遊戲，後續可以切換到第二部
               startGame();
             }}
             className="
@@ -190,7 +188,11 @@ const TitleScreen = () => {
               <div className="text-3xl md:text-4xl font-serif-tc font-bold text-accent text-glow-accent">
                 伊
               </div>
-              <p className="text-xs text-muted-foreground mt-3">走出來</p>
+              <div className="flex justify-center gap-3 mt-3 text-xs text-muted-foreground">
+                <span>上冊：看見問題</span>
+                <span className="text-border">|</span>
+                <span>下冊：走出來</span>
+              </div>
             </div>
 
             {/* 底部裝飾線 */}
