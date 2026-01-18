@@ -1,11 +1,13 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
+export type StoryPart = 'yi' | 'yi-part2'; // 壹 = yi, 伊 = yi-part2
+
 export interface Choice {
   id: string;
   text: string;
-  arcChange: number; // 負數減少弧度（好），正數增加弧度（壞）
-  shadowChange: number; // 與伊的關係變化
+  arcChange: number;
+  shadowChange: number;
   nextNodeId: string;
 }
 
@@ -29,84 +31,192 @@ export interface Chapter {
   nodes: DialogueNode[];
 }
 
-interface GameState {
-  // 遊戲狀態
-  arcValue: number; // 0-180，初始180
+interface PartProgress {
+  arcValue: number;
   currentChapter: number;
   currentNodeId: string;
   colorsCollected: string[];
   choicesHistory: Record<string, string>;
-  shadowLevel: number; // -100 到 100，負數=壓抑，正數=接納
-  isPlaying: boolean;
+  shadowLevel: number;
   hasStarted: boolean;
+}
+
+interface GameState {
+  // 當前遊玩的部
+  currentPart: StoryPart;
+  isPlaying: boolean;
+  
+  // 第一部「壹」的進度
+  yiProgress: PartProgress;
+  
+  // 第二部「伊」的進度
+  yiPart2Progress: PartProgress;
   
   // 動作
-  startGame: () => void;
+  startGame: (part: StoryPart) => void;
   resetGame: () => void;
+  resetPart: (part: StoryPart) => void;
+  returnToTitle: () => void;
   setCurrentNode: (nodeId: string) => void;
   makeChoice: (choice: Choice) => void;
   advanceToNextNode: (nextNodeId: string) => void;
   setChapter: (chapter: number) => void;
   collectColor: (color: string) => void;
+  
+  // 獲取當前進度
+  getCurrentProgress: () => PartProgress;
 }
+
+const defaultProgress: PartProgress = {
+  arcValue: 180,
+  currentChapter: 0,
+  currentNodeId: 'prologue-1',
+  colorsCollected: [],
+  choicesHistory: {},
+  shadowLevel: 0,
+  hasStarted: false,
+};
+
+const defaultPart2Progress: PartProgress = {
+  arcValue: 180,
+  currentChapter: 0,
+  currentNodeId: 'yi-prologue-1',
+  colorsCollected: [],
+  choicesHistory: {},
+  shadowLevel: 0,
+  hasStarted: false,
+};
 
 export const useGameStore = create<GameState>()(
   persist(
     (set, get) => ({
-      arcValue: 180,
-      currentChapter: 0,
-      currentNodeId: 'prologue-1',
-      colorsCollected: [],
-      choicesHistory: {},
-      shadowLevel: 0,
+      currentPart: 'yi',
       isPlaying: false,
-      hasStarted: false,
+      yiProgress: { ...defaultProgress },
+      yiPart2Progress: { ...defaultPart2Progress },
 
-      startGame: () => set({ 
-        isPlaying: true, 
-        hasStarted: true,
-        currentNodeId: 'prologue-1',
-        currentChapter: 0,
-      }),
+      startGame: (part: StoryPart) => {
+        const state = get();
+        if (part === 'yi') {
+          set({
+            currentPart: 'yi',
+            isPlaying: true,
+            yiProgress: {
+              ...state.yiProgress,
+              hasStarted: true,
+            },
+          });
+        } else {
+          set({
+            currentPart: 'yi-part2',
+            isPlaying: true,
+            yiPart2Progress: {
+              ...state.yiPart2Progress,
+              hasStarted: true,
+            },
+          });
+        }
+      },
 
       resetGame: () => set({
-        arcValue: 180,
-        currentChapter: 0,
-        currentNodeId: 'prologue-1',
-        colorsCollected: [],
-        choicesHistory: {},
-        shadowLevel: 0,
+        currentPart: 'yi',
         isPlaying: false,
-        hasStarted: false,
+        yiProgress: { ...defaultProgress },
+        yiPart2Progress: { ...defaultPart2Progress },
       }),
 
-      setCurrentNode: (nodeId: string) => set({ currentNodeId: nodeId }),
+      resetPart: (part: StoryPart) => {
+        if (part === 'yi') {
+          set({ yiProgress: { ...defaultProgress } });
+        } else {
+          set({ yiPart2Progress: { ...defaultPart2Progress } });
+        }
+      },
+
+      returnToTitle: () => set({ isPlaying: false }),
+
+      setCurrentNode: (nodeId: string) => {
+        const state = get();
+        if (state.currentPart === 'yi') {
+          set({
+            yiProgress: { ...state.yiProgress, currentNodeId: nodeId },
+          });
+        } else {
+          set({
+            yiPart2Progress: { ...state.yiPart2Progress, currentNodeId: nodeId },
+          });
+        }
+      },
 
       makeChoice: (choice: Choice) => {
         const state = get();
-        const newArcValue = Math.max(0, Math.min(180, state.arcValue + choice.arcChange));
-        const newShadowLevel = Math.max(-100, Math.min(100, state.shadowLevel + choice.shadowChange));
+        const progress = state.getCurrentProgress();
+        const newArcValue = Math.max(0, Math.min(180, progress.arcValue + choice.arcChange));
+        const newShadowLevel = Math.max(-100, Math.min(100, progress.shadowLevel + choice.shadowChange));
         
-        set({
+        const updatedProgress = {
+          ...progress,
           arcValue: newArcValue,
           shadowLevel: newShadowLevel,
           currentNodeId: choice.nextNodeId,
           choicesHistory: {
-            ...state.choicesHistory,
+            ...progress.choicesHistory,
             [choice.id]: choice.text,
           },
-        });
+        };
+
+        if (state.currentPart === 'yi') {
+          set({ yiProgress: updatedProgress });
+        } else {
+          set({ yiPart2Progress: updatedProgress });
+        }
       },
 
-      advanceToNextNode: (nextNodeId: string) => set({ currentNodeId: nextNodeId }),
+      advanceToNextNode: (nextNodeId: string) => {
+        const state = get();
+        if (state.currentPart === 'yi') {
+          set({
+            yiProgress: { ...state.yiProgress, currentNodeId: nextNodeId },
+          });
+        } else {
+          set({
+            yiPart2Progress: { ...state.yiPart2Progress, currentNodeId: nextNodeId },
+          });
+        }
+      },
 
-      setChapter: (chapter: number) => set({ currentChapter: chapter }),
+      setChapter: (chapter: number) => {
+        const state = get();
+        if (state.currentPart === 'yi') {
+          set({
+            yiProgress: { ...state.yiProgress, currentChapter: chapter },
+          });
+        } else {
+          set({
+            yiPart2Progress: { ...state.yiPart2Progress, currentChapter: chapter },
+          });
+        }
+      },
 
       collectColor: (color: string) => {
         const state = get();
-        if (!state.colorsCollected.includes(color)) {
-          set({ colorsCollected: [...state.colorsCollected, color] });
+        const progress = state.getCurrentProgress();
+        if (!progress.colorsCollected.includes(color)) {
+          const updatedProgress = {
+            ...progress,
+            colorsCollected: [...progress.colorsCollected, color],
+          };
+          if (state.currentPart === 'yi') {
+            set({ yiProgress: updatedProgress });
+          } else {
+            set({ yiPart2Progress: updatedProgress });
+          }
         }
+      },
+
+      getCurrentProgress: () => {
+        const state = get();
+        return state.currentPart === 'yi' ? state.yiProgress : state.yiPart2Progress;
       },
     }),
     {

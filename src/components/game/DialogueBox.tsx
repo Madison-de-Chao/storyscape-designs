@@ -1,23 +1,30 @@
 import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useGameStore } from '@/stores/gameStore';
-import { getNodeById, DialogueNode } from '@/data/prologueStory';
+import { getNodeById } from '@/data/prologueStory';
+import { getYiPart2NodeById } from '@/data/yiPart2Story';
+import { DialogueNode } from '@/stores/gameStore';
 import ChoiceButton from './ChoiceButton';
 
 const DialogueBox = () => {
-  const { currentNodeId, advanceToNextNode, makeChoice } = useGameStore();
+  const { getCurrentProgress, advanceToNextNode, makeChoice, currentPart } = useGameStore();
+  const progress = getCurrentProgress();
+  const currentNodeId = progress.currentNodeId;
+  
   const [displayedText, setDisplayedText] = useState('');
   const [isTyping, setIsTyping] = useState(true);
   const [currentNode, setCurrentNode] = useState<DialogueNode | null>(null);
 
   useEffect(() => {
-    const node = getNodeById(currentNodeId);
+    const node = currentPart === 'yi' 
+      ? getNodeById(currentNodeId)
+      : getYiPart2NodeById(currentNodeId);
     if (node) {
       setCurrentNode(node);
       setDisplayedText('');
       setIsTyping(true);
     }
-  }, [currentNodeId]);
+  }, [currentNodeId, currentPart]);
 
   // 打字機效果
   useEffect(() => {
@@ -45,11 +52,9 @@ const DialogueBox = () => {
     if (!currentNode) return;
 
     if (isTyping) {
-      // 跳過打字效果
       setDisplayedText(currentNode.text);
       setIsTyping(false);
     } else if (currentNode.nextNodeId && !currentNode.choices) {
-      // 進入下一個節點
       advanceToNextNode(currentNode.nextNodeId);
     }
   }, [currentNode, isTyping, advanceToNextNode]);
@@ -61,7 +66,7 @@ const DialogueBox = () => {
       case 'yi':
         return 'text-accent';
       case 'protagonist':
-        return 'text-primary';
+        return currentPart === 'yi' ? 'text-primary' : 'text-accent';
       case 'mentor':
         return 'text-zen-gold';
       default:
@@ -75,7 +80,7 @@ const DialogueBox = () => {
       case 'yi':
         return '???';
       case 'protagonist':
-        return '她';
+        return currentPart === 'yi' ? '她' : '你';
       case 'mentor':
         return '歸者';
       default:

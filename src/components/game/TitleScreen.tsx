@@ -3,7 +3,8 @@ import { useGameStore } from '@/stores/gameStore';
 import ParticleBackground from './ParticleBackground';
 
 const TitleScreen = () => {
-  const { startGame, hasStarted, resetGame } = useGameStore();
+  const { startGame, resetGame, yiProgress, yiPart2Progress } = useGameStore();
+  const hasAnyProgress = yiProgress.hasStarted || yiPart2Progress.hasStarted;
 
   return (
     <div className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
@@ -117,7 +118,7 @@ const TitleScreen = () => {
         >
           {/* 第一部：壹 */}
           <button
-            onClick={startGame}
+            onClick={() => startGame('yi')}
             className="
               group relative w-64 md:w-72 py-8 px-6
               bg-card/30 backdrop-blur-sm
@@ -143,6 +144,11 @@ const TitleScreen = () => {
               <div className="text-3xl md:text-4xl font-serif-tc font-bold text-primary text-glow">
                 壹
               </div>
+              {yiProgress.hasStarted && (
+                <div className="mt-3 text-xs text-primary/70">
+                  進度：{yiProgress.arcValue}°
+                </div>
+              )}
             </div>
 
             {/* 底部裝飾線 */}
@@ -160,9 +166,7 @@ const TitleScreen = () => {
 
           {/* 第二部：伊 */}
           <button
-            onClick={() => {
-              startGame();
-            }}
+            onClick={() => startGame('yi-part2')}
             className="
               group relative w-64 md:w-72 py-8 px-6
               bg-card/30 backdrop-blur-sm
@@ -188,11 +192,11 @@ const TitleScreen = () => {
               <div className="text-3xl md:text-4xl font-serif-tc font-bold text-accent text-glow-accent">
                 伊
               </div>
-              <div className="flex justify-center gap-3 mt-3 text-xs text-muted-foreground">
-                <span>上冊：看見問題</span>
-                <span className="text-border">|</span>
-                <span>下冊：走出來</span>
-              </div>
+              {yiPart2Progress.hasStarted && (
+                <div className="mt-3 text-xs text-accent/70">
+                  進度：{yiPart2Progress.arcValue}°
+                </div>
+              )}
             </div>
 
             {/* 底部裝飾線 */}
@@ -205,8 +209,8 @@ const TitleScreen = () => {
           </button>
         </motion.div>
 
-        {/* 重新開始按鈕 */}
-        {hasStarted && (
+        {/* 重置進度按鈕 */}
+        {hasAnyProgress && (
           <motion.button
             onClick={resetGame}
             className="mt-8 text-sm text-muted-foreground hover:text-foreground transition-colors"
@@ -214,7 +218,7 @@ const TitleScreen = () => {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3 }}
           >
-            重置進度
+            重置所有進度
           </motion.button>
         )}
 
