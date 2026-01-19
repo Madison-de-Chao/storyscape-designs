@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Menu, Home, BookOpen, RotateCcw, Image } from 'lucide-react';
 import { useGameStore } from '@/stores/gameStore';
-import { useSFX, useBGM, useAmbient, getAmbientTypeForScene } from '@/hooks/useAudio';
+import { useSFX, useBGM, useAmbient, getAmbientTypeForScene, getBGMForNode } from '@/hooks/useAudio';
 import ParticleBackground from './ParticleBackground';
 import DialogueBox from './DialogueBox';
 import ArcIndicator from './ArcIndicator';
@@ -52,17 +52,10 @@ const GameScene = () => {
   const isYiPart = currentPart === 'yi';
   const themeHue = isYiPart ? 38 : 350;
 
-  // 根據章節播放背景音樂
+  // 根據劇情氛圍動態播放背景音樂
   useEffect(() => {
-    const normalizedId = currentNodeId.replace(/^yi1-/, '');
-    
-    if (normalizedId.startsWith('preface')) {
-      playBGM('preface');
-    } else if (normalizedId.startsWith('prologue')) {
-      playBGM('prologue');
-    } else {
-      playBGM('chapter_calm');
-    }
+    const bgmType = getBGMForNode(currentNodeId);
+    playBGM(bgmType);
 
     return () => stopBGM();
   }, [currentNodeId, playBGM, stopBGM]);
