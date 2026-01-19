@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Eye, EyeOff, FastForward } from 'lucide-react';
+import { Eye, EyeOff, FastForward, Play, Pause } from 'lucide-react';
 import { useGameStore } from '@/stores/gameStore';
 import { getNodeById } from '@/data/prologueStory';
 import { getYiPart2NodeById } from '@/data/yiPart2Story';
@@ -24,7 +24,9 @@ const DialogueBox = ({ isHidden = false, onToggleHide }: DialogueBoxProps) => {
   const [isTyping, setIsTyping] = useState(true);
   const [currentNode, setCurrentNode] = useState<DialogueNode | null>(null);
   const [isAutoForward, setIsAutoForward] = useState(false);
+  const [isAutoPlay, setIsAutoPlay] = useState(false);
   const autoForwardRef = useRef<NodeJS.Timeout | null>(null);
+  const autoPlayRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     // 嘗試從 yi1 數據獲取節點，如果沒有則回退到舊的 prologueStory
@@ -81,15 +83,47 @@ const DialogueBox = ({ isHidden = false, onToggleHide }: DialogueBoxProps) => {
     };
   }, [isAutoForward, isTyping, currentNode, advanceToNextNode, playSFX]);
 
-  // 遇到選項時自動停止快轉
+  // 遇到選項時自動停止快轉和自動播放
   useEffect(() => {
     if (currentNode?.choices) {
       setIsAutoForward(false);
+      setIsAutoPlay(false);
     }
   }, [currentNode?.choices]);
 
+  // 自動播放模式（正常速度，延遲後自動前進）
+  useEffect(() => {
+    if (isAutoPlay && !isAutoForward && !isTyping && currentNode?.nextNodeId && !currentNode.choices) {
+      // 根據文字長度計算延遲時間（每個字約 100ms 閱讀時間，最少 2 秒，最多 5 秒）
+      const textLength = currentNode.text.length;
+      const delay = Math.min(Math.max(textLength * 100, 2000), 5000);
+      
+      autoPlayRef.current = setTimeout(() => {
+        playSFX('dialogue_advance');
+        advanceToNextNode(currentNode.nextNodeId!);
+      }, delay);
+    }
+
+    return () => {
+      if (autoPlayRef.current) {
+        clearTimeout(autoPlayRef.current);
+      }
+    };
+  }, [isAutoPlay, isAutoForward, isTyping, currentNode, advanceToNextNode, playSFX]);
+
   const toggleAutoForward = useCallback(() => {
-    setIsAutoForward(prev => !prev);
+    setIsAutoForward(prev => {
+      if (!prev) setIsAutoPlay(false); // 開啟快轉時關閉自動播放
+      return !prev;
+    });
+    playSFX('click');
+  }, [playSFX]);
+
+  const toggleAutoPlay = useCallback(() => {
+    setIsAutoPlay(prev => {
+      if (!prev) setIsAutoForward(false); // 開啟自動播放時關閉快轉
+      return !prev;
+    });
     playSFX('click');
   }, [playSFX]);
 
@@ -173,6 +207,28 @@ const DialogueBox = ({ isHidden = false, onToggleHide }: DialogueBoxProps) => {
     <>
       {/* 控制按鈕群組（始終可見） */}
       <div className="fixed bottom-4 right-4 z-50 flex gap-2">
+        {/* 自動播放按鈕 */}
+        <motion.button
+          onClick={toggleAutoPlay}
+          className={`
+            p-3 rounded-full backdrop-blur-sm border transition-all duration-300
+            ${isAutoPlay 
+              ? 'bg-primary/20 border-primary/50 text-primary' 
+              : 'bg-card/50 border-border/50 text-muted-foreground hover:text-foreground hover:border-border'
+            }
+          `}
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.3 }}
+          title={isAutoPlay ? '停止自動播放' : '自動播放'}
+        >
+          {isAutoPlay ? (
+            <Pause className="w-5 h-5" />
+          ) : (
+            <Play className="w-5 h-5" />
+          )}
+        </motion.button>
+
         {/* 快轉按鈕 */}
         <motion.button
           onClick={toggleAutoForward}
