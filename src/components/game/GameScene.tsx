@@ -6,6 +6,7 @@ import ParticleBackground from './ParticleBackground';
 import DialogueBox from './DialogueBox';
 import ArcIndicator from './ArcIndicator';
 import ChapterSelect from './ChapterSelect';
+import SceneImage from './SceneImage';
 import { getNodeById } from '@/data/prologueStory';
 import { getYiPart2NodeById } from '@/data/yiPart2Story';
 import { getYi1NodeById } from '@/data/yi1';
@@ -41,6 +42,9 @@ const GameScene = () => {
   
   return (
     <div className="relative min-h-screen overflow-hidden">
+      {/* 場景圖片（如果有） */}
+      {isYiPart && <SceneImage nodeId={currentNodeId} />}
+
       {/* 粒子背景 */}
       <ParticleBackground arcValue={arcValue} />
       

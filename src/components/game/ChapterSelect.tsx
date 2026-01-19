@@ -81,13 +81,19 @@ interface ChapterSelectProps {
 }
 
 const ChapterSelect = ({ isOpen, onClose }: ChapterSelectProps) => {
-  const { setCurrentNode, startGame } = useGameStore();
+  const { setCurrentNode, startGame, getChapterProgress } = useGameStore();
 
   const handleSelectChapter = (chapter: ChapterInfo) => {
     if (!chapter.unlocked) return;
     startGame('yi');
     setCurrentNode(chapter.startNodeId);
     onClose();
+  };
+
+  const getChapterId = (chapter: ChapterInfo): string => {
+    if (chapter.id === 'preface') return 'preface';
+    if (chapter.id === 'prologue') return 'prologue';
+    return chapter.id;
   };
 
   return (
@@ -201,10 +207,21 @@ const ChapterSelect = ({ isOpen, onClose }: ChapterSelectProps) => {
                       )}
                     </div>
 
-                    {/* 進度條（未來功能） */}
+                    {/* 進度條 */}
                     {chapter.unlocked && (
-                      <div className="mt-3 h-1 bg-muted rounded-full overflow-hidden">
-                        <div className="h-full bg-primary/30 w-0" />
+                      <div className="mt-3">
+                        <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
+                          <span>閱讀進度</span>
+                          <span>{getChapterProgress(getChapterId(chapter))}%</span>
+                        </div>
+                        <div className="h-1.5 bg-muted rounded-full overflow-hidden">
+                          <motion.div 
+                            className="h-full bg-primary rounded-full"
+                            initial={{ width: 0 }}
+                            animate={{ width: `${getChapterProgress(getChapterId(chapter))}%` }}
+                            transition={{ duration: 0.5, delay: index * 0.05 }}
+                          />
+                        </div>
                       </div>
                     )}
                   </motion.button>

@@ -8,7 +8,7 @@ import { DialogueNode } from '@/stores/gameStore';
 import ChoiceButton from './ChoiceButton';
 
 const DialogueBox = () => {
-  const { getCurrentProgress, advanceToNextNode, makeChoice, currentPart } = useGameStore();
+  const { getCurrentProgress, advanceToNextNode, makeChoice, currentPart, markNodeAsRead } = useGameStore();
   const progress = getCurrentProgress();
   const currentNodeId = progress.currentNodeId;
   
@@ -25,8 +25,10 @@ const DialogueBox = () => {
       setCurrentNode(node);
       setDisplayedText('');
       setIsTyping(true);
+      // 自動標記節點為已讀
+      markNodeAsRead(currentNodeId);
     }
-  }, [currentNodeId, currentPart]);
+  }, [currentNodeId, currentPart, markNodeAsRead]);
 
   // 打字機效果
   useEffect(() => {

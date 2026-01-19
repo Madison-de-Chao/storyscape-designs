@@ -40,6 +40,9 @@ interface PartProgress {
   choicesHistory: Record<string, string>;
   shadowLevel: number;
   hasStarted: boolean;
+  // 閱讀進度追蹤：記錄每個章節已讀過的節點
+  readNodes: Record<string, string[]>; // { chapterId: [nodeId, nodeId, ...] }
+  lastReadAt: number | null; // 上次閱讀時間戳
 }
 
 interface GameState {
@@ -63,6 +66,8 @@ interface GameState {
   advanceToNextNode: (nextNodeId: string) => void;
   setChapter: (chapter: number) => void;
   collectColor: (color: string) => void;
+  markNodeAsRead: (nodeId: string) => void;
+  getChapterProgress: (chapterId: string) => number;
   
   // 獲取當前進度
   getCurrentProgress: () => PartProgress;
@@ -76,6 +81,8 @@ const defaultProgress: PartProgress = {
   choicesHistory: {},
   shadowLevel: 0,
   hasStarted: false,
+  readNodes: {},
+  lastReadAt: null,
 };
 
 const defaultPart2Progress: PartProgress = {
@@ -86,7 +93,30 @@ const defaultPart2Progress: PartProgress = {
   choicesHistory: {},
   shadowLevel: 0,
   hasStarted: false,
+  readNodes: {},
+  lastReadAt: null,
 };
+
+// 每個章節的總節點數（用於計算閱讀百分比）
+const chapterNodeCounts: Record<string, number> = {
+  'preface': 25,
+  'prologue': 68,
+  'chapter-1': 110,
+  'chapter-2': 120,
+  'chapter-3': 100,
+  'chapter-4': 90,
+};
+
+// 根據節點 ID 獲取章節 ID
+function getChapterIdFromNodeId(nodeId: string): string {
+  if (nodeId.includes('preface')) return 'preface';
+  if (nodeId.includes('prologue')) return 'prologue';
+  if (nodeId.includes('chapter-1')) return 'chapter-1';
+  if (nodeId.includes('chapter-2')) return 'chapter-2';
+  if (nodeId.includes('chapter-3')) return 'chapter-3';
+  if (nodeId.includes('chapter-4')) return 'chapter-4';
+  return 'unknown';
+}
 
 export const useGameStore = create<GameState>()(
   persist(
@@ -213,6 +243,38 @@ export const useGameStore = create<GameState>()(
             set({ yiPart2Progress: updatedProgress });
           }
         }
+      },
+
+      markNodeAsRead: (nodeId: string) => {
+        const state = get();
+        const progress = state.getCurrentProgress();
+        const chapterId = getChapterIdFromNodeId(nodeId);
+        
+        const currentReadNodes = progress.readNodes[chapterId] || [];
+        if (!currentReadNodes.includes(nodeId)) {
+          const updatedProgress = {
+            ...progress,
+            readNodes: {
+              ...progress.readNodes,
+              [chapterId]: [...currentReadNodes, nodeId],
+            },
+            lastReadAt: Date.now(),
+          };
+          
+          if (state.currentPart === 'yi') {
+            set({ yiProgress: updatedProgress });
+          } else {
+            set({ yiPart2Progress: updatedProgress });
+          }
+        }
+      },
+
+      getChapterProgress: (chapterId: string) => {
+        const state = get();
+        const progress = state.getCurrentProgress();
+        const readNodes = progress.readNodes[chapterId] || [];
+        const totalNodes = chapterNodeCounts[chapterId] || 1;
+        return Math.min(100, Math.round((readNodes.length / totalNodes) * 100));
       },
 
       getCurrentProgress: () => {
