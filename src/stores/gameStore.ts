@@ -43,6 +43,8 @@ interface PartProgress {
   // 閱讀進度追蹤：記錄每個章節已讀過的節點
   readNodes: Record<string, string[]>; // { chapterId: [nodeId, nodeId, ...] }
   lastReadAt: number | null; // 上次閱讀時間戳
+  // 已解鎖的圖片 URL 列表
+  unlockedImages: string[];
 }
 
 interface GameState {
@@ -68,6 +70,7 @@ interface GameState {
   collectColor: (color: string) => void;
   markNodeAsRead: (nodeId: string) => void;
   getChapterProgress: (chapterId: string) => number;
+  unlockImage: (imageUrl: string) => void;
   
   // 獲取當前進度
   getCurrentProgress: () => PartProgress;
@@ -83,6 +86,7 @@ const defaultProgress: PartProgress = {
   hasStarted: false,
   readNodes: {},
   lastReadAt: null,
+  unlockedImages: [],
 };
 
 const defaultPart2Progress: PartProgress = {
@@ -95,6 +99,7 @@ const defaultPart2Progress: PartProgress = {
   hasStarted: false,
   readNodes: {},
   lastReadAt: null,
+  unlockedImages: [],
 };
 
 // 每個章節的總節點數（用於計算閱讀百分比）
@@ -280,6 +285,25 @@ export const useGameStore = create<GameState>()(
         const chapterReadNodes = readNodes[chapterId] || [];
         const totalNodes = chapterNodeCounts[chapterId] || 1;
         return Math.min(100, Math.round((chapterReadNodes.length / totalNodes) * 100));
+      },
+
+      unlockImage: (imageUrl: string) => {
+        const state = get();
+        const progress = state.getCurrentProgress();
+        const unlockedImages = progress.unlockedImages || [];
+        
+        if (!unlockedImages.includes(imageUrl)) {
+          const updatedProgress = {
+            ...progress,
+            unlockedImages: [...unlockedImages, imageUrl],
+          };
+          
+          if (state.currentPart === 'yi') {
+            set({ yiProgress: updatedProgress });
+          } else {
+            set({ yiPart2Progress: updatedProgress });
+          }
+        }
       },
 
       getCurrentProgress: () => {
