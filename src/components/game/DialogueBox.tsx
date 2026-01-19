@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useGameStore } from '@/stores/gameStore';
 import { getNodeById } from '@/data/prologueStory';
 import { getYiPart2NodeById } from '@/data/yiPart2Story';
+import { getYi1NodeById } from '@/data/yi1';
 import { DialogueNode } from '@/stores/gameStore';
 import ChoiceButton from './ChoiceButton';
 
@@ -16,8 +17,9 @@ const DialogueBox = () => {
   const [currentNode, setCurrentNode] = useState<DialogueNode | null>(null);
 
   useEffect(() => {
+    // 嘗試從 yi1 數據獲取節點，如果沒有則回退到舊的 prologueStory
     const node = currentPart === 'yi' 
-      ? getNodeById(currentNodeId)
+      ? (getYi1NodeById(currentNodeId) || getNodeById(currentNodeId))
       : getYiPart2NodeById(currentNodeId);
     if (node) {
       setCurrentNode(node);
@@ -83,6 +85,30 @@ const DialogueBox = () => {
         return currentPart === 'yi' ? '她' : '你';
       case 'mentor':
         return '歸者';
+      case 'wenxin':
+        return '問心';
+      case 'wendu':
+        return '問渡';
+      case 'wangyangming':
+        return '王陽明';
+      case 'sushi':
+        return '蘇軾';
+      case 'simaqian':
+        return '司馬遷';
+      case 'wuzetian':
+        return '武則天';
+      case 'libai':
+        return '李白';
+      case 'mandela':
+        return '曼德拉';
+      case 'caesar':
+        return '凱撒';
+      case 'cleopatra':
+        return '埃及豔后';
+      case 'lincoln':
+        return '林肯';
+      case 'jobs':
+        return '賈伯斯';
       default:
         return '';
     }

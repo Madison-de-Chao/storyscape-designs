@@ -5,6 +5,20 @@ import DialogueBox from './DialogueBox';
 import ArcIndicator from './ArcIndicator';
 import { getNodeById } from '@/data/prologueStory';
 import { getYiPart2NodeById } from '@/data/yiPart2Story';
+import { getYi1NodeById, yi1ChaptersMeta } from '@/data/yi1';
+
+// 根據節點 ID 獲取當前章節標題
+const getChapterTitle = (nodeId: string): string => {
+  if (nodeId.startsWith('yi1-preface')) return '作者序';
+  if (nodeId.startsWith('yi1-prologue')) return '序章・未完成的檔案';
+  if (nodeId.startsWith('yi1-chapter-1')) return '第一章・刪除';
+  if (nodeId.startsWith('yi1-chapter-2')) return '第二章・渡口';
+  if (nodeId.startsWith('yi1-chapter-3')) return '第三章・真相';
+  if (nodeId.startsWith('yi1-chapter-4')) return '第四章・命樹';
+  // 回退到舊格式
+  if (nodeId.startsWith('prologue')) return '序章・未完成的檔案';
+  return '序章';
+};
 
 const GameScene = () => {
   const { getCurrentProgress, returnToTitle, currentPart } = useGameStore();
@@ -12,8 +26,9 @@ const GameScene = () => {
   const arcValue = progress.arcValue;
   const currentNodeId = progress.currentNodeId;
   
+  // 根據當前部分選擇對應的節點獲取函數
   const currentNode = currentPart === 'yi' 
-    ? getNodeById(currentNodeId)
+    ? (getYi1NodeById(currentNodeId) || getNodeById(currentNodeId))
     : getYiPart2NodeById(currentNodeId);
 
   // 根據弧度計算背景色調
@@ -84,7 +99,7 @@ const GameScene = () => {
           {isYiPart ? '弧度歸零：壹' : '弧度歸零：伊'}
         </h2>
         <h3 className="text-lg text-foreground/80 font-serif-tc">
-          {isYiPart ? '序章・未完成的檔案' : '序章・另一個我們'}
+          {isYiPart ? getChapterTitle(currentNodeId) : '序章・另一個我們'}
         </h3>
       </motion.div>
 

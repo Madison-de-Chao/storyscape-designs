@@ -105,7 +105,7 @@ export const chapter3Nodes: DialogueNode[] = [
   },
   {
     id: 'yi1-chapter-3-15',
-    speaker: 'yangming',
+    speaker: 'wangyangming',
     text: '你來了。',
     nextNodeId: 'yi1-chapter-3-16',
   },
@@ -123,7 +123,7 @@ export const chapter3Nodes: DialogueNode[] = [
   },
   {
     id: 'yi1-chapter-3-18',
-    speaker: 'yangming',
+    speaker: 'wangyangming',
     text: '不用這麼驚訝。在這裡，我只是一個老師。',
     nextNodeId: 'yi1-chapter-3-19',
   },
@@ -135,7 +135,7 @@ export const chapter3Nodes: DialogueNode[] = [
   },
   {
     id: 'yi1-chapter-3-20',
-    speaker: 'yangming',
+    speaker: 'wangyangming',
     text: '是的。問心說你有困惑，想找到真相。',
     nextNodeId: 'yi1-chapter-3-21',
   },
@@ -147,7 +147,7 @@ export const chapter3Nodes: DialogueNode[] = [
   },
   {
     id: 'yi1-chapter-3-22',
-    speaker: 'yangming',
+    speaker: 'wangyangming',
     text: '這很正常。大多數人都不知道自己在找什麼——直到他們找到為止。',
     nextNodeId: 'yi1-chapter-3-23',
   },
@@ -159,7 +159,7 @@ export const chapter3Nodes: DialogueNode[] = [
   },
   {
     id: 'yi1-chapter-3-24',
-    speaker: 'yangming',
+    speaker: 'wangyangming',
     text: '跟我來。',
     nextNodeId: 'yi1-chapter-3-25',
   },
@@ -185,7 +185,7 @@ export const chapter3Nodes: DialogueNode[] = [
   },
   {
     id: 'yi1-chapter-3-28',
-    speaker: 'yangming',
+    speaker: 'wangyangming',
     text: '讓我問你一個問題。',
     nextNodeId: 'yi1-chapter-3-29',
   },
@@ -197,7 +197,7 @@ export const chapter3Nodes: DialogueNode[] = [
   },
   {
     id: 'yi1-chapter-3-30',
-    speaker: 'yangming',
+    speaker: 'wangyangming',
     text: '你覺得，什麼是「真相」？',
     effect: 'glow',
     nextNodeId: 'yi1-chapter-3-31',
@@ -216,7 +216,7 @@ export const chapter3Nodes: DialogueNode[] = [
   },
   {
     id: 'yi1-chapter-3-33',
-    speaker: 'yangming',
+    speaker: 'wangyangming',
     text: '那麼，如果同一件事，不同的人有不同的看法，哪個才是真相？',
     nextNodeId: 'yi1-chapter-3-34',
   },
@@ -228,7 +228,7 @@ export const chapter3Nodes: DialogueNode[] = [
   },
   {
     id: 'yi1-chapter-3-35',
-    speaker: 'yangming',
+    speaker: 'wangyangming',
     text: '什麼是「客觀」？',
     nextNodeId: 'yi1-chapter-3-36',
   },
@@ -240,7 +240,7 @@ export const chapter3Nodes: DialogueNode[] = [
   },
   {
     id: 'yi1-chapter-3-37',
-    speaker: 'yangming',
+    speaker: 'wangyangming',
     text: '但是，所有的觀察、所有的判斷，不都是通過「心」來進行的嗎？',
     nextNodeId: 'yi1-chapter-3-38',
   },
@@ -252,7 +252,7 @@ export const chapter3Nodes: DialogueNode[] = [
   },
   {
     id: 'yi1-chapter-3-39',
-    speaker: 'yangming',
+    speaker: 'wangyangming',
     text: '你看到一朵花，覺得它很美。這是真相嗎？',
     nextNodeId: 'yi1-chapter-3-40',
   },
@@ -264,7 +264,7 @@ export const chapter3Nodes: DialogueNode[] = [
   },
   {
     id: 'yi1-chapter-3-41',
-    speaker: 'yangming',
+    speaker: 'wangyangming',
     text: '你的感受難道不是真實的嗎？',
     nextNodeId: 'yi1-chapter-3-42',
   },
@@ -290,13 +290,13 @@ export const chapter3Nodes: DialogueNode[] = [
   },
   {
     id: 'yi1-chapter-3-45',
-    speaker: 'yangming',
+    speaker: 'wangyangming',
     text: '我曾經也困惑過這個問題。',
     nextNodeId: 'yi1-chapter-3-46',
   },
   {
     id: 'yi1-chapter-3-46',
-    speaker: 'yangming',
+    speaker: 'wangyangming',
     text: '年輕的時候，我相信朱熹說的「格物致知」。我覺得真理在外面，在萬事萬物之中。只要我不斷研究、不斷觀察，就能找到它。',
     nextNodeId: 'yi1-chapter-3-47',
   },
@@ -308,7 +308,7 @@ export const chapter3Nodes: DialogueNode[] = [
   },
   {
     id: 'yi1-chapter-3-48',
-    speaker: 'yangming',
+    speaker: 'wangyangming',
     text: '然後我對著竹子看了七天七夜，想要「格」出它的道理。',
     nextNodeId: 'yi1-chapter-3-49',
   },
@@ -320,7 +320,7 @@ export const chapter3Nodes: DialogueNode[] = [
   },
   {
     id: 'yi1-chapter-3-50',
-    speaker: 'yangming',
+    speaker: 'wangyangming',
     text: '我病倒了。',
     nextNodeId: 'yi1-chapter-3-51',
   },
@@ -332,19 +332,19 @@ export const chapter3Nodes: DialogueNode[] = [
   },
   {
     id: 'yi1-chapter-3-52',
-    speaker: 'yangming',
+    speaker: 'wangyangming',
     text: '很多年以後，我被貶到龍場。那是一個偏遠的地方，瘴氣瀰漫，周圍都是荒山野嶺。',
     nextNodeId: 'yi1-chapter-3-53',
   },
   {
     id: 'yi1-chapter-3-53',
-    speaker: 'yangming',
+    speaker: 'wangyangming',
     text: '我在那裡，面對生死，面對孤獨，面對所有人生的困境。',
     nextNodeId: 'yi1-chapter-3-54',
   },
   {
     id: 'yi1-chapter-3-54',
-    speaker: 'yangming',
+    speaker: 'wangyangming',
     text: '有一天夜裡，我突然明白了一件事。',
     nextNodeId: 'yi1-chapter-3-55',
   },
@@ -356,7 +356,7 @@ export const chapter3Nodes: DialogueNode[] = [
   },
   {
     id: 'yi1-chapter-3-56',
-    speaker: 'yangming',
+    speaker: 'wangyangming',
     text: '心即理。',
     effect: 'glow',
     nextNodeId: 'yi1-chapter-3-57',
@@ -377,13 +377,13 @@ export const chapter3Nodes: DialogueNode[] = [
   },
   {
     id: 'yi1-chapter-3-59',
-    speaker: 'yangming',
+    speaker: 'wangyangming',
     text: '我以前以為，道理在外面，我要向外去找。但那一夜我明白了——道理從來就在我心裡。',
     nextNodeId: 'yi1-chapter-3-60',
   },
   {
     id: 'yi1-chapter-3-60',
-    speaker: 'yangming',
+    speaker: 'wangyangming',
     text: '不是我去「發現」真理，是真理通過我的心，「顯現」出來。',
     nextNodeId: 'yi1-chapter-3-61',
   },
@@ -395,7 +395,7 @@ export const chapter3Nodes: DialogueNode[] = [
   },
   {
     id: 'yi1-chapter-3-62',
-    speaker: 'yangming',
+    speaker: 'wangyangming',
     text: '表面上是這樣。但如果你往深處看，所有的心，其實都連在一起。',
     nextNodeId: 'yi1-chapter-3-63',
   },
@@ -407,7 +407,7 @@ export const chapter3Nodes: DialogueNode[] = [
   },
   {
     id: 'yi1-chapter-3-64',
-    speaker: 'yangming',
+    speaker: 'wangyangming',
     text: '就像海浪。表面上，每一個浪都不同，高低大小、方向速度。但往下看，它們都是同一片海。',
     nextNodeId: 'yi1-chapter-3-65',
   },
@@ -431,7 +431,7 @@ export const chapter3Nodes: DialogueNode[] = [
   },
   {
     id: 'yi1-chapter-3-68',
-    speaker: 'yangming',
+    speaker: 'wangyangming',
     text: '你現在困惑的是什麼？',
     nextNodeId: 'yi1-chapter-3-69',
   },
@@ -443,7 +443,7 @@ export const chapter3Nodes: DialogueNode[] = [
   },
   {
     id: 'yi1-chapter-3-70',
-    speaker: 'yangming',
+    speaker: 'wangyangming',
     text: '這是誰告訴你的？',
     nextNodeId: 'yi1-chapter-3-71',
   },
@@ -455,7 +455,7 @@ export const chapter3Nodes: DialogueNode[] = [
   },
   {
     id: 'yi1-chapter-3-72',
-    speaker: 'yangming',
+    speaker: 'wangyangming',
     text: '「沒有意義」、「沒有價值」、「沒有人在乎」——這些話是誰說的？',
     nextNodeId: 'yi1-chapter-3-73',
   },
@@ -481,7 +481,7 @@ export const chapter3Nodes: DialogueNode[] = [
   // 六
   {
     id: 'yi1-chapter-3-76',
-    speaker: 'yangming',
+    speaker: 'wangyangming',
     text: '你說的這些「真相」，都是你自己創造的。',
     nextNodeId: 'yi1-chapter-3-77',
   },
@@ -493,7 +493,7 @@ export const chapter3Nodes: DialogueNode[] = [
   },
   {
     id: 'yi1-chapter-3-78',
-    speaker: 'yangming',
+    speaker: 'wangyangming',
     text: '「成功」是什麼？「認可」又是什麼？',
     nextNodeId: 'yi1-chapter-3-79',
   },
@@ -505,7 +505,7 @@ export const chapter3Nodes: DialogueNode[] = [
   },
   {
     id: 'yi1-chapter-3-80',
-    speaker: 'yangming',
+    speaker: 'wangyangming',
     text: '所以你把評判的權力，交給了別人。',
     nextNodeId: 'yi1-chapter-3-81',
   },
@@ -517,13 +517,13 @@ export const chapter3Nodes: DialogueNode[] = [
   },
   {
     id: 'yi1-chapter-3-82',
-    speaker: 'yangming',
+    speaker: 'wangyangming',
     text: '你讓別人決定你是否「成功」。你讓社會決定你是否「有價值」。然後你說，這是「真相」。',
     nextNodeId: 'yi1-chapter-3-83',
   },
   {
     id: 'yi1-chapter-3-83',
-    speaker: 'yangming',
+    speaker: 'wangyangming',
     text: '但這不是真相。這是你選擇相信的故事。',
     effect: 'glow',
     nextNodeId: 'yi1-chapter-3-84',
@@ -536,25 +536,25 @@ export const chapter3Nodes: DialogueNode[] = [
   },
   {
     id: 'yi1-chapter-3-85',
-    speaker: 'yangming',
+    speaker: 'wangyangming',
     text: '現實是什麼？現實是你寫了一些故事。這是事實。',
     nextNodeId: 'yi1-chapter-3-86',
   },
   {
     id: 'yi1-chapter-3-86',
-    speaker: 'yangming',
+    speaker: 'wangyangming',
     text: '但「這些故事沒有價值」——這是你加上去的意義。',
     nextNodeId: 'yi1-chapter-3-87',
   },
   {
     id: 'yi1-chapter-3-87',
-    speaker: 'yangming',
+    speaker: 'wangyangming',
     text: '「沒有人在乎」——這也是你加上去的意義。',
     nextNodeId: 'yi1-chapter-3-88',
   },
   {
     id: 'yi1-chapter-3-88',
-    speaker: 'yangming',
+    speaker: 'wangyangming',
     text: '你把自己的判斷，當成了真相。',
     nextNodeId: 'yi1-chapter-3-89',
   },
@@ -586,13 +586,13 @@ export const chapter3Nodes: DialogueNode[] = [
   },
   {
     id: 'yi1-chapter-3-93',
-    speaker: 'yangming',
+    speaker: 'wangyangming',
     text: '我不是說你要欺騙自己。我不是說你要假裝一切都很美好。',
     nextNodeId: 'yi1-chapter-3-94',
   },
   {
     id: 'yi1-chapter-3-94',
-    speaker: 'yangming',
+    speaker: 'wangyangming',
     text: '我說的是——你可以選擇另一種看法。',
     nextNodeId: 'yi1-chapter-3-95',
   },
@@ -604,19 +604,19 @@ export const chapter3Nodes: DialogueNode[] = [
   },
   {
     id: 'yi1-chapter-3-96',
-    speaker: 'yangming',
+    speaker: 'wangyangming',
     text: '同樣是「我寫了故事」這個事實，你可以說「這些故事沒有價值」，也可以說「這些故事是我生命的一部分」。',
     nextNodeId: 'yi1-chapter-3-97',
   },
   {
     id: 'yi1-chapter-3-97',
-    speaker: 'yangming',
+    speaker: 'wangyangming',
     text: '同樣是「沒有很多人讀過」這個事實，你可以說「沒有人在乎」，也可以說「這些故事在等待對的人」。',
     nextNodeId: 'yi1-chapter-3-98',
   },
   {
     id: 'yi1-chapter-3-98',
-    speaker: 'yangming',
+    speaker: 'wangyangming',
     text: '哪一個是真相？',
     nextNodeId: 'yi1-chapter-3-99',
   },
@@ -628,7 +628,7 @@ export const chapter3Nodes: DialogueNode[] = [
   },
   {
     id: 'yi1-chapter-3-100',
-    speaker: 'yangming',
+    speaker: 'wangyangming',
     text: '都是。也都不是。真相從來不在事物本身，真相在你的心裡。',
     effect: 'glow',
     nextNodeId: 'yi1-chapter-3-101',
@@ -637,13 +637,13 @@ export const chapter3Nodes: DialogueNode[] = [
   // 八 - 選擇
   {
     id: 'yi1-chapter-3-101',
-    speaker: 'yangming',
+    speaker: 'wangyangming',
     text: '現在，我問你一個問題。',
     nextNodeId: 'yi1-chapter-3-102',
   },
   {
     id: 'yi1-chapter-3-102',
-    speaker: 'yangming',
+    speaker: 'wangyangming',
     text: '你願意放下舊的故事，選擇一個新的真相嗎？',
     nextNodeId: 'yi1-chapter-3-choice-1',
   },
@@ -653,13 +653,17 @@ export const chapter3Nodes: DialogueNode[] = [
     text: '——你願意嗎？',
     choices: [
       {
+        id: 'yi1-ch3-choice-accept',
         text: '願意。我想試著改變。',
         nextNodeId: 'yi1-chapter-3-accept-1',
         arcChange: 5,
+        shadowChange: 0,
       },
       {
+        id: 'yi1-ch3-choice-doubt',
         text: '我不確定……這太難了。',
         nextNodeId: 'yi1-chapter-3-doubt-1',
+        arcChange: 0,
         shadowChange: 3,
       },
     ],
@@ -680,7 +684,7 @@ export const chapter3Nodes: DialogueNode[] = [
   },
   {
     id: 'yi1-chapter-3-accept-3',
-    speaker: 'yangming',
+    speaker: 'wangyangming',
     text: '很好。這就是致良知。',
     effect: 'glow',
     nextNodeId: 'yi1-chapter-3-merge-1',
@@ -695,13 +699,13 @@ export const chapter3Nodes: DialogueNode[] = [
   },
   {
     id: 'yi1-chapter-3-doubt-2',
-    speaker: 'yangming',
+    speaker: 'wangyangming',
     text: '我理解。改變確實不容易。但你已經走出了第一步。',
     nextNodeId: 'yi1-chapter-3-doubt-3',
   },
   {
     id: 'yi1-chapter-3-doubt-3',
-    speaker: 'yangming',
+    speaker: 'wangyangming',
     text: '能夠意識到「這只是一個故事」，本身就是覺醒的開始。',
     nextNodeId: 'yi1-chapter-3-merge-1',
   },
@@ -709,26 +713,26 @@ export const chapter3Nodes: DialogueNode[] = [
   // 合併路線
   {
     id: 'yi1-chapter-3-merge-1',
-    speaker: 'yangming',
+    speaker: 'wangyangming',
     text: '記住一句話。',
     nextNodeId: 'yi1-chapter-3-merge-2',
   },
   {
     id: 'yi1-chapter-3-merge-2',
-    speaker: 'yangming',
+    speaker: 'wangyangming',
     text: '「你心裡的真相，才是唯一的真相。」',
     effect: 'glow',
     nextNodeId: 'yi1-chapter-3-merge-3',
   },
   {
     id: 'yi1-chapter-3-merge-3',
-    speaker: 'yangming',
+    speaker: 'wangyangming',
     text: '不要讓別人定義你。不要讓過去定義你。',
     nextNodeId: 'yi1-chapter-3-merge-4',
   },
   {
     id: 'yi1-chapter-3-merge-4',
-    speaker: 'yangming',
+    speaker: 'wangyangming',
     text: '你的心，就是你的主宰。',
     nextNodeId: 'yi1-chapter-3-merge-5',
   },
@@ -746,7 +750,7 @@ export const chapter3Nodes: DialogueNode[] = [
   },
   {
     id: 'yi1-chapter-3-merge-7',
-    speaker: 'yangming',
+    speaker: 'wangyangming',
     text: '不必謝我。這些道理，你本來就知道。我只是幫你想起來。',
     nextNodeId: 'yi1-chapter-3-merge-8',
   },
