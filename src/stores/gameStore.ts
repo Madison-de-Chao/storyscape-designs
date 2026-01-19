@@ -71,7 +71,7 @@ interface GameState {
 const defaultProgress: PartProgress = {
   arcValue: 180,
   currentChapter: 0,
-  currentNodeId: 'prologue-1',
+  currentNodeId: 'yi1-preface-1', // 從作者序開始
   colorsCollected: [],
   choicesHistory: {},
   shadowLevel: 0,

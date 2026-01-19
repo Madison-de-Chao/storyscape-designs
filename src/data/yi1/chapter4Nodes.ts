@@ -566,13 +566,17 @@ export const chapter4Nodes: DialogueNode[] = [
     text: '——你願意嗎？',
     choices: [
       {
+        id: 'yi1-ch4-choice-accept',
         text: '願意。這些都是我的一部分。',
         nextNodeId: 'yi1-chapter-4-accept-1',
         arcChange: 5,
+        shadowChange: 0,
       },
       {
+        id: 'yi1-ch4-choice-hesitate',
         text: '我還需要時間……',
         nextNodeId: 'yi1-chapter-4-hesitate-1',
+        arcChange: 0,
         shadowChange: 2,
       },
     ],
