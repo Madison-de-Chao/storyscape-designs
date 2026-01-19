@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Eye, EyeOff } from 'lucide-react';
 import { useGameStore } from '@/stores/gameStore';
 import { getNodeById } from '@/data/prologueStory';
 import { getYiPart2NodeById } from '@/data/yiPart2Story';
@@ -7,7 +8,12 @@ import { getYi1NodeById } from '@/data/yi1';
 import { DialogueNode } from '@/stores/gameStore';
 import ChoiceButton from './ChoiceButton';
 
-const DialogueBox = () => {
+interface DialogueBoxProps {
+  isHidden?: boolean;
+  onToggleHide?: () => void;
+}
+
+const DialogueBox = ({ isHidden = false, onToggleHide }: DialogueBoxProps) => {
   const { getCurrentProgress, advanceToNextNode, makeChoice, currentPart, markNodeAsRead } = useGameStore();
   const progress = getCurrentProgress();
   const currentNodeId = progress.currentNodeId;
@@ -128,94 +134,123 @@ const DialogueBox = () => {
   };
 
   return (
-    <motion.div
-      className="fixed bottom-0 left-0 right-0 z-40 p-4 md:p-8"
-      initial={{ opacity: 0, y: 50 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-    >
-      <div className="max-w-4xl mx-auto">
-        {/* 對話框 */}
-        <motion.div
+    <>
+      {/* 隱藏/顯示按鈕（始終可見） */}
+      {onToggleHide && (
+        <motion.button
+          onClick={onToggleHide}
           className={`
-            relative bg-card/80 backdrop-blur-md border border-border/50 
-            rounded-2xl p-6 md:p-8 cursor-pointer
-            shadow-[0_-10px_60px_-15px_hsl(var(--primary)/0.1)]
-            ${getEffectClass()}
+            fixed bottom-4 right-4 z-50 p-3 rounded-full 
+            backdrop-blur-sm border transition-all duration-300
+            ${isHidden 
+              ? 'bg-primary/20 border-primary/50 text-primary' 
+              : 'bg-card/50 border-border/50 text-muted-foreground hover:text-foreground hover:border-border'
+            }
           `}
-          onClick={handleClick}
-          whileHover={{ borderColor: 'hsl(var(--primary) / 0.3)' }}
-          transition={{ duration: 0.2 }}
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.5 }}
+          title={isHidden ? '顯示對話框' : '隱藏對話框'}
         >
-          {/* 說話者名稱 */}
-          {currentNode.speaker !== 'narrator' && (
-            <motion.div
-              className={`text-sm font-serif-tc mb-2 ${getSpeakerColor(currentNode.speaker)}`}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-            >
-              {getSpeakerName(currentNode)}
-            </motion.div>
-          )}
+          {isHidden ? <Eye className="w-5 h-5" /> : <EyeOff className="w-5 h-5" />}
+        </motion.button>
+      )}
 
-          {/* 對話文字 */}
-          <div className="min-h-[80px] flex items-start">
-            <p
-              className={`
-                text-lg md:text-xl leading-relaxed font-sans-tc
-                ${currentNode.speaker === 'narrator' ? 'text-muted-foreground' : 'text-foreground'}
-                ${currentNode.speaker === 'yi' ? 'text-accent italic' : ''}
-              `}
-            >
-              {displayedText}
-              {isTyping && (
-                <motion.span
-                  className="inline-block w-0.5 h-5 bg-primary ml-1"
-                  animate={{ opacity: [1, 0] }}
-                  transition={{ duration: 0.5, repeat: Infinity }}
-                />
-              )}
-            </p>
-          </div>
-
-          {/* 點擊提示 */}
-          <AnimatePresence>
-            {!isTyping && !currentNode.choices && currentNode.nextNodeId && (
+      {/* 對話框（可隱藏） */}
+      <AnimatePresence>
+        {!isHidden && (
+          <motion.div
+            className="fixed bottom-0 left-0 right-0 z-40 p-4 md:p-8"
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 50 }}
+            transition={{ duration: 0.3 }}
+          >
+            <div className="max-w-4xl mx-auto">
+              {/* 對話框 */}
               <motion.div
-                className="absolute bottom-4 right-6 text-xs text-muted-foreground"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
+                className={`
+                  relative bg-card/80 backdrop-blur-md border border-border/50 
+                  rounded-2xl p-6 md:p-8 cursor-pointer
+                  shadow-[0_-10px_60px_-15px_hsl(var(--primary)/0.1)]
+                  ${getEffectClass()}
+                `}
+                onClick={handleClick}
+                whileHover={{ borderColor: 'hsl(var(--primary) / 0.3)' }}
+                transition={{ duration: 0.2 }}
               >
-                點擊繼續 ▼
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </motion.div>
+                {/* 說話者名稱 */}
+                {currentNode.speaker !== 'narrator' && (
+                  <motion.div
+                    className={`text-sm font-serif-tc mb-2 ${getSpeakerColor(currentNode.speaker)}`}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                  >
+                    {getSpeakerName(currentNode)}
+                  </motion.div>
+                )}
 
-        {/* 選項按鈕 */}
-        <AnimatePresence>
-          {!isTyping && currentNode.choices && (
-            <motion.div
-              className="mt-6 space-y-3"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.3, delay: 0.2 }}
-            >
-              {currentNode.choices.map((choice, index) => (
-                <ChoiceButton
-                  key={choice.id}
-                  choice={choice}
-                  index={index}
-                  onClick={() => makeChoice(choice)}
-                />
-              ))}
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
-    </motion.div>
+                {/* 對話文字 */}
+                <div className="min-h-[80px] flex items-start">
+                  <p
+                    className={`
+                      text-lg md:text-xl leading-relaxed font-sans-tc
+                      ${currentNode.speaker === 'narrator' ? 'text-muted-foreground' : 'text-foreground'}
+                      ${currentNode.speaker === 'yi' ? 'text-accent italic' : ''}
+                    `}
+                  >
+                    {displayedText}
+                    {isTyping && (
+                      <motion.span
+                        className="inline-block w-0.5 h-5 bg-primary ml-1"
+                        animate={{ opacity: [1, 0] }}
+                        transition={{ duration: 0.5, repeat: Infinity }}
+                      />
+                    )}
+                  </p>
+                </div>
+
+                {/* 點擊提示 */}
+                <AnimatePresence>
+                  {!isTyping && !currentNode.choices && currentNode.nextNodeId && (
+                    <motion.div
+                      className="absolute bottom-4 right-6 text-xs text-muted-foreground"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                    >
+                      點擊繼續 ▼
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.div>
+
+              {/* 選項按鈕 */}
+              <AnimatePresence>
+                {!isTyping && currentNode.choices && (
+                  <motion.div
+                    className="mt-6 space-y-3"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    transition={{ duration: 0.3, delay: 0.2 }}
+                  >
+                    {currentNode.choices.map((choice, index) => (
+                      <ChoiceButton
+                        key={choice.id}
+                        choice={choice}
+                        index={index}
+                        onClick={() => makeChoice(choice)}
+                      />
+                    ))}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   );
 };
 

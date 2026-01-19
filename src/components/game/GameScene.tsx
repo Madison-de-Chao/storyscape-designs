@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Menu, Home, BookOpen, RotateCcw } from 'lucide-react';
+import { Menu, Home, BookOpen, RotateCcw, Image } from 'lucide-react';
 import { useGameStore } from '@/stores/gameStore';
 import ParticleBackground from './ParticleBackground';
 import DialogueBox from './DialogueBox';
 import ArcIndicator from './ArcIndicator';
 import ChapterSelect from './ChapterSelect';
 import SceneImage from './SceneImage';
+import Gallery from './Gallery';
 import { getNodeById } from '@/data/prologueStory';
 import { getYiPart2NodeById } from '@/data/yiPart2Story';
 import { getYi1NodeById } from '@/data/yi1';
@@ -34,6 +35,8 @@ const GameScene = () => {
   
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isChapterSelectOpen, setIsChapterSelectOpen] = useState(false);
+  const [isGalleryOpen, setIsGalleryOpen] = useState(false);
+  const [isDialogueHidden, setIsDialogueHidden] = useState(false);
 
   const currentNode = currentPart === 'yi' 
     ? (getYi1NodeById(currentNodeId) || getNodeById(currentNodeId))
@@ -46,7 +49,7 @@ const GameScene = () => {
   return (
     <div className="relative min-h-screen overflow-hidden">
       {/* 場景圖片（如果有） */}
-      {isYiPart && <SceneImage nodeId={currentNodeId} />}
+      {isYiPart && <SceneImage nodeId={currentNodeId} hideOverlay={isDialogueHidden} />}
 
       {/* 粒子背景 */}
       <ParticleBackground arcValue={arcValue} />
@@ -158,6 +161,20 @@ const GameScene = () => {
             </button>
           )}
 
+          {/* 藝廊 */}
+          {isYiPart && (
+            <button
+              onClick={() => {
+                setIsMenuOpen(false);
+                setIsGalleryOpen(true);
+              }}
+              className="w-full flex items-center gap-3 px-4 py-3 text-sm text-foreground hover:bg-muted/50 transition-colors border-t border-border/50"
+            >
+              <Image className="w-4 h-4 text-primary" />
+              藝廊
+            </button>
+          )}
+
           {/* 返回標題 */}
           <button
             onClick={() => {
@@ -193,13 +210,22 @@ const GameScene = () => {
         />
       )}
 
-      {/* 對話框 */}
-      <DialogueBox />
+      {/* 對話框（可隱藏） */}
+      <DialogueBox 
+        isHidden={isDialogueHidden}
+        onToggleHide={() => setIsDialogueHidden(!isDialogueHidden)}
+      />
 
       {/* 章節選擇彈窗 */}
       <ChapterSelect 
         isOpen={isChapterSelectOpen} 
         onClose={() => setIsChapterSelectOpen(false)} 
+      />
+
+      {/* 藝廊彈窗 */}
+      <Gallery 
+        isOpen={isGalleryOpen} 
+        onClose={() => setIsGalleryOpen(false)} 
       />
     </div>
   );
