@@ -1,13 +1,15 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Menu, Home, BookOpen, RotateCcw, Image } from 'lucide-react';
 import { useGameStore } from '@/stores/gameStore';
+import { useSFX, useBGM } from '@/hooks/useAudio';
 import ParticleBackground from './ParticleBackground';
 import DialogueBox from './DialogueBox';
 import ArcIndicator from './ArcIndicator';
 import ChapterSelect from './ChapterSelect';
 import SceneImage from './SceneImage';
 import Gallery from './Gallery';
+import AudioControls from './AudioControls';
 import { getNodeById } from '@/data/prologueStory';
 import { getYiPart2NodeById } from '@/data/yiPart2Story';
 import { getYi1NodeById } from '@/data/yi1';
@@ -32,6 +34,8 @@ const GameScene = () => {
   const progress = getCurrentProgress();
   const arcValue = progress.arcValue;
   const currentNodeId = progress.currentNodeId;
+  const { playSFX } = useSFX();
+  const { playBGM, stopBGM } = useBGM();
   
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isChapterSelectOpen, setIsChapterSelectOpen] = useState(false);
@@ -45,6 +49,21 @@ const GameScene = () => {
   const visualProgress = 1 - arcValue / 180;
   const isYiPart = currentPart === 'yi';
   const themeHue = isYiPart ? 38 : 350;
+
+  // 根據章節播放背景音樂
+  useEffect(() => {
+    const normalizedId = currentNodeId.replace(/^yi1-/, '');
+    
+    if (normalizedId.startsWith('preface')) {
+      playBGM('preface');
+    } else if (normalizedId.startsWith('prologue')) {
+      playBGM('prologue');
+    } else {
+      playBGM('chapter_calm');
+    }
+
+    return () => stopBGM();
+  }, [currentNodeId, playBGM, stopBGM]);
   
   return (
     <div className="relative min-h-screen overflow-hidden">
@@ -116,14 +135,21 @@ const GameScene = () => {
       <ArcIndicator />
 
       {/* 選單按鈕 */}
+      {/* 音量控制 */}
+      <AudioControls />
+
+      {/* 選單按鈕 */}
       <motion.div
-        className="fixed top-6 right-6 z-50"
+        className="fixed top-6 right-32 z-50"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.5 }}
       >
         <button
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
+          onClick={() => {
+            playSFX(isMenuOpen ? 'menu_close' : 'menu_open');
+            setIsMenuOpen(!isMenuOpen);
+          }}
           className={`
             p-3 rounded-full backdrop-blur-sm border transition-all duration-300
             ${isMenuOpen 
