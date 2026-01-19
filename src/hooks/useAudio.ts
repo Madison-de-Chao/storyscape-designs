@@ -235,182 +235,164 @@ export const useSFX = () => {
   return { playSFX };
 };
 
-// 背景音樂播放 hook
-export const useBGM = () => {
-  const { masterVolume, bgmVolume, isMuted } = useAudioSettings();
-  const audioRef = useRef<HTMLAudioElement | null>(null);
-  const currentBGMRef = useRef<BGMType | null>(null);
-  const isPlayingRef = useRef(false);
-  const [currentBGM, setCurrentBGM] = useState<BGMType | null>(null);
-  const [isPlaying, setIsPlaying] = useState(false);
+// 全域音訊管理器（避免多個實例問題）
+class AudioManager {
+  private bgmAudio: HTMLAudioElement | null = null;
+  private ambientAudio: HTMLAudioElement | null = null;
+  private currentBGM: BGMType | null = null;
+  private currentAmbient: AmbientType | null = null;
 
-  // 同步 ref 與 state
-  useEffect(() => {
-    currentBGMRef.current = currentBGM;
-  }, [currentBGM]);
-
-  useEffect(() => {
-    isPlayingRef.current = isPlaying;
-  }, [isPlaying]);
-
-  // 更新音量
-  useEffect(() => {
-    if (audioRef.current) {
-      audioRef.current.volume = isMuted ? 0 : masterVolume * bgmVolume;
-    }
-  }, [masterVolume, bgmVolume, isMuted]);
-
-  const playBGM = useCallback((type: BGMType, fadeIn = true) => {
+  playBGM(type: BGMType, volume: number, fadeIn = true) {
     const path = BGM_PATHS[type];
     if (!path) return;
 
-    // 如果已經在播放同一首，不重新開始
-    if (currentBGMRef.current === type && isPlayingRef.current) return;
+    // 如果已經在播放同一首，只更新音量
+    if (this.currentBGM === type && this.bgmAudio) {
+      this.bgmAudio.volume = volume;
+      return;
+    }
 
     // 停止當前播放
-    if (audioRef.current) {
-      audioRef.current.pause();
-      audioRef.current = null;
-    }
+    this.stopBGM(false);
 
     const audio = new Audio(path);
     audio.loop = true;
-    const targetVolume = isMuted ? 0 : masterVolume * bgmVolume;
-    audio.volume = fadeIn ? 0 : targetVolume;
-    audioRef.current = audio;
-    setCurrentBGM(type);
+    audio.volume = fadeIn ? 0 : volume;
+    this.bgmAudio = audio;
+    this.currentBGM = type;
 
     audio.play().then(() => {
-      setIsPlaying(true);
-      
-      // 淡入效果
-      if (fadeIn && !isMuted && targetVolume > 0) {
+      if (fadeIn && volume > 0) {
         let currentVol = 0;
         const fadeInterval = setInterval(() => {
+          if (!this.bgmAudio || this.bgmAudio !== audio) {
+            clearInterval(fadeInterval);
+            return;
+          }
           currentVol += 0.05;
-          if (currentVol < targetVolume) {
+          if (currentVol < volume) {
             audio.volume = currentVol;
           } else {
-            audio.volume = targetVolume;
+            audio.volume = volume;
             clearInterval(fadeInterval);
           }
         }, 100);
       }
-    }).catch(() => {
-      // 忽略自動播放限制錯誤
-    });
-  }, [masterVolume, bgmVolume, isMuted]);
+    }).catch(() => {});
+  }
 
-  const stopBGM = useCallback((fadeOut = true) => {
-    if (!audioRef.current) return;
+  stopBGM(fadeOut = true) {
+    if (!this.bgmAudio) return;
 
-    const audio = audioRef.current;
+    const audio = this.bgmAudio;
 
-    if (fadeOut) {
+    if (fadeOut && audio.volume > 0) {
       const fadeInterval = setInterval(() => {
         if (audio.volume > 0.05) {
           audio.volume = Math.max(audio.volume - 0.05, 0);
         } else {
           audio.pause();
-          audioRef.current = null;
-          setCurrentBGM(null);
-          setIsPlaying(false);
           clearInterval(fadeInterval);
         }
       }, 100);
     } else {
       audio.pause();
-      audioRef.current = null;
-      setCurrentBGM(null);
-      setIsPlaying(false);
     }
-  }, []);
 
-  const pauseBGM = useCallback(() => {
-    if (audioRef.current && isPlayingRef.current) {
-      audioRef.current.pause();
-      setIsPlaying(false);
+    this.bgmAudio = null;
+    this.currentBGM = null;
+  }
+
+  updateBGMVolume(volume: number) {
+    if (this.bgmAudio) {
+      this.bgmAudio.volume = volume;
     }
-  }, []);
+  }
 
-  const resumeBGM = useCallback(() => {
-    if (audioRef.current && !isPlayingRef.current) {
-      audioRef.current.play().then(() => {
-        setIsPlaying(true);
-      }).catch(() => {});
+  playAmbient(type: AmbientType, volume: number) {
+    const path = AMBIENT_PATHS[type];
+    if (!path) return;
+
+    if (this.currentAmbient === type && this.ambientAudio) {
+      this.ambientAudio.volume = volume;
+      return;
     }
-  }, []);
 
-  // 清理
+    this.stopAmbient();
+
+    const audio = new Audio(path);
+    audio.loop = true;
+    audio.volume = volume;
+    this.ambientAudio = audio;
+    this.currentAmbient = type;
+
+    audio.play().catch(() => {});
+  }
+
+  stopAmbient() {
+    if (this.ambientAudio) {
+      this.ambientAudio.pause();
+      this.ambientAudio = null;
+      this.currentAmbient = null;
+    }
+  }
+
+  updateAmbientVolume(volume: number) {
+    if (this.ambientAudio) {
+      this.ambientAudio.volume = volume;
+    }
+  }
+
+  getCurrentBGM() {
+    return this.currentBGM;
+  }
+
+  getCurrentAmbient() {
+    return this.currentAmbient;
+  }
+}
+
+// 單例
+const audioManager = new AudioManager();
+
+// 背景音樂播放 hook
+export const useBGM = () => {
+  const { masterVolume, bgmVolume, isMuted } = useAudioSettings();
+  const effectiveVolume = isMuted ? 0 : masterVolume * bgmVolume;
+
+  // 更新音量
   useEffect(() => {
-    return () => {
-      if (audioRef.current) {
-        audioRef.current.pause();
-        audioRef.current = null;
-      }
-    };
+    audioManager.updateBGMVolume(effectiveVolume);
+  }, [effectiveVolume]);
+
+  const playBGM = useCallback((type: BGMType, fadeIn = true) => {
+    audioManager.playBGM(type, effectiveVolume, fadeIn);
+  }, [effectiveVolume]);
+
+  const stopBGM = useCallback((fadeOut = true) => {
+    audioManager.stopBGM(fadeOut);
   }, []);
 
-  return { playBGM, stopBGM, pauseBGM, resumeBGM, currentBGM, isPlaying };
+  return { playBGM, stopBGM, currentBGM: audioManager.getCurrentBGM() };
 };
 
 // 環境音效播放 hook
 export const useAmbient = () => {
   const { masterVolume, ambientVolume, isMuted } = useAudioSettings();
-  const audioRef = useRef<HTMLAudioElement | null>(null);
-  const currentAmbientRef = useRef<AmbientType | null>(null);
-  const [currentAmbient, setCurrentAmbient] = useState<AmbientType | null>(null);
-
-  // 同步 ref 與 state
-  useEffect(() => {
-    currentAmbientRef.current = currentAmbient;
-  }, [currentAmbient]);
+  const effectiveVolume = isMuted ? 0 : masterVolume * ambientVolume;
 
   // 更新音量
   useEffect(() => {
-    if (audioRef.current) {
-      audioRef.current.volume = isMuted ? 0 : masterVolume * ambientVolume;
-    }
-  }, [masterVolume, ambientVolume, isMuted]);
+    audioManager.updateAmbientVolume(effectiveVolume);
+  }, [effectiveVolume]);
 
   const playAmbient = useCallback((type: AmbientType) => {
-    const path = AMBIENT_PATHS[type];
-    if (!path) return;
-
-    if (currentAmbientRef.current === type) return;
-
-    // 停止當前播放
-    if (audioRef.current) {
-      audioRef.current.pause();
-      audioRef.current = null;
-    }
-
-    const audio = new Audio(path);
-    audio.loop = true;
-    audio.volume = isMuted ? 0 : masterVolume * ambientVolume;
-    audioRef.current = audio;
-    setCurrentAmbient(type);
-
-    audio.play().catch(() => {});
-  }, [masterVolume, ambientVolume, isMuted]);
+    audioManager.playAmbient(type, effectiveVolume);
+  }, [effectiveVolume]);
 
   const stopAmbient = useCallback(() => {
-    if (audioRef.current) {
-      audioRef.current.pause();
-      audioRef.current = null;
-      setCurrentAmbient(null);
-    }
+    audioManager.stopAmbient();
   }, []);
 
-  // 清理
-  useEffect(() => {
-    return () => {
-      if (audioRef.current) {
-        audioRef.current.pause();
-        audioRef.current = null;
-      }
-    };
-  }, []);
-
-  return { playAmbient, stopAmbient, currentAmbient };
+  return { playAmbient, stopAmbient, currentAmbient: audioManager.getCurrentAmbient() };
 };
