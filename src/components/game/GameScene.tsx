@@ -56,9 +56,15 @@ const GameScene = () => {
   useEffect(() => {
     const bgmType = getBGMForNode(currentNodeId);
     playBGM(bgmType);
+    // 不在 cleanup 中 stopBGM，讓音樂持續播放
+  }, [currentNodeId]); // eslint-disable-line react-hooks/exhaustive-deps
 
-    return () => stopBGM();
-  }, [currentNodeId, playBGM, stopBGM]);
+  // 組件卸載時停止音樂
+  useEffect(() => {
+    return () => {
+      stopBGM();
+    };
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   // 根據場景播放環境音效
   useEffect(() => {
@@ -78,9 +84,14 @@ const GameScene = () => {
     } else {
       stopAmbient();
     }
+  }, [currentNodeId, isYiPart]); // eslint-disable-line react-hooks/exhaustive-deps
 
-    return () => stopAmbient();
-  }, [currentNodeId, isYiPart, playAmbient, stopAmbient]);
+  // 組件卸載時停止環境音
+  useEffect(() => {
+    return () => {
+      stopAmbient();
+    };
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
   
   return (
     <div className="relative min-h-screen overflow-hidden">

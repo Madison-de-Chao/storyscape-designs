@@ -239,8 +239,19 @@ export const useSFX = () => {
 export const useBGM = () => {
   const { masterVolume, bgmVolume, isMuted } = useAudioSettings();
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const currentBGMRef = useRef<BGMType | null>(null);
+  const isPlayingRef = useRef(false);
   const [currentBGM, setCurrentBGM] = useState<BGMType | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
+
+  // 同步 ref 與 state
+  useEffect(() => {
+    currentBGMRef.current = currentBGM;
+  }, [currentBGM]);
+
+  useEffect(() => {
+    isPlayingRef.current = isPlaying;
+  }, [isPlaying]);
 
   // 更新音量
   useEffect(() => {
@@ -254,7 +265,7 @@ export const useBGM = () => {
     if (!path) return;
 
     // 如果已經在播放同一首，不重新開始
-    if (currentBGM === type && isPlaying) return;
+    if (currentBGMRef.current === type && isPlayingRef.current) return;
 
     // 停止當前播放
     if (audioRef.current) {
@@ -264,7 +275,8 @@ export const useBGM = () => {
 
     const audio = new Audio(path);
     audio.loop = true;
-    audio.volume = fadeIn ? 0 : (isMuted ? 0 : masterVolume * bgmVolume);
+    const targetVolume = isMuted ? 0 : masterVolume * bgmVolume;
+    audio.volume = fadeIn ? 0 : targetVolume;
     audioRef.current = audio;
     setCurrentBGM(type);
 
@@ -272,11 +284,12 @@ export const useBGM = () => {
       setIsPlaying(true);
       
       // 淡入效果
-      if (fadeIn && !isMuted) {
-        const targetVolume = masterVolume * bgmVolume;
+      if (fadeIn && !isMuted && targetVolume > 0) {
+        let currentVol = 0;
         const fadeInterval = setInterval(() => {
-          if (audio.volume < targetVolume - 0.05) {
-            audio.volume = Math.min(audio.volume + 0.05, targetVolume);
+          currentVol += 0.05;
+          if (currentVol < targetVolume) {
+            audio.volume = currentVol;
           } else {
             audio.volume = targetVolume;
             clearInterval(fadeInterval);
@@ -286,7 +299,7 @@ export const useBGM = () => {
     }).catch(() => {
       // 忽略自動播放限制錯誤
     });
-  }, [currentBGM, isPlaying, masterVolume, bgmVolume, isMuted]);
+  }, [masterVolume, bgmVolume, isMuted]);
 
   const stopBGM = useCallback((fadeOut = true) => {
     if (!audioRef.current) return;
@@ -314,19 +327,19 @@ export const useBGM = () => {
   }, []);
 
   const pauseBGM = useCallback(() => {
-    if (audioRef.current && isPlaying) {
+    if (audioRef.current && isPlayingRef.current) {
       audioRef.current.pause();
       setIsPlaying(false);
     }
-  }, [isPlaying]);
+  }, []);
 
   const resumeBGM = useCallback(() => {
-    if (audioRef.current && !isPlaying) {
+    if (audioRef.current && !isPlayingRef.current) {
       audioRef.current.play().then(() => {
         setIsPlaying(true);
       }).catch(() => {});
     }
-  }, [isPlaying]);
+  }, []);
 
   // 清理
   useEffect(() => {
@@ -345,7 +358,13 @@ export const useBGM = () => {
 export const useAmbient = () => {
   const { masterVolume, ambientVolume, isMuted } = useAudioSettings();
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const currentAmbientRef = useRef<AmbientType | null>(null);
   const [currentAmbient, setCurrentAmbient] = useState<AmbientType | null>(null);
+
+  // 同步 ref 與 state
+  useEffect(() => {
+    currentAmbientRef.current = currentAmbient;
+  }, [currentAmbient]);
 
   // 更新音量
   useEffect(() => {
@@ -358,7 +377,7 @@ export const useAmbient = () => {
     const path = AMBIENT_PATHS[type];
     if (!path) return;
 
-    if (currentAmbient === type) return;
+    if (currentAmbientRef.current === type) return;
 
     // 停止當前播放
     if (audioRef.current) {
@@ -373,7 +392,7 @@ export const useAmbient = () => {
     setCurrentAmbient(type);
 
     audio.play().catch(() => {});
-  }, [currentAmbient, masterVolume, ambientVolume, isMuted]);
+  }, [masterVolume, ambientVolume, isMuted]);
 
   const stopAmbient = useCallback(() => {
     if (audioRef.current) {
