@@ -1,14 +1,19 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { BookOpen } from 'lucide-react';
+import { BookOpen, Image } from 'lucide-react';
 import { useGameStore } from '@/stores/gameStore';
 import ParticleBackground from './ParticleBackground';
 import ChapterSelect from './ChapterSelect';
+import Gallery from './Gallery';
 
 const TitleScreen = () => {
   const { startGame, resetGame, yiProgress, yiPart2Progress } = useGameStore();
   const hasAnyProgress = yiProgress.hasStarted || yiPart2Progress.hasStarted;
   const [isChapterSelectOpen, setIsChapterSelectOpen] = useState(false);
+  const [isGalleryOpen, setIsGalleryOpen] = useState(false);
+  
+  // 計算已解鎖的圖片數量
+  const unlockedCount = (yiProgress.unlockedImages || []).length;
 
   return (
     <div className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
@@ -231,11 +236,32 @@ const TitleScreen = () => {
           </button>
         </motion.div>
 
+        {/* 藝廊按鈕 */}
+        {unlockedCount > 0 && (
+          <motion.button
+            onClick={() => setIsGalleryOpen(true)}
+            className="
+              mt-8 flex items-center gap-2 px-4 py-2
+              text-sm text-muted-foreground hover:text-foreground 
+              border border-border/50 hover:border-primary/50
+              rounded-full backdrop-blur-sm
+              transition-all duration-300
+            "
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 2.2 }}
+          >
+            <Image className="w-4 h-4" />
+            藝廊
+            <span className="text-xs text-primary">({unlockedCount})</span>
+          </motion.button>
+        )}
+
         {/* 重置進度按鈕 */}
         {hasAnyProgress && (
           <motion.button
             onClick={resetGame}
-            className="mt-8 text-sm text-muted-foreground hover:text-foreground transition-colors"
+            className="mt-4 text-sm text-muted-foreground hover:text-foreground transition-colors"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3 }}
@@ -259,6 +285,12 @@ const TitleScreen = () => {
       <ChapterSelect 
         isOpen={isChapterSelectOpen} 
         onClose={() => setIsChapterSelectOpen(false)} 
+      />
+
+      {/* 藝廊彈窗 */}
+      <Gallery 
+        isOpen={isGalleryOpen} 
+        onClose={() => setIsGalleryOpen(false)} 
       />
     </div>
   );
