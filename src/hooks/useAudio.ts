@@ -48,10 +48,13 @@ export type SFXType =
 
 // 場景音效類型
 export type AmbientType = 
-  | 'void' 
-  | 'ferry' 
-  | 'training_ground' 
-  | 'cosmos';
+  | 'void'           // 虛空（作者序、靈魂抽離）
+  | 'ferry'          // 渡口（迷霧渡口場景）
+  | 'training_ground'// 訓練場（序章前半）
+  | 'cosmos'         // 宇宙（元壹境相關）
+  | 'night'          // 夜晚（刪除之夜）
+  | 'meditation'     // 冥想（王陽明、心即理）
+  | 'water';         // 流水（擺渡人場景）
 
 // 背景音樂類型
 export type BGMType = 
@@ -80,7 +83,36 @@ const AMBIENT_PATHS: Record<AmbientType, string> = {
   ferry: '/audio/ambient/ferry.mp3',
   training_ground: '/audio/ambient/training_ground.mp3',
   cosmos: '/audio/ambient/cosmos.mp3',
+  night: '/audio/ambient/night.mp3',
+  meditation: '/audio/ambient/meditation.mp3',
+  water: '/audio/ambient/water.mp3',
 };
+
+// 場景圖片與環境音效的映射
+export interface SceneAmbientConfig {
+  sceneAlt: string;        // 對應 sceneImages 的 alt
+  ambientType: AmbientType;
+  fadeInDuration?: number; // 淡入時間（毫秒）
+}
+
+export const sceneAmbientMapping: SceneAmbientConfig[] = [
+  { sceneAlt: '作者序', ambientType: 'void' },
+  { sceneAlt: '訓練場', ambientType: 'training_ground' },
+  { sceneAlt: '問心初登場', ambientType: 'ferry' },
+  { sceneAlt: '刪除之夜', ambientType: 'night' },
+  { sceneAlt: '刪除鍵特寫', ambientType: 'night' },
+  { sceneAlt: '靈魂抽離', ambientType: 'void' },
+  { sceneAlt: '迷霧渡口', ambientType: 'ferry' },
+  { sceneAlt: '擺渡人', ambientType: 'water' },
+  { sceneAlt: '王陽明', ambientType: 'meditation' },
+  { sceneAlt: '心即理', ambientType: 'meditation' },
+];
+
+// 根據場景名稱獲取環境音效類型
+export function getAmbientTypeForScene(sceneAlt: string): AmbientType | null {
+  const config = sceneAmbientMapping.find(c => c.sceneAlt === sceneAlt);
+  return config?.ambientType || null;
+}
 
 const BGM_PATHS: Record<BGMType, string> = {
   title: '/audio/bgm/title.mp3',
