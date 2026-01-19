@@ -63,7 +63,88 @@ export type BGMType =
   | 'prologue' 
   | 'chapter_calm' 
   | 'chapter_tension' 
-  | 'chapter_emotional';
+  | 'chapter_emotional'
+  | 'revelation'      // 啟示、頓悟時刻
+  | 'mysterious';     // 神秘、超自然
+
+// 劇情氛圍類型
+export type MoodType = 'calm' | 'tension' | 'emotional' | 'revelation' | 'mysterious';
+
+// 氛圍與 BGM 映射
+export const MOOD_TO_BGM: Record<MoodType, BGMType> = {
+  calm: 'chapter_calm',
+  tension: 'chapter_tension',
+  emotional: 'chapter_emotional',
+  revelation: 'revelation',
+  mysterious: 'mysterious',
+};
+
+// 場景節點的氛圍配置
+export interface NodeMoodConfig {
+  nodeIdPattern: string | RegExp;  // 節點 ID 匹配模式
+  mood: MoodType;
+}
+
+// 根據劇情內容定義氛圍映射規則
+export const nodeMoodMapping: NodeMoodConfig[] = [
+  // 作者序 - 平靜冥想
+  { nodeIdPattern: /^yi1-preface/, mood: 'calm' },
+  
+  // 序章 - 哲學敘述，平靜到神秘
+  { nodeIdPattern: /^yi1-prologue-([1-9]|1[0-9]|2[0-5])$/, mood: 'calm' },
+  { nodeIdPattern: /^yi1-prologue-(2[6-9]|3[0-7])$/, mood: 'mysterious' },
+  { nodeIdPattern: /^yi1-prologue-(38|39|40|41)$/, mood: 'tension' },  // 伊登場
+  { nodeIdPattern: /^yi1-prologue-(4[2-9]|5[0-7])$/, mood: 'emotional' },
+  { nodeIdPattern: /^yi1-prologue-(58|59|60|61|62)$/, mood: 'mysterious' },
+  { nodeIdPattern: /^yi1-prologue-(6[3-8]|end)$/, mood: 'tension' },
+  
+  // 第一章 刪除 - 壓力、緊張、情緒崩潰
+  { nodeIdPattern: /^yi1-chapter-1-([1-9]|1[0-4])$/, mood: 'tension' },       // 凌晨壓力
+  { nodeIdPattern: /^yi1-chapter-1-(1[5-9]|[2-3][0-9])$/, mood: 'emotional' }, // 回憶過去
+  { nodeIdPattern: /^yi1-chapter-1-(4[0-9]|5[0-9]|6[0-9])$/, mood: 'tension' }, // 問心對話
+  { nodeIdPattern: /^yi1-chapter-1-(7[0-9]|8[0-9]|9[0-9])$/, mood: 'emotional' },
+  { nodeIdPattern: /^yi1-chapter-1-(1[0-9]{2})$/, mood: 'revelation' },  // 頓悟時刻
+  
+  // 第二章 渡口 - 神秘、平靜交替
+  { nodeIdPattern: /^yi1-chapter-2-([1-9]|[1-2][0-9])$/, mood: 'mysterious' },
+  { nodeIdPattern: /^yi1-chapter-2-([3-5][0-9])$/, mood: 'calm' },
+  { nodeIdPattern: /^yi1-chapter-2-([6-9][0-9])$/, mood: 'revelation' },
+  
+  // 第三章 真相 - 揭示、情緒
+  { nodeIdPattern: /^yi1-chapter-3-([1-9]|[1-3][0-9])$/, mood: 'tension' },
+  { nodeIdPattern: /^yi1-chapter-3-([4-6][0-9])$/, mood: 'revelation' },
+  { nodeIdPattern: /^yi1-chapter-3-([7-9][0-9])$/, mood: 'emotional' },
+  
+  // 第四章 命樹 - 情緒、平靜、啟示
+  { nodeIdPattern: /^yi1-chapter-4-([1-9]|[1-3][0-9])$/, mood: 'emotional' },
+  { nodeIdPattern: /^yi1-chapter-4-([4-6][0-9])$/, mood: 'calm' },
+  { nodeIdPattern: /^yi1-chapter-4-([7-9][0-9]|1[0-9]{2})$/, mood: 'revelation' },
+];
+
+// 根據節點 ID 獲取氛圍類型
+export function getMoodForNode(nodeId: string): MoodType {
+  for (const config of nodeMoodMapping) {
+    if (typeof config.nodeIdPattern === 'string') {
+      if (nodeId === config.nodeIdPattern) return config.mood;
+    } else if (config.nodeIdPattern.test(nodeId)) {
+      return config.mood;
+    }
+  }
+  return 'calm'; // 預設為平靜
+}
+
+// 根據節點 ID 獲取對應的 BGM
+export function getBGMForNode(nodeId: string): BGMType {
+  const normalizedId = nodeId.replace(/^yi1-/, '');
+  
+  // 特殊章節前綴處理
+  if (normalizedId.startsWith('preface')) return 'preface';
+  if (normalizedId.startsWith('prologue')) return 'prologue';
+  
+  // 根據氛圍映射
+  const mood = getMoodForNode(nodeId);
+  return MOOD_TO_BGM[mood];
+}
 
 // 音訊路徑映射 - 之後替換為實際音檔路徑
 const SFX_PATHS: Record<SFXType, string> = {
@@ -121,6 +202,8 @@ const BGM_PATHS: Record<BGMType, string> = {
   chapter_calm: '/audio/bgm/chapter_calm.mp3',
   chapter_tension: '/audio/bgm/chapter_tension.mp3',
   chapter_emotional: '/audio/bgm/chapter_emotional.mp3',
+  revelation: '/audio/bgm/revelation.mp3',
+  mysterious: '/audio/bgm/mysterious.mp3',
 };
 
 // 音效播放 hook
