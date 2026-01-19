@@ -79,10 +79,19 @@ export const sceneImages: SceneImageConfig[] = [
 
 // 根據節點 ID 獲取對應的場景圖片
 export function getSceneImage(nodeId: string): SceneImageConfig | null {
+  // 嘗試多種匹配方式：原始 ID、加上 yi1- 前綴、移除 yi1- 前綴
+  const possibleIds = [
+    nodeId,
+    `yi1-${nodeId}`,
+    nodeId.replace('yi1-', ''),
+  ];
+  
   for (const config of sceneImages) {
     for (const pattern of config.nodePatterns) {
-      if (nodeId === pattern || nodeId.startsWith(pattern)) {
-        return config;
+      for (const id of possibleIds) {
+        if (id === pattern || id.startsWith(pattern)) {
+          return config;
+        }
       }
     }
   }
