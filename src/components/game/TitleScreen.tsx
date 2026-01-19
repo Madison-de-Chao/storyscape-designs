@@ -1,10 +1,14 @@
+import { useState } from 'react';
 import { motion } from 'framer-motion';
+import { BookOpen } from 'lucide-react';
 import { useGameStore } from '@/stores/gameStore';
 import ParticleBackground from './ParticleBackground';
+import ChapterSelect from './ChapterSelect';
 
 const TitleScreen = () => {
   const { startGame, resetGame, yiProgress, yiPart2Progress } = useGameStore();
   const hasAnyProgress = yiProgress.hasStarted || yiPart2Progress.hasStarted;
+  const [isChapterSelectOpen, setIsChapterSelectOpen] = useState(false);
 
   return (
     <div className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
@@ -151,6 +155,24 @@ const TitleScreen = () => {
               )}
             </div>
 
+            {/* 章節選擇按鈕 */}
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                setIsChapterSelectOpen(true);
+              }}
+              className="
+                absolute top-3 right-3 p-2 
+                rounded-lg bg-primary/10 hover:bg-primary/20
+                text-primary/70 hover:text-primary
+                transition-all duration-300
+                opacity-0 group-hover:opacity-100
+              "
+              title="章節選擇"
+            >
+              <BookOpen className="w-4 h-4" />
+            </button>
+
             {/* 底部裝飾線 */}
             <div className="
               absolute bottom-0 left-1/2 -translate-x-1/2 
@@ -232,6 +254,12 @@ const TitleScreen = () => {
           原著：默默超
         </motion.div>
       </div>
+
+      {/* 章節選擇彈窗 */}
+      <ChapterSelect 
+        isOpen={isChapterSelectOpen} 
+        onClose={() => setIsChapterSelectOpen(false)} 
+      />
     </div>
   );
 };
