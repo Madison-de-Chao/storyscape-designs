@@ -1,24 +1,37 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { BookOpen, Image } from 'lucide-react';
 import { useGameStore } from '@/stores/gameStore';
+import { useSFX, useBGM } from '@/hooks/useAudio';
 import ParticleBackground from './ParticleBackground';
 import ChapterSelect from './ChapterSelect';
 import Gallery from './Gallery';
+import AudioControls from './AudioControls';
 
 const TitleScreen = () => {
   const { startGame, resetGame, yiProgress, yiPart2Progress } = useGameStore();
   const hasAnyProgress = yiProgress.hasStarted || yiPart2Progress.hasStarted;
   const [isChapterSelectOpen, setIsChapterSelectOpen] = useState(false);
   const [isGalleryOpen, setIsGalleryOpen] = useState(false);
+  const { playSFX } = useSFX();
+  const { playBGM, stopBGM } = useBGM();
   
   // 計算已解鎖的圖片數量
   const unlockedCount = (yiProgress.unlockedImages || []).length;
+
+  // 播放標題畫面背景音樂
+  useEffect(() => {
+    playBGM('title');
+    return () => stopBGM();
+  }, [playBGM, stopBGM]);
 
   return (
     <div className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
       <ParticleBackground arcValue={180} />
       
+      {/* 音量控制 */}
+      <AudioControls />
+
       {/* 背景漸變 */}
       <div className="absolute inset-0 bg-gradient-void" />
       
@@ -127,7 +140,10 @@ const TitleScreen = () => {
         >
           {/* 第一部：壹 */}
           <button
-            onClick={() => startGame('yi')}
+            onClick={() => {
+              playSFX('select');
+              startGame('yi');
+            }}
             className="
               group relative w-64 md:w-72 py-8 px-6
               bg-card/30 backdrop-blur-sm
@@ -193,7 +209,10 @@ const TitleScreen = () => {
 
           {/* 第二部：伊 */}
           <button
-            onClick={() => startGame('yi-part2')}
+            onClick={() => {
+              playSFX('select');
+              startGame('yi-part2');
+            }}
             className="
               group relative w-64 md:w-72 py-8 px-6
               bg-card/30 backdrop-blur-sm

@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { Choice } from '@/stores/gameStore';
+import { useSFX } from '@/hooks/useAudio';
 
 interface ChoiceButtonProps {
   choice: Choice;
@@ -8,6 +9,17 @@ interface ChoiceButtonProps {
 }
 
 const ChoiceButton = ({ choice, index, onClick }: ChoiceButtonProps) => {
+  const { playSFX } = useSFX();
+
+  const handleClick = () => {
+    playSFX('choice');
+    onClick();
+  };
+
+  const handleHover = () => {
+    playSFX('hover');
+  };
+
   return (
     <motion.button
       className="
@@ -22,7 +34,8 @@ const ChoiceButton = ({ choice, index, onClick }: ChoiceButtonProps) => {
       transition={{ duration: 0.3, delay: index * 0.1 }}
       whileHover={{ scale: 1.01 }}
       whileTap={{ scale: 0.99 }}
-      onClick={onClick}
+      onClick={handleClick}
+      onMouseEnter={handleHover}
     >
       <div className="flex items-center gap-4">
         <span className="text-primary/70 text-sm font-serif-tc">

@@ -6,6 +6,7 @@ import { getNodeById } from '@/data/prologueStory';
 import { getYiPart2NodeById } from '@/data/yiPart2Story';
 import { getYi1NodeById } from '@/data/yi1';
 import { DialogueNode } from '@/stores/gameStore';
+import { useSFX } from '@/hooks/useAudio';
 import ChoiceButton from './ChoiceButton';
 
 interface DialogueBoxProps {
@@ -17,6 +18,7 @@ const DialogueBox = ({ isHidden = false, onToggleHide }: DialogueBoxProps) => {
   const { getCurrentProgress, advanceToNextNode, makeChoice, currentPart, markNodeAsRead } = useGameStore();
   const progress = getCurrentProgress();
   const currentNodeId = progress.currentNodeId;
+  const { playSFX } = useSFX();
   
   const [displayedText, setDisplayedText] = useState('');
   const [isTyping, setIsTyping] = useState(true);
@@ -65,9 +67,10 @@ const DialogueBox = ({ isHidden = false, onToggleHide }: DialogueBoxProps) => {
       setDisplayedText(currentNode.text);
       setIsTyping(false);
     } else if (currentNode.nextNodeId && !currentNode.choices) {
+      playSFX('dialogue_advance');
       advanceToNextNode(currentNode.nextNodeId);
     }
-  }, [currentNode, isTyping, advanceToNextNode]);
+  }, [currentNode, isTyping, advanceToNextNode, playSFX]);
 
   if (!currentNode) return null;
 
