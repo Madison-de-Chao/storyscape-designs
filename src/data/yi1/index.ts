@@ -5,6 +5,8 @@ import { prefaceNodes } from './prefaceNodes';
 import { yi1PrologueNodes } from './prologueNodes';
 import { chapter1Nodes } from './chapter1Nodes';
 import { chapter2Nodes } from './chapter2Nodes';
+import { chapter3Nodes } from './chapter3Nodes';
+import { chapter4Nodes } from './chapter4Nodes';
 
 // 合併所有節點
 export const yi1AllNodes: DialogueNode[] = [
@@ -12,6 +14,8 @@ export const yi1AllNodes: DialogueNode[] = [
   ...yi1PrologueNodes,
   ...chapter1Nodes,
   ...chapter2Nodes,
+  ...chapter3Nodes,
+  ...chapter4Nodes,
   // TODO: 後續章節將在此添加
 ];
 
