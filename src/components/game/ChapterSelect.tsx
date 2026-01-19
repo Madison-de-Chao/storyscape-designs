@@ -15,7 +15,7 @@ interface ChapterInfo {
 const implementedChapters: ChapterInfo[] = [
   {
     id: 'preface',
-    startNodeId: 'yi1-preface-1',
+    startNodeId: 'preface-1',
     title: '作者序',
     subtitle: '致那個等待被擁抱的你',
     unlocked: true,
