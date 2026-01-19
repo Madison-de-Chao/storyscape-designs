@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Menu, Home, BookOpen, RotateCcw, Image } from 'lucide-react';
 import { useGameStore } from '@/stores/gameStore';
-import { useSFX, useBGM } from '@/hooks/useAudio';
+import { useSFX, useBGM, useAmbient, getAmbientTypeForScene } from '@/hooks/useAudio';
 import ParticleBackground from './ParticleBackground';
 import DialogueBox from './DialogueBox';
 import ArcIndicator from './ArcIndicator';
@@ -13,6 +13,7 @@ import AudioControls from './AudioControls';
 import { getNodeById } from '@/data/prologueStory';
 import { getYiPart2NodeById } from '@/data/yiPart2Story';
 import { getYi1NodeById } from '@/data/yi1';
+import { getSceneImage } from '@/data/yi1/sceneImages';
 
 // 根據節點 ID 獲取當前章節標題
 const getChapterTitle = (nodeId: string): string => {
@@ -36,6 +37,7 @@ const GameScene = () => {
   const currentNodeId = progress.currentNodeId;
   const { playSFX } = useSFX();
   const { playBGM, stopBGM } = useBGM();
+  const { playAmbient, stopAmbient } = useAmbient();
   
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isChapterSelectOpen, setIsChapterSelectOpen] = useState(false);
@@ -64,6 +66,28 @@ const GameScene = () => {
 
     return () => stopBGM();
   }, [currentNodeId, playBGM, stopBGM]);
+
+  // 根據場景播放環境音效
+  useEffect(() => {
+    if (!isYiPart) {
+      stopAmbient();
+      return;
+    }
+
+    const sceneConfig = getSceneImage(currentNodeId);
+    if (sceneConfig) {
+      const ambientType = getAmbientTypeForScene(sceneConfig.alt);
+      if (ambientType) {
+        playAmbient(ambientType);
+      } else {
+        stopAmbient();
+      }
+    } else {
+      stopAmbient();
+    }
+
+    return () => stopAmbient();
+  }, [currentNodeId, isYiPart, playAmbient, stopAmbient]);
   
   return (
     <div className="relative min-h-screen overflow-hidden">
