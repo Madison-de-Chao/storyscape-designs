@@ -250,12 +250,15 @@ export const useGameStore = create<GameState>()(
         const progress = state.getCurrentProgress();
         const chapterId = getChapterIdFromNodeId(nodeId);
         
-        const currentReadNodes = progress.readNodes[chapterId] || [];
+        // 確保 readNodes 存在（處理舊的持久化狀態）
+        const readNodes = progress.readNodes || {};
+        const currentReadNodes = readNodes[chapterId] || [];
+        
         if (!currentReadNodes.includes(nodeId)) {
           const updatedProgress = {
             ...progress,
             readNodes: {
-              ...progress.readNodes,
+              ...readNodes,
               [chapterId]: [...currentReadNodes, nodeId],
             },
             lastReadAt: Date.now(),
@@ -272,9 +275,11 @@ export const useGameStore = create<GameState>()(
       getChapterProgress: (chapterId: string) => {
         const state = get();
         const progress = state.getCurrentProgress();
-        const readNodes = progress.readNodes[chapterId] || [];
+        // 確保 readNodes 存在（處理舊的持久化狀態）
+        const readNodes = progress.readNodes || {};
+        const chapterReadNodes = readNodes[chapterId] || [];
         const totalNodes = chapterNodeCounts[chapterId] || 1;
-        return Math.min(100, Math.round((readNodes.length / totalNodes) * 100));
+        return Math.min(100, Math.round((chapterReadNodes.length / totalNodes) * 100));
       },
 
       getCurrentProgress: () => {
