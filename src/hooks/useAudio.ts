@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
@@ -16,7 +16,8 @@ interface AudioSettings {
   toggleMute: () => void;
 }
 
-export const useAudioSettings = create<AudioSettings>()(
+// 確保 store 只創建一次
+const createAudioSettingsStore = () => create<AudioSettings>()(
   persist(
     (set) => ({
       masterVolume: 0.7,
@@ -33,6 +34,8 @@ export const useAudioSettings = create<AudioSettings>()(
     { name: 'arc-zero-audio-settings' }
   )
 );
+
+export const useAudioSettings = createAudioSettingsStore();
 
 // 音效類型
 export type SFXType = 
