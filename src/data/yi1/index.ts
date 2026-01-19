@@ -31,7 +31,16 @@ export const yi1Chapter: Chapter = {
 
 // 根據 ID 獲取節點
 export const getYi1NodeById = (nodeId: string): DialogueNode | undefined => {
-  return yi1AllNodes.find(node => node.id === nodeId);
+  // 先直接查找
+  let node = yi1AllNodes.find(node => node.id === nodeId);
+  
+  // 如果找不到，嘗試移除 'yi1-' 前綴再找（兼容舊的節點 ID）
+  if (!node && nodeId.startsWith('yi1-')) {
+    const strippedId = nodeId.replace('yi1-', '');
+    node = yi1AllNodes.find(node => node.id === strippedId);
+  }
+  
+  return node;
 };
 
 // 導出
