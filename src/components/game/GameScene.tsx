@@ -13,13 +13,16 @@ import { getYi1NodeById } from '@/data/yi1';
 
 // 根據節點 ID 獲取當前章節標題
 const getChapterTitle = (nodeId: string): string => {
-  if (nodeId.startsWith('yi1-preface')) return '作者序';
-  if (nodeId.startsWith('yi1-prologue')) return '序章・未完成的檔案';
-  if (nodeId.startsWith('yi1-chapter-1')) return '第一章・刪除';
-  if (nodeId.startsWith('yi1-chapter-2')) return '第二章・渡口';
-  if (nodeId.startsWith('yi1-chapter-3')) return '第三章・真相';
-  if (nodeId.startsWith('yi1-chapter-4')) return '第四章・命樹';
-  if (nodeId.startsWith('prologue')) return '序章・未完成的檔案';
+  // 統一處理：移除 yi1- 前綴
+  const normalizedId = nodeId.replace(/^yi1-/, '');
+
+  if (normalizedId.startsWith('preface')) return '作者序';
+  if (normalizedId.startsWith('prologue')) return '序章・未完成的檔案';
+  if (normalizedId.startsWith('chapter-1')) return '第一章・刪除';
+  if (normalizedId.startsWith('chapter-2')) return '第二章・渡口';
+  if (normalizedId.startsWith('chapter-3')) return '第三章・真相';
+  if (normalizedId.startsWith('chapter-4')) return '第四章・命樹';
+
   return '序章';
 };
 
@@ -48,13 +51,13 @@ const GameScene = () => {
       {/* 粒子背景 */}
       <ParticleBackground arcValue={arcValue} />
       
-      {/* 漸變背景 */}
+      {/* 漸變背景（半透明覆蓋，避免遮住場景圖） */}
       <motion.div
-        className="absolute inset-0 transition-colors duration-1000"
+        className="absolute inset-0 z-10 pointer-events-none transition-colors duration-1000"
         style={{
-          background: `linear-gradient(180deg, 
-            hsl(222, ${47 - visualProgress * 10}%, ${6 + visualProgress * 4}%) 0%, 
-            hsl(222, ${47 - visualProgress * 15}%, ${10 + visualProgress * 5}%) 100%
+          background: `linear-gradient(180deg,
+            hsl(222 ${47 - visualProgress * 10}% ${6 + visualProgress * 4}% / 0.75) 0%,
+            hsl(222 ${47 - visualProgress * 15}% ${10 + visualProgress * 5}% / 0.85) 100%
           )`,
         }}
       />
