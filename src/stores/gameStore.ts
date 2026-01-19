@@ -13,12 +13,13 @@ export interface Choice {
 
 export interface DialogueNode {
   id: string;
-  speaker: 'narrator' | 'protagonist' | 'yi' | 'mentor';
+  speaker: 'narrator' | 'protagonist' | 'yi' | 'mentor' | 'wenxin' | 'wendu' | 'sushi' | 'wangyangming' | 'simaqian' | 'wuzetian' | 'libai' | 'mandela' | 'caesar' | 'cleopatra' | 'lincoln' | 'jobs';
   speakerName?: string;
   text: string;
   choices?: Choice[];
-  nextNodeId?: string;
+  nextNodeId?: string | null;
   effect?: 'glitch' | 'glow' | 'fade';
+  arcChange?: number;
 }
 
 export interface Chapter {
