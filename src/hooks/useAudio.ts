@@ -161,12 +161,12 @@ const SFX_PATHS: Record<SFXType, string> = {
 
 const AMBIENT_PATHS: Record<AmbientType, string> = {
   void: '/audio/ambient/void.mp3',
-  ferry: '/audio/ambient/ferry.mp3',
+  ferry: '/audio/ambient/ferry.wav',
   training_ground: '/audio/ambient/training_ground.mp3',
   cosmos: '/audio/ambient/cosmos.mp3',
   night: '/audio/ambient/night.mp3',
   meditation: '/audio/ambient/meditation.mp3',
-  water: '/audio/ambient/water.mp3',
+  water: '/audio/ambient/water.wav',
 };
 
 // 場景圖片與環境音效的映射
@@ -199,9 +199,9 @@ const BGM_PATHS: Record<BGMType, string> = {
   title: '/audio/bgm/title.mp3',
   preface: '/audio/bgm/preface.mp3',
   prologue: '/audio/bgm/prologue.mp3',
-  chapter_calm: '/audio/bgm/chapter_calm.mp3',
+  chapter_calm: '/audio/bgm/calm.wav',
   chapter_tension: '/audio/bgm/chapter_tension.mp3',
-  chapter_emotional: '/audio/bgm/chapter_emotional.mp3',
+  chapter_emotional: '/audio/bgm/emotional.wav',
   revelation: '/audio/bgm/revelation.mp3',
   mysterious: '/audio/bgm/mysterious.mp3',
 };
