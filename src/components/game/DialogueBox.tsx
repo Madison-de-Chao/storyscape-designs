@@ -1,6 +1,6 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Eye, EyeOff } from 'lucide-react';
+import { Eye, EyeOff, FastForward } from 'lucide-react';
 import { useGameStore } from '@/stores/gameStore';
 import { getNodeById } from '@/data/prologueStory';
 import { getYiPart2NodeById } from '@/data/yiPart2Story';
@@ -23,6 +23,8 @@ const DialogueBox = ({ isHidden = false, onToggleHide }: DialogueBoxProps) => {
   const [displayedText, setDisplayedText] = useState('');
   const [isTyping, setIsTyping] = useState(true);
   const [currentNode, setCurrentNode] = useState<DialogueNode | null>(null);
+  const [isAutoForward, setIsAutoForward] = useState(false);
+  const autoForwardRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     // 嘗試從 yi1 數據獲取節點，如果沒有則回退到舊的 prologueStory
@@ -47,6 +49,9 @@ const DialogueBox = ({ isHidden = false, onToggleHide }: DialogueBoxProps) => {
     setDisplayedText('');
     setIsTyping(true);
 
+    // 快轉模式下加快打字速度
+    const typingSpeed = isAutoForward ? 10 : 50;
+
     const typingInterval = setInterval(() => {
       if (index < text.length) {
         setDisplayedText(text.slice(0, index + 1));
@@ -55,10 +60,38 @@ const DialogueBox = ({ isHidden = false, onToggleHide }: DialogueBoxProps) => {
         setIsTyping(false);
         clearInterval(typingInterval);
       }
-    }, 50);
+    }, typingSpeed);
 
     return () => clearInterval(typingInterval);
-  }, [currentNode]);
+  }, [currentNode, isAutoForward]);
+
+  // 快轉自動前進
+  useEffect(() => {
+    if (isAutoForward && !isTyping && currentNode?.nextNodeId && !currentNode.choices) {
+      autoForwardRef.current = setTimeout(() => {
+        playSFX('dialogue_advance');
+        advanceToNextNode(currentNode.nextNodeId!);
+      }, 300);
+    }
+
+    return () => {
+      if (autoForwardRef.current) {
+        clearTimeout(autoForwardRef.current);
+      }
+    };
+  }, [isAutoForward, isTyping, currentNode, advanceToNextNode, playSFX]);
+
+  // 遇到選項時自動停止快轉
+  useEffect(() => {
+    if (currentNode?.choices) {
+      setIsAutoForward(false);
+    }
+  }, [currentNode?.choices]);
+
+  const toggleAutoForward = useCallback(() => {
+    setIsAutoForward(prev => !prev);
+    playSFX('click');
+  }, [playSFX]);
 
   const handleClick = useCallback(() => {
     if (!currentNode) return;
@@ -138,26 +171,46 @@ const DialogueBox = ({ isHidden = false, onToggleHide }: DialogueBoxProps) => {
 
   return (
     <>
-      {/* 隱藏/顯示按鈕（始終可見） */}
-      {onToggleHide && (
+      {/* 控制按鈕群組（始終可見） */}
+      <div className="fixed bottom-4 right-4 z-50 flex gap-2">
+        {/* 快轉按鈕 */}
         <motion.button
-          onClick={onToggleHide}
+          onClick={toggleAutoForward}
           className={`
-            fixed bottom-4 right-4 z-50 p-3 rounded-full 
-            backdrop-blur-sm border transition-all duration-300
-            ${isHidden 
-              ? 'bg-primary/20 border-primary/50 text-primary' 
+            p-3 rounded-full backdrop-blur-sm border transition-all duration-300
+            ${isAutoForward 
+              ? 'bg-accent/20 border-accent/50 text-accent' 
               : 'bg-card/50 border-border/50 text-muted-foreground hover:text-foreground hover:border-border'
             }
           `}
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.5 }}
-          title={isHidden ? '顯示對話框' : '隱藏對話框'}
+          transition={{ delay: 0.4 }}
+          title={isAutoForward ? '停止快轉' : '快轉'}
         >
-          {isHidden ? <Eye className="w-5 h-5" /> : <EyeOff className="w-5 h-5" />}
+          <FastForward className={`w-5 h-5 ${isAutoForward ? 'animate-pulse' : ''}`} />
         </motion.button>
-      )}
+
+        {/* 隱藏/顯示按鈕 */}
+        {onToggleHide && (
+          <motion.button
+            onClick={onToggleHide}
+            className={`
+              p-3 rounded-full backdrop-blur-sm border transition-all duration-300
+              ${isHidden 
+                ? 'bg-primary/20 border-primary/50 text-primary' 
+                : 'bg-card/50 border-border/50 text-muted-foreground hover:text-foreground hover:border-border'
+              }
+            `}
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.5 }}
+            title={isHidden ? '顯示對話框' : '隱藏對話框'}
+          >
+            {isHidden ? <Eye className="w-5 h-5" /> : <EyeOff className="w-5 h-5" />}
+          </motion.button>
+        )}
+      </div>
 
       {/* 對話框（可隱藏） */}
       <AnimatePresence>
