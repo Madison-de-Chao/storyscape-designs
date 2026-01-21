@@ -7,6 +7,7 @@ import { getYiPart2NodeById } from '@/data/yiPart2Story';
 import { getYi1NodeById } from '@/data/yi1';
 import { DialogueNode } from '@/stores/gameStore';
 import { useSFX } from '@/hooks/useAudio';
+import { getSpeakerEmotionSFX, shouldPlayEmotionSFX, type SpeakerType } from '@/utils/speakerEmotionSFX';
 import ChoiceButton from './ChoiceButton';
 
 // 解析文字中的強調標記 **text** 和角色專屬效果
@@ -44,7 +45,7 @@ const DialogueBox = ({ isHidden = false, onToggleHide }: DialogueBoxProps) => {
   const { getCurrentProgress, advanceToNextNode, makeChoice, currentPart, markNodeAsRead } = useGameStore();
   const progress = getCurrentProgress();
   const currentNodeId = progress.currentNodeId;
-  const { playSFX } = useSFX();
+  const { playSFX, playEmotionSFX } = useSFX();
   
   const [displayedText, setDisplayedText] = useState('');
   const [isTyping, setIsTyping] = useState(true);
@@ -63,8 +64,23 @@ const DialogueBox = ({ isHidden = false, onToggleHide }: DialogueBoxProps) => {
       setDisplayedText('');
       setIsTyping(true);
       markNodeAsRead(currentNodeId);
+
+      // 根據說話者和節點效果播放情緒音效
+      if (shouldPlayEmotionSFX()) {
+        const emotionSFX = getSpeakerEmotionSFX(
+          node.speaker as SpeakerType,
+          node.effect,
+          node.emotionSFX
+        );
+        if (emotionSFX) {
+          // 延遲播放，讓對話開始後才播放音效
+          setTimeout(() => {
+            playEmotionSFX(emotionSFX);
+          }, 500);
+        }
+      }
     }
-  }, [currentNodeId, currentPart, markNodeAsRead]);
+  }, [currentNodeId, currentPart, markNodeAsRead, playEmotionSFX]);
 
   // 打字機效果
   useEffect(() => {
