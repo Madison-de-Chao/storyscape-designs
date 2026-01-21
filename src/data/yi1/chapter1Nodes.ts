@@ -874,6 +874,6 @@ export const chapter1Nodes: DialogueNode[] = [
     id: 'yi1-chapter-1-end',
     speaker: 'narrator',
     text: '【第一章完】',
-    nextNodeId: 'yi1-chapter-2-1',
+    nextNodeId: 'yi1-chapter-2-intro-1',
   },
 ];
