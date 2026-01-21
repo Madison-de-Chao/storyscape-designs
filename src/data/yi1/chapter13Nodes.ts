@@ -148,6 +148,7 @@ export const chapter13Nodes: DialogueNode[] = [
     speaker: 'jobs',
     speakerName: '賈伯斯',
     text: '像 Apple Store？',
+    emotionSFX: 'gentle_laugh',
     nextNodeId: 'chapter13-24',
   },
   {
@@ -534,6 +535,7 @@ export const chapter13Nodes: DialogueNode[] = [
     speakerName: '賈伯斯',
     text: '錯。歸者只是學會了完整。**完整不是完美。完整是——接受自己的不完美，同時繼續前進。**',
     effect: 'glow',
+    emotionSFX: 'gentle_laugh',
     nextNodeId: 'chapter13-71',
   },
   {
@@ -658,6 +660,7 @@ export const chapter13Nodes: DialogueNode[] = [
     id: 'chapter13-89',
     speaker: 'narrator',
     text: '問心看著她，眼神裡有一絲複雜的情緒，像是欣慰，又像是擔憂。',
+    emotionSFX: 'mysterious_whisper',
     nextNodeId: 'chapter13-90',
   },
   {
