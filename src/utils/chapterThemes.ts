@@ -134,28 +134,44 @@ const chapterThemes: Record<string, ChapterTheme> = {
     mood: 'emotional',
   },
   
-  // 第十三章 - 林肯深紅
+  // 第十三章・連結點 - 賈伯斯極簡白
   'chapter-13': {
-    hue: 355,
-    saturation: 55,
-    lightness: 40,
+    hue: 0,
+    saturation: 0,
+    lightness: 85,
     mood: 'inspiring',
   },
   
-  // 第十四章 - 回歸金
+  // 第十四章・未歸者畫廊 - 幽暗藍紫
   'chapter-14': {
-    hue: 40,
-    saturation: 80,
-    lightness: 58,
+    hue: 270,
+    saturation: 45,
+    lightness: 35,
+    mood: 'emotional',
+  },
+  
+  // 第十五章・伊 - 陰影深紅
+  'chapter-15': {
+    hue: 350,
+    saturation: 65,
+    lightness: 40,
+    mood: 'tension',
+  },
+  
+  // 第十六章・一歸一 - 融合金紫
+  'chapter-16': {
+    hue: 45,
+    saturation: 70,
+    lightness: 60,
     mood: 'revelation',
   },
   
-  // 第十五章 - 覺醒白金
-  'chapter-15': {
+  // 終章・名字 - 圓滿琥珀
+  epilogue: {
     hue: 38,
-    saturation: 50,
-    lightness: 75,
-    mood: 'revelation',
+    saturation: 85,
+    lightness: 65,
+    mood: 'calm',
   },
 };
 
