@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Menu, Home, BookOpen, RotateCcw, Image } from 'lucide-react';
 import { useGameStore } from '@/stores/gameStore';
@@ -10,6 +10,7 @@ import ChapterSelect from './ChapterSelect';
 import SceneImage from './SceneImage';
 import Gallery from './Gallery';
 import AudioControls from './AudioControls';
+import SceneTransition from './SceneTransition';
 import { getNodeById } from '@/data/prologueStory';
 import { getYiPart2NodeById } from '@/data/yiPart2Story';
 import { getYi1NodeById } from '@/data/yi1';
@@ -26,8 +27,24 @@ const getChapterTitle = (nodeId: string): string => {
   if (normalizedId.startsWith('chapter-2')) return '第二章・渡口';
   if (normalizedId.startsWith('chapter-3')) return '第三章・真相';
   if (normalizedId.startsWith('chapter-4')) return '第四章・命樹';
+  if (normalizedId.startsWith('chapter-5')) return '第五章・文心';
+  if (normalizedId.startsWith('chapter-6')) return '第六章・女王';
+  if (normalizedId.startsWith('chapter-7')) return '第七章・詩仙';
+  if (normalizedId.startsWith('chapter-8')) return '第八章・凱薩';
+  if (normalizedId.startsWith('chapter-9')) return '第九章・埃及豔后';
+  if (normalizedId.startsWith('chapter-10')) return '第十章・海倫凱勒';
+  if (normalizedId.startsWith('chapter-11')) return '第十一章・曼德拉';
 
   return '序章';
+};
+
+// 從節點 ID 提取章節編號
+const getChapterNumber = (nodeId: string): string => {
+  const normalizedId = nodeId.replace(/^yi1-/, '');
+  if (normalizedId.startsWith('preface')) return 'preface';
+  if (normalizedId.startsWith('prologue')) return 'prologue';
+  const match = normalizedId.match(/chapter-(\d+)/);
+  return match ? `chapter-${match[1]}` : '';
 };
 
 const GameScene = () => {
@@ -43,6 +60,11 @@ const GameScene = () => {
   const [isChapterSelectOpen, setIsChapterSelectOpen] = useState(false);
   const [isGalleryOpen, setIsGalleryOpen] = useState(false);
   const [isDialogueHidden, setIsDialogueHidden] = useState(false);
+  
+  // 章節轉場狀態
+  const [isChapterTransition, setIsChapterTransition] = useState(false);
+  const [transitionChapterTitle, setTransitionChapterTitle] = useState('');
+  const prevChapterRef = useRef<string>('');
 
   const currentNode = currentPart === 'yi' 
     ? (getYi1NodeById(currentNodeId) || getNodeById(currentNodeId))
@@ -58,6 +80,20 @@ const GameScene = () => {
     playBGM(bgmType);
     // 不在 cleanup 中 stopBGM，讓音樂持續播放
   }, [currentNodeId]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // 偵測章節切換並觸發轉場動畫
+  useEffect(() => {
+    const currentChapter = getChapterNumber(currentNodeId);
+    
+    if (prevChapterRef.current && prevChapterRef.current !== currentChapter && currentChapter) {
+      // 章節變更，觸發轉場
+      const newTitle = getChapterTitle(currentNodeId);
+      setTransitionChapterTitle(newTitle);
+      setIsChapterTransition(true);
+    }
+    
+    prevChapterRef.current = currentChapter;
+  }, [currentNodeId]);
 
   // 組件卸載時停止音樂
   useEffect(() => {
@@ -280,6 +316,14 @@ const GameScene = () => {
       <Gallery 
         isOpen={isGalleryOpen} 
         onClose={() => setIsGalleryOpen(false)} 
+      />
+
+      {/* 章節轉場動畫 */}
+      <SceneTransition
+        isTransitioning={isChapterTransition}
+        transitionType="chapter"
+        chapterTitle={transitionChapterTitle}
+        onTransitionComplete={() => setIsChapterTransition(false)}
       />
     </div>
   );
