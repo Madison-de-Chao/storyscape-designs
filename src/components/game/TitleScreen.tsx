@@ -1,18 +1,20 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { BookOpen, Image } from 'lucide-react';
+import { BookOpen, Image, Music } from 'lucide-react';
 import { useGameStore } from '@/stores/gameStore';
 import { useSFX, useBGM } from '@/hooks/useAudio';
 import ParticleBackground from './ParticleBackground';
 import ChapterSelect from './ChapterSelect';
 import Gallery from './Gallery';
 import AudioControls from './AudioControls';
+import SFXGenerator from './SFXGenerator';
 
 const TitleScreen = () => {
   const { startGame, resetGame, yiProgress, yiPart2Progress } = useGameStore();
   const hasAnyProgress = yiProgress.hasStarted || yiPart2Progress.hasStarted;
   const [isChapterSelectOpen, setIsChapterSelectOpen] = useState(false);
   const [isGalleryOpen, setIsGalleryOpen] = useState(false);
+  const [isSFXGeneratorOpen, setIsSFXGeneratorOpen] = useState(false);
   const { playSFX } = useSFX();
   const { playBGM, stopBGM } = useBGM();
   
@@ -256,25 +258,44 @@ const TitleScreen = () => {
         </motion.div>
 
         {/* 藝廊按鈕 */}
-        {unlockedCount > 0 && (
-          <motion.button
-            onClick={() => setIsGalleryOpen(true)}
+        <motion.div
+          className="mt-8 flex flex-wrap justify-center gap-4"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 2.2 }}
+        >
+          {unlockedCount > 0 && (
+            <button
+              onClick={() => setIsGalleryOpen(true)}
+              className="
+                flex items-center gap-2 px-4 py-2
+                text-sm text-muted-foreground hover:text-foreground 
+                border border-border/50 hover:border-primary/50
+                rounded-full backdrop-blur-sm
+                transition-all duration-300
+              "
+            >
+              <Image className="w-4 h-4" />
+              藝廊
+              <span className="text-xs text-primary">({unlockedCount})</span>
+            </button>
+          )}
+
+          {/* AI 音效生成按鈕 */}
+          <button
+            onClick={() => setIsSFXGeneratorOpen(true)}
             className="
-              mt-8 flex items-center gap-2 px-4 py-2
+              flex items-center gap-2 px-4 py-2
               text-sm text-muted-foreground hover:text-foreground 
-              border border-border/50 hover:border-primary/50
+              border border-border/50 hover:border-amber-500/50
               rounded-full backdrop-blur-sm
               transition-all duration-300
             "
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 2.2 }}
           >
-            <Image className="w-4 h-4" />
-            藝廊
-            <span className="text-xs text-primary">({unlockedCount})</span>
-          </motion.button>
-        )}
+            <Music className="w-4 h-4" />
+            AI 音效
+          </button>
+        </motion.div>
 
         {/* 重置進度按鈕 */}
         {hasAnyProgress && (
@@ -311,6 +332,11 @@ const TitleScreen = () => {
         isOpen={isGalleryOpen} 
         onClose={() => setIsGalleryOpen(false)} 
       />
+
+      {/* AI 音效生成器 */}
+      {isSFXGeneratorOpen && (
+        <SFXGenerator onClose={() => setIsSFXGeneratorOpen(false)} />
+      )}
     </div>
   );
 };
