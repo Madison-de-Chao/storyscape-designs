@@ -88,7 +88,8 @@ export type AmbientType =
   | 'cosmos'         // 宇宙（元壹境相關）
   | 'night'          // 夜晚（刪除之夜）
   | 'meditation'     // 冥想（王陽明、心即理）
-  | 'water';         // 流水（擺渡人場景）
+  | 'water'          // 流水（擺渡人場景）
+  | 'bookstore';     // 書店（終章溫暖氛圍）
 
 // 背景音樂類型
 export type BGMType = 
@@ -248,6 +249,7 @@ const AMBIENT_PATHS: Record<AmbientType, string> = {
   night: '/audio/ambient/night.mp3',
   meditation: '/audio/ambient/meditation.mp3',
   water: '/audio/ambient/water.wav',
+  bookstore: '/audio/ambient/bookstore.mp3',
 };
 
 // 場景圖片與環境音效的映射
@@ -268,6 +270,12 @@ export const sceneAmbientMapping: SceneAmbientConfig[] = [
   { sceneAlt: '擺渡人', ambientType: 'water' },
   { sceneAlt: '王陽明', ambientType: 'meditation' },
   { sceneAlt: '心即理', ambientType: 'meditation' },
+  // 終章場景
+  { sceneAlt: '回到房間', ambientType: 'night' },
+  { sceneAlt: '按取消', ambientType: 'night' },
+  { sceneAlt: '清晨窗景', ambientType: 'meditation' },
+  { sceneAlt: '起身', ambientType: 'meditation' },
+  { sceneAlt: '新的開始', ambientType: 'bookstore' },
 ];
 
 // 根據場景名稱獲取環境音效類型
