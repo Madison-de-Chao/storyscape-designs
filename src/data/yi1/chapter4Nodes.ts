@@ -68,7 +68,7 @@ export const chapter4Nodes: DialogueNode[] = [
   {
     id: 'chapter-4-9',
     speaker: 'sushi',
-    text: '誰說我不生氣了？我只是不再被生氣控制。',
+    text: '誰說我不生氣了？**我只是不再被生氣控制。**',
     effect: 'glow',
     nextNodeId: 'chapter-4-10',
   },
@@ -107,7 +107,7 @@ export const chapter4Nodes: DialogueNode[] = [
   {
     id: 'chapter-4-15',
     speaker: 'sushi',
-    text: '不，不是枯萎。是扭曲。',
+    text: '不，不是枯萎。**是扭曲。**',
     effect: 'glow',
     nextNodeId: 'chapter-4-16',
   },
@@ -144,7 +144,7 @@ export const chapter4Nodes: DialogueNode[] = [
   {
     id: 'chapter-4-21',
     speaker: 'sushi',
-    text: '然後這個結節就開始癒合了。它不會消失，但它不再是傷口。它變成了——我的一部分。',
+    text: '然後這個結節就開始癒合了。它不會消失，但它不再是傷口。**它變成了——我的一部分。**',
     effect: 'glow',
     nextNodeId: 'chapter-4-22',
   },
@@ -159,7 +159,7 @@ export const chapter4Nodes: DialogueNode[] = [
   {
     id: 'chapter-4-23',
     speaker: 'sushi',
-    text: '去吧。記住我說的話——外境可以否定你的位置，但不能否定你的價值。',
+    text: '去吧。記住我說的話——**外境可以否定你的位置，但不能否定你的價值。**',
     effect: 'glow',
     nextNodeId: 'chapter-4-24',
   },

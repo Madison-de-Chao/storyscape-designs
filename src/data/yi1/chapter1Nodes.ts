@@ -175,7 +175,7 @@ export const chapter1Nodes: DialogueNode[] = [
   {
     id: 'yi1-chapter-1-29',
     speaker: 'protagonist',
-    text: '我做什麼都不對。',
+    text: '**我做什麼都不對。**',
     nextNodeId: 'yi1-chapter-1-30',
     effect: 'glow',
   },

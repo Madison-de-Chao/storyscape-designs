@@ -177,7 +177,7 @@ export const chapter10Nodes: DialogueNode[] = [
     id: 'chapter10-26',
     speaker: 'cleopatra',
     speakerName: '克麗奧佩特拉',
-    text: '我們的關係很複雜。但有一點很簡單——我們都是自己人。在這段關係裡，我沒有為他失去我自己，他也沒有為我失去他自己。',
+    text: '我們的關係很複雜。但有一點很簡單——**我們都是自己人**。在這段關係裡，我沒有為他失去我自己，他也沒有為我失去他自己。',
     nextNodeId: 'chapter10-27',
   },
 
@@ -235,7 +235,7 @@ export const chapter10Nodes: DialogueNode[] = [
     id: 'chapter10-31',
     speaker: 'cleopatra',
     speakerName: '克麗奧佩特拉',
-    text: '其次，妥協不等於投降。妥協是——我知道我要什麼，我也知道你要什麼，我們找一個雙方都能接受的方案。投降是——我不管我要什麼，只管你要什麼，你說什麼我都答應。妥協之後，我還是我。投降之後，我就不是我了。',
+    text: '其次，**妥協不等於投降**。妥協是——我知道我要什麼，我也知道你要什麼，我們找一個雙方都能接受的方案。投降是——我不管我要什麼，只管你要什麼，你說什麼我都答應。妥協之後，我還是我。投降之後，我就不是我了。',
     nextNodeId: 'chapter10-32',
   },
   {
@@ -316,7 +316,7 @@ export const chapter10Nodes: DialogueNode[] = [
     id: 'chapter10-43',
     speaker: 'caesar',
     speakerName: '凱薩',
-    text: '不是。我的意思是——相信別人，但不要依賴別人。相信是——我信任你，我願意和你合作。依賴是——如果你離開我，我就活不下去。相信是健康的，依賴是危險的。',
+    text: '不是。我的意思是——**相信別人，但不要依賴別人**。相信是——我信任你，我願意和你合作。依賴是——如果你離開我，我就活不下去。相信是健康的，依賴是危險的。',
     nextNodeId: 'chapter10-44',
   },
 
@@ -437,7 +437,7 @@ export const chapter10Nodes: DialogueNode[] = [
     id: 'chapter10-57',
     speaker: 'cleopatra',
     speakerName: '克麗奧佩特拉',
-    text: '「每一步棋，都是我自己下的。即使輸了，也是我選的。」——這就是在任何情況下，都不失去自己。',
+    text: '「**每一步棋，都是我自己下的。即使輸了，也是我選的。**」——這就是在任何情況下，都不失去自己。',
     nextNodeId: 'chapter10-58',
   },
 

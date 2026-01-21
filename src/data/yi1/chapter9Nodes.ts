@@ -401,7 +401,7 @@ export const chapter9Nodes: DialogueNode[] = [
     id: 'chapter9-52',
     speaker: 'libai',
     speakerName: '李白',
-    text: '你知道我最有名的那句詩嗎？「天生我材必有用」。你知道這句話的下一句是什麼嗎？',
+    text: '你知道我最有名的那句詩嗎？「**天生我材必有用**」。你知道這句話的下一句是什麼嗎？',
     nextNodeId: 'chapter9-53',
   },
   {
@@ -421,7 +421,7 @@ export const chapter9Nodes: DialogueNode[] = [
     id: 'chapter9-55',
     speaker: 'libai',
     speakerName: '李白',
-    text: '但「我材」——我這個人，我的才華，我的本質——這些是不會失去的。外面的東西散了還會來，但我永遠是我。',
+    text: '但「**我材**」——我這個人，我的才華，我的本質——這些是不會失去的。外面的東西散了還會來，**但我永遠是我**。',
     nextNodeId: 'chapter9-56',
   },
   {
@@ -463,7 +463,7 @@ export const chapter9Nodes: DialogueNode[] = [
     id: 'chapter9-61',
     speaker: 'libai',
     speakerName: '李白',
-    text: '任性是被慾望牽著走。我想喝酒，所以我喝酒。看起來是我在做選擇，其實是慾望在做選擇。真正的自由是——知道自己要什麼，然後選擇要不要追。',
+    text: '任性是被慾望牽著走。我想喝酒，所以我喝酒。看起來是我在做選擇，其實是慾望在做選擇。**真正的自由是——知道自己要什麼，然後選擇要不要追。**',
     nextNodeId: 'chapter9-62',
   },
   {
