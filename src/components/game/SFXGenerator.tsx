@@ -25,7 +25,7 @@ const SFXGenerator = ({ onClose }: SFXGeneratorProps) => {
             'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
           },
           body: JSON.stringify({
-            prompt: 'Crisp and clear crystal chime with a bright, sparkling tone. A single elegant bell strike followed by delicate high-pitched resonance that fades gracefully. Clean, refreshing, and melodious transition sound',
+            prompt: 'A young woman\'s cold, dismissive scoff. Short and sharp with a hint of condescension. Subtle breath followed by a brief, icy chuckle that trails off. Realistic human voice, slightly mocking tone',
             duration: 2,
           }),
         }
