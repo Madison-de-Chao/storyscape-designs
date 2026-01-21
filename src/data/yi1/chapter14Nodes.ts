@@ -102,6 +102,7 @@ export const chapter14Nodes: DialogueNode[] = [
     speaker: 'narrator',
     text: '畫面開始流動。她看見項羽舉起劍，對著江水，喃喃自語——「**無顏見江東父老。**」',
     effect: 'glow',
+    emotionSFX: 'sad_sigh',
     nextNodeId: 'chapter14-17',
   },
   {
@@ -178,6 +179,7 @@ export const chapter14Nodes: DialogueNode[] = [
     speaker: 'narrator',
     text: '畫面流動。屈原對著江水，聲音悲愴——「**舉世皆濁我獨清，眾人皆醉我獨醒。**」然後，他抱著石頭，走進了江裡。',
     effect: 'glow',
+    emotionSFX: 'sad_sigh',
     nextNodeId: 'chapter14-29',
   },
   {
@@ -286,6 +288,7 @@ export const chapter14Nodes: DialogueNode[] = [
     speaker: 'wenxin',
     text: '她被世界塑造成一個「形象」——性感女神，金髮尤物，所有男人的夢中情人。但那不是她，那是別人想要她成為的樣子。**她把真正的自己切掉了。**為了符合那個形象，她壓抑了自己的聰明、自己的脆弱、自己的渴望。到最後，她已經不知道真正的自己是什麼了。',
     effect: 'glow',
+    emotionSFX: 'sad_sigh',
     nextNodeId: 'chapter14-46',
   },
   {
@@ -568,6 +571,7 @@ export const chapter14Nodes: DialogueNode[] = [
     speaker: 'narrator',
     text: '那是一片無邊無際的空間。到處都是光點。無數的、密密麻麻的光點。每一個光點都是一團記憶，每一團記憶都是一個**沒有學會完整就離開的靈魂**。',
     effect: 'glow',
+    emotionSFX: 'fear',
     nextNodeId: 'chapter14-91',
   },
   {
@@ -614,6 +618,7 @@ export const chapter14Nodes: DialogueNode[] = [
     speaker: 'wenxin',
     text: '那個空的位置，從來不是給「大人物」的。那個空的位置，是給**每一個正在掙扎的靈魂**的。包括你。',
     effect: 'glow',
+    emotionSFX: 'gentle_laugh',
     nextNodeId: 'chapter14-98',
   },
   {

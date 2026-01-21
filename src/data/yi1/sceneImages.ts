@@ -271,11 +271,11 @@ export const sceneImages: SceneImageConfig[] = [
     nodePatterns: ['chapter12-', 'chapter-12-'],
   },
 
-  // === 第十三章：解放（林肯）/ 連結點（賈伯斯）===
+  // === 第十三章：被拒絕的禮物（賈伯斯）===
   {
     image: IMG32_問心再現,
     alt: '問心再現',
-    nodePatterns: ['chapter13-1', 'chapter13-2', 'chapter13-3', 'chapter13-4', 'chapter13-5', 'chapter13-6', 'chapter13-7', 'chapter13-8', 'chapter13-9', 'chapter13-10', 'chapter-13-1', 'chapter-13-2', 'chapter-13-3', 'chapter-13-4', 'chapter-13-5', 'chapter-13-6', 'chapter-13-7', 'chapter-13-8', 'chapter-13-9', 'chapter-13-10'],
+    nodePatterns: ['chapter13-1', 'chapter13-2', 'chapter13-3', 'chapter13-4', 'chapter13-5', 'chapter13-6', 'chapter13-7', 'chapter13-8', 'chapter13-9', 'chapter13-10', 'chapter13-11', 'chapter13-12', 'chapter13-13', 'chapter13-14', 'chapter13-15', 'chapter13-16', 'chapter13-17', 'chapter13-18', 'chapter-13-1', 'chapter-13-2', 'chapter-13-3', 'chapter-13-4', 'chapter-13-5', 'chapter-13-6', 'chapter-13-7', 'chapter-13-8', 'chapter-13-9', 'chapter-13-10', 'chapter-13-11', 'chapter-13-12', 'chapter-13-13', 'chapter-13-14', 'chapter-13-15', 'chapter-13-16', 'chapter-13-17', 'chapter-13-18'],
   },
   {
     image: IMG33_主角轉變,
@@ -283,16 +283,11 @@ export const sceneImages: SceneImageConfig[] = [
     nodePatterns: ['chapter13-', 'chapter-13-'],
   },
 
-  // === 第十四章：連結點（賈伯斯）===
+  // === 第十四章：未歸者廊 ===
   {
-    image: IMG34_海棠盛開,
-    alt: '海棠盛開',
-    nodePatterns: ['chapter14-1', 'chapter14-2', 'chapter14-3', 'chapter14-4', 'chapter14-5', 'chapter14-6', 'chapter14-7', 'chapter14-8', 'chapter14-9', 'chapter14-10', 'chapter-14-1', 'chapter-14-2', 'chapter-14-3', 'chapter-14-4', 'chapter-14-5', 'chapter-14-6', 'chapter-14-7', 'chapter-14-8', 'chapter-14-9', 'chapter-14-10'],
-  },
-  {
-    image: IMG35_洞穴入口,
-    alt: '洞穴入口',
-    nodePatterns: ['chapter14-11', 'chapter14-12', 'chapter14-13', 'chapter14-14', 'chapter14-15', 'chapter14-16', 'chapter14-17', 'chapter14-18', 'chapter14-19', 'chapter14-20', 'chapter-14-11', 'chapter-14-12', 'chapter-14-13', 'chapter-14-14', 'chapter-14-15', 'chapter-14-16', 'chapter-14-17', 'chapter-14-18', 'chapter-14-19', 'chapter-14-20'],
+    image: IMG18_女子畫廊,
+    alt: '未歸者廊',
+    nodePatterns: ['chapter14-1', 'chapter14-2', 'chapter14-3', 'chapter14-4', 'chapter14-5', 'chapter14-6', 'chapter14-7', 'chapter14-8', 'chapter14-9', 'chapter14-10', 'chapter14-11', 'chapter14-12', 'chapter14-13', 'chapter14-14', 'chapter14-15', 'chapter-14-1', 'chapter-14-2', 'chapter-14-3', 'chapter-14-4', 'chapter-14-5', 'chapter-14-6', 'chapter-14-7', 'chapter-14-8', 'chapter-14-9', 'chapter-14-10', 'chapter-14-11', 'chapter-14-12', 'chapter-14-13', 'chapter-14-14', 'chapter-14-15'],
   },
   {
     image: IMG36_記憶洞穴,
@@ -300,61 +295,90 @@ export const sceneImages: SceneImageConfig[] = [
     nodePatterns: ['chapter14-', 'chapter-14-'],
   },
 
-  // === 終章：歸零 ===
+  // === 第十五章：伊 ===
+  {
+    image: IMG35_洞穴入口,
+    alt: '洞穴入口',
+    nodePatterns: ['chapter15-1', 'chapter15-2', 'chapter15-3', 'chapter15-4', 'chapter15-5', 'chapter15-6', 'chapter15-7', 'chapter15-8', 'chapter-15-1', 'chapter-15-2', 'chapter-15-3', 'chapter-15-4', 'chapter-15-5', 'chapter-15-6', 'chapter-15-7', 'chapter-15-8'],
+  },
+  {
+    image: IMG36_記憶洞穴,
+    alt: '洞穴內部',
+    nodePatterns: ['chapter15-9', 'chapter15-10', 'chapter15-11', 'chapter15-12', 'chapter15-13', 'chapter15-14', 'chapter15-15', 'chapter15-16', 'chapter15-17', 'chapter15-18', 'chapter15-19', 'chapter15-20', 'chapter15-21', 'chapter15-22', 'chapter15-23', 'chapter15-24', 'chapter15-25', 'chapter15-26', 'chapter15-27', 'chapter15-28', 'chapter15-29', 'chapter15-30', 'chapter15-31', 'chapter15-32', 'chapter15-33', 'chapter15-34', 'chapter15-35', 'chapter15-36', 'chapter15-37', 'chapter15-38', 'chapter15-39', 'chapter15-40'],
+  },
+  {
+    image: IMG40_洞穴光明,
+    alt: '洞穴光明',
+    nodePatterns: ['chapter15-41', 'chapter15-42', 'chapter15-43', 'chapter15-44', 'chapter15-45', 'chapter15-46', 'chapter15-47', 'chapter15-48', 'chapter15-49', 'chapter15-50', 'chapter15-51'],
+  },
+  {
+    image: IMG34_海棠盛開,
+    alt: '海棠盛開',
+    nodePatterns: ['chapter15-'],
+  },
+
+  // === 第十六章：歸一 ===
   {
     image: IMG41_回到渡口,
-    alt: '回到渡口',
-    nodePatterns: ['chapter15-1', 'chapter15-2', 'chapter15-3', 'chapter15-4', 'chapter15-5', 'chapter15-6', 'chapter15-7', 'chapter15-8', 'chapter15-9', 'chapter15-10', 'chapter-15-1', 'chapter-15-2', 'chapter-15-3', 'chapter-15-4', 'chapter-15-5', 'chapter-15-6', 'chapter-15-7', 'chapter-15-8', 'chapter-15-9', 'chapter-15-10', 'finale-1', 'finale-2', 'finale-3', 'finale-4', 'finale-5', 'finale-6', 'finale-7', 'finale-8', 'finale-9', 'finale-10'],
+    alt: '歸元山',
+    nodePatterns: ['chapter16-1', 'chapter16-2', 'chapter16-3', 'chapter16-4', 'chapter16-5', 'chapter16-6', 'chapter16-7', 'chapter16-8', 'chapter16-9', 'chapter16-10', 'chapter16-11', 'chapter16-12', 'chapter16-13', 'chapter16-14', 'chapter16-15', 'chapter16-16', 'chapter16-17', 'chapter16-18', 'chapter16-19', 'chapter16-20', 'chapter16-21'],
+  },
+  {
+    image: IMG45_光之門,
+    alt: '圓心閣',
+    nodePatterns: ['chapter16-22', 'chapter16-23', 'chapter16-24', 'chapter16-25', 'chapter16-26', 'chapter16-27', 'chapter16-28', 'chapter16-29', 'chapter16-30', 'chapter16-31', 'chapter16-32', 'chapter16-33', 'chapter16-34', 'chapter16-35', 'chapter16-36', 'chapter16-37', 'chapter16-38', 'chapter16-39', 'chapter16-40', 'chapter16-41', 'chapter16-42', 'chapter16-43', 'chapter16-44', 'chapter16-45', 'chapter16-46', 'chapter16-47', 'chapter16-48', 'chapter16-49', 'chapter16-50', 'chapter16-51', 'chapter16-52', 'chapter16-53', 'chapter16-54', 'chapter16-55', 'chapter16-56', 'chapter16-57', 'chapter16-58', 'chapter16-59', 'chapter16-60', 'chapter16-61', 'chapter16-62', 'chapter16-63', 'chapter16-64', 'chapter16-65', 'chapter16-66', 'chapter16-67', 'chapter16-68', 'chapter16-69', 'chapter16-70', 'chapter16-71', 'chapter16-72', 'chapter16-73'],
   },
   {
     image: IMG42_問心告別,
     alt: '問心告別',
-    nodePatterns: ['finale-11', 'finale-12', 'finale-13', 'finale-14', 'finale-15', 'finale-16', 'finale-17', 'finale-18', 'finale-19', 'finale-20'],
-  },
-  {
-    image: IMG43_登船,
-    alt: '登船',
-    nodePatterns: ['finale-21', 'finale-22', 'finale-23', 'finale-24', 'finale-25'],
-  },
-  {
-    image: IMG44_星河航行,
-    alt: '星河航行',
-    nodePatterns: ['finale-26', 'finale-27', 'finale-28', 'finale-29', 'finale-30'],
-  },
-  {
-    image: IMG45_光之門,
-    alt: '光之門',
-    nodePatterns: ['finale-31', 'finale-32', 'finale-33', 'finale-34', 'finale-35'],
+    nodePatterns: ['chapter16-74', 'chapter16-75', 'chapter16-76', 'chapter16-77', 'chapter16-78', 'chapter16-79', 'chapter16-80', 'chapter16-81', 'chapter16-82', 'chapter16-83', 'chapter16-84', 'chapter16-85', 'chapter16-86', 'chapter16-87', 'chapter16-88', 'chapter16-89', 'chapter16-90', 'chapter16-91', 'chapter16-92', 'chapter16-93', 'chapter16-94', 'chapter16-95', 'chapter16-96', 'chapter16-97', 'chapter16-98', 'chapter16-99', 'chapter16-100', 'chapter16-101', 'chapter16-102', 'chapter16-103', 'chapter16-104', 'chapter16-105', 'chapter16-106'],
   },
   {
     image: IMG46_穿越光門,
-    alt: '穿越光門',
-    nodePatterns: ['finale-36', 'finale-37', 'finale-38', 'finale-39', 'finale-40'],
+    alt: '回歸',
+    nodePatterns: ['chapter16-107', 'chapter16-108', 'chapter16-109'],
   },
   {
     image: IMG47_回到房間,
     alt: '回到房間',
-    nodePatterns: ['finale-41', 'finale-42', 'finale-43', 'finale-44', 'finale-45'],
-  },
-  {
-    image: IMG48_按取消,
-    alt: '按取消',
-    nodePatterns: ['finale-46', 'finale-47', 'finale-48', 'finale-49', 'finale-50'],
+    nodePatterns: ['chapter16-110', 'chapter16-111', 'chapter16-112', 'chapter16-113', 'chapter16-114', 'chapter16-115', 'chapter16-116', 'chapter16-117', 'chapter16-118'],
   },
   {
     image: IMG49_清晨窗景,
     alt: '清晨窗景',
-    nodePatterns: ['finale-51', 'finale-52', 'finale-53', 'finale-54', 'finale-55'],
+    nodePatterns: ['chapter16-119', 'chapter16-120', 'chapter16-121', 'chapter16-122', 'chapter16-123', 'chapter16-124'],
+  },
+  {
+    image: IMG48_按取消,
+    alt: '按取消',
+    nodePatterns: ['chapter16-'],
+  },
+
+  // === 終章：名字 ===
+  {
+    image: IMG47_回到房間,
+    alt: '房間',
+    nodePatterns: ['epilogue-1', 'epilogue-2', 'epilogue-3', 'epilogue-4', 'epilogue-5', 'epilogue-6', 'epilogue-7', 'epilogue-8', 'epilogue-9', 'epilogue-10', 'epilogue-11', 'epilogue-12', 'epilogue-13', 'epilogue-14', 'epilogue-15', 'epilogue-16', 'epilogue-17', 'epilogue-18', 'epilogue-19', 'epilogue-20', 'epilogue-21', 'epilogue-22', 'epilogue-23', 'epilogue-24', 'epilogue-25', 'epilogue-26', 'epilogue-27', 'epilogue-28'],
   },
   {
     image: IMG50_起身,
-    alt: '起身',
-    nodePatterns: ['finale-56', 'finale-57', 'finale-58', 'finale-59', 'finale-60'],
+    alt: '出版社',
+    nodePatterns: ['epilogue-29', 'epilogue-30', 'epilogue-31', 'epilogue-32', 'epilogue-33', 'epilogue-34', 'epilogue-35', 'epilogue-36', 'epilogue-37', 'epilogue-38', 'epilogue-39', 'epilogue-40', 'epilogue-41', 'epilogue-42', 'epilogue-43', 'epilogue-44', 'epilogue-45', 'epilogue-46', 'epilogue-47', 'epilogue-48', 'epilogue-49', 'epilogue-50', 'epilogue-51', 'epilogue-52', 'epilogue-53', 'epilogue-54'],
+  },
+  {
+    image: IMG49_清晨窗景,
+    alt: '街道',
+    nodePatterns: ['epilogue-55', 'epilogue-56', 'epilogue-57'],
+  },
+  {
+    image: IMG51_新的開始,
+    alt: '書店',
+    nodePatterns: ['epilogue-58', 'epilogue-59', 'epilogue-60', 'epilogue-61', 'epilogue-62', 'epilogue-63', 'epilogue-64', 'epilogue-65', 'epilogue-66', 'epilogue-end'],
   },
   {
     image: IMG51_新的開始,
     alt: '新的開始',
-    nodePatterns: ['finale-', 'chapter15-', 'chapter-15-'],
+    nodePatterns: ['epilogue-'],
   },
 ];
 
