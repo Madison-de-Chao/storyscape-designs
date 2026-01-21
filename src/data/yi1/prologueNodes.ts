@@ -240,7 +240,7 @@ export const yi1PrologueNodes: DialogueNode[] = [
     id: 'prologue-end',
     speaker: 'narrator',
     text: '故事，從這裡開始。\n\n【序章完】',
-    nextNodeId: 'chapter-1-1',
+    nextNodeId: 'yi1-chapter-1-1',
     effect: 'glow',
   },
 ];
