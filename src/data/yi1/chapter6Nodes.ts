@@ -254,7 +254,7 @@ export const chapter6Nodes: DialogueNode[] = [
   {
     id: 'chapter-6-merge-4',
     speaker: 'wangyangming',
-    text: '聖人之道，吾性自足。',
+    text: '**聖人之道，吾性自足。**',
     effect: 'glow',
     nextNodeId: 'chapter-6-merge-5',
   },
@@ -376,7 +376,7 @@ export const chapter6Nodes: DialogueNode[] = [
   {
     id: 'chapter-6-end-1',
     speaker: 'wangyangming',
-    text: '「我是我自己」——這就是答案。',
+    text: '「**我是我自己**」——這就是答案。',
     effect: 'glow',
     nextNodeId: 'chapter-6-end-2',
   },
@@ -401,7 +401,7 @@ export const chapter6Nodes: DialogueNode[] = [
   {
     id: 'chapter-6-end-5',
     speaker: 'wangyangming',
-    text: '這就是「吾性自足」的意思——你不需要去外面找答案，因為答案本來就在你心裡。你不需要別人告訴你「對不對」，因為你自己知道什麼是對的。',
+    text: '這就是「**吾性自足**」的意思——你不需要去外面找答案，因為答案本來就在你心裡。你不需要別人告訴你「對不對」，因為你自己知道什麼是對的。',
     effect: 'glow',
     nextNodeId: 'chapter-6-end-6',
   },
@@ -426,7 +426,7 @@ export const chapter6Nodes: DialogueNode[] = [
   {
     id: 'chapter-6-end-9',
     speaker: 'wangyangming',
-    text: '這就是你的「良知」。每個人心裡都有一個聲音，能夠分辨是非對錯。這個聲音不是學來的，是天生的。',
+    text: '這就是你的「**良知**」。每個人心裡都有一個聲音，能夠分辨是非對錯。這個聲音不是學來的，是天生的。',
     effect: 'glow',
     nextNodeId: 'chapter-6-end-10',
   },

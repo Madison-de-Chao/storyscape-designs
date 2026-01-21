@@ -366,7 +366,7 @@ export const chapter2Nodes: DialogueNode[] = [
   {
     id: 'yi1-chapter-2-58',
     speaker: 'wenxin',
-    text: '完整。',
+    text: '**完整。**',
     effect: 'glow',
     nextNodeId: 'yi1-chapter-2-59',
   },

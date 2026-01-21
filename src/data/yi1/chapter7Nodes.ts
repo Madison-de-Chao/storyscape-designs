@@ -146,7 +146,7 @@ export const chapter7Nodes: DialogueNode[] = [
     id: 'chapter7-22',
     speaker: 'wuzetian',
     speakerName: '武則天',
-    text: '「你不應該。」',
+    text: '「**你不應該。**」',
     nextNodeId: 'chapter7-23',
   },
   {
@@ -167,7 +167,7 @@ export const chapter7Nodes: DialogueNode[] = [
     id: 'chapter7-25',
     speaker: 'wuzetian',
     speakerName: '武則天',
-    text: '你知道我這一生，說過最多的話是什麼嗎？——「為什麼不應該？」',
+    text: '你知道我這一生，說過最多的話是什麼嗎？——「**為什麼不應該？**」',
     nextNodeId: 'chapter7-26',
   },
 
@@ -190,7 +190,7 @@ export const chapter7Nodes: DialogueNode[] = [
     id: 'chapter7-28',
     speaker: 'wuzetian',
     speakerName: '武則天',
-    text: '你知道「資格」這個詞是怎麼來的嗎？「資格」是別人用來限制你的工具。',
+    text: '你知道「資格」這個詞是怎麼來的嗎？**「資格」是別人用來限制你的工具。**',
     nextNodeId: 'chapter7-29',
   },
   {
@@ -203,7 +203,7 @@ export const chapter7Nodes: DialogueNode[] = [
     id: 'chapter7-30',
     speaker: 'wuzetian',
     speakerName: '武則天',
-    text: '那是能力，不是資格。能力是你能不能做這件事，資格是你「配不配」做這件事。能力可以學、可以證明。但資格——是別人給你的標籤。',
+    text: '那是**能力**，不是資格。能力是你能不能做這件事，資格是你「**配不配**」做這件事。能力可以學、可以證明。但資格——是別人給你的標籤。',
     nextNodeId: 'chapter7-31',
   },
 
@@ -352,7 +352,7 @@ export const chapter7Nodes: DialogueNode[] = [
     id: 'chapter7-48',
     speaker: 'wuzetian',
     speakerName: '武則天',
-    text: '你把評價自己的權力，拱手讓給了全世界。',
+    text: '**你把評價自己的權力，拱手讓給了全世界。**',
     nextNodeId: 'chapter7-49',
   },
   {

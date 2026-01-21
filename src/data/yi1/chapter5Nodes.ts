@@ -102,7 +102,7 @@ export const chapter5Nodes: DialogueNode[] = [
   {
     id: 'chapter-5-14',
     speaker: 'sushi',
-    text: '但後來我發現，我錯了。我也有「他們」的那一面。',
+    text: '但後來我發現，我錯了。**我也有「他們」的那一面。**',
     effect: 'glow',
     nextNodeId: 'chapter-5-15',
   },
@@ -182,7 +182,7 @@ export const chapter5Nodes: DialogueNode[] = [
   {
     id: 'chapter-5-merge-1',
     speaker: 'sushi',
-    text: '這就是「明暗相成」的意思。我以為自己是光明，但其實我的光明裡有黑暗。他們看起來是黑暗，但他們的黑暗裡也有光明。',
+    text: '這就是「**明暗相成**」的意思。我以為自己是光明，但其實我的光明裡有黑暗。他們看起來是黑暗，但他們的黑暗裡也有光明。',
     effect: 'glow',
     nextNodeId: 'chapter-5-merge-2',
   },
@@ -253,7 +253,7 @@ export const chapter5Nodes: DialogueNode[] = [
   {
     id: 'chapter-5-merge-12',
     speaker: 'sushi',
-    text: '他們可以否定我的位置，但他們不能否定我的價值。',
+    text: '**他們可以否定我的位置，但他們不能否定我的價值。**',
     effect: 'glow',
     nextNodeId: 'chapter-5-merge-13',
   },
@@ -316,7 +316,7 @@ export const chapter5Nodes: DialogueNode[] = [
   {
     id: 'chapter-5-merge-22',
     speaker: 'sushi',
-    text: '一開始覺得空虛。但後來我發現——那才是自由。當你不再需要證明自己的時候，你才能真正做自己。',
+    text: '一開始覺得空虛。但後來我發現——**那才是自由**。當你不再需要證明自己的時候，你才能真正做自己。',
     effect: 'glow',
     nextNodeId: 'chapter-5-merge-23',
   },
@@ -337,14 +337,14 @@ export const chapter5Nodes: DialogueNode[] = [
   {
     id: 'chapter-5-merge-25',
     speaker: 'sushi',
-    text: '「莫聽穿林打葉聲，何妨吟嘯且徐行。竹杖芒鞋輕勝馬，誰怕？一蓑煙雨任平生。」',
+    text: '「莫聽穿林打葉聲，何妨吟嘯且徐行。竹杖芒鞋輕勝馬，**誰怕？一蓑煙雨任平生。**」',
     effect: 'glow',
     nextNodeId: 'chapter-5-merge-26',
   },
   {
     id: 'chapter-5-merge-26',
     speaker: 'sushi',
-    text: '「回首向來蕭瑟處，歸去，也無風雨也無晴。」',
+    text: '「回首向來蕭瑟處，歸去，**也無風雨也無晴**。」',
     effect: 'glow',
     nextNodeId: 'chapter-5-merge-27',
   },
@@ -357,7 +357,7 @@ export const chapter5Nodes: DialogueNode[] = [
   {
     id: 'chapter-5-merge-28',
     speaker: 'sushi',
-    text: '唯一不變的，是你自己。',
+    text: '**唯一不變的，是你自己。**',
     effect: 'glow',
     nextNodeId: 'chapter-5-choice-2',
   },

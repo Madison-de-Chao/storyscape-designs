@@ -307,7 +307,7 @@ export const chapter8Nodes: DialogueNode[] = [
     id: 'chapter8-42',
     speaker: 'simaqian',
     speakerName: '司馬遷',
-    text: '在我那個年代，我們不叫它「完整」。我們叫它——「成」。成人、成事、成德、成己。所有的「成」，最後都指向同一個東西——把自己活完。',
+    text: '在我那個年代，我們不叫它「完整」。我們叫它——「**成**」。成人、成事、成德、成己。所有的「成」，最後都指向同一個東西——**把自己活完**。',
     nextNodeId: 'chapter8-43',
   },
 
@@ -349,7 +349,7 @@ export const chapter8Nodes: DialogueNode[] = [
     id: 'chapter8-48',
     speaker: 'simaqian',
     speakerName: '司馬遷',
-    text: '所以我選擇——把自己活完。我不是為了活著而活著，我是為了完成那本書而活著。',
+    text: '所以我選擇——**把自己活完**。我不是為了活著而活著，我是為了完成那本書而活著。',
     nextNodeId: 'chapter8-49',
   },
 
@@ -452,7 +452,7 @@ export const chapter8Nodes: DialogueNode[] = [
     id: 'chapter8-58',
     speaker: 'simaqian',
     speakerName: '司馬遷',
-    text: '這些都是表面的。真正的殘缺，只有一種——活不出自己。',
+    text: '這些都是表面的。真正的殘缺，只有一種——**活不出自己**。',
     nextNodeId: 'chapter8-59',
   },
 
