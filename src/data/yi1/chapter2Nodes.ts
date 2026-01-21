@@ -114,6 +114,7 @@ export const chapter2Nodes: DialogueNode[] = [
     speaker: 'wenxin',
     text: '還沒有呢。',
     nextNodeId: 'yi1-chapter-2-17',
+    emotionSFX: 'gentle_laugh',
   },
   {
     id: 'yi1-chapter-2-17',
@@ -150,6 +151,7 @@ export const chapter2Nodes: DialogueNode[] = [
     speaker: 'wenxin',
     text: '我是問心使者。你可以叫我——問心。',
     nextNodeId: 'yi1-chapter-2-23',
+    emotionSFX: 'mysterious_whisper',
   },
   {
     id: 'yi1-chapter-2-23',
@@ -369,6 +371,7 @@ export const chapter2Nodes: DialogueNode[] = [
     text: '**完整。**',
     effect: 'glow',
     nextNodeId: 'yi1-chapter-2-59',
+    emotionSFX: 'mysterious_whisper',
   },
   {
     id: 'yi1-chapter-2-59',
