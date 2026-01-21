@@ -113,15 +113,15 @@ const implementedChapters: ChapterInfo[] = [
     character: '曼德拉',
     unlocked: true,
   },
-  // 未實作的章節（鎖定）
   {
     id: 'chapter-12',
-    startNodeId: '',
+    startNodeId: 'chapter12-1',
     title: '第十二章',
     subtitle: '星夜',
     character: '梵谷',
-    unlocked: false,
+    unlocked: true,
   },
+  // 未實作的章節（鎖定）
   {
     id: 'chapter-13',
     startNodeId: '',

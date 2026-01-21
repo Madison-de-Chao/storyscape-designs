@@ -36,6 +36,7 @@ const getChapterTitle = (nodeId: string): string => {
   if (normalizedId.startsWith('chapter-9-') || normalizedId.startsWith('chapter9-')) return '第九章・天生我材';
   if (normalizedId.startsWith('chapter-10-') || normalizedId.startsWith('chapter10-')) return '第十章・海倫凱勒';
   if (normalizedId.startsWith('chapter-11-') || normalizedId.startsWith('chapter11-')) return '第十一章・曼德拉';
+  if (normalizedId.startsWith('chapter-12-') || normalizedId.startsWith('chapter12-')) return '第十二章・星夜';
 
   return '序章';
 };
