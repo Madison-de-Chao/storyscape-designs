@@ -50,6 +50,48 @@ const EMOTION_PRESETS = [
     prompt: "A young woman's sad, melancholic sigh. A deep, trembling breath followed by a soft, sorrowful exhale. Realistic female voice filled with grief and longing",
     duration: 2,
   },
+  {
+    id: 'surprise',
+    label: '驚訝',
+    emoji: '😲',
+    prompt: "A young woman's surprised gasp. A sudden sharp intake of breath followed by a soft 'oh!' with rising intonation. Realistic female voice expressing genuine shock and wonder",
+    duration: 1.5,
+  },
+  {
+    id: 'excitement',
+    label: '興奮',
+    emoji: '🤩',
+    prompt: "A young woman's excited squeal. A quick, high-pitched giggle bursting with joy and enthusiasm. Breathless and energetic with infectious happiness. Realistic female voice, youthful and thrilled",
+    duration: 2,
+  },
+  {
+    id: 'fear',
+    label: '恐懼',
+    emoji: '😨',
+    prompt: "A young woman's fearful whimper. A trembling, shaky breath followed by a quiet, terrified gasp. Voice quivering with dread and vulnerability. Realistic female voice expressing deep fear",
+    duration: 2,
+  },
+  {
+    id: 'gentle_laugh',
+    label: '溫柔笑聲',
+    emoji: '🥰',
+    prompt: "A young woman's gentle, warm laugh. Soft and melodic, like sunlight through leaves. A quiet, affectionate chuckle that conveys kindness and comfort. Realistic female voice, soothing and sweet",
+    duration: 2,
+  },
+  {
+    id: 'frustration',
+    label: '煩躁',
+    emoji: '😫',
+    prompt: "A young woman's frustrated groan. An exasperated sigh followed by a muttered complaint. Tense and impatient with barely contained irritation. Realistic female voice expressing annoyance",
+    duration: 2,
+  },
+  {
+    id: 'seductive',
+    label: '魅惑',
+    emoji: '💋',
+    prompt: "A young woman's seductive whisper. Low, breathy, and alluring. A soft, drawn-out hum followed by a quiet, inviting chuckle. Realistic female voice, sultry and mysterious",
+    duration: 2.5,
+  },
 ];
 
 const SFXGenerator = ({ onClose }: SFXGeneratorProps) => {
