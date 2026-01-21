@@ -120,6 +120,7 @@ export const epilogueNodes: DialogueNode[] = [
     speaker: 'narrator',
     text: '**這個故事從來不是「未完成」。它在三年前就完成了。她只是——不敢承認它完成了。**',
     effect: 'glow',
+    emotionSFX: 'gentle_laugh',
     nextNodeId: 'epilogue-20',
   },
   {
@@ -323,6 +324,7 @@ export const epilogueNodes: DialogueNode[] = [
     speaker: 'narrator',
     text: '她終於明白——**所有的事物，在它被創造出來的那一刻，就已經是完整的。**',
     effect: 'glow',
+    emotionSFX: 'mysterious_whisper',
     nextNodeId: 'epilogue-52',
   },
   {
@@ -412,6 +414,7 @@ export const epilogueNodes: DialogueNode[] = [
     speaker: 'narrator',
     text: '**她是她自己。不多，不少。剛剛好。**',
     effect: 'glow',
+    emotionSFX: 'gentle_laugh',
     nextNodeId: 'epilogue-66',
   },
 
@@ -421,6 +424,7 @@ export const epilogueNodes: DialogueNode[] = [
     speaker: 'narrator',
     text: '**壹即全，全即壹。伊即壹，壹即伊。**',
     effect: 'glow',
+    emotionSFX: 'mysterious_whisper',
     nextNodeId: 'epilogue-end',
   },
 

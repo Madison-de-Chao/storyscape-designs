@@ -317,6 +317,7 @@ export const chapter16Nodes: DialogueNode[] = [
     speaker: 'narrator',
     text: '**她是——壹。**',
     effect: 'glow',
+    emotionSFX: 'gentle_laugh',
     nextNodeId: 'chapter16-50',
   },
   {
@@ -458,6 +459,7 @@ export const chapter16Nodes: DialogueNode[] = [
     speaker: 'narrator',
     text: '**燈亮了。**',
     effect: 'glow',
+    emotionSFX: 'surprise',
     nextNodeId: 'chapter16-72',
   },
   {
@@ -728,6 +730,7 @@ export const chapter16Nodes: DialogueNode[] = [
     speaker: 'narrator',
     text: '她點擊了——**「取消」**。',
     effect: 'glow',
+    emotionSFX: 'gentle_laugh',
     nextNodeId: 'chapter16-115',
   },
   {
@@ -783,6 +786,7 @@ export const chapter16Nodes: DialogueNode[] = [
     speaker: 'narrator',
     text: '**她在做她想做的事。不是別人要她做的事。不是她「應該」做的事。是她「想要」做的事。**',
     effect: 'glow',
+    emotionSFX: 'gentle_laugh',
     nextNodeId: 'chapter16-124',
   },
   {
