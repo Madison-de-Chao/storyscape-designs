@@ -47,7 +47,8 @@ export type SFXType =
   | 'dialogue_advance'
   | 'menu_open'
   | 'menu_close'
-  | 'unlock';
+  | 'unlock'
+  | 'chapter_transition';  // 章節過場音效
 
 // 場景音效類型
 export type AmbientType = 
@@ -160,6 +161,7 @@ const SFX_PATHS: Record<SFXType, string> = {
   menu_open: '/audio/sfx/menu_open.mp3',
   menu_close: '/audio/sfx/menu_close.mp3',
   unlock: '/audio/sfx/unlock.mp3',
+  chapter_transition: '/audio/sfx/chapter_transition.mp3',
 };
 
 const AMBIENT_PATHS: Record<AmbientType, string> = {
