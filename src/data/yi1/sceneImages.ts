@@ -130,17 +130,32 @@ export const sceneImages: SceneImageConfig[] = [
     nodePatterns: ['chapter-4-51', 'chapter-4-52', 'chapter-4-53', 'chapter-4-54', 'chapter-4-55', 'chapter-4-56', 'chapter-4-57', 'chapter-4-58', 'chapter-4-59', 'chapter-4-60', 'chapter-4-choice-2', 'chapter-4-end'],
   },
 
-  // === 第五章：一性自足 ===
+  // === 第五章：也無風雨也無晴 ===
+  {
+    image: IMG11_蘇軾命樹,
+    alt: '蘇軾庭院',
+    nodePatterns: ['chapter-5-intro', 'chapter-5-1', 'chapter-5-2', 'chapter-5-3', 'chapter-5-4', 'chapter-5-5', 'chapter-5-6', 'chapter-5-7', 'chapter-5-8', 'chapter-5-9', 'chapter-5-10', 'chapter-5-11', 'chapter-5-12', 'chapter-5-13', 'chapter-5-14', 'chapter-5-15', 'chapter-5-16', 'chapter-5-17', 'chapter-5-18', 'chapter-5-19', 'chapter-5-20'],
+  },
   {
     image: IMG12_命樹特寫,
     alt: '命樹特寫',
+    nodePatterns: ['chapter-5-21', 'chapter-5-22', 'chapter-5-23', 'chapter-5-24', 'chapter-5-25', 'chapter-5-26', 'chapter-5-27', 'chapter-5-28', 'chapter-5-29', 'chapter-5-30', 'chapter-5-31', 'chapter-5-32', 'chapter-5-33', 'chapter-5-34', 'chapter-5-35', 'chapter-5-36', 'chapter-5-37', 'chapter-5-38', 'chapter-5-39', 'chapter-5-40'],
+  },
+  {
+    image: IMG14_弧度林全景,
+    alt: '弧度林',
     nodePatterns: ['chapter-5-'],
   },
 
-  // === 第六章：龍場悟道 ===
+  // === 第六章：吾性自足（王陽明龍場）===
   {
     image: IMG09_王陽明,
-    alt: '王陽明龍場',
+    alt: '王陽明',
+    nodePatterns: ['chapter-6-intro', 'chapter-6-1', 'chapter-6-2', 'chapter-6-3', 'chapter-6-4', 'chapter-6-5', 'chapter-6-6', 'chapter-6-7', 'chapter-6-8', 'chapter-6-9', 'chapter-6-10', 'chapter-6-11', 'chapter-6-12', 'chapter-6-13', 'chapter-6-14', 'chapter-6-15', 'chapter-6-16', 'chapter-6-17', 'chapter-6-18', 'chapter-6-19', 'chapter-6-20'],
+  },
+  {
+    image: IMG10_心即理,
+    alt: '心即理',
     nodePatterns: ['chapter-6-'],
   },
 
@@ -148,70 +163,75 @@ export const sceneImages: SceneImageConfig[] = [
   {
     image: IMG18_女子畫廊,
     alt: '女子畫廊',
-    nodePatterns: ['chapter7-1', 'chapter7-2', 'chapter7-3', 'chapter7-4', 'chapter7-5', 'chapter7-6', 'chapter7-7', 'chapter7-8', 'chapter7-9', 'chapter7-10'],
+    nodePatterns: ['chapter7-1', 'chapter7-2', 'chapter7-3', 'chapter7-4', 'chapter7-5', 'chapter7-6', 'chapter7-7', 'chapter7-8', 'chapter7-9', 'chapter7-10', 'chapter-7-1', 'chapter-7-2', 'chapter-7-3', 'chapter-7-4', 'chapter-7-5', 'chapter-7-6', 'chapter-7-7', 'chapter-7-8', 'chapter-7-9', 'chapter-7-10'],
   },
   {
     image: IMG20_朱紅鳳門,
     alt: '朱紅鳳門',
-    nodePatterns: ['chapter7-11', 'chapter7-12', 'chapter7-13', 'chapter7-14', 'chapter7-15', 'chapter7-16', 'chapter7-17', 'chapter7-18', 'chapter7-19', 'chapter7-20'],
+    nodePatterns: ['chapter7-11', 'chapter7-12', 'chapter7-13', 'chapter7-14', 'chapter7-15', 'chapter7-16', 'chapter7-17', 'chapter7-18', 'chapter7-19', 'chapter7-20', 'chapter-7-11', 'chapter-7-12', 'chapter-7-13', 'chapter-7-14', 'chapter-7-15', 'chapter-7-16', 'chapter-7-17', 'chapter-7-18', 'chapter-7-19', 'chapter-7-20'],
   },
   {
     image: IMG19_武則天,
     alt: '武則天',
-    nodePatterns: ['chapter7-'],
+    nodePatterns: ['chapter7-', 'chapter-7-'],
   },
 
   // === 第八章：筆比命長（司馬遷）===
   {
     image: IMG16_司馬遷書房,
     alt: '司馬遷書房',
-    nodePatterns: ['chapter8-1', 'chapter8-2', 'chapter8-3', 'chapter8-4', 'chapter8-5', 'chapter8-6', 'chapter8-7', 'chapter8-8', 'chapter8-9', 'chapter8-10', 'chapter8-11', 'chapter8-12', 'chapter8-13', 'chapter8-14', 'chapter8-15', 'chapter8-16', 'chapter8-17', 'chapter8-18', 'chapter8-19', 'chapter8-20', 'chapter8-21', 'chapter8-22', 'chapter8-23', 'chapter8-24', 'chapter8-25'],
+    nodePatterns: ['chapter8-1', 'chapter8-2', 'chapter8-3', 'chapter8-4', 'chapter8-5', 'chapter8-6', 'chapter8-7', 'chapter8-8', 'chapter8-9', 'chapter8-10', 'chapter8-11', 'chapter8-12', 'chapter8-13', 'chapter8-14', 'chapter8-15', 'chapter8-16', 'chapter8-17', 'chapter8-18', 'chapter8-19', 'chapter8-20', 'chapter-8-1', 'chapter-8-2', 'chapter-8-3', 'chapter-8-4', 'chapter-8-5', 'chapter-8-6', 'chapter-8-7', 'chapter-8-8', 'chapter-8-9', 'chapter-8-10', 'chapter-8-11', 'chapter-8-12', 'chapter-8-13', 'chapter-8-14', 'chapter-8-15', 'chapter-8-16', 'chapter-8-17', 'chapter-8-18', 'chapter-8-19', 'chapter-8-20'],
   },
   {
     image: IMG17_書匣打開,
     alt: '書匣打開',
-    nodePatterns: ['chapter8-'],
+    nodePatterns: ['chapter8-', 'chapter-8-'],
   },
 
   // === 第九章：天生我材（李白）===
   {
     image: IMG21_李白月下醉臥,
     alt: '李白月下醉臥',
-    nodePatterns: ['chapter9-1', 'chapter9-2', 'chapter9-3', 'chapter9-4', 'chapter9-5', 'chapter9-6', 'chapter9-7', 'chapter9-8', 'chapter9-9', 'chapter9-10', 'chapter9-11', 'chapter9-12', 'chapter9-13', 'chapter9-14', 'chapter9-15', 'chapter9-16', 'chapter9-17', 'chapter9-18', 'chapter9-19', 'chapter9-20', 'chapter9-21', 'chapter9-22', 'chapter9-23', 'chapter9-24', 'chapter9-25'],
+    nodePatterns: ['chapter9-1', 'chapter9-2', 'chapter9-3', 'chapter9-4', 'chapter9-5', 'chapter9-6', 'chapter9-7', 'chapter9-8', 'chapter9-9', 'chapter9-10', 'chapter9-11', 'chapter9-12', 'chapter9-13', 'chapter9-14', 'chapter9-15', 'chapter9-16', 'chapter9-17', 'chapter9-18', 'chapter9-19', 'chapter9-20', 'chapter-9-1', 'chapter-9-2', 'chapter-9-3', 'chapter-9-4', 'chapter-9-5', 'chapter-9-6', 'chapter-9-7', 'chapter-9-8', 'chapter-9-9', 'chapter-9-10', 'chapter-9-11', 'chapter-9-12', 'chapter-9-13', 'chapter-9-14', 'chapter-9-15', 'chapter-9-16', 'chapter-9-17', 'chapter-9-18', 'chapter-9-19', 'chapter-9-20'],
   },
   {
     image: IMG22_詩句化光,
     alt: '詩句化光',
-    nodePatterns: ['chapter9-'],
+    nodePatterns: ['chapter9-', 'chapter-9-'],
   },
 
-  // === 第十章：權力與愛（凱薩與克麗奧佩特拉）===
+  // === 第十章：海倫凱勒 ===
   {
-    image: IMG29_梵谷星夜,
-    alt: '歐式花園',
-    nodePatterns: ['chapter10-1', 'chapter10-2', 'chapter10-3', 'chapter10-4', 'chapter10-5', 'chapter10-6', 'chapter10-7', 'chapter10-8', 'chapter10-9', 'chapter10-10', 'chapter10-11', 'chapter10-12', 'chapter10-13', 'chapter10-14', 'chapter10-15', 'chapter10-16', 'chapter10-17', 'chapter10-18', 'chapter10-19', 'chapter10-20'],
+    image: IMG26_海倫凱勒,
+    alt: '海倫凱勒',
+    nodePatterns: ['chapter10-1', 'chapter10-2', 'chapter10-3', 'chapter10-4', 'chapter10-5', 'chapter10-6', 'chapter10-7', 'chapter10-8', 'chapter10-9', 'chapter10-10', 'chapter10-11', 'chapter10-12', 'chapter10-13', 'chapter10-14', 'chapter10-15', 'chapter-10-1', 'chapter-10-2', 'chapter-10-3', 'chapter-10-4', 'chapter-10-5', 'chapter-10-6', 'chapter-10-7', 'chapter-10-8', 'chapter-10-9', 'chapter-10-10', 'chapter-10-11', 'chapter-10-12', 'chapter-10-13', 'chapter-10-14', 'chapter-10-15'],
   },
   {
-    image: IMG30_畫布流動,
-    alt: '權力對話',
-    nodePatterns: ['chapter10-'],
+    image: IMG27_觸覺世界,
+    alt: '觸覺世界',
+    nodePatterns: ['chapter10-16', 'chapter10-17', 'chapter10-18', 'chapter10-19', 'chapter10-20', 'chapter10-21', 'chapter10-22', 'chapter10-23', 'chapter10-24', 'chapter10-25', 'chapter10-26', 'chapter10-27', 'chapter10-28', 'chapter10-29', 'chapter10-30', 'chapter-10-16', 'chapter-10-17', 'chapter-10-18', 'chapter-10-19', 'chapter-10-20', 'chapter-10-21', 'chapter-10-22', 'chapter-10-23', 'chapter-10-24', 'chapter-10-25', 'chapter-10-26', 'chapter-10-27', 'chapter-10-28', 'chapter-10-29', 'chapter-10-30'],
+  },
+  {
+    image: IMG28_心靈之眼,
+    alt: '心靈之眼',
+    nodePatterns: ['chapter10-', 'chapter-10-'],
   },
 
   // === 第十一章：毒藥（曼德拉）===
   {
     image: IMG24_牢籠成花園,
     alt: '曼德拉花園',
-    nodePatterns: ['chapter11-1', 'chapter11-2', 'chapter11-3', 'chapter11-4', 'chapter11-5', 'chapter11-6', 'chapter11-7', 'chapter11-8', 'chapter11-9', 'chapter11-10', 'chapter11-11', 'chapter11-12', 'chapter11-13', 'chapter11-14', 'chapter11-15', 'chapter11-16', 'chapter11-17', 'chapter11-18', 'chapter11-19', 'chapter11-20'],
+    nodePatterns: ['chapter11-1', 'chapter11-2', 'chapter11-3', 'chapter11-4', 'chapter11-5', 'chapter11-6', 'chapter11-7', 'chapter11-8', 'chapter11-9', 'chapter11-10', 'chapter11-11', 'chapter11-12', 'chapter11-13', 'chapter11-14', 'chapter11-15', 'chapter-11-1', 'chapter-11-2', 'chapter-11-3', 'chapter-11-4', 'chapter-11-5', 'chapter-11-6', 'chapter-11-7', 'chapter-11-8', 'chapter-11-9', 'chapter-11-10', 'chapter-11-11', 'chapter-11-12', 'chapter-11-13', 'chapter-11-14', 'chapter-11-15'],
   },
   {
     image: IMG23_曼德拉鐵窗,
     alt: '曼德拉鐵窗',
-    nodePatterns: ['chapter11-21', 'chapter11-22', 'chapter11-23', 'chapter11-24', 'chapter11-25', 'chapter11-26', 'chapter11-27', 'chapter11-28', 'chapter11-29', 'chapter11-30', 'chapter11-31', 'chapter11-32', 'chapter11-33', 'chapter11-34', 'chapter11-35', 'chapter11-36', 'chapter11-37', 'chapter11-38', 'chapter11-39', 'chapter11-40'],
+    nodePatterns: ['chapter11-16', 'chapter11-17', 'chapter11-18', 'chapter11-19', 'chapter11-20', 'chapter11-21', 'chapter11-22', 'chapter11-23', 'chapter11-24', 'chapter11-25', 'chapter11-26', 'chapter11-27', 'chapter11-28', 'chapter11-29', 'chapter11-30', 'chapter-11-16', 'chapter-11-17', 'chapter-11-18', 'chapter-11-19', 'chapter-11-20', 'chapter-11-21', 'chapter-11-22', 'chapter-11-23', 'chapter-11-24', 'chapter-11-25', 'chapter-11-26', 'chapter-11-27', 'chapter-11-28', 'chapter-11-29', 'chapter-11-30'],
   },
   {
     image: IMG25_寬恕釋放,
     alt: '寬恕釋放',
-    nodePatterns: ['chapter11-'],
+    nodePatterns: ['chapter11-', 'chapter-11-'],
   },
 ];
 
