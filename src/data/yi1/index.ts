@@ -14,6 +14,7 @@ import { chapter8Nodes } from './chapter8Nodes';
 import { chapter9Nodes } from './chapter9Nodes';
 import { chapter10Nodes } from './chapter10Nodes';
 import { chapter11Nodes } from './chapter11Nodes';
+import { chapter12Nodes } from './chapter12Nodes';
 
 // 合併所有節點
 export const yi1AllNodes: DialogueNode[] = [
@@ -30,6 +31,7 @@ export const yi1AllNodes: DialogueNode[] = [
   ...chapter9Nodes,
   ...chapter10Nodes,
   ...chapter11Nodes,
+  ...chapter12Nodes,
   // TODO: 後續章節將在此添加
 ];
 

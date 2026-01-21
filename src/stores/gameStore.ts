@@ -117,6 +117,7 @@ const chapterNodeCounts: Record<string, number> = {
   'chapter-9': 50,
   'chapter-10': 50,
   'chapter-11': 50,
+  'chapter-12': 87,
 };
 
 // 根據節點 ID 獲取章節 ID
