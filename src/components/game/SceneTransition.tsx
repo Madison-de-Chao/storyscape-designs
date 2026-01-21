@@ -1,7 +1,7 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { useEffect, useState, useMemo } from 'react';
 import { getChapterTheme, themeToHSL, themeToGlow, type ChapterTheme } from '@/utils/chapterThemes';
-import { useSFX } from '@/hooks/useAudio';
+import { useSFX, getChapterTransitionSFX } from '@/hooks/useAudio';
 
 interface SceneTransitionProps {
   isTransitioning: boolean;
@@ -23,7 +23,7 @@ const SceneTransition = ({
   chapterKey,
   onTransitionComplete,
 }: SceneTransitionProps) => {
-  const { playSFX } = useSFX();
+  const { playChapterTransitionSFX } = useSFX();
   const [showContent, setShowContent] = useState(false);
   const [phase, setPhase] = useState<'enter' | 'display' | 'exit'>('enter');
 
@@ -32,12 +32,13 @@ const SceneTransition = ({
     return getChapterTheme(chapterKey || 'preface');
   }, [chapterKey]);
 
-  // 過場開始時播放音效
+  // 過場開始時播放對應章節的過場音效
   useEffect(() => {
     if (isTransitioning && transitionType === 'chapter') {
-      playSFX('chapter_transition');
+      const sfxType = getChapterTransitionSFX(chapterKey || 'preface');
+      playChapterTransitionSFX(sfxType);
     }
-  }, [isTransitioning, transitionType, playSFX]);
+  }, [isTransitioning, transitionType, chapterKey, playChapterTransitionSFX]);
 
   useEffect(() => {
     if (isTransitioning && transitionType === 'chapter') {

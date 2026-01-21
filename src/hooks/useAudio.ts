@@ -50,6 +50,36 @@ export type SFXType =
   | 'unlock'
   | 'chapter_transition';  // 章節過場音效
 
+// 情緒音效類型
+export type EmotionSFXType = 
+  | 'gentle_laugh'
+  | 'gentle_laugh_1'
+  | 'gentle_laugh_2'
+  | 'frustration'
+  | 'frustration_1'
+  | 'seductive'
+  | 'seductive_1'
+  | 'fear'
+  | 'fear_1'
+  | 'surprise'
+  | 'sad_sigh'
+  | 'sad_sigh_1'
+  | 'evil_giggle'
+  | 'evil_giggle_1'
+  | 'evil_giggle_2'
+  | 'mysterious_whisper'
+  | 'mysterious_whisper_1'
+  | 'mockery';
+
+// 章節過場音效類型（1-6 循環使用）
+export type ChapterTransitionSFXType = 
+  | 'chapter_transition_1'
+  | 'chapter_transition_2'
+  | 'chapter_transition_3'
+  | 'chapter_transition_4'
+  | 'chapter_transition_5'
+  | 'chapter_transition_6';
+
 // 場景音效類型
 export type AmbientType = 
   | 'void'           // 虛空（作者序、靈魂抽離）
@@ -161,8 +191,54 @@ const SFX_PATHS: Record<SFXType, string> = {
   menu_open: '/audio/sfx/menu_open.mp3',
   menu_close: '/audio/sfx/menu_close.mp3',
   unlock: '/audio/sfx/unlock.mp3',
-  chapter_transition: '/audio/sfx/chapter_transition.mp3',
+  chapter_transition: '/audio/sfx/chapter_transition_1.mp3',
 };
+
+// 情緒音效路徑映射
+const EMOTION_SFX_PATHS: Record<EmotionSFXType, string> = {
+  gentle_laugh: '/audio/sfx/gentle_laugh.mp3',
+  gentle_laugh_1: '/audio/sfx/gentle_laugh_1.mp3',
+  gentle_laugh_2: '/audio/sfx/gentle_laugh_2.mp3',
+  frustration: '/audio/sfx/frustration.mp3',
+  frustration_1: '/audio/sfx/frustration_1.mp3',
+  seductive: '/audio/sfx/seductive.mp3',
+  seductive_1: '/audio/sfx/seductive_1.mp3',
+  fear: '/audio/sfx/fear.mp3',
+  fear_1: '/audio/sfx/fear_1.mp3',
+  surprise: '/audio/sfx/surprise.mp3',
+  sad_sigh: '/audio/sfx/sad_sigh.mp3',
+  sad_sigh_1: '/audio/sfx/sad_sigh_1.mp3',
+  evil_giggle: '/audio/sfx/evil_giggle.mp3',
+  evil_giggle_1: '/audio/sfx/evil_giggle_1.mp3',
+  evil_giggle_2: '/audio/sfx/evil_giggle_2.mp3',
+  mysterious_whisper: '/audio/sfx/mysterious_whisper.mp3',
+  mysterious_whisper_1: '/audio/sfx/mysterious_whisper_1.mp3',
+  mockery: '/audio/sfx/mockery.mp3',
+};
+
+// 章節過場音效路徑映射
+const CHAPTER_TRANSITION_SFX_PATHS: Record<ChapterTransitionSFXType, string> = {
+  chapter_transition_1: '/audio/sfx/chapter_transition_1.mp3',
+  chapter_transition_2: '/audio/sfx/chapter_transition_2.mp3',
+  chapter_transition_3: '/audio/sfx/chapter_transition_3.mp3',
+  chapter_transition_4: '/audio/sfx/chapter_transition_4.mp3',
+  chapter_transition_5: '/audio/sfx/chapter_transition_5.mp3',
+  chapter_transition_6: '/audio/sfx/chapter_transition_6.mp3',
+};
+
+// 根據章節編號獲取過場音效類型（1-12 章使用 1-6 循環，之後同理）
+export function getChapterTransitionSFX(chapterKey: string): ChapterTransitionSFXType {
+  // 從 chapter-1, chapter-2 等提取章節編號
+  const match = chapterKey.match(/chapter-?(\d+)/i);
+  if (match) {
+    const chapterNum = parseInt(match[1], 10);
+    // 1-6 循環對應（章節 1 用 1, 章節 7 用 1, ...）
+    const sfxIndex = ((chapterNum - 1) % 6) + 1;
+    return `chapter_transition_${sfxIndex}` as ChapterTransitionSFXType;
+  }
+  // preface 與 prologue 使用 1 號
+  return 'chapter_transition_1';
+}
 
 const AMBIENT_PATHS: Record<AmbientType, string> = {
   void: '/audio/ambient/void.mp3',
@@ -237,7 +313,43 @@ export const useSFX = () => {
     });
   }, [masterVolume, sfxVolume, isMuted]);
 
-  return { playSFX };
+  // 播放情緒音效
+  const playEmotionSFX = useCallback((type: EmotionSFXType) => {
+    if (isMuted) return;
+
+    const path = EMOTION_SFX_PATHS[type];
+    if (!path) return;
+
+    let audio = audioCache.current.get(path);
+    if (!audio) {
+      audio = new Audio(path);
+      audioCache.current.set(path, audio);
+    }
+
+    audio.currentTime = 0;
+    audio.volume = masterVolume * sfxVolume;
+    audio.play().catch(() => {});
+  }, [masterVolume, sfxVolume, isMuted]);
+
+  // 播放章節過場音效
+  const playChapterTransitionSFX = useCallback((type: ChapterTransitionSFXType) => {
+    if (isMuted) return;
+
+    const path = CHAPTER_TRANSITION_SFX_PATHS[type];
+    if (!path) return;
+
+    let audio = audioCache.current.get(path);
+    if (!audio) {
+      audio = new Audio(path);
+      audioCache.current.set(path, audio);
+    }
+
+    audio.currentTime = 0;
+    audio.volume = masterVolume * sfxVolume;
+    audio.play().catch(() => {});
+  }, [masterVolume, sfxVolume, isMuted]);
+
+  return { playSFX, playEmotionSFX, playChapterTransitionSFX };
 };
 
 // 全域音訊管理器（避免多個實例問題）
