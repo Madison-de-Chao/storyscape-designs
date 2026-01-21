@@ -1,0 +1,560 @@
+// 第八章｜筆比命長 - 司馬遷
+import type { DialogueNode } from '@/stores/gameStore';
+
+export const chapter8Nodes: DialogueNode[] = [
+  // 開場：迷路
+  {
+    id: 'chapter8-1',
+    speaker: 'narrator',
+    text: '她迷路了。不知道從什麼時候開始，問心不見了。走廊還是那條走廊，但怎麼走都走不到盡頭。',
+    nextNodeId: 'chapter8-2',
+  },
+  {
+    id: 'chapter8-2',
+    speaker: 'protagonist',
+    text: '問心？問心！',
+    nextNodeId: 'chapter8-3',
+  },
+  {
+    id: 'chapter8-3',
+    speaker: 'narrator',
+    text: '一個聲音從旁邊傳來。走廊的牆上不知道什麼時候多了一扇門，門半開著，裡面透出昏黃的燭光。',
+    nextNodeId: 'chapter8-4',
+  },
+  {
+    id: 'chapter8-4',
+    speaker: 'simaqian',
+    speakerName: '???',
+    text: '進來吧。在外面喊也沒用，問心聽不見。',
+    nextNodeId: 'chapter8-5',
+  },
+  {
+    id: 'chapter8-5',
+    speaker: 'protagonist',
+    text: '你是誰？',
+    nextNodeId: 'chapter8-6',
+  },
+  {
+    id: 'chapter8-6',
+    speaker: 'simaqian',
+    speakerName: '???',
+    text: '一個寫字的。',
+    nextNodeId: 'chapter8-7',
+  },
+
+  // 進入書房
+  {
+    id: 'chapter8-7',
+    speaker: 'narrator',
+    text: '她推開門。裡面是一間書房，沒有華麗的裝飾，只有滿牆的竹簡、滿桌的絹帛、滿地的寫壞的竹簡，堆得像小山一樣。',
+    nextNodeId: 'chapter8-8',
+  },
+  {
+    id: 'chapter8-8',
+    speaker: 'simaqian',
+    speakerName: '司馬遷',
+    text: '小心，別踩到。抱歉，有點亂，最近在趕稿。',
+    nextNodeId: 'chapter8-9',
+  },
+  {
+    id: 'chapter8-9',
+    speaker: 'narrator',
+    text: '書桌後面坐著一個男人，五十多歲，身形瘦削，臉色有些蒼白。穿著一件洗得發白的灰袍，正低著頭在竹簡上刻字。',
+    nextNodeId: 'chapter8-10',
+  },
+  {
+    id: 'chapter8-10',
+    speaker: 'protagonist',
+    text: '你就是……司馬遷？《史記》不是早就寫完了嗎？',
+    nextNodeId: 'chapter8-11',
+  },
+  {
+    id: 'chapter8-11',
+    speaker: 'simaqian',
+    speakerName: '司馬遷',
+    text: '寫完了。但我想修。有些地方寫得不夠好，在地球上的時候沒時間改，現在有的是時間。',
+    nextNodeId: 'chapter8-12',
+  },
+  {
+    id: 'chapter8-12',
+    speaker: 'narrator',
+    text: '她聽出了他語氣裡的固執。一種「我這輩子就幹這一件事」的固執。',
+    nextNodeId: 'chapter8-13',
+  },
+
+  // 心死
+  {
+    id: 'chapter8-13',
+    speaker: 'simaqian',
+    speakerName: '司馬遷',
+    text: '坐吧。問心說你有什麼……習得性無助？什麼意思？',
+    nextNodeId: 'chapter8-14',
+  },
+  {
+    id: 'chapter8-14',
+    speaker: 'protagonist',
+    text: '就是……覺得自己做什麼都沒用，努力也沒用，所以乾脆放棄。',
+    nextNodeId: 'chapter8-15',
+  },
+  {
+    id: 'chapter8-15',
+    speaker: 'simaqian',
+    speakerName: '司馬遷',
+    text: '哦，你們現在把這個叫「習得性無助」？我們那時候，把這個叫「心死」。',
+    nextNodeId: 'chapter8-16',
+  },
+  {
+    id: 'chapter8-16',
+    speaker: 'narrator',
+    text: '心死。這個詞比「習得性無助」直接多了，也殘忍多了。',
+    nextNodeId: 'chapter8-17',
+  },
+  {
+    id: 'chapter8-17',
+    speaker: 'simaqian',
+    speakerName: '司馬遷',
+    text: '你的心死了嗎？',
+    nextNodeId: 'chapter8-18',
+  },
+  {
+    id: 'chapter8-18',
+    speaker: 'protagonist',
+    text: '可能……死了一半？',
+    nextNodeId: 'chapter8-19',
+  },
+  {
+    id: 'chapter8-19',
+    speaker: 'simaqian',
+    speakerName: '司馬遷',
+    text: '一半？那還有救。全死了才沒救，死一半，說明還有一半是活的。',
+    nextNodeId: 'chapter8-20',
+  },
+
+  // 司馬遷的經歷
+  {
+    id: 'chapter8-20',
+    speaker: 'simaqian',
+    speakerName: '司馬遷',
+    text: '你知道我經歷過什麼嗎？',
+    nextNodeId: 'chapter8-21',
+  },
+  {
+    id: 'chapter8-21',
+    speaker: 'protagonist',
+    text: '知道一點……你受了宮刑。',
+    nextNodeId: 'chapter8-22',
+  },
+  {
+    id: 'chapter8-22',
+    speaker: 'simaqian',
+    speakerName: '司馬遷',
+    text: '對，我被閹了。因為我替李陵說了一句公道話——他不是貪生怕死，他是寡不敵眾。然後皇帝就把我下了獄，判了死刑。',
+    nextNodeId: 'chapter8-23',
+  },
+  {
+    id: 'chapter8-23',
+    speaker: 'protagonist',
+    text: '死刑？可是你沒有死啊。',
+    nextNodeId: 'chapter8-24',
+  },
+  {
+    id: 'chapter8-24',
+    speaker: 'simaqian',
+    speakerName: '司馬遷',
+    text: '因為我選了另一條路。在那個時代，死刑犯有兩個選擇：花錢贖罪，或者受宮刑。我沒有錢。所以我選了被閹。',
+    nextNodeId: 'chapter8-25',
+  },
+  {
+    id: 'chapter8-25',
+    speaker: 'protagonist',
+    text: '你不恨嗎？',
+    nextNodeId: 'chapter8-26',
+  },
+  {
+    id: 'chapter8-26',
+    speaker: 'simaqian',
+    speakerName: '司馬遷',
+    text: '恨過。後來沒時間恨了，我要寫書。我父親臨死前交給我的任務。他說，我們司馬家世代都是史官，不能讓歷史斷在我們手裡。',
+    nextNodeId: 'chapter8-27',
+  },
+  {
+    id: 'chapter8-27',
+    speaker: 'simaqian',
+    speakerName: '司馬遷',
+    text: '當時我想過死。死了就不用受那個屈辱了。但我不甘心帶著一本沒寫完的書去死。',
+    nextNodeId: 'chapter8-28',
+  },
+
+  // 廢人與使命
+  {
+    id: 'chapter8-28',
+    speaker: 'simaqian',
+    speakerName: '司馬遷',
+    text: '你知道我那時候的處境嗎？受了宮刑之後，我成了一個——廢人。',
+    nextNodeId: 'chapter8-29',
+  },
+  {
+    id: 'chapter8-29',
+    speaker: 'simaqian',
+    speakerName: '司馬遷',
+    text: '不能當官了，因為受過刑的人沒有資格。不能交朋友了，因為沒有人願意和一個「殘缺」的人來往。不能回家了，因為我沒有臉。',
+    nextNodeId: 'chapter8-30',
+  },
+  {
+    id: 'chapter8-30',
+    speaker: 'protagonist',
+    text: '所以……在那個時代，你「沒有資格」當一個正常人？',
+    nextNodeId: 'chapter8-31',
+  },
+  {
+    id: 'chapter8-31',
+    speaker: 'simaqian',
+    speakerName: '司馬遷',
+    text: '你倒是聽懂了一些。武則天教的？「資格」這個詞，她最喜歡說。我們在這裡遇到過幾次，她說我寫她寫得不夠好，要我改。',
+    nextNodeId: 'chapter8-32',
+  },
+  {
+    id: 'chapter8-32',
+    speaker: 'protagonist',
+    text: '你改了嗎？',
+    nextNodeId: 'chapter8-33',
+  },
+  {
+    id: 'chapter8-33',
+    speaker: 'simaqian',
+    speakerName: '司馬遷',
+    text: '改了一點。但大部分沒改。史書要客觀。她罵了我半個時辰。',
+    nextNodeId: 'chapter8-34',
+  },
+
+  // 第一個選擇
+  {
+    id: 'chapter8-34',
+    speaker: 'narrator',
+    text: '她忍不住笑了。原來歸者們之間也會吵架。',
+    choices: [
+      {
+        id: 'chapter8-choice-1a',
+        text: '追問他是如何熬過那段時光的',
+        arcChange: 3,
+        shadowChange: 0,
+        nextNodeId: 'chapter8-35a',
+      },
+      {
+        id: 'chapter8-choice-1b',
+        text: '問他是否後悔選擇活下來',
+        arcChange: 2,
+        shadowChange: -2,
+        nextNodeId: 'chapter8-35b',
+      },
+    ],
+  },
+  {
+    id: 'chapter8-35a',
+    speaker: 'protagonist',
+    text: '你後來怎麼辦？十四年不出門？',
+    nextNodeId: 'chapter8-36',
+  },
+  {
+    id: 'chapter8-35b',
+    speaker: 'protagonist',
+    text: '你後悔嗎？選擇受那個屈辱活下來……',
+    nextNodeId: 'chapter8-36',
+  },
+  {
+    id: 'chapter8-36',
+    speaker: 'simaqian',
+    speakerName: '司馬遷',
+    text: '我就躲在家裡寫書。十四年。出門幹嘛？被人指指點點？被人用那種「他是個不完整的人」的眼神看？',
+    nextNodeId: 'chapter8-37',
+  },
+  {
+    id: 'chapter8-37',
+    speaker: 'narrator',
+    text: '她好像知道那是什麼眼神。「我做什麼都不對」——這不也是一種「被認定為有缺陷」嗎？',
+    nextNodeId: 'chapter8-38',
+  },
+  {
+    id: 'chapter8-38',
+    speaker: 'simaqian',
+    speakerName: '司馬遷',
+    text: '不是躲，是選擇。我選擇不把時間花在無意義的事情上。他們要指指點點，隨便。他們要嘲笑，隨便。我沒時間理會。因為我要寫書。',
+    nextNodeId: 'chapter8-39',
+  },
+
+  // 完整的定義
+  {
+    id: 'chapter8-39',
+    speaker: 'simaqian',
+    speakerName: '司馬遷',
+    text: '我問你一個問題。你覺得我是一個「殘缺」的人嗎？',
+    nextNodeId: 'chapter8-40',
+  },
+  {
+    id: 'chapter8-40',
+    speaker: 'protagonist',
+    text: '身體上……可能是？但你寫出了《史記》，那本書流傳了兩千年。從這個角度說，你比大多數「完整」的人都更完整。',
+    nextNodeId: 'chapter8-41',
+  },
+  {
+    id: 'chapter8-41',
+    speaker: 'simaqian',
+    speakerName: '司馬遷',
+    text: '你用了一個詞——「完整」。問心說，每個靈魂來到地球，都是為了學習同一堂課。完整。',
+    nextNodeId: 'chapter8-42',
+  },
+  {
+    id: 'chapter8-42',
+    speaker: 'simaqian',
+    speakerName: '司馬遷',
+    text: '在我那個年代，我們不叫它「完整」。我們叫它——「成」。成人、成事、成德、成己。所有的「成」，最後都指向同一個東西——把自己活完。',
+    nextNodeId: 'chapter8-43',
+  },
+
+  // 把自己活完
+  {
+    id: 'chapter8-43',
+    speaker: 'protagonist',
+    text: '把自己活完？什麼意思？',
+    nextNodeId: 'chapter8-44',
+  },
+  {
+    id: 'chapter8-44',
+    speaker: 'simaqian',
+    speakerName: '司馬遷',
+    text: '你出生的時候，帶著很多東西來——你的才華、你的性格、你的使命。這些是你的「材料」。然後你的任務，就是用這些材料，把自己「完成」。',
+    nextNodeId: 'chapter8-45',
+  },
+  {
+    id: 'chapter8-45',
+    speaker: 'protagonist',
+    text: '可是——如果材料被破壞了呢？比如你……',
+    nextNodeId: 'chapter8-46',
+  },
+  {
+    id: 'chapter8-46',
+    speaker: 'simaqian',
+    speakerName: '司馬遷',
+    text: '比如我被閹了？那就用剩下的材料。老天爺給了我一副身體，皇帝毀了一部分。但老天爺還給了我一顆腦袋，一雙手，一支筆。這些沒有被毀。所以我就用這些。',
+    nextNodeId: 'chapter8-47',
+  },
+  {
+    id: 'chapter8-47',
+    speaker: 'simaqian',
+    speakerName: '司馬遷',
+    text: '我想過——如果我死了，會怎樣？什麼都不會怎樣。我只是一個小小的史官。但我的書沒寫完。如果我死了，那本書就永遠不會完成。那些我想記錄的事，就永遠不會被人知道。',
+    nextNodeId: 'chapter8-48',
+  },
+  {
+    id: 'chapter8-48',
+    speaker: 'simaqian',
+    speakerName: '司馬遷',
+    text: '所以我選擇——把自己活完。我不是為了活著而活著，我是為了完成那本書而活著。',
+    nextNodeId: 'chapter8-49',
+  },
+
+  // 找到使命
+  {
+    id: 'chapter8-49',
+    speaker: 'protagonist',
+    text: '可是我不知道我想完成什麼……我好像沒有你那樣的使命。',
+    nextNodeId: 'chapter8-50',
+  },
+  {
+    id: 'chapter8-50',
+    speaker: 'simaqian',
+    speakerName: '司馬遷',
+    text: '使命不是天上掉下來的，是自己找的。問自己——如果你死了，你最不甘心的是什麼？',
+    nextNodeId: 'chapter8-51',
+  },
+  {
+    id: 'chapter8-51',
+    speaker: 'narrator',
+    text: '她想了很久。',
+    choices: [
+      {
+        id: 'chapter8-choice-2a',
+        text: '「我從來沒有為自己活過」',
+        arcChange: 6,
+        shadowChange: -4,
+        nextNodeId: 'chapter8-52a',
+      },
+      {
+        id: 'chapter8-choice-2b',
+        text: '「我好像什麼都可以放下」',
+        arcChange: 2,
+        shadowChange: 0,
+        nextNodeId: 'chapter8-52b',
+      },
+    ],
+  },
+  {
+    id: 'chapter8-52a',
+    speaker: 'protagonist',
+    text: '我不甘心的是……我從來沒有好好活過。我這輩子，好像都在為別人活。為父母的期望活，為老闆的認可活，為社會的標準活。如果我死了，我最不甘心的是——我從來沒有為自己活過。',
+    nextNodeId: 'chapter8-53',
+  },
+  {
+    id: 'chapter8-52b',
+    speaker: 'protagonist',
+    text: '我不知道……好像什麼都可以放下？',
+    nextNodeId: 'chapter8-52c',
+  },
+  {
+    id: 'chapter8-52c',
+    speaker: 'simaqian',
+    speakerName: '司馬遷',
+    text: '真的嗎？再想想。',
+    nextNodeId: 'chapter8-52d',
+  },
+  {
+    id: 'chapter8-52d',
+    speaker: 'protagonist',
+    text: '……我好像一直在為別人活。如果我死了，最不甘心的是——我從來沒有為自己活過。',
+    nextNodeId: 'chapter8-53',
+  },
+  {
+    id: 'chapter8-53',
+    speaker: 'simaqian',
+    speakerName: '司馬遷',
+    text: '這就是你的使命。「為自己活一次」——這就是你這輩子要完成的事。',
+    nextNodeId: 'chapter8-54',
+  },
+
+  // 關於殘缺
+  {
+    id: 'chapter8-54',
+    speaker: 'protagonist',
+    text: '聽起來……好像很自私？',
+    nextNodeId: 'chapter8-55',
+  },
+  {
+    id: 'chapter8-55',
+    speaker: 'simaqian',
+    speakerName: '司馬遷',
+    text: '為什麼為自己活是自私？一個人如果連自己都不為自己活，他怎麼可能真正為別人活？一個空的杯子，倒不出水。一個沒有活過自己的人，給不了別人什麼。他只能給別人——空洞的義務。',
+    nextNodeId: 'chapter8-56',
+  },
+  {
+    id: 'chapter8-56',
+    speaker: 'simaqian',
+    speakerName: '司馬遷',
+    text: '我再問你一個問題。什麼是「殘缺」？',
+    nextNodeId: 'chapter8-57',
+  },
+  {
+    id: 'chapter8-57',
+    speaker: 'protagonist',
+    text: '身體不完整？心理不健康？能力不夠？',
+    nextNodeId: 'chapter8-58',
+  },
+  {
+    id: 'chapter8-58',
+    speaker: 'simaqian',
+    speakerName: '司馬遷',
+    text: '這些都是表面的。真正的殘缺，只有一種——活不出自己。',
+    nextNodeId: 'chapter8-59',
+  },
+
+  // 報任安書
+  {
+    id: 'chapter8-59',
+    speaker: 'simaqian',
+    speakerName: '司馬遷',
+    text: '你知道「人固有一死，或重於泰山，或輕於鴻毛」這句話嗎？',
+    nextNodeId: 'chapter8-60',
+  },
+  {
+    id: 'chapter8-60',
+    speaker: 'protagonist',
+    text: '知道，這是你寫的。',
+    nextNodeId: 'chapter8-61',
+  },
+  {
+    id: 'chapter8-61',
+    speaker: 'simaqian',
+    speakerName: '司馬遷',
+    text: '但很少人知道後面還有一句：「所以隱忍苟活，幽於糞土之中而不辭者，恨私心有所不盡。」——意思是，我之所以忍辱活著，是因為我的心裡有一件事還沒完成。',
+    nextNodeId: 'chapter8-62',
+  },
+  {
+    id: 'chapter8-62',
+    speaker: 'simaqian',
+    speakerName: '司馬遷',
+    text: '你說我身體上是「殘缺」的。你說的是事實。但我問你——我的人生殘缺嗎？',
+    nextNodeId: 'chapter8-63',
+  },
+  {
+    id: 'chapter8-63',
+    speaker: 'protagonist',
+    text: '你寫了《史記》，你把你想做的事做完了。從這個角度說，你的人生是完整的。甚至比很多身體完整的人，更完整。',
+    nextNodeId: 'chapter8-64',
+  },
+
+  // 告別
+  {
+    id: 'chapter8-64',
+    speaker: 'wenxin',
+    speakerName: '問心',
+    text: '差不多了。',
+    nextNodeId: 'chapter8-65',
+  },
+  {
+    id: 'chapter8-65',
+    speaker: 'protagonist',
+    text: '你剛才故意消失的？',
+    nextNodeId: 'chapter8-66',
+  },
+  {
+    id: 'chapter8-66',
+    speaker: 'wenxin',
+    speakerName: '問心',
+    text: '算是吧。有些事，需要你自己走過去才有意義。',
+    nextNodeId: 'chapter8-67',
+  },
+  {
+    id: 'chapter8-67',
+    speaker: 'protagonist',
+    text: '子長，我還有一個問題。你說「筆比命長」——這是什麼意思？',
+    nextNodeId: 'chapter8-68',
+  },
+  {
+    id: 'chapter8-68',
+    speaker: 'simaqian',
+    speakerName: '司馬遷',
+    text: '他們以為閹了我，就閹了我的筆。他們錯了。我的命只有幾十年。但我的筆——可以活幾千年。他們可以毀掉我的身體，但毀不掉我的字。這就是「筆比命長」。',
+    nextNodeId: 'chapter8-69',
+  },
+  {
+    id: 'chapter8-69',
+    speaker: 'narrator',
+    text: '她跟著問心走出書房。在踏出門檻的那一刻，她突然停下來。',
+    nextNodeId: 'chapter8-70',
+  },
+  {
+    id: 'chapter8-70',
+    speaker: 'protagonist',
+    text: '問心，我好像有點不一樣了。之前見蘇軾、王陽明、武則天的時候，我都是在聽他們說。但剛才——我開始自己想了，開始把他們說的話連起來。',
+    nextNodeId: 'chapter8-71',
+  },
+  {
+    id: 'chapter8-71',
+    speaker: 'wenxin',
+    speakerName: '問心',
+    text: '這就對了。歸者們不是來灌輸你什麼的。他們只是來提醒你——那些道理，你本來就知道。你只是忘了而已。',
+    nextNodeId: 'chapter8-72',
+  },
+  {
+    id: 'chapter8-72',
+    speaker: 'narrator',
+    text: '她不是來學新東西的。她是來想起舊東西的。',
+    nextNodeId: 'chapter8-73',
+  },
+  {
+    id: 'chapter8-73',
+    speaker: 'wenxin',
+    speakerName: '問心',
+    text: '下一個是一個放下了「應該」的人。一個追了一輩子錯誤的東西，最後才發現真正想要什麼的人——李白。他會教你什麼是真正的自由。',
+    nextNodeId: null,
+  },
+];
