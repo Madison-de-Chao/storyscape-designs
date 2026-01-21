@@ -23,17 +23,19 @@ const getChapterTitle = (nodeId: string): string => {
 
   if (normalizedId.startsWith('preface')) return '作者序';
   if (normalizedId.startsWith('prologue')) return '序章・未完成的檔案';
-  if (normalizedId.startsWith('chapter-1')) return '第一章・刪除';
-  if (normalizedId.startsWith('chapter-2')) return '第二章・渡口';
-  if (normalizedId.startsWith('chapter-3')) return '第三章・真相';
-  if (normalizedId.startsWith('chapter-4')) return '第四章・命樹';
-  if (normalizedId.startsWith('chapter-5')) return '第五章・文心';
-  if (normalizedId.startsWith('chapter-6')) return '第六章・女王';
-  if (normalizedId.startsWith('chapter-7')) return '第七章・詩仙';
-  if (normalizedId.startsWith('chapter-8')) return '第八章・凱薩';
-  if (normalizedId.startsWith('chapter-9')) return '第九章・埃及豔后';
-  if (normalizedId.startsWith('chapter-10')) return '第十章・海倫凱勒';
-  if (normalizedId.startsWith('chapter-11')) return '第十一章・曼德拉';
+  
+  // 支援兩種格式：chapter-1- 和 chapter1-
+  if (normalizedId.startsWith('chapter-1-') || normalizedId.startsWith('chapter1-')) return '第一章・刪除';
+  if (normalizedId.startsWith('chapter-2-') || normalizedId.startsWith('chapter2-')) return '第二章・渡口';
+  if (normalizedId.startsWith('chapter-3-') || normalizedId.startsWith('chapter3-')) return '第三章・真相';
+  if (normalizedId.startsWith('chapter-4-') || normalizedId.startsWith('chapter4-')) return '第四章・命樹';
+  if (normalizedId.startsWith('chapter-5-') || normalizedId.startsWith('chapter5-')) return '第五章・也無風雨';
+  if (normalizedId.startsWith('chapter-6-') || normalizedId.startsWith('chapter6-')) return '第六章・吾性自足';
+  if (normalizedId.startsWith('chapter-7-') || normalizedId.startsWith('chapter7-')) return '第七章・誰定的規矩';
+  if (normalizedId.startsWith('chapter-8-') || normalizedId.startsWith('chapter8-')) return '第八章・筆比命長';
+  if (normalizedId.startsWith('chapter-9-') || normalizedId.startsWith('chapter9-')) return '第九章・天生我材';
+  if (normalizedId.startsWith('chapter-10-') || normalizedId.startsWith('chapter10-')) return '第十章・海倫凱勒';
+  if (normalizedId.startsWith('chapter-11-') || normalizedId.startsWith('chapter11-')) return '第十一章・曼德拉';
 
   return '序章';
 };
@@ -43,8 +45,15 @@ const getChapterNumber = (nodeId: string): string => {
   const normalizedId = nodeId.replace(/^yi1-/, '');
   if (normalizedId.startsWith('preface')) return 'preface';
   if (normalizedId.startsWith('prologue')) return 'prologue';
-  const match = normalizedId.match(/chapter-(\d+)/);
-  return match ? `chapter-${match[1]}` : '';
+  
+  // 支援兩種格式
+  const matchDash = normalizedId.match(/chapter-(\d+)/);
+  if (matchDash) return `chapter-${matchDash[1]}`;
+  
+  const matchNoDash = normalizedId.match(/chapter(\d+)/);
+  if (matchNoDash) return `chapter-${matchNoDash[1]}`;
+  
+  return '';
 };
 
 const GameScene = () => {
