@@ -86,8 +86,12 @@ const SceneImage = ({ nodeId, hideOverlay = false }: SceneImageProps) => {
     };
   }, []);
 
+  // 即使沒有匹配的圖片，也會使用預設圖片（由 getSceneImage 提供）
+  // 這裡只在極端情況下返回 null
   if (!currentImage) {
-    return null;
+    return (
+      <div className="absolute inset-0 z-0 bg-gradient-to-b from-background/80 to-background" />
+    );
   }
 
   // 根據特效類型獲取進場動畫
@@ -641,28 +645,32 @@ const SceneImage = ({ nodeId, hideOverlay = false }: SceneImageProps) => {
             transition={{ duration: 0.5 }}
             className="absolute inset-0 z-20"
           >
+            {/* 頂部漸變 - 更輕薄 */}
             <div 
-              className="absolute inset-x-0 top-0 h-40 z-10"
+              className="absolute inset-x-0 top-0 h-32 z-10"
               style={{
-                background: 'linear-gradient(to bottom, hsl(var(--background) / 0.85) 0%, hsl(var(--background) / 0.4) 50%, transparent 100%)',
+                background: 'linear-gradient(to bottom, hsl(var(--background) / 0.6) 0%, hsl(var(--background) / 0.2) 50%, transparent 100%)',
               }}
             />
+            {/* 底部漸變 - 更輕薄，讓圖片更清晰 */}
             <div 
-              className="absolute inset-x-0 bottom-0 h-[45%] z-10"
+              className="absolute inset-x-0 bottom-0 h-[40%] z-10"
               style={{
-                background: 'linear-gradient(to top, hsl(var(--background) / 0.98) 0%, hsl(var(--background) / 0.85) 40%, hsl(var(--background) / 0.5) 70%, transparent 100%)',
+                background: 'linear-gradient(to top, hsl(var(--background) / 0.9) 0%, hsl(var(--background) / 0.6) 30%, hsl(var(--background) / 0.2) 60%, transparent 100%)',
               }}
             />
+            {/* 邊角暗化 - 更輕 */}
             <div 
               className="absolute inset-0 z-10 pointer-events-none"
               style={{
-                background: 'radial-gradient(ellipse 80% 80% at center, transparent 30%, hsl(var(--background) / 0.5) 100%)',
+                background: 'radial-gradient(ellipse 90% 90% at center, transparent 50%, hsl(var(--background) / 0.25) 100%)',
               }}
             />
+            {/* 左右邊緣 - 更輕 */}
             <div 
               className="absolute inset-0 z-10 pointer-events-none"
               style={{
-                background: 'linear-gradient(90deg, hsl(var(--background) / 0.3) 0%, transparent 15%, transparent 85%, hsl(var(--background) / 0.3) 100%)',
+                background: 'linear-gradient(90deg, hsl(var(--background) / 0.15) 0%, transparent 10%, transparent 90%, hsl(var(--background) / 0.15) 100%)',
               }}
             />
           </motion.div>
