@@ -170,6 +170,7 @@ export const yi1PrologueNodes: DialogueNode[] = [
     text: '**伊**。',
     nextNodeId: 'prologue-choice-2',
     effect: 'glitch',
+    emotionSFX: 'evil_giggle',
   },
   {
     id: 'prologue-choice-2',
@@ -187,6 +188,7 @@ export const yi1PrologueNodes: DialogueNode[] = [
     text: '**恐懼是正常的**。我們總是害怕面對被自己否認的部分。',
     nextNodeId: 'prologue-22',
     effect: 'glitch',
+    emotionSFX: 'fear',
   },
   {
     id: 'prologue-21b',

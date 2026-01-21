@@ -58,6 +58,7 @@ export const chapter3Nodes: DialogueNode[] = [
     speaker: 'wenxin',
     text: '這裡是陽明書院。',
     nextNodeId: 'yi1-chapter-3-8',
+    emotionSFX: 'gentle_laugh',
   },
   {
     id: 'yi1-chapter-3-8',
@@ -82,6 +83,7 @@ export const chapter3Nodes: DialogueNode[] = [
     speaker: 'wenxin',
     text: '在元壹境，時間不是一條直線。過去、現在、未來，都只是不同的房間。',
     nextNodeId: 'yi1-chapter-3-12',
+    emotionSFX: 'mysterious_whisper',
   },
 
   // 二

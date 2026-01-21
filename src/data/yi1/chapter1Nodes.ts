@@ -747,6 +747,7 @@ export const chapter1Nodes: DialogueNode[] = [
     text: '但就在這時，螢幕開始閃爍。',
     nextNodeId: 'yi1-chapter-1-merge-1',
     effect: 'glitch',
+    emotionSFX: 'fear',
   },
   // 合流 - 十
   {
@@ -861,6 +862,7 @@ export const chapter1Nodes: DialogueNode[] = [
     text: '你來了。',
     nextNodeId: 'yi1-chapter-1-merge-19',
     effect: 'glow',
+    emotionSFX: 'mysterious_whisper',
   },
   {
     id: 'yi1-chapter-1-merge-19',
