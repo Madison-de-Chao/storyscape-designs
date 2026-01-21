@@ -29,7 +29,6 @@ const DialogueBox = ({ isHidden = false, onToggleHide }: DialogueBoxProps) => {
   const autoPlayRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
-    // 嘗試從 yi1 數據獲取節點，如果沒有則回退到舊的 prologueStory
     const node = currentPart === 'yi' 
       ? (getYi1NodeById(currentNodeId) || getNodeById(currentNodeId))
       : getYiPart2NodeById(currentNodeId);
@@ -37,7 +36,6 @@ const DialogueBox = ({ isHidden = false, onToggleHide }: DialogueBoxProps) => {
       setCurrentNode(node);
       setDisplayedText('');
       setIsTyping(true);
-      // 自動標記節點為已讀
       markNodeAsRead(currentNodeId);
     }
   }, [currentNodeId, currentPart, markNodeAsRead]);
@@ -51,7 +49,6 @@ const DialogueBox = ({ isHidden = false, onToggleHide }: DialogueBoxProps) => {
     setDisplayedText('');
     setIsTyping(true);
 
-    // 快轉模式下加快打字速度
     const typingSpeed = isAutoForward ? 10 : 50;
 
     const typingInterval = setInterval(() => {
@@ -91,10 +88,9 @@ const DialogueBox = ({ isHidden = false, onToggleHide }: DialogueBoxProps) => {
     }
   }, [currentNode?.choices]);
 
-  // 自動播放模式（正常速度，延遲後自動前進）
+  // 自動播放模式
   useEffect(() => {
     if (isAutoPlay && !isAutoForward && !isTyping && currentNode?.nextNodeId && !currentNode.choices) {
-      // 根據文字長度計算延遲時間（每個字約 100ms 閱讀時間，最少 2 秒，最多 5 秒）
       const textLength = currentNode.text.length;
       const delay = Math.min(Math.max(textLength * 100, 2000), 5000);
       
@@ -113,7 +109,7 @@ const DialogueBox = ({ isHidden = false, onToggleHide }: DialogueBoxProps) => {
 
   const toggleAutoForward = useCallback(() => {
     setIsAutoForward(prev => {
-      if (!prev) setIsAutoPlay(false); // 開啟快轉時關閉自動播放
+      if (!prev) setIsAutoPlay(false);
       return !prev;
     });
     playSFX('click');
@@ -121,7 +117,7 @@ const DialogueBox = ({ isHidden = false, onToggleHide }: DialogueBoxProps) => {
 
   const toggleAutoPlay = useCallback(() => {
     setIsAutoPlay(prev => {
-      if (!prev) setIsAutoForward(false); // 開啟自動播放時關閉快轉
+      if (!prev) setIsAutoForward(false);
       return !prev;
     });
     playSFX('click');
@@ -205,20 +201,22 @@ const DialogueBox = ({ isHidden = false, onToggleHide }: DialogueBoxProps) => {
 
   return (
     <>
-      {/* 控制按鈕群組（始終可見） */}
+      {/* 控制按鈕群組 */}
       <div className="fixed bottom-4 right-4 z-50 flex gap-2">
         {/* 自動播放按鈕 */}
         <motion.button
           onClick={toggleAutoPlay}
           className={`
-            p-3 rounded-full backdrop-blur-sm border transition-all duration-300
+            p-3 rounded-full backdrop-blur-md border-2 transition-all duration-300 shadow-lg
             ${isAutoPlay 
-              ? 'bg-primary/20 border-primary/50 text-primary' 
-              : 'bg-card/50 border-border/50 text-muted-foreground hover:text-foreground hover:border-border'
+              ? 'bg-primary/25 border-primary/60 text-primary shadow-primary/20' 
+              : 'bg-card/70 border-border/40 text-muted-foreground hover:text-foreground hover:border-primary/30 hover:bg-card/90'
             }
           `}
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
           transition={{ delay: 0.3 }}
           title={isAutoPlay ? '停止自動播放' : '自動播放'}
         >
@@ -233,14 +231,16 @@ const DialogueBox = ({ isHidden = false, onToggleHide }: DialogueBoxProps) => {
         <motion.button
           onClick={toggleAutoForward}
           className={`
-            p-3 rounded-full backdrop-blur-sm border transition-all duration-300
+            p-3 rounded-full backdrop-blur-md border-2 transition-all duration-300 shadow-lg
             ${isAutoForward 
-              ? 'bg-accent/20 border-accent/50 text-accent' 
-              : 'bg-card/50 border-border/50 text-muted-foreground hover:text-foreground hover:border-border'
+              ? 'bg-accent/25 border-accent/60 text-accent shadow-accent/20' 
+              : 'bg-card/70 border-border/40 text-muted-foreground hover:text-foreground hover:border-accent/30 hover:bg-card/90'
             }
           `}
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
           transition={{ delay: 0.4 }}
           title={isAutoForward ? '停止快轉' : '快轉'}
         >
@@ -252,14 +252,16 @@ const DialogueBox = ({ isHidden = false, onToggleHide }: DialogueBoxProps) => {
           <motion.button
             onClick={onToggleHide}
             className={`
-              p-3 rounded-full backdrop-blur-sm border transition-all duration-300
+              p-3 rounded-full backdrop-blur-md border-2 transition-all duration-300 shadow-lg
               ${isHidden 
-                ? 'bg-primary/20 border-primary/50 text-primary' 
-                : 'bg-card/50 border-border/50 text-muted-foreground hover:text-foreground hover:border-border'
+                ? 'bg-primary/25 border-primary/60 text-primary shadow-primary/20' 
+                : 'bg-card/70 border-border/40 text-muted-foreground hover:text-foreground hover:border-primary/30 hover:bg-card/90'
               }
             `}
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
             transition={{ delay: 0.5 }}
             title={isHidden ? '顯示對話框' : '隱藏對話框'}
           >
@@ -268,84 +270,182 @@ const DialogueBox = ({ isHidden = false, onToggleHide }: DialogueBoxProps) => {
         )}
       </div>
 
-      {/* 對話框（可隱藏） */}
+      {/* 對話框 */}
       <AnimatePresence>
         {!isHidden && (
           <motion.div
-            className="fixed bottom-0 left-0 right-0 z-40 p-4 md:p-8"
+            className="fixed bottom-0 left-0 right-0 z-40 p-4 md:p-6 lg:p-8"
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 50 }}
-            transition={{ duration: 0.3 }}
+            transition={{ duration: 0.35, ease: "easeOut" }}
           >
             <div className="max-w-4xl mx-auto">
-              {/* 對話框 */}
+              {/* 主對話框 - 增強視覺效果和文字可讀性 */}
               <motion.div
                 className={`
-                  relative bg-card/80 backdrop-blur-md border border-border/50 
-                  rounded-2xl p-6 md:p-8 cursor-pointer
-                  shadow-[0_-10px_60px_-15px_hsl(var(--primary)/0.1)]
+                  relative overflow-hidden cursor-pointer
+                  rounded-2xl border-2 border-border/30
                   ${getEffectClass()}
                 `}
                 onClick={handleClick}
-                whileHover={{ borderColor: 'hsl(var(--primary) / 0.3)' }}
+                whileHover={{ borderColor: 'hsl(var(--primary) / 0.4)' }}
                 transition={{ duration: 0.2 }}
+                style={{
+                  background: `linear-gradient(
+                    180deg, 
+                    hsl(222 47% 10% / 0.94) 0%, 
+                    hsl(222 47% 7% / 0.97) 100%
+                  )`,
+                  boxShadow: `
+                    0 -8px 50px hsl(222 47% 4% / 0.7),
+                    0 8px 30px hsl(0 0% 0% / 0.5),
+                    inset 0 1px 0 hsl(45 30% 90% / 0.08),
+                    inset 0 -1px 0 hsl(45 30% 90% / 0.03)
+                  `,
+                  backdropFilter: 'blur(20px)',
+                }}
               >
-                {/* 說話者名稱 */}
-                {currentNode.speaker !== 'narrator' && (
-                  <motion.div
-                    className={`text-sm font-serif-tc mb-2 ${getSpeakerColor(currentNode.speaker)}`}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                  >
-                    {getSpeakerName(currentNode)}
-                  </motion.div>
-                )}
+                {/* 頂部發光邊線 */}
+                <div 
+                  className="absolute top-0 left-0 right-0 h-[2px]"
+                  style={{
+                    background: `linear-gradient(
+                      90deg, 
+                      transparent 0%, 
+                      hsl(38 80% 55% / 0.4) 10%,
+                      hsl(38 80% 55% / 0.9) 50%, 
+                      hsl(38 80% 55% / 0.4) 90%,
+                      transparent 100%
+                    )`,
+                    boxShadow: '0 0 25px hsl(38 80% 55% / 0.4)',
+                  }}
+                />
 
-                {/* 對話文字 */}
-                <div className="min-h-[80px] flex items-start">
-                  <p
-                    className={`
-                      text-lg md:text-xl leading-relaxed font-sans-tc
-                      ${currentNode.speaker === 'narrator' ? 'text-muted-foreground' : 'text-foreground'}
-                      ${currentNode.speaker === 'yi' ? 'text-accent italic' : ''}
-                    `}
-                  >
-                    {displayedText}
-                    {isTyping && (
-                      <motion.span
-                        className="inline-block w-0.5 h-5 bg-primary ml-1"
-                        animate={{ opacity: [1, 0] }}
-                        transition={{ duration: 0.5, repeat: Infinity }}
-                      />
-                    )}
-                  </p>
-                </div>
+                {/* 角落裝飾 */}
+                <div className="absolute top-3 left-3 w-5 h-5 border-l-2 border-t-2 border-primary/25 rounded-tl-lg" />
+                <div className="absolute top-3 right-3 w-5 h-5 border-r-2 border-t-2 border-primary/25 rounded-tr-lg" />
+                <div className="absolute bottom-3 left-3 w-5 h-5 border-l-2 border-b-2 border-primary/15 rounded-bl-lg" />
+                <div className="absolute bottom-3 right-3 w-5 h-5 border-r-2 border-b-2 border-primary/15 rounded-br-lg" />
 
-                {/* 點擊提示 */}
-                <AnimatePresence>
-                  {!isTyping && !currentNode.choices && currentNode.nextNodeId && (
+                {/* 內容區域 */}
+                <div className="relative px-8 py-6 md:px-10 md:py-7 lg:px-12 lg:py-8">
+                  {/* 說話者名稱 - 增強樣式 */}
+                  {currentNode.speaker !== 'narrator' && (
                     <motion.div
-                      className="absolute bottom-4 right-6 text-xs text-muted-foreground"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
+                      className="mb-4 flex items-center gap-4"
+                      initial={{ opacity: 0, x: -15 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.3 }}
                     >
-                      點擊繼續 ▼
+                      <span
+                        className={`font-serif-tc text-xl font-bold tracking-widest ${getSpeakerColor(currentNode.speaker)}`}
+                        style={{
+                          textShadow: currentNode.speaker === 'yi'
+                            ? '0 0 25px hsl(350 60% 45% / 0.7), 0 0 10px hsl(350 60% 45% / 0.4)'
+                            : currentNode.speaker === 'protagonist'
+                            ? '0 0 20px hsl(38 80% 55% / 0.5), 0 0 8px hsl(38 80% 55% / 0.3)'
+                            : '0 2px 4px hsl(0 0% 0% / 0.6)',
+                        }}
+                      >
+                        {getSpeakerName(currentNode)}
+                      </span>
+                      <span 
+                        className="flex-shrink-0 w-16 h-[2px]" 
+                        style={{
+                          background: `linear-gradient(90deg, hsl(38 80% 55% / 0.5), transparent)`,
+                        }}
+                      />
                     </motion.div>
                   )}
-                </AnimatePresence>
+
+                  {/* 對話文字 - 最大化可讀性 */}
+                  <div className="min-h-[90px] flex items-start">
+                    <p
+                      className={`
+                        font-sans-tc leading-loose
+                        ${currentNode.speaker === 'yi' ? 'italic' : ''}
+                      `}
+                      style={{
+                        fontSize: 'clamp(1.125rem, 2.5vw, 1.35rem)',
+                        lineHeight: '2.1',
+                        letterSpacing: '0.05em',
+                        color: currentNode.speaker === 'narrator' 
+                          ? 'hsl(220 20% 70%)' 
+                          : currentNode.speaker === 'yi'
+                          ? 'hsl(350 50% 75%)'
+                          : 'hsl(45 35% 92%)',
+                        textShadow: `
+                          0 1px 3px hsl(0 0% 0% / 0.9),
+                          0 0 1px hsl(0 0% 0% / 0.6)
+                        `,
+                        fontWeight: 400,
+                      }}
+                    >
+                      {displayedText}
+                      {isTyping && (
+                        <motion.span
+                          className="inline-block w-[3px] h-6 ml-1.5 align-text-bottom rounded-sm"
+                          animate={{ opacity: [1, 0.2] }}
+                          transition={{ duration: 0.55, repeat: Infinity, ease: "easeInOut" }}
+                          style={{
+                            background: 'hsl(38 80% 55%)',
+                            boxShadow: '0 0 10px hsl(38 80% 55% / 0.7)',
+                          }}
+                        />
+                      )}
+                    </p>
+                  </div>
+
+                  {/* 點擊繼續提示 - 增強可見性 */}
+                  <AnimatePresence>
+                    {!isTyping && !currentNode.choices && currentNode.nextNodeId && (
+                      <motion.div
+                        className="absolute bottom-5 right-8 flex items-center gap-2"
+                        initial={{ opacity: 0, y: 5 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: 5 }}
+                        transition={{ duration: 0.25 }}
+                      >
+                        <span 
+                          className="text-sm font-sans-tc tracking-wide"
+                          style={{
+                            color: 'hsl(220 20% 60%)',
+                            textShadow: '0 1px 2px hsl(0 0% 0% / 0.6)',
+                          }}
+                        >
+                          點擊繼續
+                        </span>
+                        <motion.span
+                          animate={{ x: [0, 5, 0] }}
+                          transition={{ duration: 1.2, repeat: Infinity, ease: "easeInOut" }}
+                          style={{ color: 'hsl(38 80% 55% / 0.7)' }}
+                        >
+                          ▸
+                        </motion.span>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+
+                {/* 底部裝飾線 */}
+                <div 
+                  className="absolute bottom-0 left-0 right-0 h-[1px]" 
+                  style={{
+                    background: 'linear-gradient(90deg, transparent, hsl(220 30% 25% / 0.5), transparent)',
+                  }}
+                />
               </motion.div>
 
               {/* 選項按鈕 */}
               <AnimatePresence>
                 {!isTyping && currentNode.choices && (
                   <motion.div
-                    className="mt-6 space-y-3"
+                    className="mt-5 space-y-3"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -20 }}
-                    transition={{ duration: 0.3, delay: 0.2 }}
+                    transition={{ duration: 0.35, delay: 0.15 }}
                   >
                     {currentNode.choices.map((choice, index) => (
                       <ChoiceButton
