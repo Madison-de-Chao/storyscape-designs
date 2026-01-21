@@ -5,7 +5,8 @@ import type { DialogueNode } from '@/stores/gameStore';
 export type SpeakerType = 
   | 'narrator' | 'protagonist' | 'yi' | 'wenxin' | 'wendu' | 'mentor'
   | 'wangyangming' | 'sushi' | 'simaqian' | 'wuzetian' | 'libai'
-  | 'mandela' | 'caesar' | 'cleopatra' | 'lincoln' | 'jobs' | 'vangogh' | 'helenkeller';
+  | 'mandela' | 'caesar' | 'cleopatra' | 'lincoln' | 'jobs' | 'vangogh' | 'helenkeller'
+  | 'xiangyu' | 'quyuan' | 'monroe' | 'hemingway' | 'woolf';
 
 // 說話者名稱映射
 export const speakerNames: Record<SpeakerType, string> = {
@@ -27,6 +28,11 @@ export const speakerNames: Record<SpeakerType, string> = {
   jobs: '賈伯斯',
   vangogh: '梵谷',
   helenkeller: '海倫·凱勒',
+  xiangyu: '項羽',
+  quyuan: '屈原',
+  monroe: '夢露',
+  hemingway: '海明威',
+  woolf: '乌尔芙',
 };
 
 // 說話者顏色配置（用於名稱標籤）
@@ -47,6 +53,11 @@ export const speakerColors: Record<string, string> = {
   vangogh: 'text-amber-300',
   helenkeller: 'text-teal-200',
   lincoln: 'text-teal-200',
+  xiangyu: 'text-red-300',
+  quyuan: 'text-emerald-200',
+  monroe: 'text-pink-200',
+  hemingway: 'text-stone-200',
+  woolf: 'text-violet-200',
   default: 'text-muted-foreground',
 };
 
@@ -105,6 +116,31 @@ export const getSpeakerTextStyle = (speaker: string): TextStyle => {
       return {
         color: 'hsl(220 30% 80%)',
         textShadow: '0 0 10px hsl(220 40% 60% / 0.3), 0 1px 3px hsl(0 0% 0% / 0.9)',
+      };
+    case 'xiangyu':
+      return {
+        color: 'hsl(0 70% 70%)',
+        textShadow: '0 0 12px hsl(0 80% 50% / 0.5), 0 1px 3px hsl(0 0% 0% / 0.9)',
+      };
+    case 'quyuan':
+      return {
+        color: 'hsl(150 50% 75%)',
+        textShadow: '0 0 10px hsl(150 60% 50% / 0.4), 0 1px 3px hsl(0 0% 0% / 0.9)',
+      };
+    case 'monroe':
+      return {
+        color: 'hsl(330 70% 80%)',
+        textShadow: '0 0 15px hsl(330 80% 60% / 0.5), 0 1px 3px hsl(0 0% 0% / 0.9)',
+      };
+    case 'hemingway':
+      return {
+        color: 'hsl(30 20% 75%)',
+        textShadow: '0 0 8px hsl(30 30% 50% / 0.3), 0 1px 3px hsl(0 0% 0% / 0.9)',
+      };
+    case 'woolf':
+      return {
+        color: 'hsl(270 50% 78%)',
+        textShadow: '0 0 12px hsl(270 60% 60% / 0.4), 0 1px 3px hsl(0 0% 0% / 0.9)',
       };
     case 'narrator':
       return {
