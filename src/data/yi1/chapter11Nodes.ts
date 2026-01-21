@@ -536,6 +536,6 @@ export const chapter11Nodes: DialogueNode[] = [
     id: 'chapter11-72',
     speaker: 'narrator',
     text: '而曼德拉教她的，也是關於自由——從仇恨中解放自己的自由。',
-    nextNodeId: null,
+    nextNodeId: 'chapter12-1',
   },
 ];

@@ -459,6 +459,6 @@ export const chapter6Nodes: DialogueNode[] = [
     speaker: 'wangyangming',
     text: '記住——吾性自足，不假外求。你找遍天下，不如回頭看一眼自己。答案從來不在外面。',
     effect: 'glow',
-    nextNodeId: 'chapter-7-intro-1',
+    nextNodeId: 'chapter7-1',
   },
 ];

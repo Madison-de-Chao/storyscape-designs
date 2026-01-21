@@ -555,6 +555,6 @@ export const chapter8Nodes: DialogueNode[] = [
     speaker: 'wenxin',
     speakerName: '問心',
     text: '下一個是一個放下了「應該」的人。一個追了一輩子錯誤的東西，最後才發現真正想要什麼的人——李白。他會教你什麼是真正的自由。',
-    nextNodeId: null,
+    nextNodeId: 'chapter9-1',
   },
 ];

@@ -528,6 +528,6 @@ export const chapter9Nodes: DialogueNode[] = [
     speaker: 'libai',
     speakerName: '李白',
     text: '哦，那兩個。提醒你一下，他們很愛吵架。但吵架歸吵架，感情好得很。有意思的一對。去吧！',
-    nextNodeId: null,
+    nextNodeId: 'chapter10-1',
   },
 ];

@@ -520,6 +520,6 @@ export const chapter10Nodes: DialogueNode[] = [
     speaker: 'wenxin',
     speakerName: '問心',
     text: '去見曼德拉，他會告訴你答案。',
-    nextNodeId: null,
+    nextNodeId: 'chapter11-1',
   },
 ];
