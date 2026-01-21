@@ -40,6 +40,13 @@ export interface SceneImageConfig {
   nodePatterns: string[];
 }
 
+// 預設圖片（當沒有匹配時使用）
+export const defaultSceneImage: SceneImageConfig = {
+  image: IMG02_訓練場,
+  alt: '預設場景',
+  nodePatterns: [],
+};
+
 export const sceneImages: SceneImageConfig[] = [
   // === 作者序 ===
   {
@@ -72,7 +79,7 @@ export const sceneImages: SceneImageConfig[] = [
     nodePatterns: ['chapter-1-46', 'chapter-1-47', 'chapter-1-48', 'chapter-1-49', 'chapter-1-50', 'chapter-1-end'],
   },
 
-  // === 第二章：渡口 ===
+  // === 第二章：渡口（支援 yi1- 前綴）===
   {
     image: IMG07_迷霧渡口,
     alt: '迷霧渡口',
@@ -81,24 +88,24 @@ export const sceneImages: SceneImageConfig[] = [
   {
     image: IMG03_問心初登場,
     alt: '問心初登場',
-    nodePatterns: ['chapter-2-16', 'chapter-2-17', 'chapter-2-18', 'chapter-2-19', 'chapter-2-20', 'chapter-2-21', 'chapter-2-22', 'chapter-2-23', 'chapter-2-24', 'chapter-2-25', 'chapter-2-26', 'chapter-2-27', 'chapter-2-28', 'chapter-2-29', 'chapter-2-30', 'chapter-2-31', 'chapter-2-32', 'chapter-2-33', 'chapter-2-34', 'chapter-2-35', 'chapter-2-36', 'chapter-2-37', 'chapter-2-38', 'chapter-2-39', 'chapter-2-40', 'chapter-2-41', 'chapter-2-42', 'chapter-2-43', 'chapter-2-44', 'chapter-2-45'],
+    nodePatterns: ['chapter-2-16', 'chapter-2-17', 'chapter-2-18', 'chapter-2-19', 'chapter-2-20', 'chapter-2-21', 'chapter-2-22', 'chapter-2-23', 'chapter-2-24', 'chapter-2-25', 'chapter-2-26', 'chapter-2-27', 'chapter-2-28', 'chapter-2-29', 'chapter-2-30', 'chapter-2-choice-1', 'chapter-2-31', 'chapter-2-32', 'chapter-2-33', 'chapter-2-34', 'chapter-2-35'],
   },
   {
     image: IMG08_擺渡人,
     alt: '擺渡人',
-    nodePatterns: ['chapter-2-46', 'chapter-2-47', 'chapter-2-48', 'chapter-2-49', 'chapter-2-50', 'chapter-2-51', 'chapter-2-52', 'chapter-2-53', 'chapter-2-54', 'chapter-2-55', 'chapter-2-56', 'chapter-2-57', 'chapter-2-58', 'chapter-2-59', 'chapter-2-60', 'chapter-2-end'],
+    nodePatterns: ['chapter-2-36', 'chapter-2-37', 'chapter-2-38', 'chapter-2-39', 'chapter-2-40', 'chapter-2-41', 'chapter-2-42', 'chapter-2-43', 'chapter-2-44', 'chapter-2-45', 'chapter-2-46', 'chapter-2-47', 'chapter-2-48', 'chapter-2-49', 'chapter-2-50', 'chapter-2-51', 'chapter-2-52', 'chapter-2-53', 'chapter-2-54', 'chapter-2-55', 'chapter-2-56', 'chapter-2-57', 'chapter-2-58', 'chapter-2-59', 'chapter-2-60', 'chapter-2-end', 'chapter-2-choice-2'],
   },
 
-  // === 第三章：心即理（王陽明）===
+  // === 第三章：心即理（王陽明，支援 yi1- 前綴）===
   {
     image: IMG09_王陽明,
     alt: '王陽明',
-    nodePatterns: ['chapter-3-'],
+    nodePatterns: ['chapter-3-intro', 'chapter-3-1', 'chapter-3-2', 'chapter-3-3', 'chapter-3-4', 'chapter-3-5', 'chapter-3-6', 'chapter-3-7', 'chapter-3-8', 'chapter-3-9', 'chapter-3-10', 'chapter-3-11', 'chapter-3-12', 'chapter-3-13', 'chapter-3-14', 'chapter-3-15', 'chapter-3-16', 'chapter-3-17', 'chapter-3-18', 'chapter-3-19', 'chapter-3-20', 'chapter-3-21', 'chapter-3-22', 'chapter-3-23', 'chapter-3-24', 'chapter-3-25', 'chapter-3-26', 'chapter-3-27', 'chapter-3-28', 'chapter-3-29', 'chapter-3-30'],
   },
   {
     image: IMG10_心即理,
     alt: '心即理',
-    nodePatterns: ['chapter-3-40', 'chapter-3-41', 'chapter-3-42', 'chapter-3-43', 'chapter-3-44', 'chapter-3-45', 'chapter-3-46', 'chapter-3-47', 'chapter-3-48', 'chapter-3-49', 'chapter-3-50', 'chapter-3-end'],
+    nodePatterns: ['chapter-3-31', 'chapter-3-32', 'chapter-3-33', 'chapter-3-34', 'chapter-3-35', 'chapter-3-36', 'chapter-3-37', 'chapter-3-38', 'chapter-3-39', 'chapter-3-40', 'chapter-3-41', 'chapter-3-42', 'chapter-3-43', 'chapter-3-44', 'chapter-3-45', 'chapter-3-46', 'chapter-3-47', 'chapter-3-48', 'chapter-3-49', 'chapter-3-50', 'chapter-3-choice-1', 'chapter-3-choice-2', 'chapter-3-end'],
   },
 
   // === 第四章：命樹（蘇軾）===
@@ -110,7 +117,7 @@ export const sceneImages: SceneImageConfig[] = [
   {
     image: IMG13_江邊回憶,
     alt: '江邊回憶',
-    nodePatterns: ['chapter-4-21', 'chapter-4-22', 'chapter-4-23', 'chapter-4-24', 'chapter-4-25', 'chapter-4-26', 'chapter-4-27', 'chapter-4-28', 'chapter-4-29', 'chapter-4-30', 'chapter-4-31', 'chapter-4-32', 'chapter-4-33', 'chapter-4-34', 'chapter-4-35'],
+    nodePatterns: ['chapter-4-21', 'chapter-4-22', 'chapter-4-23', 'chapter-4-24', 'chapter-4-25', 'chapter-4-26', 'chapter-4-27', 'chapter-4-28', 'chapter-4-29', 'chapter-4-30', 'chapter-4-31', 'chapter-4-32', 'chapter-4-33', 'chapter-4-34', 'chapter-4-35', 'chapter-4-choice-1'],
   },
   {
     image: IMG14_弧度林全景,
@@ -120,7 +127,7 @@ export const sceneImages: SceneImageConfig[] = [
   {
     image: IMG15_主角海棠命樹,
     alt: '主角海棠命樹',
-    nodePatterns: ['chapter-4-51', 'chapter-4-52', 'chapter-4-53', 'chapter-4-54', 'chapter-4-55', 'chapter-4-56', 'chapter-4-57', 'chapter-4-58', 'chapter-4-59', 'chapter-4-60', 'chapter-4-end'],
+    nodePatterns: ['chapter-4-51', 'chapter-4-52', 'chapter-4-53', 'chapter-4-54', 'chapter-4-55', 'chapter-4-56', 'chapter-4-57', 'chapter-4-58', 'chapter-4-59', 'chapter-4-60', 'chapter-4-choice-2', 'chapter-4-end'],
   },
 
   // === 第五章：一性自足 ===
@@ -141,12 +148,12 @@ export const sceneImages: SceneImageConfig[] = [
   {
     image: IMG18_女子畫廊,
     alt: '女子畫廊',
-    nodePatterns: ['chapter7-1', 'chapter7-2', 'chapter7-3', 'chapter7-4', 'chapter7-5', 'chapter7-6'],
+    nodePatterns: ['chapter7-1', 'chapter7-2', 'chapter7-3', 'chapter7-4', 'chapter7-5', 'chapter7-6', 'chapter7-7', 'chapter7-8', 'chapter7-9', 'chapter7-10'],
   },
   {
     image: IMG20_朱紅鳳門,
     alt: '朱紅鳳門',
-    nodePatterns: ['chapter7-7', 'chapter7-8', 'chapter7-9', 'chapter7-10', 'chapter7-11', 'chapter7-12', 'chapter7-13', 'chapter7-14', 'chapter7-15'],
+    nodePatterns: ['chapter7-11', 'chapter7-12', 'chapter7-13', 'chapter7-14', 'chapter7-15', 'chapter7-16', 'chapter7-17', 'chapter7-18', 'chapter7-19', 'chapter7-20'],
   },
   {
     image: IMG19_武則天,
@@ -158,7 +165,7 @@ export const sceneImages: SceneImageConfig[] = [
   {
     image: IMG16_司馬遷書房,
     alt: '司馬遷書房',
-    nodePatterns: ['chapter8-1', 'chapter8-2', 'chapter8-3', 'chapter8-4', 'chapter8-5', 'chapter8-6', 'chapter8-7', 'chapter8-8', 'chapter8-9', 'chapter8-10', 'chapter8-11', 'chapter8-12', 'chapter8-13', 'chapter8-14', 'chapter8-15', 'chapter8-16', 'chapter8-17', 'chapter8-18', 'chapter8-19', 'chapter8-20', 'chapter8-21', 'chapter8-22', 'chapter8-23', 'chapter8-24', 'chapter8-25', 'chapter8-26', 'chapter8-27', 'chapter8-28', 'chapter8-29', 'chapter8-30'],
+    nodePatterns: ['chapter8-1', 'chapter8-2', 'chapter8-3', 'chapter8-4', 'chapter8-5', 'chapter8-6', 'chapter8-7', 'chapter8-8', 'chapter8-9', 'chapter8-10', 'chapter8-11', 'chapter8-12', 'chapter8-13', 'chapter8-14', 'chapter8-15', 'chapter8-16', 'chapter8-17', 'chapter8-18', 'chapter8-19', 'chapter8-20', 'chapter8-21', 'chapter8-22', 'chapter8-23', 'chapter8-24', 'chapter8-25'],
   },
   {
     image: IMG17_書匣打開,
@@ -170,7 +177,7 @@ export const sceneImages: SceneImageConfig[] = [
   {
     image: IMG21_李白月下醉臥,
     alt: '李白月下醉臥',
-    nodePatterns: ['chapter9-1', 'chapter9-2', 'chapter9-3', 'chapter9-4', 'chapter9-5', 'chapter9-6', 'chapter9-7', 'chapter9-8', 'chapter9-9', 'chapter9-10', 'chapter9-11', 'chapter9-12', 'chapter9-13', 'chapter9-14', 'chapter9-15', 'chapter9-16', 'chapter9-17', 'chapter9-18', 'chapter9-19', 'chapter9-20', 'chapter9-21', 'chapter9-22', 'chapter9-23', 'chapter9-24', 'chapter9-25', 'chapter9-26', 'chapter9-27', 'chapter9-28', 'chapter9-29', 'chapter9-30'],
+    nodePatterns: ['chapter9-1', 'chapter9-2', 'chapter9-3', 'chapter9-4', 'chapter9-5', 'chapter9-6', 'chapter9-7', 'chapter9-8', 'chapter9-9', 'chapter9-10', 'chapter9-11', 'chapter9-12', 'chapter9-13', 'chapter9-14', 'chapter9-15', 'chapter9-16', 'chapter9-17', 'chapter9-18', 'chapter9-19', 'chapter9-20', 'chapter9-21', 'chapter9-22', 'chapter9-23', 'chapter9-24', 'chapter9-25'],
   },
   {
     image: IMG22_詩句化光,
@@ -213,17 +220,24 @@ export function getSceneImage(nodeId: string): SceneImageConfig | null {
   // 統一移除 yi1- 前綴進行匹配
   const normalizedId = nodeId.replace(/^yi1-/, '');
   
+  // 優先進行精確匹配
   for (const config of sceneImages) {
     for (const pattern of config.nodePatterns) {
-      // 精確匹配優先（用於特定節點範圍）
       if (normalizedId === pattern) {
         return config;
       }
-      // 前綴匹配（用於通用範圍，如 'chapter7-'）
+    }
+  }
+  
+  // 再進行前綴匹配
+  for (const config of sceneImages) {
+    for (const pattern of config.nodePatterns) {
       if (pattern.endsWith('-') && normalizedId.startsWith(pattern)) {
         return config;
       }
     }
   }
-  return null;
+  
+  // 如果沒有匹配，返回預設圖片
+  return defaultSceneImage;
 }
