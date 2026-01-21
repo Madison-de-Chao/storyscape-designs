@@ -161,6 +161,12 @@ const DialogueBox = ({ isHidden = false, onToggleHide }: DialogueBoxProps) => {
     }
   }, [currentNode, isTyping, advanceToNextNode, playSFX]);
 
+  // Parse displayed text - must be before early return to follow hooks rules
+  const parsedText = useMemo(() => {
+    if (!displayedText || !currentNode) return [];
+    return parseDialogueText(displayedText, currentNode.speaker);
+  }, [displayedText, currentNode]);
+
   if (!currentNode) return null;
 
   const getSpeakerColor = (speaker: string) => {
@@ -301,10 +307,7 @@ const DialogueBox = ({ isHidden = false, onToggleHide }: DialogueBoxProps) => {
     }
   };
 
-  // 解析對話文字
-  const parsedText = useMemo(() => {
-    return parseDialogueText(displayedText, currentNode.speaker);
-  }, [displayedText, currentNode.speaker]);
+  // parsedText is now computed before early return (line ~165)
 
   const speakerTextStyle = getSpeakerTextStyle();
   const emphasisStyle = getEmphasisStyle();
