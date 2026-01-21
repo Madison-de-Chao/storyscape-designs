@@ -493,6 +493,6 @@ export const chapter7Nodes: DialogueNode[] = [
     speaker: 'wenxin',
     speakerName: '問心',
     text: '下一個是一個把恥辱轉化為使命的人。一個被世界認定為「殘缺」，但活出了最完整人生的人——司馬遷。他會教你，「殘缺」不等於「不完整」。',
-    nextNodeId: null,
+    nextNodeId: 'chapter8-1',
   },
 ];

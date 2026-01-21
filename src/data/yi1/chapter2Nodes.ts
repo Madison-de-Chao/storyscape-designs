@@ -1023,6 +1023,6 @@ export const chapter2Nodes: DialogueNode[] = [
     speaker: 'wenxin',
     text: '一個被貶了一輩子，卻從未貶低過自己的人。',
     arcChange: 5,
-    nextNodeId: null,
+    nextNodeId: 'yi1-chapter-3-intro-1',
   },
 ];
