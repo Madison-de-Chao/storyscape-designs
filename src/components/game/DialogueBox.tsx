@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useRef } from 'react';
+import { useState, useEffect, useCallback, useRef, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Eye, EyeOff, FastForward, Play, Pause } from 'lucide-react';
 import { useGameStore } from '@/stores/gameStore';
@@ -8,6 +8,32 @@ import { getYi1NodeById } from '@/data/yi1';
 import { DialogueNode } from '@/stores/gameStore';
 import { useSFX } from '@/hooks/useAudio';
 import ChoiceButton from './ChoiceButton';
+
+// 解析文字中的強調標記 **text** 和角色專屬效果
+const parseDialogueText = (text: string, speaker: string) => {
+  // 匹配 **強調文字** 的正則表達式
+  const emphasisRegex = /\*\*(.+?)\*\*/g;
+  const parts: { text: string; isEmphasis: boolean }[] = [];
+  let lastIndex = 0;
+  let match;
+
+  while ((match = emphasisRegex.exec(text)) !== null) {
+    // 添加匹配之前的普通文字
+    if (match.index > lastIndex) {
+      parts.push({ text: text.slice(lastIndex, match.index), isEmphasis: false });
+    }
+    // 添加強調文字
+    parts.push({ text: match[1], isEmphasis: true });
+    lastIndex = match.index + match[0].length;
+  }
+  
+  // 添加剩餘的普通文字
+  if (lastIndex < text.length) {
+    parts.push({ text: text.slice(lastIndex), isEmphasis: false });
+  }
+
+  return parts.length > 0 ? parts : [{ text, isEmphasis: false }];
+};
 
 interface DialogueBoxProps {
   isHidden?: boolean;
@@ -199,6 +225,90 @@ const DialogueBox = ({ isHidden = false, onToggleHide }: DialogueBoxProps) => {
     }
   };
 
+  // 根據說話者獲取專屬文字效果樣式
+  const getSpeakerTextStyle = () => {
+    switch (currentNode.speaker) {
+      case 'yi':
+        return {
+          color: 'hsl(350 55% 72%)',
+          textShadow: '0 0 8px hsl(350 60% 50% / 0.6), 0 1px 3px hsl(0 0% 0% / 0.9)',
+          fontStyle: 'italic' as const,
+        };
+      case 'wenxin':
+        return {
+          color: 'hsl(38 85% 75%)',
+          textShadow: '0 0 15px hsl(38 80% 55% / 0.5), 0 0 30px hsl(38 80% 55% / 0.3), 0 1px 3px hsl(0 0% 0% / 0.9)',
+        };
+      case 'wendu':
+        return {
+          color: 'hsl(210 60% 75%)',
+          textShadow: '0 0 12px hsl(210 70% 60% / 0.4), 0 1px 3px hsl(0 0% 0% / 0.9)',
+        };
+      case 'wangyangming':
+      case 'sushi':
+      case 'simaqian':
+      case 'libai':
+        return {
+          color: 'hsl(45 50% 85%)',
+          textShadow: '0 0 10px hsl(45 60% 60% / 0.3), 0 1px 3px hsl(0 0% 0% / 0.9)',
+        };
+      case 'wuzetian':
+      case 'cleopatra':
+        return {
+          color: 'hsl(350 60% 78%)',
+          textShadow: '0 0 12px hsl(350 70% 50% / 0.4), 0 1px 3px hsl(0 0% 0% / 0.9)',
+        };
+      case 'mandela':
+      case 'lincoln':
+        return {
+          color: 'hsl(180 40% 80%)',
+          textShadow: '0 0 10px hsl(180 50% 60% / 0.3), 0 1px 3px hsl(0 0% 0% / 0.9)',
+        };
+      case 'narrator':
+        return {
+          color: 'hsl(220 20% 72%)',
+          textShadow: '0 1px 3px hsl(0 0% 0% / 0.9)',
+        };
+      default:
+        return {
+          color: 'hsl(45 35% 92%)',
+          textShadow: '0 1px 3px hsl(0 0% 0% / 0.9), 0 0 1px hsl(0 0% 0% / 0.6)',
+        };
+    }
+  };
+
+  // 強調文字的樣式
+  const getEmphasisStyle = () => {
+    switch (currentNode.speaker) {
+      case 'yi':
+        return {
+          color: 'hsl(350 70% 65%)',
+          fontWeight: 700,
+          textShadow: '0 0 15px hsl(350 80% 50% / 0.8), 0 0 30px hsl(350 80% 50% / 0.4)',
+        };
+      case 'wenxin':
+        return {
+          color: 'hsl(38 90% 65%)',
+          fontWeight: 700,
+          textShadow: '0 0 20px hsl(38 90% 55% / 0.8), 0 0 40px hsl(38 90% 55% / 0.4)',
+        };
+      default:
+        return {
+          color: 'hsl(38 80% 70%)',
+          fontWeight: 700,
+          textShadow: '0 0 12px hsl(38 80% 55% / 0.6), 0 0 25px hsl(38 80% 55% / 0.3)',
+        };
+    }
+  };
+
+  // 解析對話文字
+  const parsedText = useMemo(() => {
+    return parseDialogueText(displayedText, currentNode.speaker);
+  }, [displayedText, currentNode.speaker]);
+
+  const speakerTextStyle = getSpeakerTextStyle();
+  const emphasisStyle = getEmphasisStyle();
+
   return (
     <>
       {/* 控制按鈕群組 */}
@@ -363,42 +473,111 @@ const DialogueBox = ({ isHidden = false, onToggleHide }: DialogueBoxProps) => {
                     </motion.div>
                   )}
 
-                  {/* 對話文字 - 最大化可讀性 */}
+                  {/* 對話文字 - 角色專屬效果 */}
                   <div className="min-h-[90px] flex items-start">
-                    <p
+                    <div
                       className={`
-                        font-sans-tc leading-loose
+                        font-sans-tc leading-loose relative
                         ${currentNode.speaker === 'yi' ? 'italic' : ''}
                       `}
                       style={{
                         fontSize: 'clamp(1.125rem, 2.5vw, 1.35rem)',
                         lineHeight: '2.1',
                         letterSpacing: '0.05em',
-                        color: currentNode.speaker === 'narrator' 
-                          ? 'hsl(220 20% 70%)' 
-                          : currentNode.speaker === 'yi'
-                          ? 'hsl(350 50% 75%)'
-                          : 'hsl(45 35% 92%)',
-                        textShadow: `
-                          0 1px 3px hsl(0 0% 0% / 0.9),
-                          0 0 1px hsl(0 0% 0% / 0.6)
-                        `,
                         fontWeight: 400,
                       }}
                     >
-                      {displayedText}
+                      {/* 伊的故障效果疊加層 */}
+                      {currentNode.speaker === 'yi' && (
+                        <motion.div
+                          className="absolute inset-0 pointer-events-none overflow-hidden"
+                          animate={{
+                            opacity: [0, 0, 0.15, 0, 0, 0.1, 0],
+                          }}
+                          transition={{
+                            duration: 3,
+                            repeat: Infinity,
+                            repeatType: 'loop',
+                          }}
+                        >
+                          <div 
+                            className="absolute inset-0"
+                            style={{
+                              background: 'repeating-linear-gradient(0deg, transparent 0px, transparent 3px, hsl(350 60% 50% / 0.1) 3px, hsl(350 60% 50% / 0.1) 4px)',
+                            }}
+                          />
+                        </motion.div>
+                      )}
+
+                      {/* 問心的金色光暈效果 */}
+                      {currentNode.speaker === 'wenxin' && (
+                        <motion.div
+                          className="absolute -inset-4 pointer-events-none"
+                          animate={{
+                            opacity: [0.1, 0.25, 0.1],
+                          }}
+                          transition={{
+                            duration: 3,
+                            repeat: Infinity,
+                            repeatType: 'reverse',
+                          }}
+                          style={{
+                            background: 'radial-gradient(ellipse at center, hsl(38 80% 55% / 0.15) 0%, transparent 70%)',
+                            filter: 'blur(8px)',
+                          }}
+                        />
+                      )}
+
+                      {/* 渲染解析後的文字 */}
+                      <span style={speakerTextStyle}>
+                        {parsedText.map((part, index) => (
+                          part.isEmphasis ? (
+                            <motion.span
+                              key={index}
+                              style={emphasisStyle}
+                              animate={currentNode.speaker === 'wenxin' ? {
+                                textShadow: [
+                                  '0 0 20px hsl(38 90% 55% / 0.8), 0 0 40px hsl(38 90% 55% / 0.4)',
+                                  '0 0 30px hsl(38 90% 55% / 1), 0 0 60px hsl(38 90% 55% / 0.6)',
+                                  '0 0 20px hsl(38 90% 55% / 0.8), 0 0 40px hsl(38 90% 55% / 0.4)',
+                                ],
+                              } : currentNode.speaker === 'yi' ? {
+                                x: [0, -1, 1, 0],
+                                opacity: [1, 0.8, 1, 0.9, 1],
+                              } : {}}
+                              transition={{
+                                duration: currentNode.speaker === 'wenxin' ? 2 : 0.5,
+                                repeat: Infinity,
+                                repeatType: 'reverse',
+                              }}
+                            >
+                              {part.text}
+                            </motion.span>
+                          ) : (
+                            <span key={index}>{part.text}</span>
+                          )
+                        ))}
+                      </span>
+
+                      {/* 打字游標 */}
                       {isTyping && (
                         <motion.span
                           className="inline-block w-[3px] h-6 ml-1.5 align-text-bottom rounded-sm"
                           animate={{ opacity: [1, 0.2] }}
                           transition={{ duration: 0.55, repeat: Infinity, ease: "easeInOut" }}
                           style={{
-                            background: 'hsl(38 80% 55%)',
-                            boxShadow: '0 0 10px hsl(38 80% 55% / 0.7)',
+                            background: currentNode.speaker === 'yi' 
+                              ? 'hsl(350 60% 55%)' 
+                              : currentNode.speaker === 'wenxin'
+                              ? 'hsl(38 90% 60%)'
+                              : 'hsl(38 80% 55%)',
+                            boxShadow: currentNode.speaker === 'yi'
+                              ? '0 0 10px hsl(350 60% 55% / 0.7)'
+                              : '0 0 10px hsl(38 80% 55% / 0.7)',
                           }}
                         />
                       )}
-                    </p>
+                    </div>
                   </div>
 
                   {/* 點擊繼續提示 - 增強可見性 */}
