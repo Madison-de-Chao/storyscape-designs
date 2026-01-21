@@ -25,8 +25,8 @@ const SFXGenerator = ({ onClose }: SFXGeneratorProps) => {
             'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
           },
           body: JSON.stringify({
-            prompt: 'Ethereal wind chimes and crystal bells slowly ringing in a mysterious misty atmosphere, creating a magical and transcendent transition sound effect for a chapter change in a narrative game',
-            duration: 3,
+            prompt: 'Crisp and clear crystal chime with a bright, sparkling tone. A single elegant bell strike followed by delicate high-pitched resonance that fades gracefully. Clean, refreshing, and melodious transition sound',
+            duration: 2,
           }),
         }
       );
