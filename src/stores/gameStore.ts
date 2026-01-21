@@ -11,15 +11,29 @@ export interface Choice {
   nextNodeId: string;
 }
 
+// 情緒音效類型（與 useAudio.ts 中的 EmotionSFXType 保持一致）
+export type EmotionSFXKey = 
+  | 'gentle_laugh' | 'gentle_laugh_1' | 'gentle_laugh_2'
+  | 'frustration' | 'frustration_1'
+  | 'seductive' | 'seductive_1'
+  | 'fear' | 'fear_1'
+  | 'surprise'
+  | 'sad_sigh' | 'sad_sigh_1'
+  | 'evil_giggle' | 'evil_giggle_1' | 'evil_giggle_2'
+  | 'mysterious_whisper' | 'mysterious_whisper_1'
+  | 'mockery';
+
 export interface DialogueNode {
   id: string;
-  speaker: 'narrator' | 'protagonist' | 'yi' | 'mentor' | 'wenxin' | 'wendu' | 'sushi' | 'wangyangming' | 'simaqian' | 'wuzetian' | 'libai' | 'mandela' | 'caesar' | 'cleopatra' | 'lincoln' | 'jobs';
+  speaker: 'narrator' | 'protagonist' | 'yi' | 'mentor' | 'wenxin' | 'wendu' | 'sushi' | 'wangyangming' | 'simaqian' | 'wuzetian' | 'libai' | 'mandela' | 'caesar' | 'cleopatra' | 'lincoln' | 'jobs' | 'vangogh' | 'helenkeller';
   speakerName?: string;
   text: string;
   choices?: Choice[];
   nextNodeId?: string | null;
   effect?: 'glitch' | 'glow' | 'fade';
   arcChange?: number;
+  // 明確指定此節點播放的情緒音效（覆蓋說話者預設）
+  emotionSFX?: EmotionSFXKey;
 }
 
 export interface Chapter {
