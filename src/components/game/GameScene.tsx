@@ -41,7 +41,7 @@ const getChapterTitle = (nodeId: string): string => {
   return '序章';
 };
 
-// 從節點 ID 提取章節編號
+// 從節點 ID 提取章節編號（同時返回用於主題色的 key）
 const getChapterNumber = (nodeId: string): string => {
   const normalizedId = nodeId.replace(/^yi1-/, '');
   if (normalizedId.startsWith('preface')) return 'preface';
@@ -55,6 +55,11 @@ const getChapterNumber = (nodeId: string): string => {
   if (matchNoDash) return `chapter-${matchNoDash[1]}`;
   
   return '';
+};
+
+// 從節點 ID 提取章節 key（用於主題色查詢）
+const getChapterKey = (nodeId: string): string => {
+  return getChapterNumber(nodeId);
 };
 
 const GameScene = () => {
@@ -74,6 +79,7 @@ const GameScene = () => {
   // 章節轉場狀態
   const [isChapterTransition, setIsChapterTransition] = useState(false);
   const [transitionChapterTitle, setTransitionChapterTitle] = useState('');
+  const [transitionChapterKey, setTransitionChapterKey] = useState('');
   const prevChapterRef = useRef<string>('');
 
   const currentNode = currentPart === 'yi' 
@@ -98,7 +104,9 @@ const GameScene = () => {
     if (prevChapterRef.current && prevChapterRef.current !== currentChapter && currentChapter) {
       // 章節變更，觸發轉場
       const newTitle = getChapterTitle(currentNodeId);
+      const chapterKey = getChapterKey(currentNodeId);
       setTransitionChapterTitle(newTitle);
+      setTransitionChapterKey(chapterKey);
       setIsChapterTransition(true);
     }
     
@@ -328,11 +336,12 @@ const GameScene = () => {
         onClose={() => setIsGalleryOpen(false)} 
       />
 
-      {/* 章節轉場動畫 */}
+      {/* 章節轉場動畫 - 傳遞章節主題色 */}
       <SceneTransition
         isTransitioning={isChapterTransition}
         transitionType="chapter"
         chapterTitle={transitionChapterTitle}
+        chapterKey={transitionChapterKey}
         onTransitionComplete={() => setIsChapterTransition(false)}
       />
     </div>

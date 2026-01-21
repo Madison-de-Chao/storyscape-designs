@@ -1,26 +1,43 @@
 import { motion, AnimatePresence } from 'framer-motion';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
+import { getChapterTheme, themeToHSL, themeToGlow, type ChapterTheme } from '@/utils/chapterThemes';
+import { useSFX } from '@/hooks/useAudio';
 
 interface SceneTransitionProps {
   isTransitioning: boolean;
   transitionType?: 'fade' | 'slide' | 'blur' | 'cinematic' | 'chapter';
   chapterTitle?: string;
+  chapterKey?: string;  // 用於獲取章節主題色
   onTransitionComplete?: () => void;
 }
 
 /**
  * 全屏場景轉場組件
  * 用於章節切換、重大場景轉換時的視覺過渡
- * 電影級動畫效果
+ * 電影級動畫效果 + 章節專屬主題色
  */
 const SceneTransition = ({
   isTransitioning,
   transitionType = 'fade',
   chapterTitle,
+  chapterKey,
   onTransitionComplete,
 }: SceneTransitionProps) => {
+  const { playSFX } = useSFX();
   const [showContent, setShowContent] = useState(false);
   const [phase, setPhase] = useState<'enter' | 'display' | 'exit'>('enter');
+
+  // 獲取章節主題色
+  const theme: ChapterTheme = useMemo(() => {
+    return getChapterTheme(chapterKey || 'preface');
+  }, [chapterKey]);
+
+  // 過場開始時播放音效
+  useEffect(() => {
+    if (isTransitioning && transitionType === 'chapter') {
+      playSFX('chapter_transition');
+    }
+  }, [isTransitioning, transitionType, playSFX]);
 
   useEffect(() => {
     if (isTransitioning && transitionType === 'chapter') {
@@ -124,7 +141,7 @@ const SceneTransition = ({
             </>
           )}
 
-          {/* 章節轉場 - 電影級效果 */}
+          {/* 章節轉場 - 電影級效果 + 動態主題色 */}
           {transitionType === 'chapter' && chapterTitle && (
             <>
               {/* 動態光線掃描效果 */}
@@ -134,7 +151,7 @@ const SceneTransition = ({
                 animate={{ opacity: [0, 0.4, 0] }}
                 transition={{ duration: 2, times: [0, 0.3, 1] }}
                 style={{
-                  background: 'linear-gradient(90deg, transparent 0%, hsl(38 80% 55% / 0.15) 50%, transparent 100%)',
+                  background: `linear-gradient(90deg, transparent 0%, ${themeToHSL(theme, 0.15)} 50%, transparent 100%)`,
                 }}
               />
 
@@ -148,7 +165,7 @@ const SceneTransition = ({
                 }}
                 transition={{ duration: 1.5, ease: 'easeOut' }}
                 style={{
-                  background: 'radial-gradient(ellipse at center, hsl(38 80% 55% / 0.2) 0%, hsl(38 80% 55% / 0.05) 40%, transparent 70%)',
+                  background: `radial-gradient(ellipse at center, ${themeToHSL(theme, 0.25)} 0%, ${themeToHSL(theme, 0.05)} 40%, transparent 70%)`,
                 }}
               />
 
@@ -157,20 +174,20 @@ const SceneTransition = ({
                 className="absolute inset-0 pointer-events-none"
                 animate={{
                   background: [
-                    'radial-gradient(ellipse at 50% 50%, hsl(222 50% 8%) 0%, hsl(222 50% 3%) 100%)',
-                    'radial-gradient(ellipse at 50% 40%, hsl(222 50% 10%) 0%, hsl(222 50% 3%) 100%)',
-                    'radial-gradient(ellipse at 50% 50%, hsl(222 50% 8%) 0%, hsl(222 50% 3%) 100%)',
+                    `radial-gradient(ellipse at 50% 50%, hsl(222 50% 8%) 0%, hsl(222 50% 3%) 100%)`,
+                    `radial-gradient(ellipse at 50% 40%, ${themeToHSL(theme, 0.1)} 0%, hsl(222 50% 3%) 100%)`,
+                    `radial-gradient(ellipse at 50% 50%, hsl(222 50% 8%) 0%, hsl(222 50% 3%) 100%)`,
                   ],
                 }}
                 transition={{ duration: 3, ease: 'easeInOut' }}
               />
 
-              {/* 水平光線掃描 */}
+              {/* 水平光線掃描 - 使用主題色 */}
               <motion.div
                 className="absolute h-[2px] left-0 right-0 pointer-events-none"
                 style={{
-                  background: 'linear-gradient(90deg, transparent 0%, hsl(38 80% 60% / 0.8) 50%, transparent 100%)',
-                  boxShadow: '0 0 30px 10px hsl(38 80% 55% / 0.3)',
+                  background: `linear-gradient(90deg, transparent 0%, ${themeToGlow(theme, 0.9)} 50%, transparent 100%)`,
+                  boxShadow: `0 0 30px 10px ${themeToHSL(theme, 0.4)}`,
                 }}
                 initial={{ top: '0%', opacity: 0 }}
                 animate={{ 
@@ -194,7 +211,7 @@ const SceneTransition = ({
 
               {/* 主要內容區域 */}
               <div className="relative text-center z-10">
-                {/* 上方裝飾光線 */}
+                {/* 上方裝飾光線 - 動態主題色 */}
                 <motion.div
                   className="flex items-center justify-center gap-4 mb-10"
                   initial={{ opacity: 0 }}
@@ -207,7 +224,7 @@ const SceneTransition = ({
                     animate={showContent ? { scaleX: 1, opacity: 1 } : {}}
                     transition={{ duration: 0.6, delay: 0.3 }}
                     style={{
-                      background: 'linear-gradient(90deg, transparent, hsl(38 80% 55%))',
+                      background: `linear-gradient(90deg, transparent, ${themeToHSL(theme)})`,
                       transformOrigin: 'right',
                     }}
                   />
@@ -217,8 +234,8 @@ const SceneTransition = ({
                     animate={showContent ? { scale: 1, opacity: 1 } : {}}
                     transition={{ duration: 0.4, delay: 0.5 }}
                     style={{
-                      background: 'hsl(38 80% 55%)',
-                      boxShadow: '0 0 15px hsl(38 80% 55% / 0.8)',
+                      background: themeToHSL(theme),
+                      boxShadow: `0 0 15px ${themeToHSL(theme, 0.8)}`,
                     }}
                   />
                   <motion.div
@@ -227,13 +244,13 @@ const SceneTransition = ({
                     animate={showContent ? { scaleX: 1, opacity: 1 } : {}}
                     transition={{ duration: 0.6, delay: 0.3 }}
                     style={{
-                      background: 'linear-gradient(90deg, hsl(38 80% 55%), transparent)',
+                      background: `linear-gradient(90deg, ${themeToHSL(theme)}, transparent)`,
                       transformOrigin: 'left',
                     }}
                   />
                 </motion.div>
 
-                {/* 章節標題 - 電影級文字動畫 */}
+                {/* 章節標題 - 電影級文字動畫 + 動態主題色 */}
                 <motion.div
                   className="relative"
                   initial={{ opacity: 0 }}
@@ -250,7 +267,7 @@ const SceneTransition = ({
                     } : {}}
                     transition={{ duration: 1.2, delay: 0.5 }}
                     style={{
-                      background: 'radial-gradient(ellipse at center, hsl(38 80% 55% / 0.15) 0%, transparent 60%)',
+                      background: `radial-gradient(ellipse at center, ${themeToHSL(theme, 0.2)} 0%, transparent 60%)`,
                       filter: 'blur(20px)',
                     }}
                   />
@@ -269,10 +286,10 @@ const SceneTransition = ({
                       ease: [0.25, 0.46, 0.45, 0.94],
                     }}
                     style={{
-                      color: 'hsl(38 75% 75%)',
+                      color: themeToGlow(theme, 1),
                       textShadow: `
-                        0 0 60px hsl(38 80% 55% / 0.6),
-                        0 0 100px hsl(38 80% 55% / 0.3),
+                        0 0 60px ${themeToHSL(theme, 0.6)},
+                        0 0 100px ${themeToHSL(theme, 0.3)},
                         0 4px 30px hsl(0 0% 0% / 0.9)
                       `,
                     }}
@@ -287,12 +304,12 @@ const SceneTransition = ({
                     animate={showContent ? { width: '120%', opacity: [0, 1, 0.6] } : {}}
                     transition={{ duration: 1, delay: 0.8 }}
                     style={{
-                      background: 'linear-gradient(90deg, transparent 0%, hsl(38 80% 55% / 0.6) 50%, transparent 100%)',
+                      background: `linear-gradient(90deg, transparent 0%, ${themeToHSL(theme, 0.6)} 50%, transparent 100%)`,
                     }}
                   />
                 </motion.div>
 
-                {/* 下方裝飾光線 */}
+                {/* 下方裝飾光線 - 動態主題色 */}
                 <motion.div
                   className="flex items-center justify-center gap-4 mt-12"
                   initial={{ opacity: 0 }}
@@ -305,7 +322,7 @@ const SceneTransition = ({
                     animate={showContent ? { scaleX: 1, opacity: 0.6 } : {}}
                     transition={{ duration: 0.5, delay: 0.7 }}
                     style={{
-                      background: 'linear-gradient(90deg, transparent, hsl(38 80% 55% / 0.6))',
+                      background: `linear-gradient(90deg, transparent, ${themeToHSL(theme, 0.6)})`,
                       transformOrigin: 'right',
                     }}
                   />
@@ -315,8 +332,8 @@ const SceneTransition = ({
                     animate={showContent ? { scale: 1, opacity: 0.6 } : {}}
                     transition={{ duration: 0.3, delay: 0.8 }}
                     style={{
-                      background: 'hsl(38 80% 55% / 0.8)',
-                      boxShadow: '0 0 10px hsl(38 80% 55% / 0.5)',
+                      background: themeToHSL(theme, 0.8),
+                      boxShadow: `0 0 10px ${themeToHSL(theme, 0.5)}`,
                     }}
                   />
                   <motion.div
@@ -325,14 +342,14 @@ const SceneTransition = ({
                     animate={showContent ? { scaleX: 1, opacity: 0.6 } : {}}
                     transition={{ duration: 0.5, delay: 0.7 }}
                     style={{
-                      background: 'linear-gradient(90deg, hsl(38 80% 55% / 0.6), transparent)',
+                      background: `linear-gradient(90deg, ${themeToHSL(theme, 0.6)}, transparent)`,
                       transformOrigin: 'left',
                     }}
                   />
                 </motion.div>
               </div>
 
-              {/* 浮動粒子效果 - 增強版 */}
+              {/* 浮動粒子效果 - 使用動態主題色 */}
               {showContent && (
                 <div className="absolute inset-0 overflow-hidden pointer-events-none">
                   {/* 主要上升粒子 */}
@@ -359,8 +376,8 @@ const SceneTransition = ({
                       style={{
                         width: 2 + Math.random() * 3,
                         height: 2 + Math.random() * 3,
-                        background: `hsl(38 ${70 + Math.random() * 20}% ${55 + Math.random() * 15}%)`,
-                        boxShadow: `0 0 ${6 + Math.random() * 8}px hsl(38 80% 55% / 0.6)`,
+                        background: `hsl(${theme.hue} ${theme.saturation - 10 + Math.random() * 20}% ${theme.lightness + Math.random() * 15}%)`,
+                        boxShadow: `0 0 ${6 + Math.random() * 8}px ${themeToHSL(theme, 0.6)}`,
                       }}
                     />
                   ))}
@@ -389,8 +406,8 @@ const SceneTransition = ({
                           ease: 'easeOut',
                         }}
                         style={{
-                          background: 'hsl(38 80% 70%)',
-                          boxShadow: '0 0 12px hsl(38 80% 55% / 0.8)',
+                          background: themeToGlow(theme),
+                          boxShadow: `0 0 12px ${themeToHSL(theme, 0.8)}`,
                         }}
                       />
                     );
