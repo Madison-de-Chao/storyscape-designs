@@ -1,16 +1,16 @@
 // 場景圖片映射配置
 // 定義每個節點或節點範圍對應的場景圖片
 
-import IMG01_作者序 from '@/assets/scenes/IMG01_作者序.png';
-import IMG02_訓練場 from '@/assets/scenes/IMG02_訓練場.png';
-import IMG03_問心初登場 from '@/assets/scenes/IMG03_問心初登場.png';
-import IMG04_刪除之夜 from '@/assets/scenes/IMG04_刪除之夜.png';
-import IMG05_刪除鍵特寫 from '@/assets/scenes/IMG05_刪除鍵特寫.png';
-import IMG06_靈魂抽離 from '@/assets/scenes/IMG06_靈魂抽離.png';
-import IMG07_迷霧渡口 from '@/assets/scenes/IMG07_迷霧渡口.png';
-import IMG08_擺渡人 from '@/assets/scenes/IMG08_擺渡人.png';
-import IMG09_王陽明 from '@/assets/scenes/IMG09_王陽明.png';
-import IMG10_心即理 from '@/assets/scenes/IMG10_心即理_繁中.png';
+import IMG01_作者序 from '@/assets/scenes/IMG01_作者序_統一版.png';
+import IMG02_訓練場 from '@/assets/scenes/IMG02_訓練場_統一版.png';
+import IMG03_問心初登場 from '@/assets/scenes/IMG03_問心初登場_統一版.png';
+import IMG04_刪除之夜 from '@/assets/scenes/IMG04_刪除之夜_統一版.png';
+import IMG05_刪除鍵特寫 from '@/assets/scenes/IMG05_刪除鍵特寫_統一版.png';
+import IMG06_靈魂抽離 from '@/assets/scenes/IMG06_靈魂抽離_統一版.png';
+import IMG07_迷霧渡口 from '@/assets/scenes/IMG07_迷霧渡口_統一版.png';
+import IMG08_擺渡人 from '@/assets/scenes/IMG08_擺渡人_統一版.png';
+import IMG09_王陽明 from '@/assets/scenes/IMG09_王陽明_統一版.png';
+import IMG10_心即理 from '@/assets/scenes/IMG10_心即理_統一版.png';
 
 export interface SceneImageConfig {
   image: string;
