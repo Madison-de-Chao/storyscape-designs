@@ -100,7 +100,7 @@ export const yi1PrologueNodes: DialogueNode[] = [
   {
     id: 'prologue-12',
     speaker: 'narrator',
-    text: '看見對立的背後，其實是同一個「壹」。',
+    text: '看見對立的背後，其實是同一個「**壹**」。',
     nextNodeId: 'prologue-13',
     effect: 'glow',
   },
@@ -115,7 +115,7 @@ export const yi1PrologueNodes: DialogueNode[] = [
   {
     id: 'prologue-14',
     speaker: 'narrator',
-    text: '「原來，我不需要變成另一個人。我只需要成為完整的自己。」',
+    text: '「原來，我不需要變成另一個人。我只需要成為**完整的自己**。」',
     nextNodeId: 'prologue-15',
     effect: 'glow',
   },
@@ -156,7 +156,7 @@ export const yi1PrologueNodes: DialogueNode[] = [
     id: 'prologue-20',
     speaker: 'yi',
     speakerName: '???',
-    text: '伊。',
+    text: '**伊**。',
     nextNodeId: 'prologue-choice-2',
     effect: 'glitch',
   },
@@ -191,14 +191,14 @@ export const yi1PrologueNodes: DialogueNode[] = [
   {
     id: 'prologue-22',
     speaker: 'narrator',
-    text: '伊不是惡魔，不是敵人。伊是你——是你不敢承認的那個你。',
+    text: '伊不是惡魔，不是敵人。伊是你——是你**不敢承認的那個你**。',
     nextNodeId: 'prologue-23',
     effect: 'glow',
   },
   {
     id: 'prologue-23',
     speaker: 'narrator',
-    text: '伊在等你。等你有一天願意轉身，對它說——「對不起。歡迎回家。」',
+    text: '伊在等你。等你有一天願意轉身，對它說——「**對不起。歡迎回家。**」',
     nextNodeId: 'prologue-24',
     effect: 'glow',
   },
@@ -207,7 +207,7 @@ export const yi1PrologueNodes: DialogueNode[] = [
   {
     id: 'prologue-24',
     speaker: 'narrator',
-    text: '這就是你來到這裡的原因。不是為了成功，不是為了完美，是為了完整。',
+    text: '這就是你來到這裡的原因。不是為了成功，不是為了完美，是為了**完整**。',
     nextNodeId: 'prologue-25',
     effect: 'glow',
   },
