@@ -63,10 +63,15 @@ const SceneImage = ({ nodeId, hideOverlay = false }: SceneImageProps) => {
           clearTimeout(transitionTimeoutRef.current);
         }
         
+        // 根據場景類型調整轉場時間
+        const transitionDuration = sceneEffect === 'mystical' ? 2000 : 
+                                   sceneEffect === 'glitch' ? 1000 : 
+                                   sceneEffect === 'dramatic' ? 1800 : 1500;
+        
         transitionTimeoutRef.current = setTimeout(() => {
           setShowTransitionEffect(false);
           setPrevImage(null);
-        }, 1500);
+        }, transitionDuration);
       }
       
       setIsLoaded(false);
@@ -76,7 +81,7 @@ const SceneImage = ({ nodeId, hideOverlay = false }: SceneImageProps) => {
         unlockImage(sceneImage.image);
       }
     }
-  }, [nodeId, currentImage?.image, unlockImage]);
+  }, [nodeId, currentImage?.image, unlockImage, sceneEffect]);
 
   useEffect(() => {
     return () => {
@@ -358,44 +363,75 @@ const SceneImage = ({ nodeId, hideOverlay = false }: SceneImageProps) => {
         )}
       </AnimatePresence>
 
-      {/* 舊圖片淡出 */}
-      <AnimatePresence>
+      {/* 舊圖片淡出 - 增強平滑度 */}
+      <AnimatePresence mode="sync">
         {prevImage && showTransitionEffect && (
           <motion.div
             key={`prev-${prevImage.image}`}
             className="absolute inset-0"
-            initial={{ opacity: 1, scale: 1 }}
-            animate={{ opacity: 0, scale: sceneEffect === 'glitch' ? 1 : 1.1 }}
+            initial={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
+            animate={{ 
+              opacity: 0, 
+              scale: sceneEffect === 'glitch' ? 1 : 1.08,
+              filter: sceneEffect === 'mystical' ? 'blur(8px)' : 'blur(2px)',
+            }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 1.2, ease: 'easeInOut' }}
+            transition={{ 
+              duration: sceneEffect === 'mystical' ? 1.8 : 1.4, 
+              ease: [0.43, 0.13, 0.23, 0.96],
+            }}
           >
             <img
               src={prevImage.image}
               alt={prevImage.alt}
               className="w-full h-full object-cover"
             />
+            {/* 淡出時的疊加漸層 */}
+            <motion.div
+              className="absolute inset-0"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 0.6 }}
+              transition={{ duration: 0.8 }}
+              style={{
+                background: 'linear-gradient(180deg, hsl(222 47% 6% / 0.3) 0%, hsl(222 47% 3% / 0.5) 100%)',
+              }}
+            />
           </motion.div>
         )}
       </AnimatePresence>
 
-      {/* 新圖片淡入 */}
-      <AnimatePresence mode="wait">
+      {/* 新圖片淡入 - 增強視覺過渡 */}
+      <AnimatePresence mode="sync">
         <motion.div
           key={currentImage.image}
           className="absolute inset-0"
           {...entryAnimation}
         >
+          {/* 進場時的柔光效果 */}
+          <motion.div
+            className="absolute inset-0 z-10 pointer-events-none"
+            initial={{ opacity: 0.5 }}
+            animate={{ opacity: 0 }}
+            transition={{ duration: 1.5, delay: 0.3 }}
+            style={{
+              background: 'radial-gradient(ellipse at center, hsl(38 80% 55% / 0.15) 0%, transparent 60%)',
+            }}
+          />
+
           {/* 圖片容器 - 緩慢呼吸動畫 */}
           <motion.div
             className="absolute inset-0 overflow-hidden"
+            initial={{ scale: 1.05 }}
             animate={{
               scale: sceneEffect === 'glitch' ? [1, 1.005, 1] : [1, 1.02, 1],
             }}
             transition={{
-              duration: sceneEffect === 'glitch' ? 8 : 25,
-              repeat: Infinity,
-              repeatType: 'reverse',
-              ease: 'easeInOut',
+              scale: {
+                duration: sceneEffect === 'glitch' ? 8 : 25,
+                repeat: Infinity,
+                repeatType: 'reverse',
+                ease: 'easeInOut',
+              },
             }}
           >
             <motion.img
@@ -403,15 +439,16 @@ const SceneImage = ({ nodeId, hideOverlay = false }: SceneImageProps) => {
               alt={currentImage.alt}
               className="w-full h-full object-cover"
               onLoad={() => setIsLoaded(true)}
+              initial={{ scale: 1.08 }}
               animate={{
+                scale: 1,
                 y: sceneEffect === 'mystical' ? [0, -15, 0] : [0, -8, 0],
                 x: sceneEffect === 'poetic' ? [0, 5, 0] : [0, 3, 0],
               }}
               transition={{
-                duration: 20,
-                repeat: Infinity,
-                repeatType: 'reverse',
-                ease: 'easeInOut',
+                scale: { duration: 1.5, ease: [0.43, 0.13, 0.23, 0.96] },
+                y: { duration: 20, repeat: Infinity, repeatType: 'reverse', ease: 'easeInOut' },
+                x: { duration: 20, repeat: Infinity, repeatType: 'reverse', ease: 'easeInOut' },
               }}
             />
           </motion.div>

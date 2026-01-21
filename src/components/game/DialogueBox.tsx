@@ -270,15 +270,19 @@ const DialogueBox = ({ isHidden = false, onToggleHide }: DialogueBoxProps) => {
         )}
       </div>
 
-      {/* 對話框 */}
-      <AnimatePresence>
+      {/* 對話框 - 優化進場動畫 */}
+      <AnimatePresence mode="wait">
         {!isHidden && (
           <motion.div
             className="fixed bottom-0 left-0 right-0 z-40 p-4 md:p-6 lg:p-8"
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 50 }}
-            transition={{ duration: 0.35, ease: "easeOut" }}
+            initial={{ opacity: 0, y: 60, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 40, scale: 0.98 }}
+            transition={{ 
+              duration: 0.45, 
+              ease: [0.43, 0.13, 0.23, 0.96],
+              opacity: { duration: 0.35 },
+            }}
           >
             <div className="max-w-4xl mx-auto">
               {/* 主對話框 - 增強視覺效果和文字可讀性 */}
@@ -437,15 +441,19 @@ const DialogueBox = ({ isHidden = false, onToggleHide }: DialogueBoxProps) => {
                 />
               </motion.div>
 
-              {/* 選項按鈕 */}
-              <AnimatePresence>
+              {/* 選項按鈕 - 優化進場動畫 */}
+              <AnimatePresence mode="wait">
                 {!isTyping && currentNode.choices && (
                   <motion.div
                     className="mt-5 space-y-3"
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -20 }}
-                    transition={{ duration: 0.35, delay: 0.15 }}
+                    initial={{ opacity: 0, y: 25, filter: 'blur(4px)' }}
+                    animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                    exit={{ opacity: 0, y: -15, filter: 'blur(4px)' }}
+                    transition={{ 
+                      duration: 0.4, 
+                      delay: 0.1,
+                      ease: [0.43, 0.13, 0.23, 0.96],
+                    }}
                   >
                     {currentNode.choices.map((choice, index) => (
                       <ChoiceButton
