@@ -32,6 +32,26 @@ import IMG28_心靈之眼 from '@/assets/scenes/IMG28_心靈之眼_統一版.png
 import IMG29_梵谷星夜 from '@/assets/scenes/IMG29_梵谷星夜_統一版.png';
 import IMG30_畫布流動 from '@/assets/scenes/IMG30_畫布流動_統一版.png';
 import IMG31_痛苦昇華 from '@/assets/scenes/IMG31_痛苦昇華_統一版.png';
+import IMG32_問心再現 from '@/assets/scenes/IMG32_問心再現_統一版.png';
+import IMG33_主角轉變 from '@/assets/scenes/IMG33_主角轉變_統一版.png';
+import IMG34_海棠盛開 from '@/assets/scenes/IMG34_海棠盛開_統一版.png';
+import IMG35_洞穴入口 from '@/assets/scenes/IMG35_洞穴入口_統一版.png';
+import IMG36_記憶洞穴 from '@/assets/scenes/IMG36_記憶洞穴_統一版.png';
+import IMG37_童年碎片 from '@/assets/scenes/IMG37_童年碎片_統一版.png';
+import IMG38_失敗碎片 from '@/assets/scenes/IMG38_失敗碎片_統一版.png';
+import IMG39_觸摸修復 from '@/assets/scenes/IMG39_觸摸修復_統一版.png';
+import IMG40_洞穴光明 from '@/assets/scenes/IMG40_洞穴光明_統一版.png';
+import IMG41_回到渡口 from '@/assets/scenes/IMG41_回到渡口_統一版.png';
+import IMG42_問心告別 from '@/assets/scenes/IMG42_問心告別_統一版.png';
+import IMG43_登船 from '@/assets/scenes/IMG43_登船_統一版.png';
+import IMG44_星河航行 from '@/assets/scenes/IMG44_星河航行_統一版.png';
+import IMG45_光之門 from '@/assets/scenes/IMG45_光之門_統一版.png';
+import IMG46_穿越光門 from '@/assets/scenes/IMG46_穿越光門_統一版.png';
+import IMG47_回到房間 from '@/assets/scenes/IMG47_回到房間_統一版.png';
+import IMG48_按取消 from '@/assets/scenes/IMG48_按取消_統一版.png';
+import IMG49_清晨窗景 from '@/assets/scenes/IMG49_清晨窗景_統一版.png';
+import IMG50_起身 from '@/assets/scenes/IMG50_起身_統一版.png';
+import IMG51_新的開始 from '@/assets/scenes/IMG51_新的開始_統一版.png';
 
 export interface SceneImageConfig {
   image: string;
@@ -232,6 +252,109 @@ export const sceneImages: SceneImageConfig[] = [
     image: IMG25_寬恕釋放,
     alt: '寬恕釋放',
     nodePatterns: ['chapter11-', 'chapter-11-'],
+  },
+
+  // === 第十二章：星夜（梵谷）===
+  {
+    image: IMG29_梵谷星夜,
+    alt: '梵谷星夜',
+    nodePatterns: ['chapter12-1', 'chapter12-2', 'chapter12-3', 'chapter12-4', 'chapter12-5', 'chapter12-6', 'chapter12-7', 'chapter12-8', 'chapter12-9', 'chapter12-10', 'chapter12-11', 'chapter12-12', 'chapter12-13', 'chapter12-14', 'chapter12-15', 'chapter-12-1', 'chapter-12-2', 'chapter-12-3', 'chapter-12-4', 'chapter-12-5', 'chapter-12-6', 'chapter-12-7', 'chapter-12-8', 'chapter-12-9', 'chapter-12-10', 'chapter-12-11', 'chapter-12-12', 'chapter-12-13', 'chapter-12-14', 'chapter-12-15'],
+  },
+  {
+    image: IMG30_畫布流動,
+    alt: '畫布流動',
+    nodePatterns: ['chapter12-16', 'chapter12-17', 'chapter12-18', 'chapter12-19', 'chapter12-20', 'chapter12-21', 'chapter12-22', 'chapter12-23', 'chapter12-24', 'chapter12-25', 'chapter12-26', 'chapter12-27', 'chapter12-28', 'chapter12-29', 'chapter12-30', 'chapter-12-16', 'chapter-12-17', 'chapter-12-18', 'chapter-12-19', 'chapter-12-20', 'chapter-12-21', 'chapter-12-22', 'chapter-12-23', 'chapter-12-24', 'chapter-12-25', 'chapter-12-26', 'chapter-12-27', 'chapter-12-28', 'chapter-12-29', 'chapter-12-30'],
+  },
+  {
+    image: IMG31_痛苦昇華,
+    alt: '痛苦昇華',
+    nodePatterns: ['chapter12-', 'chapter-12-'],
+  },
+
+  // === 第十三章：解放（林肯）/ 連結點（賈伯斯）===
+  {
+    image: IMG32_問心再現,
+    alt: '問心再現',
+    nodePatterns: ['chapter13-1', 'chapter13-2', 'chapter13-3', 'chapter13-4', 'chapter13-5', 'chapter13-6', 'chapter13-7', 'chapter13-8', 'chapter13-9', 'chapter13-10', 'chapter-13-1', 'chapter-13-2', 'chapter-13-3', 'chapter-13-4', 'chapter-13-5', 'chapter-13-6', 'chapter-13-7', 'chapter-13-8', 'chapter-13-9', 'chapter-13-10'],
+  },
+  {
+    image: IMG33_主角轉變,
+    alt: '主角轉變',
+    nodePatterns: ['chapter13-', 'chapter-13-'],
+  },
+
+  // === 第十四章：連結點（賈伯斯）===
+  {
+    image: IMG34_海棠盛開,
+    alt: '海棠盛開',
+    nodePatterns: ['chapter14-1', 'chapter14-2', 'chapter14-3', 'chapter14-4', 'chapter14-5', 'chapter14-6', 'chapter14-7', 'chapter14-8', 'chapter14-9', 'chapter14-10', 'chapter-14-1', 'chapter-14-2', 'chapter-14-3', 'chapter-14-4', 'chapter-14-5', 'chapter-14-6', 'chapter-14-7', 'chapter-14-8', 'chapter-14-9', 'chapter-14-10'],
+  },
+  {
+    image: IMG35_洞穴入口,
+    alt: '洞穴入口',
+    nodePatterns: ['chapter14-11', 'chapter14-12', 'chapter14-13', 'chapter14-14', 'chapter14-15', 'chapter14-16', 'chapter14-17', 'chapter14-18', 'chapter14-19', 'chapter14-20', 'chapter-14-11', 'chapter-14-12', 'chapter-14-13', 'chapter-14-14', 'chapter-14-15', 'chapter-14-16', 'chapter-14-17', 'chapter-14-18', 'chapter-14-19', 'chapter-14-20'],
+  },
+  {
+    image: IMG36_記憶洞穴,
+    alt: '記憶洞穴',
+    nodePatterns: ['chapter14-', 'chapter-14-'],
+  },
+
+  // === 終章：歸零 ===
+  {
+    image: IMG41_回到渡口,
+    alt: '回到渡口',
+    nodePatterns: ['chapter15-1', 'chapter15-2', 'chapter15-3', 'chapter15-4', 'chapter15-5', 'chapter15-6', 'chapter15-7', 'chapter15-8', 'chapter15-9', 'chapter15-10', 'chapter-15-1', 'chapter-15-2', 'chapter-15-3', 'chapter-15-4', 'chapter-15-5', 'chapter-15-6', 'chapter-15-7', 'chapter-15-8', 'chapter-15-9', 'chapter-15-10', 'finale-1', 'finale-2', 'finale-3', 'finale-4', 'finale-5', 'finale-6', 'finale-7', 'finale-8', 'finale-9', 'finale-10'],
+  },
+  {
+    image: IMG42_問心告別,
+    alt: '問心告別',
+    nodePatterns: ['finale-11', 'finale-12', 'finale-13', 'finale-14', 'finale-15', 'finale-16', 'finale-17', 'finale-18', 'finale-19', 'finale-20'],
+  },
+  {
+    image: IMG43_登船,
+    alt: '登船',
+    nodePatterns: ['finale-21', 'finale-22', 'finale-23', 'finale-24', 'finale-25'],
+  },
+  {
+    image: IMG44_星河航行,
+    alt: '星河航行',
+    nodePatterns: ['finale-26', 'finale-27', 'finale-28', 'finale-29', 'finale-30'],
+  },
+  {
+    image: IMG45_光之門,
+    alt: '光之門',
+    nodePatterns: ['finale-31', 'finale-32', 'finale-33', 'finale-34', 'finale-35'],
+  },
+  {
+    image: IMG46_穿越光門,
+    alt: '穿越光門',
+    nodePatterns: ['finale-36', 'finale-37', 'finale-38', 'finale-39', 'finale-40'],
+  },
+  {
+    image: IMG47_回到房間,
+    alt: '回到房間',
+    nodePatterns: ['finale-41', 'finale-42', 'finale-43', 'finale-44', 'finale-45'],
+  },
+  {
+    image: IMG48_按取消,
+    alt: '按取消',
+    nodePatterns: ['finale-46', 'finale-47', 'finale-48', 'finale-49', 'finale-50'],
+  },
+  {
+    image: IMG49_清晨窗景,
+    alt: '清晨窗景',
+    nodePatterns: ['finale-51', 'finale-52', 'finale-53', 'finale-54', 'finale-55'],
+  },
+  {
+    image: IMG50_起身,
+    alt: '起身',
+    nodePatterns: ['finale-56', 'finale-57', 'finale-58', 'finale-59', 'finale-60'],
+  },
+  {
+    image: IMG51_新的開始,
+    alt: '新的開始',
+    nodePatterns: ['finale-', 'chapter15-', 'chapter-15-'],
   },
 ];
 
