@@ -1,6 +1,21 @@
 import type { DialogueNode } from '@/stores/gameStore';
 
 export const chapter10Nodes: DialogueNode[] = [
+ // 開場引言
+  {
+    id: 'chapter10-intro-1',
+    speaker: 'narrator',
+    text: '「每一步棋，都是我自己下的。」',
+    nextNodeId: 'chapter10-intro-2',
+  },
+  {
+    id: 'chapter10-intro-2',
+    speaker: 'narrator',
+    text: '「即使輸了，也是我選的。」',
+    effect: 'glow',
+    nextNodeId: 'chapter10-1', // 接回原本的開頭
+  },
+  // 接著是原本的 chapter10-1 ...
   // 開場：認識你自己
   {
     id: 'chapter10-1',
