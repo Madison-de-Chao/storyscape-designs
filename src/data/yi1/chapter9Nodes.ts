@@ -169,7 +169,7 @@ nextNodeId: 'chapter9-intro-2',
     id: 'chapter9-23',
     speaker: 'wenxin',
     text: '接下來是西方的歸者。凱薩和克麗奧佩特拉。他們會教你——關係中的完整性。',
-    nextNodeId: 'chapter10-1', // 🔗 連接到第十章
+    nextNodeId: 'chapter10-intro-1'', // 🔗 連接到第十章
     effect: 'fade-out',
   },
 ];
