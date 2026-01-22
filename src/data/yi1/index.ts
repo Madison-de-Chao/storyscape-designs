@@ -2,7 +2,7 @@
 import type { Chapter, DialogueNode } from '@/stores/gameStore';
 import { yi1ChaptersMeta, totalSuggestedImages } from './chapters';
 import { prefaceNodes } from './prefaceNodes';
-import { yi1PrologueNodes } from './prologueNodes';
+import { prologueNodes } from './prologueNodes';
 import { chapter1Nodes } from './chapter1Nodes';
 import { chapter2Nodes } from './chapter2Nodes';
 import { chapter3Nodes } from './chapter3Nodes';
@@ -24,7 +24,7 @@ import { epilogueNodes } from './epilogueNodes';
 // 合併所有節點
 export const yi1AllNodes: DialogueNode[] = [
   ...prefaceNodes,
-  ...yi1PrologueNodes,
+  ...prologueNodes,
   ...chapter1Nodes,
   ...chapter2Nodes,
   ...chapter3Nodes,

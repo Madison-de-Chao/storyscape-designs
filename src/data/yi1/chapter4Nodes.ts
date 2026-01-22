@@ -106,8 +106,8 @@ export const chapter4Nodes: DialogueNode[] = [
     speaker: 'narrator',
     text: '恐懼像潮水一樣淹沒了她。',
     choices: [
-      { id: 'ch4-deny', text: '我不承認這是我的！', nextNodeId: 'yi1-chapter-4-end' },
-      { id: 'ch4-run', text: '讓我離開這裡！', nextNodeId: 'yi1-chapter-4-end' },
+      { id: 'ch4-deny', text: '我不承認這是我的！', nextNodeId: 'yi1-chapter-4-end', arcChange: 0, shadowChange: 10 },
+      { id: 'ch4-run', text: '讓我離開這裡！', nextNodeId: 'yi1-chapter-4-end', arcChange: 0, shadowChange: 5 },
     ],
   },
   {

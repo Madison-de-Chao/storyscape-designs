@@ -21,15 +21,8 @@ export const chapter12Nodes: DialogueNode[] = [
     id: 'chapter12-1',
     speaker: 'narrator',
     text: '砰。砰。砰。有節奏的劈柴聲傳來。',
-    // ... (以下保持不變)
-  
-  // 開場：劈柴聲
-  {
-    id: 'chapter12-1',
-    speaker: 'narrator',
-    text: '砰。砰。砰。有節奏的劈柴聲傳來。',
     emotionSFX: 'wood_chop',
-    bgImage: 'lincoln_cabin', // 林肯木屋
+    bgImage: 'lincoln_cabin',
     nextNodeId: 'chapter12-2',
   },
   {

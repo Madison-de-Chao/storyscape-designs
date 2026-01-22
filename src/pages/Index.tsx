@@ -27,22 +27,5 @@ const Index = () => {
     </motion.div>
   );
 };
-// 在渲染對話框的地方
-const getEffectClass = (effect?: string) => {
-  switch (effect) {
-    case 'glitch': return 'effect-glitch';
-    case 'starry': return 'effect-starry';
-    case 'flash': return 'effect-flash-screen'; // 這是全螢幕的
-    case 'glow': return 'effect-heartbeat';
-    default: return '';
-  }
-};
 
-// ... JSX 中 ...
-<div className={`dialogue-text ${getEffectClass(currentNode.effect)}`}>
-  {currentNode.text}
-</div>
-
-{/* 如果是 flash，可能需要獨立渲染一個全螢幕 div */}
-{currentNode.effect === 'flash' && <div className="effect-flash-screen" />}
 export default Index;

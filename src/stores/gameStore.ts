@@ -21,7 +21,10 @@ export type EmotionSFXKey =
   | 'sad_sigh' | 'sad_sigh_1'
   | 'evil_giggle' | 'evil_giggle_1' | 'evil_giggle_2'
   | 'mysterious_whisper' | 'mysterious_whisper_1'
-  | 'mockery';
+  | 'mockery'
+  // 擴充音效
+  | 'wood_chop' | 'rain_light' | 'ear_ringing' 
+  | 'birds_chirping' | 'digital_break' | 'holy_bell';
 
 // 特殊場景類型（用於觸發全螢幕視覺效果）
 export type SpecialSceneType = 
@@ -36,19 +39,36 @@ export type ZenTheme = 'golden' | 'moonlight' | 'dawn' | 'ink';
 // 啟示時刻主題
 export type RevelationTheme = 'golden' | 'silver' | 'aurora' | 'celestial';
 
+// 視覺效果類型
+export type EffectType = 
+  | 'glitch' | 'glow' | 'fade' 
+  | 'shake' | 'flash' | 'vertical' | 'ink' | 'mist' | 'rain'
+  | 'fade-in-slow' | 'fade-out' | 'fade-out-white' | 'crt-off';
+
+// 說話者類型
+export type SpeakerType = 
+  | 'narrator' | 'protagonist' | 'yi' | 'mentor' | 'wenxin' | 'wendu' 
+  | 'sushi' | 'wangyangming' | 'simaqian' | 'wuzetian' | 'libai' 
+  | 'mandela' | 'caesar' | 'cleopatra' | 'lincoln' | 'jobs' | 'vangogh' | 'helenkeller'
+  | 'system';
+
 export interface DialogueNode {
   id: string;
-  speaker: 'narrator' | 'protagonist' | 'yi' | 'mentor' | 'wenxin' | 'wendu' | 'sushi' | 'wangyangming' | 'simaqian' | 'wuzetian' | 'libai' | 'mandela' | 'caesar' | 'cleopatra' | 'lincoln' | 'jobs' | 'vangogh' | 'helenkeller';
+  speaker: SpeakerType;
   speakerName?: string;
   text: string;
   choices?: Choice[];
   nextNodeId?: string | null;
-  effect?: 'glitch' | 'glow' | 'fade';
+  effect?: EffectType;
   arcChange?: number;
   // 明確指定此節點播放的情緒音效（覆蓋說話者預設）
   emotionSFX?: EmotionSFXKey;
   // 特殊場景：觸發全螢幕視覺效果
   specialScene?: SpecialSceneType;
+  // 背景圖片標籤（對應 sceneImages.ts 的 key）
+  bgImage?: string;
+  // 是否為結局節點
+  isEnd?: boolean;
   // 禪意時刻的配置（僅當 specialScene === 'zen' 時使用）
   zenConfig?: {
     text: string;          // 顯示的主文字

@@ -70,7 +70,14 @@ export type EmotionSFXType =
   | 'evil_giggle_2'
   | 'mysterious_whisper'
   | 'mysterious_whisper_1'
-  | 'mockery';
+  | 'mockery'
+  // 擴充音效
+  | 'wood_chop'
+  | 'rain_light'
+  | 'ear_ringing'
+  | 'birds_chirping'
+  | 'digital_break'
+  | 'holy_bell';
 
 // 章節過場音效類型（1-6 循環使用）
 export type ChapterTransitionSFXType = 
@@ -217,6 +224,13 @@ const EMOTION_SFX_PATHS: Record<EmotionSFXType, string> = {
   mysterious_whisper: '/audio/sfx/mysterious_whisper.mp3',
   mysterious_whisper_1: '/audio/sfx/mysterious_whisper_1.mp3',
   mockery: '/audio/sfx/mockery.mp3',
+  // 擴充音效
+  wood_chop: '/audio/sfx/wood_chop.mp3',
+  rain_light: '/audio/sfx/rain_light.mp3',
+  ear_ringing: '/audio/sfx/ear_ringing.mp3',
+  birds_chirping: '/audio/sfx/birds_chirping.mp3',
+  digital_break: '/audio/sfx/digital_break.mp3',
+  holy_bell: '/audio/sfx/holy_bell.mp3',
 };
 
 // 章節過場音效路徑映射
