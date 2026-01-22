@@ -536,6 +536,19 @@ export const chapter11Nodes: DialogueNode[] = [
     id: 'chapter11-72',
     speaker: 'narrator',
     text: '而曼德拉教她的，也是關於自由——從仇恨中解放自己的自由。',
+    nextNodeId: 'chapter11-72-zen',
+  },
+  {
+    id: 'chapter11-72-zen',
+    speaker: 'narrator',
+    text: '',
+    specialScene: 'zen',
+    zenConfig: {
+      text: '自由',
+      subtitle: '從仇恨中解放自己',
+      theme: 'dawn',
+      duration: 6000,
+    },
     nextNodeId: 'chapter12-1',
   },
 ];

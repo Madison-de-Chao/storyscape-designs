@@ -528,6 +528,19 @@ export const chapter12Nodes: DialogueNode[] = [
     id: 'chapter12-77',
     speaker: 'narrator',
     text: '「我曾經在信裡寫過——我想用星星的光來畫畫。我想讓人們看著我的畫的時候，感覺到那種光。不是外在的光，是——**內心的光**。」',
+    nextNodeId: 'chapter12-77-zen',
+  },
+  {
+    id: 'chapter12-77-zen',
+    speaker: 'narrator',
+    text: '',
+    specialScene: 'zen',
+    zenConfig: {
+      text: '內心的光',
+      subtitle: '— 梵谷《星夜》',
+      theme: 'moonlight',
+      duration: 7000,
+    },
     nextNodeId: 'chapter12-78',
   },
   {
