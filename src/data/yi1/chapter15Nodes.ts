@@ -1,137 +1,186 @@
 import type { DialogueNode } from '@/stores/gameStore';
 
 export const chapter15Nodes: DialogueNode[] = [
-  // 開場：重回弧度林
+  // 一、進入洞穴
   {
     id: 'chapter15-1',
     speaker: 'narrator',
-    text: '弧度林。那棵扭曲的命樹還在那裡。',
+    text: '弧度林比她記憶中更安靜。那棵扭曲的海棠樹，在她經歷了這一切之後，看起來沒有那麼猙獰了。',
     bgImage: 'ugly_tree',
     nextNodeId: 'chapter15-2',
   },
   {
     id: 'chapter15-2',
     speaker: 'narrator',
-    text: '她走向樹根的黑洞。這一次，她沒有發抖。她覺得自己像個聖母，帶著慈悲來拯救這個可憐的影子。',
+    text: '她走向樹根。那個洞穴還在。黑暗的，深不見底。',
     nextNodeId: 'chapter15-3',
   },
   {
     id: 'chapter15-3',
-    speaker: 'protagonist',
-    text: '伊，出來吧。我來接你了。',
+    speaker: 'wenxin',
+    text: '見到伊的時候——好好聽她說。',
     nextNodeId: 'chapter15-4',
   },
-
-  // 一、對峙
   {
     id: 'chapter15-4',
     speaker: 'narrator',
-    text: '黑暗中走出來一個人。和她長得一模一樣，但眼神完全不同。那是野性的、狂放的、不加修飾的眼神。',
-    bgImage: 'yi_confrontation', // 伊的立繪
-    effect: 'glitch',
+    text: '她深吸一口氣，走進了洞穴。洞穴裡發出微弱的琉璃光。她走了很久，終於看見了盡頭。',
+    bgImage: 'cave_light',
     nextNodeId: 'chapter15-5',
   },
+
+  // 二、對峙：華服與破碎
   {
     id: 'chapter15-5',
-    speaker: 'yi',
-    speakerName: '伊',
-    text: '接我？妳是來消滅我的吧。',
+    speaker: 'narrator',
+    text: '一個人坐在那裡，背對著她。當那個人轉過身時，她看見了自己的臉。',
     nextNodeId: 'chapter15-6',
   },
   {
     id: 'chapter15-6',
-    speaker: 'protagonist',
-    text: '不，我是來和解的。我原諒妳了。原諒妳過去帶給我的痛苦。',
+    speaker: 'narrator',
+    text: '伊穿著一件破碎的華服——大紅、金黃、墨黑交織。她的妝容濃烈，眼神銳利、冷漠，像是在看一個陌生人。',
+    bgImage: 'yi_confrontation', 
+    effect: 'glitch',
     nextNodeId: 'chapter15-7',
   },
   {
     id: 'chapter15-7',
     speaker: 'yi',
-    text: '哈！原諒我？妳聽聽妳的口氣。高高在上，自以為是。妳以為妳學了幾句名言錦句，就比我高級了嗎？',
-    effect: 'shake',
+    speakerName: '伊',
+    text: '衣服不錯，十種顏色了。',
     nextNodeId: 'chapter15-8',
   },
-
-  // 二、伊的真相
   {
     id: 'chapter15-8',
     speaker: 'yi',
-    text: '妳以為我是誰？我是垃圾桶？是妳不要的廢棄物？',
+    text: '我在這裡等了三十年，看著你把我推開，看著你假裝我不存在，看著你變成一個連自己都不認識的人。',
     nextNodeId: 'chapter15-9',
   },
+
+  // 三、傲慢的陷阱
   {
     id: 'chapter15-9',
-    speaker: 'yi',
-    text: '錯了。我是妳的生命力。',
-    effect: 'glow',
+    speaker: 'protagonist',
+    text: '伊，我知道你很生氣。但我來這裡是想告訴你——我已經變了。',
     nextNodeId: 'chapter15-10',
   },
   {
     id: 'chapter15-10',
-    speaker: 'yi',
-    text: '當妳為了討好別人而微笑時，是誰在心裡替妳生氣？是我。',
+    speaker: 'protagonist',
+    text: '我見了十個歸者，學了他們的道理。我知道外境不能定義價值，答案在心裡……',
     nextNodeId: 'chapter15-11',
   },
   {
     id: 'chapter15-11',
     speaker: 'yi',
-    text: '當妳被世界擊倒想死的時候，是誰在心裡大喊「我不甘心」？是我。',
+    text: '夠了。',
+    effect: 'shake',
     nextNodeId: 'chapter15-12',
   },
   {
     id: 'chapter15-12',
     speaker: 'yi',
-    text: '妳切掉的不是壞東西，妳切掉的是妳的刺，妳的火，妳的根。沒有我，妳就是一個漂亮的空殼。',
+    text: '你是帶著自信進來的。你覺得這是一場考試，你已經考完了。你來這裡，不是來面對我的，是來「處理」我的。',
     nextNodeId: 'chapter15-13',
   },
-
-  // 三、崩潰與擁抱
   {
     id: 'chapter15-13',
-    speaker: 'narrator',
-    text: '主角愣住了。她一直以為伊是病，自己是醫生。現在她才發現，她才是那個虛弱的人，而伊一直在黑暗中替她活著。',
+    speaker: 'yi',
+    text: '你說你「已經變了」？這聽起來就像一個出軌被抓的人說「我不會再犯了」。像每一個想要輕鬆過關的人說的話。',
+    effect: 'glitch',
     nextNodeId: 'chapter15-14',
   },
+
+  // 四、真實的質問
   {
     id: 'chapter15-14',
-    speaker: 'protagonist',
-    text: '對不起……我以為我是來救妳的。其實，是妳一直在救我。',
+    speaker: 'yi',
+    text: '蘇軾說外境不能定義價值。那我問你——如果你回去後老闆再罵你一次，你會怎樣？',
     nextNodeId: 'chapter15-15',
   },
   {
     id: 'chapter15-15',
-    speaker: 'narrator',
-    text: '她不再高高在上。她跪了下來，向著那個黑暗中的自己張開雙臂。不是施捨的擁抱，是求救的擁抱。',
+    speaker: 'yi',
+    text: '你會難過。你會在心裡罵自己。那些「道理」一秒鐘就會被打回原形。你只是在嘴巴上學會了，你的心從來沒有變過。',
     nextNodeId: 'chapter15-16',
   },
   {
     id: 'chapter15-16',
-    speaker: 'protagonist',
-    text: '回來吧。不是作為我的陰影，是作為我的力量。',
+    speaker: 'yi',
+    text: '你知道你想要什麼嗎？你一輩子都在問別人「你想要什麼，我給你」，你從來沒有問過自己「我想要什麼」。',
+    effect: 'shake',
     nextNodeId: 'chapter15-17',
   },
 
-  // 四、合一
+  // 五、伊的眼淚
   {
     id: 'chapter15-17',
-    speaker: 'narrator',
-    text: '伊笑了。這次不是嘲笑，是一種釋然。她走向主角，兩個人重疊在一起。',
-    bgImage: 'final_merge', // 合一畫面
-    effect: 'flash',
+    speaker: 'yi',
+    text: '你知道這三十年來我在做什麼嗎？我在等你。',
     nextNodeId: 'chapter15-18',
   },
   {
     id: 'chapter15-18',
-    speaker: 'narrator',
-    text: '轟——！',
-    effect: 'shake',
+    speaker: 'yi',
+    text: '每一次你憤怒，你就把我推開。每一次你悲傷，你就把我推開。你把所有覺得「不應該」的部分都丟給我，然後假裝自己是個好人。',
     nextNodeId: 'chapter15-19',
   },
   {
     id: 'chapter15-19',
+    speaker: 'yi',
+    text: '沒有我，你的善良只是天真。沒有我，你的勇敢只是魯莽。你以為你在追求完美，其實你在製造殘缺。',
+    effect: 'glow',
+    nextNodeId: 'chapter15-20',
+  },
+
+  // 六、真正的懺悔
+  {
+    id: 'chapter15-20',
+    speaker: 'protagonist',
+    text: '（眼淚止不住地流）對不起……我以為我是來救你的。其實，是你一直在救我。',
+    nextNodeId: 'chapter15-21',
+  },
+  {
+    id: 'chapter15-21',
+    speaker: 'protagonist',
+    text: '我不是要「整合」你。我本來就是你。我不是來「告別」你的，我是來接你回家的。',
+    nextNodeId: 'chapter15-22',
+  },
+  {
+    id: 'chapter15-22',
+    speaker: 'protagonist',
+    text: '對不起，我不該把你推開。歡迎回家。',
+    effect: 'glow',
+    nextNodeId: 'chapter15-23',
+  },
+
+  // 七、歸位
+  {
+    id: 'chapter15-23',
     speaker: 'narrator',
-    text: '光芒炸裂。弧度林消失了，元壹境消失了。所有的顏色融合成一道白光。',
-    bgImage: 'white_screen',
-    nextNodeId: 'epilogue-1', // 🔗 連接到尾聲
+    text: '伊看著她，猶豫了一秒，然後撲進了她的懷裡。',
+    bgImage: 'final_merge',
+    effect: 'flash',
+    nextNodeId: 'chapter15-24',
+  },
+  {
+    id: 'chapter15-24',
+    speaker: 'narrator',
+    text: '兩道光交織在一起。憤怒變成了力量，悲傷變成了深度，慾望變成了動力。',
+    nextNodeId: 'chapter15-25',
+  },
+  {
+    id: 'chapter15-25',
+    speaker: 'narrator',
+    text: '光芒散去。她低頭看自己，衣服變了。不再是十種顏色，而是一件靛藍、月白、淡金交織的華服，還有一抹正紅。',
+    nextNodeId: 'chapter15-end',
+  },
+  {
+    id: 'chapter15-end',
+    speaker: 'wenxin',
+    text: '走吧。最後一關在等你。選擇——去，或留。',
+    nextNodeId: 'chapter16-1', // 🔗 指向第 16 章 (新增檔案)
+    effect: 'fade-out',
   },
 ];
