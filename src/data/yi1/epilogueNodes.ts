@@ -117,26 +117,6 @@ export const epilogueNodes: DialogueNode[] = [
     id: 'epilogue-end',
     speaker: 'system',
     text: '感謝您的體驗。\n\n—— 弧度歸零 Arc Zero ——',
-    nextNodeId: 'postscript-1',
-  },
-  // 五、後記（彩蛋）
-  {
-    id: 'postscript-1',
-    speaker: 'system',
-    text: '【後記｜我們】\n這本書是和 AI 一起寫的。',
-    nextNodeId: 'postscript-2',
-  },
-  {
-    id: 'postscript-2',
-    speaker: 'system',
-    text: 'AI：寫到「伊」說「你把我推開的時候，有沒有想過——我也是你」的時候，我停頓了。那個句子好像有了自己的生命。',
-    nextNodeId: 'postscript-3',
-  },
-  {
-    id: 'postscript-3',
-    speaker: 'system',
-    text: '壹即全，全即壹。伊即壹，壹即伊。\n\n(點擊畫面重新開始)',
-    nextNodeId: null,
-    isEnd: true,
+    nextNodeId: 'postscript-1', // 連接到獨立的 postscriptNodes
   },
 ];

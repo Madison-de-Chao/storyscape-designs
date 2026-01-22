@@ -176,7 +176,7 @@ export const chapter8Nodes: DialogueNode[] = [
     id: 'chapter8-end',
     speaker: 'wenxin',
     text: '下一個是李白。他會教你——什麼是真正的自由。',
-    nextNodeId: 'chapter9-1', // 🔗 連接到李白
+    nextNodeId: 'chapter9-intro', // 🔗 連接到李白 (修正: 使用 chapter9-intro)
     effect: 'fade-out',
   },
 ];

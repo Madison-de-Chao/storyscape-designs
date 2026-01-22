@@ -20,6 +20,7 @@ import { chapter14Nodes } from './chapter14Nodes';
 import { chapter15Nodes } from './chapter15Nodes';
 import { chapter16Nodes } from './chapter16Nodes';
 import { epilogueNodes } from './epilogueNodes';
+import { postscriptNodes } from './postscriptNodes';
 
 // 合併所有節點
 export const yi1AllNodes: DialogueNode[] = [
@@ -42,6 +43,7 @@ export const yi1AllNodes: DialogueNode[] = [
   ...chapter15Nodes,
   ...chapter16Nodes,
   ...epilogueNodes,
+  ...postscriptNodes,
 ];
 
 // 章節定義
