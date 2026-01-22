@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Menu, Home, BookOpen, RotateCcw, Image, Trophy } from 'lucide-react';
 import { useGameStore } from '@/stores/gameStore';
 import { useSFX, useBGM, useAmbient, getAmbientTypeForScene, getBGMForNode } from '@/hooks/useAudio';
+import { usePreloadImages } from '@/hooks/usePreloadImages';
 import ParticleBackground from './ParticleBackground';
 import DialogueBox from './DialogueBox';
 import ArcIndicator from './ArcIndicator';
@@ -91,6 +92,10 @@ const GameScene = () => {
   const visualProgress = 1 - arcValue / 180;
   const isYiPart = currentPart === 'yi';
   const themeHue = isYiPart ? 38 : 350;
+  const preloadImages = isYiPart
+    ? [getSceneImage(currentNodeId)?.src].filter(Boolean) as string[]
+    : [];
+  const isImagesLoaded = usePreloadImages(preloadImages);
 
   // 根據劇情氛圍動態播放背景音樂
   useEffect(() => {
@@ -152,7 +157,9 @@ const GameScene = () => {
   return (
     <div className="relative min-h-screen overflow-hidden">
       {/* 場景圖片（如果有） */}
-      {isYiPart && <SceneImage nodeId={currentNodeId} hideOverlay={isDialogueHidden} />}
+      {isYiPart && (
+        <SceneImage nodeId={currentNodeId} hideOverlay={isDialogueHidden} isLoaded={isImagesLoaded} />
+      )}
 
       {/* 粒子背景 */}
       <ParticleBackground arcValue={arcValue} />

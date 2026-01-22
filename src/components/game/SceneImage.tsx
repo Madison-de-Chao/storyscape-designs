@@ -6,6 +6,7 @@ import { useGameStore } from '@/stores/gameStore';
 interface SceneImageProps {
   nodeId: string;
   hideOverlay?: boolean;
+  isLoaded?: boolean;
 }
 
 // 場景特效類型
@@ -40,7 +41,7 @@ const getSceneEffect = (alt: string): SceneEffectType => {
   return 'default';
 };
 
-const SceneImage = ({ nodeId, hideOverlay = false }: SceneImageProps) => {
+const SceneImage = ({ nodeId, hideOverlay = false, isLoaded: externalLoaded }: SceneImageProps) => {
   const [currentImage, setCurrentImage] = useState<SceneImageConfig | null>(null);
   const [prevImage, setPrevImage] = useState<SceneImageConfig | null>(null);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -90,6 +91,12 @@ const SceneImage = ({ nodeId, hideOverlay = false }: SceneImageProps) => {
       }
     };
   }, []);
+
+  useEffect(() => {
+    if (externalLoaded) {
+      setIsLoaded(true);
+    }
+  }, [externalLoaded]);
 
   // 即使沒有匹配的圖片，也會使用預設圖片（由 getSceneImage 提供）
   // 這裡只在極端情況下返回 null
@@ -438,7 +445,7 @@ const SceneImage = ({ nodeId, hideOverlay = false }: SceneImageProps) => {
               src={currentImage.image}
               alt={currentImage.alt}
               className="w-full h-full object-cover"
-              onLoad={() => setIsLoaded(true)}
+            onLoad={() => setIsLoaded(true)}
               initial={{ scale: 1.08 }}
               animate={{
                 scale: 1,
