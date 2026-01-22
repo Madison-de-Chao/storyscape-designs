@@ -6,7 +6,8 @@ import { AnimatePresence } from "framer-motion";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
-
+// src/App.tsx
+import './App.css'; // 👈 只要有這一行，特效就會生效！
 const queryClient = new QueryClient();
 
 const AnimatedRoutes = () => {
