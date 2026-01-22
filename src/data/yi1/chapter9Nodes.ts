@@ -5,6 +5,7 @@ export const chapter9Nodes: DialogueNode[] = [
   {
     id: 'chapter9-1',
     speaker: 'narrator',
+    effect: 'ink', // 使用水墨特效
     text: '還沒看到人，先聞到濃烈的酒味。抬頭一看，一個人坐在屋頂上，抱著酒罈，月光灑在他身上。',
     bgImage: 'libai_roof', // 月下屋頂
     nextNodeId: 'chapter9-2',
