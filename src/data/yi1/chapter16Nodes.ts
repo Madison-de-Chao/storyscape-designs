@@ -64,11 +64,12 @@ export const chapter16Nodes: DialogueNode[] = [
     text: '那就點亮這盞燈吧。用你自己。',
     nextNodeId: 'chapter16-10',
   },
-  {
+{
     id: 'chapter16-10',
     speaker: 'narrator',
     text: '她伸出手。一瞬間，意願化為光芒。燈亮了，金銀交織的光。',
-    effect: 'flash',
+    effect: 'flash', // 👈 全螢幕閃白光
+    emotionSFX: 'holy_bell', // 建議搭配一個神聖的鐘聲
     nextNodeId: 'chapter16-11',
   },
 
