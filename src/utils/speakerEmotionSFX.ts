@@ -1,5 +1,6 @@
 // 說話者預設情緒音效配置
 // 每個角色可設定多個隨機選擇的音效，增加變化性
+// 男性角色使用 _male 後綴音效，女性角色使用原版音效
 
 import type { EmotionSFXType } from '@/hooks/useAudio';
 
@@ -38,31 +39,163 @@ interface SpeakerEmotionConfig {
   };
 }
 
+// ============= 音效池定義 =============
+// 女聲音效池（用於問心、伊、克麗奧佩脫拉、武則天、海倫凱勒）
+const FEMALE_GENTLE_LAUGH: EmotionSFXType[] = ['gentle_laugh', 'gentle_laugh_1', 'gentle_laugh_2'];
+const FEMALE_EVIL_GIGGLE: EmotionSFXType[] = ['evil_giggle', 'evil_giggle_1', 'evil_giggle_2'];
+const FEMALE_SEDUCTIVE: EmotionSFXType[] = ['seductive', 'seductive_1'];
+const FEMALE_MYSTERIOUS_WHISPER: EmotionSFXType[] = ['mysterious_whisper', 'mysterious_whisper_1'];
+const FEMALE_SAD_SIGH: EmotionSFXType[] = ['sad_sigh', 'sad_sigh_1'];
+const FEMALE_MOCKERY: EmotionSFXType[] = ['mockery'];
+
+// 男聲音效池（用於王陽明、蘇軾、司馬遷、李白、曼德拉、凱撒、林肯、賈伯斯、梵谷）
+const MALE_GENTLE_LAUGH: EmotionSFXType[] = ['gentle_laugh_male'];
+const MALE_COLD_LAUGH: EmotionSFXType[] = ['cold_laugh_male'];
+const MALE_MYSTERIOUS_WHISPER: EmotionSFXType[] = ['mysterious_whisper_male', 'mysterious_whisper_male_1', 'mysterious_whisper_male_2'];
+const MALE_FEAR: EmotionSFXType[] = ['fear_male', 'fear_male_1', 'fear_male_2'];
+const MALE_FRUSTRATION: EmotionSFXType[] = ['frustration_male'];
+const MALE_CONTEMPT: EmotionSFXType[] = ['contempt_male'];
+const MALE_EXCITEMENT: EmotionSFXType[] = ['excitement_male'];
+
 // 說話者預設情緒音效映射
 export const speakerEmotionSFXConfig: Record<SpeakerType, SpeakerEmotionConfig> = {
-  // 問心 - 神秘、溫柔、有時嘲諷
+  // ============= 女性角色 =============
+  
+  // 問心 - 神秘、溫柔、有時嘲諷（女聲）
   wenxin: {
-    default: ['gentle_laugh', 'gentle_laugh_1', 'gentle_laugh_2'],
+    default: FEMALE_GENTLE_LAUGH,
     probability: 0.25,
     onEffect: {
-      glow: ['mysterious_whisper', 'mysterious_whisper_1'],
-      glitch: ['mockery', 'evil_giggle'],
+      glow: FEMALE_MYSTERIOUS_WHISPER,
+      glitch: [...FEMALE_MOCKERY, ...FEMALE_EVIL_GIGGLE],
     },
   },
 
-  // 伊 - 神秘、邪惡、誘惑
+  // 伊 - 神秘、邪惡、誘惑（女聲）
   yi: {
-    default: ['evil_giggle', 'evil_giggle_1', 'evil_giggle_2', 'seductive', 'seductive_1'],
+    default: [...FEMALE_EVIL_GIGGLE, ...FEMALE_SEDUCTIVE],
     probability: 0.35,
     onEffect: {
-      glitch: ['evil_giggle', 'evil_giggle_1', 'mockery'],
-      glow: ['mysterious_whisper', 'seductive'],
+      glitch: [...FEMALE_EVIL_GIGGLE, ...FEMALE_MOCKERY],
+      glow: [...FEMALE_MYSTERIOUS_WHISPER, ...FEMALE_SEDUCTIVE],
     },
   },
 
-  // 主角 - 恐懼、驚訝、哀傷
+  // 武則天 - 威嚴、誘惑（女聲）
+  wuzetian: {
+    default: [...FEMALE_MOCKERY, ...FEMALE_SEDUCTIVE],
+    probability: 0.2,
+    onEffect: {
+      glow: FEMALE_SEDUCTIVE,
+    },
+  },
+
+  // 克麗奧佩脫拉 - 誘惑、溫柔（女聲）
+  cleopatra: {
+    default: [...FEMALE_SEDUCTIVE, ...FEMALE_GENTLE_LAUGH],
+    probability: 0.15,
+    onEffect: {
+      glow: FEMALE_SEDUCTIVE,
+    },
+  },
+
+  // 海倫凱勒 - 溫柔（女聲）
+  helenkeller: {
+    default: FEMALE_GENTLE_LAUGH,
+    probability: 0.1,
+  },
+
+  // ============= 男性角色 =============
+  
+  // 王陽明 - 智慧、神秘（男聲）
+  wangyangming: {
+    default: MALE_GENTLE_LAUGH,
+    probability: 0.12,
+    onEffect: {
+      glow: MALE_MYSTERIOUS_WHISPER,
+    },
+  },
+
+  // 蘇軾 - 豁達、溫暖（男聲）
+  sushi: {
+    default: MALE_GENTLE_LAUGH,
+    probability: 0.18,
+    onEffect: {
+      glow: MALE_EXCITEMENT,
+    },
+  },
+
+  // 司馬遷 - 堅韌、沉穩（男聲）
+  simaqian: {
+    default: MALE_FRUSTRATION,
+    probability: 0.12,
+    onEffect: {
+      glow: MALE_MYSTERIOUS_WHISPER,
+    },
+  },
+
+  // 李白 - 豪放、瀟灑（男聲）
+  libai: {
+    default: [...MALE_GENTLE_LAUGH, ...MALE_EXCITEMENT],
+    probability: 0.22,
+    onEffect: {
+      glow: MALE_EXCITEMENT,
+    },
+  },
+
+  // 曼德拉 - 寬容、堅定（男聲）
+  mandela: {
+    default: MALE_GENTLE_LAUGH,
+    probability: 0.12,
+    onEffect: {
+      glow: MALE_MYSTERIOUS_WHISPER,
+    },
+  },
+
+  // 凱撒 - 權威、嘲諷（男聲）
+  caesar: {
+    default: [...MALE_COLD_LAUGH, ...MALE_CONTEMPT],
+    probability: 0.12,
+  },
+
+  // 林肯 - 堅韌、溫暖（男聲）
+  lincoln: {
+    default: MALE_GENTLE_LAUGH,
+    probability: 0.1,
+  },
+
+  // 賈伯斯 - 激情、專注（男聲）
+  jobs: {
+    default: MALE_EXCITEMENT,
+    probability: 0.1,
+  },
+
+  // 梵谷 - 哀傷、內斂（男聲）
+  vangogh: {
+    default: MALE_FRUSTRATION,
+    probability: 0.12,
+  },
+
+  // 問渡 - 平靜、神秘（男聲）
+  wendu: {
+    default: MALE_MYSTERIOUS_WHISPER,
+    probability: 0.2,
+    onEffect: {
+      glow: MALE_MYSTERIOUS_WHISPER,
+    },
+  },
+
+  // 導師（通用）- 溫和（男聲）
+  mentor: {
+    default: MALE_GENTLE_LAUGH,
+    probability: 0.1,
+  },
+
+  // ============= 中性/特殊角色 =============
+  
+  // 主角（女性）- 恐懼、驚訝、哀傷
   protagonist: {
-    default: ['sad_sigh', 'sad_sigh_1'],
+    default: FEMALE_SAD_SIGH,
     probability: 0.15,
     onEffect: {
       glitch: ['fear', 'fear_1', 'surprise'],
@@ -70,106 +203,17 @@ export const speakerEmotionSFXConfig: Record<SpeakerType, SpeakerEmotionConfig> 
     },
   },
 
-  // 旁白 - 偶爾的神秘氛圍
+  // 旁白 - 偶爾的神秘氛圍（混合男女神秘低語）
   narrator: {
     default: [],
     probability: 0,
     onEffect: {
-      glow: ['mysterious_whisper'],
-      glitch: ['fear'],
+      glow: [...FEMALE_MYSTERIOUS_WHISPER, ...MALE_MYSTERIOUS_WHISPER],
+      glitch: [...MALE_FEAR, 'fear'],
     },
   },
 
-  // 問渡 - 平靜、神秘
-  wendu: {
-    default: ['mysterious_whisper', 'mysterious_whisper_1'],
-    probability: 0.2,
-    onEffect: {
-      glow: ['mysterious_whisper'],
-    },
-  },
-
-  // 歷史人物 - 偶爾溫柔笑聲
-  mentor: {
-    default: ['gentle_laugh', 'gentle_laugh_1'],
-    probability: 0.1,
-  },
-
-  wangyangming: {
-    default: ['gentle_laugh'],
-    probability: 0.1,
-    onEffect: {
-      glow: ['mysterious_whisper'],
-    },
-  },
-
-  sushi: {
-    default: ['gentle_laugh', 'gentle_laugh_1'],
-    probability: 0.15,
-  },
-
-  simaqian: {
-    default: ['sad_sigh'],
-    probability: 0.1,
-    onEffect: {
-      glow: ['mysterious_whisper'],
-    },
-  },
-
-  wuzetian: {
-    default: ['mockery', 'seductive'],
-    probability: 0.2,
-    onEffect: {
-      glow: ['seductive', 'seductive_1'],
-    },
-  },
-
-  libai: {
-    default: ['gentle_laugh', 'gentle_laugh_1', 'gentle_laugh_2'],
-    probability: 0.2,
-  },
-
-  mandela: {
-    default: ['gentle_laugh'],
-    probability: 0.1,
-    onEffect: {
-      glow: ['mysterious_whisper'],
-    },
-  },
-
-  caesar: {
-    default: ['mockery'],
-    probability: 0.1,
-  },
-
-  cleopatra: {
-    default: ['seductive', 'gentle_laugh'],
-    probability: 0.15,
-    onEffect: {
-      glow: ['seductive'],
-    },
-  },
-
-  lincoln: {
-    default: ['gentle_laugh'],
-    probability: 0.08,
-  },
-
-  jobs: {
-    default: ['gentle_laugh'],
-    probability: 0.08,
-  },
-
-  vangogh: {
-    default: ['sad_sigh'],
-    probability: 0.1,
-  },
-
-  helenkeller: {
-    default: ['gentle_laugh'],
-    probability: 0.1,
-  },
-
+  // 系統
   system: {
     default: [],
     probability: 0,

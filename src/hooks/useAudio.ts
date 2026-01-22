@@ -53,6 +53,7 @@ export type SFXType =
 
 // 情緒音效類型
 export type EmotionSFXType = 
+  // 女聲音效
   | 'gentle_laugh'
   | 'gentle_laugh_1'
   | 'gentle_laugh_2'
@@ -71,7 +72,19 @@ export type EmotionSFXType =
   | 'mysterious_whisper'
   | 'mysterious_whisper_1'
   | 'mockery'
-  // 擴充音效
+  // 男聲音效
+  | 'gentle_laugh_male'
+  | 'cold_laugh_male'
+  | 'contempt_male'
+  | 'excitement_male'
+  | 'fear_male'
+  | 'fear_male_1'
+  | 'fear_male_2'
+  | 'frustration_male'
+  | 'mysterious_whisper_male'
+  | 'mysterious_whisper_male_1'
+  | 'mysterious_whisper_male_2'
+  // 環境/特殊音效
   | 'wood_chop'
   | 'rain_light'
   | 'ear_ringing'
@@ -206,6 +219,7 @@ const SFX_PATHS: Record<SFXType, string> = {
 
 // 情緒音效路徑映射
 const EMOTION_SFX_PATHS: Record<EmotionSFXType, string> = {
+  // 女聲音效
   gentle_laugh: '/audio/sfx/gentle_laugh.mp3',
   gentle_laugh_1: '/audio/sfx/gentle_laugh_1.mp3',
   gentle_laugh_2: '/audio/sfx/gentle_laugh_2.mp3',
@@ -224,7 +238,19 @@ const EMOTION_SFX_PATHS: Record<EmotionSFXType, string> = {
   mysterious_whisper: '/audio/sfx/mysterious_whisper.mp3',
   mysterious_whisper_1: '/audio/sfx/mysterious_whisper_1.mp3',
   mockery: '/audio/sfx/mockery.mp3',
-  // 擴充音效
+  // 男聲音效（從 ambient 資料夾讀取）
+  gentle_laugh_male: '/audio/ambient/gentle_laugh_male.mp3',
+  cold_laugh_male: '/audio/ambient/cold_laugh_male.mp3',
+  contempt_male: '/audio/ambient/contempt_male.mp3',
+  excitement_male: '/audio/ambient/excitement_male.mp3',
+  fear_male: '/audio/ambient/fear_male.mp3',
+  fear_male_1: '/audio/ambient/fear_male (1).mp3',
+  fear_male_2: '/audio/ambient/fear_male (2).mp3',
+  frustration_male: '/audio/ambient/frustration_male.mp3',
+  mysterious_whisper_male: '/audio/ambient/mysterious_whisper_male.mp3',
+  mysterious_whisper_male_1: '/audio/ambient/mysterious_whisper_male (1).mp3',
+  mysterious_whisper_male_2: '/audio/ambient/mysterious_whisper_male (2).mp3',
+  // 環境/特殊音效
   wood_chop: '/audio/sfx/wood_chop.mp3',
   rain_light: '/audio/sfx/rain_light.mp3',
   ear_ringing: '/audio/sfx/ear_ringing.mp3',
