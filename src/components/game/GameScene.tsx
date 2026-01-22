@@ -1,5 +1,5 @@
-import { useState, useEffect, useRef, useCallback } from 'react';
-import { motion } from 'framer-motion';
+import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, Home, BookOpen, RotateCcw, Image, Trophy } from 'lucide-react';
 import { useGameStore } from '@/stores/gameStore';
 import { useSFX, useBGM, useAmbient, getAmbientTypeForScene, getBGMForNode } from '@/hooks/useAudio';
@@ -111,6 +111,20 @@ const GameScene = () => {
     ? [getSceneImage(currentNodeId)?.image].filter(Boolean) as string[]
     : [];
   const isImagesLoaded = usePreloadImages(preloadImages);
+
+  // 檢測是否在「刪除崩潰」場景（yi1-chapter-1-69 到 yi1-chapter-1-78）
+  const isCollapseScene = useMemo(() => {
+    const normalizedId = currentNodeId.replace(/^yi1-/, '');
+    const match = normalizedId.match(/^chapter-1-(\d+)$/);
+    if (match) {
+      const nodeNum = parseInt(match[1], 10);
+      return nodeNum >= 69 && nodeNum <= 78;
+    }
+    return false;
+  }, [currentNodeId]);
+
+  // 檢測是否在選擇時刻（yi1-chapter-1-choice）
+  const isChoiceMoment = currentNodeId === 'yi1-chapter-1-choice';
 
   // 檢測序章開始節點，觸發直排禪意開場動畫
   useEffect(() => {
@@ -229,7 +243,7 @@ const GameScene = () => {
         />
       </motion.div>
 
-      {/* 故障效果覆蓋層 */}
+      {/* 故障效果覆蓋層 - yi 說話時 */}
       {currentNode?.speaker === 'yi' && (
         <motion.div
           className="absolute inset-0 pointer-events-none z-30"
@@ -246,6 +260,121 @@ const GameScene = () => {
           />
         </motion.div>
       )}
+
+      {/* 崩潰刪除場景 - 畫面閃爍與故障效果 */}
+      <AnimatePresence>
+        {isCollapseScene && (
+          <motion.div
+            className="absolute inset-0 pointer-events-none z-35"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            {/* 紅色脈衝閃爍 */}
+            <motion.div
+              className="absolute inset-0"
+              animate={{
+                backgroundColor: [
+                  'transparent',
+                  'hsl(0 70% 50% / 0.08)',
+                  'transparent',
+                  'hsl(0 70% 50% / 0.05)',
+                  'transparent',
+                ],
+              }}
+              transition={{
+                duration: 0.4,
+                repeat: Infinity,
+                repeatType: 'loop',
+              }}
+            />
+            
+            {/* 掃描線效果 */}
+            <motion.div
+              className="absolute inset-0 glitch-scanlines"
+              animate={{ opacity: [0.3, 0.6, 0.3] }}
+              transition={{ duration: 0.2, repeat: Infinity }}
+            />
+            
+            {/* 隨機位移抖動 */}
+            <motion.div
+              className="absolute inset-0 border-2 border-destructive/20"
+              animate={{
+                x: [0, -3, 2, -1, 3, 0],
+                y: [0, 2, -2, 1, -1, 0],
+              }}
+              transition={{
+                duration: 0.15,
+                repeat: Infinity,
+              }}
+            />
+            
+            {/* RGB 分離效果 */}
+            <motion.div
+              className="absolute inset-0 mix-blend-screen"
+              style={{
+                boxShadow: 'inset -3px 0 0 hsl(0 100% 50% / 0.1), inset 3px 0 0 hsl(180 100% 50% / 0.1)',
+              }}
+              animate={{
+                boxShadow: [
+                  'inset -3px 0 0 hsl(0 100% 50% / 0.1), inset 3px 0 0 hsl(180 100% 50% / 0.1)',
+                  'inset -5px 0 0 hsl(0 100% 50% / 0.15), inset 5px 0 0 hsl(180 100% 50% / 0.15)',
+                  'inset -2px 0 0 hsl(0 100% 50% / 0.08), inset 2px 0 0 hsl(180 100% 50% / 0.08)',
+                ],
+              }}
+              transition={{
+                duration: 0.1,
+                repeat: Infinity,
+              }}
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* 選擇時刻 - 緊張的邊緣發光 */}
+      <AnimatePresence>
+        {isChoiceMoment && (
+          <motion.div
+            className="absolute inset-0 pointer-events-none z-35"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            {/* 邊緣警告發光 */}
+            <motion.div
+              className="absolute inset-0"
+              style={{
+                boxShadow: 'inset 0 0 100px 20px hsl(0 60% 40% / 0.15)',
+              }}
+              animate={{
+                boxShadow: [
+                  'inset 0 0 100px 20px hsl(0 60% 40% / 0.1)',
+                  'inset 0 0 150px 40px hsl(0 60% 40% / 0.2)',
+                  'inset 0 0 100px 20px hsl(0 60% 40% / 0.1)',
+                ],
+              }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                ease: 'easeInOut',
+              }}
+            />
+            
+            {/* 心跳般的脈衝 */}
+            <motion.div
+              className="absolute inset-0 bg-destructive/5"
+              animate={{
+                opacity: [0, 0.08, 0, 0, 0.05, 0],
+              }}
+              transition={{
+                duration: 1.2,
+                repeat: Infinity,
+                times: [0, 0.1, 0.2, 0.6, 0.7, 1],
+              }}
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* 章節標題 */}
       <motion.div
