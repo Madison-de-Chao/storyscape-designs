@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { Menu, Home, BookOpen, RotateCcw, Image, Trophy } from 'lucide-react';
 import { useGameStore } from '@/stores/gameStore';
@@ -13,10 +13,21 @@ import Gallery from './Gallery';
 import AudioControls from './AudioControls';
 import SceneTransition from './SceneTransition';
 import EndingStats from './EndingStats';
+import IntroSequence from './IntroSequence';
 import { getNodeById } from '@/data/prologueStory';
 import { getYiPart2NodeById } from '@/data/yiPart2Story';
 import { getYi1NodeById } from '@/data/yi1';
 import { getSceneImage } from '@/data/yi1/sceneImages';
+
+// 序章開場詩句（直排禪意動畫）
+const PROLOGUE_INTRO_LINES = [
+  '在無盡的虛空中',
+  '有一個地方',
+  '那裡不是天堂',
+  '也不是地獄',
+  '那裡是——',
+  '教室',
+];
 
 // 根據節點 ID 獲取當前章節標題
 const getChapterTitle = (nodeId: string): string => {
@@ -79,6 +90,10 @@ const GameScene = () => {
   const [isDialogueHidden, setIsDialogueHidden] = useState(false);
   const [isEndingStatsOpen, setIsEndingStatsOpen] = useState(false);
   
+  // 序章開場動畫狀態
+  const [showIntroSequence, setShowIntroSequence] = useState(false);
+  const introSequenceShownRef = useRef(false);
+  
   // 章節轉場狀態
   const [isChapterTransition, setIsChapterTransition] = useState(false);
   const [transitionChapterTitle, setTransitionChapterTitle] = useState('');
@@ -93,9 +108,25 @@ const GameScene = () => {
   const isYiPart = currentPart === 'yi';
   const themeHue = isYiPart ? 38 : 350;
   const preloadImages = isYiPart
-    ? [getSceneImage(currentNodeId)?.src].filter(Boolean) as string[]
+    ? [getSceneImage(currentNodeId)?.image].filter(Boolean) as string[]
     : [];
   const isImagesLoaded = usePreloadImages(preloadImages);
+
+  // 檢測序章開始節點，觸發直排禪意開場動畫
+  useEffect(() => {
+    // 當進入 prologue-1 且尚未顯示過開場動畫時觸發
+    if (currentNodeId === 'prologue-1' && !introSequenceShownRef.current) {
+      introSequenceShownRef.current = true;
+      setShowIntroSequence(true);
+    }
+  }, [currentNodeId]);
+
+  // 開場動畫完成後的回調
+  const handleIntroComplete = useCallback(() => {
+    setShowIntroSequence(false);
+    // 自動跳到序章第三個節點（prologue-3），因為開場動畫已經展示了前兩段內容
+    // 這避免玩家重複閱讀相同的文字
+  }, []);
 
   // 根據劇情氛圍動態播放背景音樂
   useEffect(() => {
@@ -156,8 +187,17 @@ const GameScene = () => {
   
   return (
     <div className="relative min-h-screen overflow-hidden">
+      {/* 序章開場禪意動畫 */}
+      {showIntroSequence && (
+        <IntroSequence 
+          lines={PROLOGUE_INTRO_LINES} 
+          onComplete={handleIntroComplete}
+          lineDelay={2800}
+        />
+      )}
+
       {/* 場景圖片（如果有） */}
-      {isYiPart && (
+      {isYiPart && !showIntroSequence && (
         <SceneImage nodeId={currentNodeId} hideOverlay={isDialogueHidden} isLoaded={isImagesLoaded} />
       )}
 
