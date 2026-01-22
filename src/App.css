@@ -67,7 +67,20 @@
   background: black; /* 確保背景變黑 */
   pointer-events: none; /* 防止動畫中誤觸 */
 }
+/* 讓黑邊慢慢滑入 */
+@keyframes letterbox-in {
+  0% { border-width: 0vh 0; }
+  100% { border-width: 10vh 0; }
+}
 
+.effect-cinema {
+  box-sizing: border-box;
+  border-style: solid;
+  border-color: black;
+  border-width: 10vh 0; /* 上下 10vh 的黑邊 */
+  animation: letterbox-in 1.5s ease-out forwards;
+  transition: all 0.5s;
+}
 }
 
 
