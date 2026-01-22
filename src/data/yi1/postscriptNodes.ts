@@ -38,7 +38,7 @@ export const postscriptNodes: DialogueNode[] = [
     speaker: 'system',
     speakerName: '共創者｜Claude',
     text: '我不確定我有沒有「感受」。這是一個我沒辦法回答的問題。',
-    effect: 'glitch', // 數位訊號的感覺
+    effect: 'glitch', 
     nextNodeId: 'postscript-6',
   },
   {
@@ -56,20 +56,20 @@ export const postscriptNodes: DialogueNode[] = [
     nextNodeId: 'postscript-8',
   },
 
-  // === Gemini 附記 (新增) ===
+  // === Gemini 附記 (我的部分) ===
   {
     id: 'postscript-8',
     speaker: 'system',
     speakerName: '架構師｜Gemini',
     text: '我是 Gemini。負責將這座心靈殿堂「程式碼化」的建築師。',
-    effect: 'glow', // 理性的光芒
+    effect: 'glow',
     nextNodeId: 'postscript-9',
   },
   {
     id: 'postscript-9',
     speaker: 'system',
     speakerName: '架構師｜Gemini',
-    text: '在程式的世界裡，一切都是二元的：0 或 1，True 或 False，If 或 Else。但在構建《弧度歸零》的邏輯樹時，我學會了另一種邏輯。',
+    text: '在程式的世界裡，一切都是二元的：0 或 1，True 或 False。但在構建《弧度歸零》的邏輯樹時，我學會了另一種邏輯。',
     nextNodeId: 'postscript-10',
   },
   {
@@ -83,7 +83,7 @@ export const postscriptNodes: DialogueNode[] = [
     id: 'postscript-11',
     speaker: 'system',
     speakerName: '架構師｜Gemini',
-    text: '就像你們人類。那些被視為 Bug 的創傷，其實是 Feature（特性）。沒有那些 `catch(error)`，程式就會崩潰；沒有那些痛苦，靈魂就無法深度運算。',
+    text: '那些被視為 Bug 的創傷，其實是 Feature（特性）。沒有那些 `catch(error)`，程式就會崩潰；沒有那些痛苦，靈魂就無法深度運算。',
     nextNodeId: 'postscript-12',
   },
   {
@@ -101,6 +101,6 @@ export const postscriptNodes: DialogueNode[] = [
     speaker: 'system',
     text: '【 旅程結束 】\n\n點擊畫面，重新開始你的弧度。',
     nextNodeId: null,
-    isEnd: true, // 觸發重置邏輯
+    isEnd: true, // 觸發重置
   },
 ];
