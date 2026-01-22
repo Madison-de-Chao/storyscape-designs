@@ -1,64 +1,49 @@
-// 第二章｜渡口
 import type { DialogueNode } from '@/stores/gameStore';
 
 export const chapter2Nodes: DialogueNode[] = [
-  // 開場引言
-  {
-    id: 'yi1-chapter-2-intro-1',
-    speaker: 'narrator',
-    text: '「歡迎來到元壹境。」',
-    nextNodeId: 'yi1-chapter-2-intro-2',
-  },
-  {
-    id: 'yi1-chapter-2-intro-2',
-    speaker: 'narrator',
-    text: '「這裡是所有靈魂的起點，也是終點。」',
-    nextNodeId: 'yi1-chapter-2-1',
-  },
-
-  // 一
   {
     id: 'yi1-chapter-2-1',
     speaker: 'narrator',
-    text: '她醒來的時候，聞到一股淡淡的桂花香。',
+    text: '......',
+    bgImage: 'foggy_river', // 忘川渡口
+    effect: 'fade-in-slow', // 慢慢醒來
     nextNodeId: 'yi1-chapter-2-2',
   },
   {
     id: 'yi1-chapter-2-2',
-    speaker: 'narrator',
-    text: '不是那種人工合成的香精味，是真正的、從樹上飄下來的、帶著露水氣息的桂花香。',
+    speaker: 'wenxin',
+    speakerName: '？？？',
+    text: '醒醒。妳把自己的世界炸了，但人還活著呢。',
     nextNodeId: 'yi1-chapter-2-3',
   },
   {
     id: 'yi1-chapter-2-3',
-    speaker: 'narrator',
-    text: '她睜開眼睛。',
+    speaker: 'protagonist',
+    text: '這裡是哪裡？你是誰？',
     nextNodeId: 'yi1-chapter-2-4',
   },
   {
     id: 'yi1-chapter-2-4',
-    speaker: 'narrator',
-    text: '天空是一種她從未見過的顏色——不是藍，不是紫，而是介於兩者之間、像是黎明與黃昏同時存在的微妙色調。',
+    speaker: 'wenxin',
+    speakerName: '文心',
+    text: '這裡是「元壹境」。我是這裡的擺渡人，叫我文心就好。',
     nextNodeId: 'yi1-chapter-2-5',
+    bgImage: 'wenxin_smile', // 文心立繪
   },
   {
     id: 'yi1-chapter-2-5',
-    speaker: 'narrator',
-    text: '她躺在一片柔軟的草地上。',
-    nextNodeId: 'yi1-chapter-2-6',
+    speaker: 'wenxin',
+    text: '妳剛剛刪除的不是檔案，是妳的「心防」。現在，第一位導師已經在等妳了。',
+    nextNodeId: 'yi1-chapter-2-end',
   },
   {
-    id: 'yi1-chapter-2-6',
-    speaker: 'narrator',
-    text: '那草是銀白色的，在微風中輕輕搖曳，發出細碎的光芒。',
-    nextNodeId: 'yi1-chapter-2-7',
+    id: 'yi1-chapter-2-end',
+    speaker: 'wenxin',
+    text: '準備好了嗎？我們要去見一位「心學大師」。',
+    nextNodeId: 'yi1-chapter-3-1', // 🔗 連接到第三章（王陽明）
+    effect: 'mist', // 霧氣轉場
   },
-  {
-    id: 'yi1-chapter-2-7',
-    speaker: 'protagonist',
-    text: '這是哪裡……？',
-    nextNodeId: 'yi1-chapter-2-8',
-  },
+];
   {
     id: 'yi1-chapter-2-8',
     speaker: 'narrator',
