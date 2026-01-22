@@ -1,12 +1,21 @@
 import type { DialogueNode } from '@/stores/gameStore';
 
 export const chapter14Nodes: DialogueNode[] = [
-  // 開場：陰冷的長廊
+  // 開場引言 (新增直排特效)
+  {
+    id: 'chapter14-intro-1',
+    speaker: 'narrator',
+    text: '「那是預留的。」\n「給那些正在學習的人。」',
+    effect: 'vertical', // 直排更有莊嚴感
+    nextNodeId: 'chapter14-1', // 接回原本的故事
+  },
+
+  // 一、進入未歸者廊 (原本的開頭)
   {
     id: 'chapter14-1',
     speaker: 'narrator',
-    text: '離開白色房間，氣溫驟降。這是一條灰黑色的長廊，兩旁有很多壁龕。',
-    bgImage: 'dark_gallery', // 陰暗長廊
+    text: '離開白色房間，氣溫驟降。',
+    bgImage: 'dark_gallery',
     nextNodeId: 'chapter14-2',
   },
   {
@@ -16,8 +25,7 @@ export const chapter14Nodes: DialogueNode[] = [
     text: '這裡是未歸者廊。這裡的每一個靈魂，都曾經來過元壹境，但沒有走出去。',
     nextNodeId: 'chapter14-3',
   },
-
-  // 一、失敗的英雄
+  // ... (保留原本的後續內容)
   {
     id: 'chapter14-3',
     speaker: 'narrator',
@@ -42,8 +50,6 @@ export const chapter14Nodes: DialogueNode[] = [
     text: '屈原。他愛國，但他把自己的價值完全綁定在國家的命運上。國亡了，他也亡了。',
     nextNodeId: 'chapter14-7',
   },
-  
-  // 二、主角的傲慢
   {
     id: 'chapter14-7',
     speaker: 'protagonist',
@@ -62,8 +68,6 @@ export const chapter14Nodes: DialogueNode[] = [
     text: '我不會像他們一樣的。我已經知道怎麼處理負面情緒了。我會去見伊，跟她和解，然後——超越她。',
     nextNodeId: 'chapter14-10',
   },
-  
-  // 三、輕蔑的笑聲
   {
     id: 'chapter14-10',
     speaker: 'wenxin',
@@ -95,6 +99,6 @@ export const chapter14Nodes: DialogueNode[] = [
     speakerName: '？？？',
     text: '呵。',
     effect: 'glitch',
-    nextNodeId: 'chapter15-1', // 🔗 連接到第十五章
+    nextNodeId: 'chapter15-intro-1', // 🔗 注意：這裡要連到 Ch15 的 Intro
   },
 ];
