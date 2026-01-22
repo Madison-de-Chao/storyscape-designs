@@ -40,3 +40,19 @@
 .read-the-docs {
   color: #888;
 }
+/* 水墨暈染遮罩動畫 */
+@keyframes ink-spread-anim {
+  0% { mask-size: 0% 0%; -webkit-mask-size: 0% 0%; }
+  100% { mask-size: 300% 300%; -webkit-mask-size: 300% 300%; }
+}
+
+.effect-ink {
+  /* 這裡使用 radial-gradient 模擬水墨擴散 */
+  mask-image: radial-gradient(circle, black 100%, transparent 100%);
+  -webkit-mask-image: radial-gradient(circle, black 100%, transparent 100%);
+  mask-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
+  mask-position: center;
+  -webkit-mask-position: center;
+  animation: ink-spread-anim 2.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
