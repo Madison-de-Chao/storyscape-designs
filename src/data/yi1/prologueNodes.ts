@@ -1,64 +1,55 @@
-// 序章｜訓練場
-// 精簡版：68節點 → 35節點（含互動選項）
 import type { DialogueNode } from '@/stores/gameStore';
 
-export const yi1PrologueNodes: DialogueNode[] = [
-  // === 第一部分：訓練場概念 ===
+export const prologueNodes: DialogueNode[] = [
   {
     id: 'prologue-1',
     speaker: 'narrator',
-    text: '在**無盡的虛空**中，有一個地方。那裡不是天堂，也不是地獄。',
+    text: '在無盡的虛空之中，有一個地方。那裡不是天堂，也不是地獄。',
     nextNodeId: 'prologue-2',
     effect: 'glow',
   },
   {
     id: 'prologue-2',
     speaker: 'narrator',
-    text: '那裡是**教室**。而你正坐在裡面。',
+    text: '那裡是**教室**。而你，正坐在裡面。',
     nextNodeId: 'prologue-3',
   },
   {
     id: 'prologue-3',
     speaker: 'narrator',
-    text: '你不知道的是，**地球是一座學校**。每一個靈魂來到這裡，都是為了學習同一堂課——',
+    text: '你不知道的是，地球是一座學校。每一個靈魂來到這裡，都是為了學習同一堂課——',
     nextNodeId: 'prologue-4',
-    effect: 'glow',
   },
   {
     id: 'prologue-4',
     speaker: 'narrator',
     text: '**完整**。',
-    nextNodeId: 'prologue-5',
-    effect: 'glow',
-  },
-  {
-    id: 'prologue-5',
-    speaker: 'narrator',
-    text: '你以為人生的意義是**攀登**——爬得越高，離終點越近。',
     nextNodeId: 'prologue-choice-1',
+    effect: 'glow',
   },
   {
     id: 'prologue-choice-1',
     speaker: 'narrator',
     text: '你一直以來追求的是什麼？',
     choices: [
-      { id: 'prologue-c1-a', text: '成功與認可', nextNodeId: 'prologue-6a', arcChange: -5, shadowChange: 5 },
-      { id: 'prologue-c1-b', text: '內心的平靜', nextNodeId: 'prologue-6b', arcChange: 5, shadowChange: 0 },
-      { id: 'prologue-c1-c', text: '我不太確定', nextNodeId: 'prologue-6c', arcChange: 0, shadowChange: 0 },
+      { id: 'prologue-c1-a', text: '成功與認可', nextNodeId: 'prologue-6', arcChange: -5, shadowChange: 5 },
+      { id: 'prologue-c1-b', text: '內心的平靜', nextNodeId: 'prologue-6', arcChange: 5, shadowChange: 0 },
     ],
   },
   {
-    id: 'prologue-6a',
+    id: 'prologue-6',
     speaker: 'narrator',
-    text: '很多人都是這樣。但你即將發現，**真正的終點不在山頂**。',
-    nextNodeId: 'prologue-7',
-    effect: 'glow',
+    text: '在這個故事裡，我們會遇到許多歷史上的「歸者」。他們會教你如何找回遺失的碎片。',
+    nextNodeId: 'prologue-end',
   },
   {
-    id: 'prologue-6b',
+    id: 'prologue-end',
     speaker: 'narrator',
-    text: '你的心，**早已知道答案**。讓我們繼續往下走。',
-    nextNodeId: 'prologue-7',
+    text: '現在，鏡頭轉向一個平凡的夜晚。\n\n【序章完】',
+    nextNodeId: 'yi1-chapter-1-1', // 🔗 完美連接到第一章
+    effect: 'fade-out',
+  },
+];
     effect: 'glow',
   },
   {
