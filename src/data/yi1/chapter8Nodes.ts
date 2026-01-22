@@ -350,6 +350,8 @@ export const chapter8Nodes: DialogueNode[] = [
     speaker: 'simaqian',
     speakerName: '司馬遷',
     text: '所以我選擇——**把自己活完**。我不是為了活著而活著，我是為了完成那本書而活著。',
+    effect: 'glitch',
+    emotionSFX: 'mysterious_whisper',
     nextNodeId: 'chapter8-49',
   },
 
@@ -453,6 +455,8 @@ export const chapter8Nodes: DialogueNode[] = [
     speaker: 'simaqian',
     speakerName: '司馬遷',
     text: '這些都是表面的。真正的殘缺，只有一種——**活不出自己**。',
+    effect: 'glow',
+    emotionSFX: 'fear',
     nextNodeId: 'chapter8-59',
   },
 

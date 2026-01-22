@@ -360,7 +360,8 @@ export const chapter3Nodes: DialogueNode[] = [
     id: 'yi1-chapter-3-56',
     speaker: 'wangyangming',
     text: '**心即理。**',
-    effect: 'glow',
+    effect: 'glitch',
+    emotionSFX: 'mysterious_whisper',
     nextNodeId: 'yi1-chapter-3-57',
   },
 
@@ -369,6 +370,7 @@ export const chapter3Nodes: DialogueNode[] = [
     id: 'yi1-chapter-3-57',
     speaker: 'narrator',
     text: '「心即理」。',
+    effect: 'glow',
     nextNodeId: 'yi1-chapter-3-58',
   },
   {
