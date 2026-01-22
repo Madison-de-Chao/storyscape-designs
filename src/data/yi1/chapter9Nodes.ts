@@ -422,6 +422,19 @@ export const chapter9Nodes: DialogueNode[] = [
     speaker: 'libai',
     speakerName: '李白',
     text: '但「**我材**」——我這個人，我的才華，我的本質——這些是不會失去的。外面的東西散了還會來，**但我永遠是我**。',
+    nextNodeId: 'chapter9-55-zen',
+  },
+  {
+    id: 'chapter9-55-zen',
+    speaker: 'narrator',
+    text: '',
+    specialScene: 'zen',
+    zenConfig: {
+      text: '天生我材必有用',
+      subtitle: '— 李白《將進酒》',
+      theme: 'golden',
+      duration: 6000,
+    },
     nextNodeId: 'chapter9-56',
   },
   {
