@@ -1,64 +1,55 @@
-// 第五章｜也無風雨也無晴
 import type { DialogueNode } from '@/stores/gameStore';
 
 export const chapter5Nodes: DialogueNode[] = [
-  // 開場引言
-  {
-    id: 'yi1-chapter-5-intro-1',
-    speaker: 'narrator',
-    text: '「我這一生被貶了無數次，但我從未貶低過自己。」',
-    nextNodeId: 'yi1-chapter-5-intro-2',
-  },
-  {
-    id: 'yi1-chapter-5-intro-2',
-    speaker: 'narrator',
-    text: '「你知道這兩者的區別嗎？」',
-    nextNodeId: 'yi1-chapter-5-1',
-  },
-
-  // 一、回到蘇軾庭院
   {
     id: 'yi1-chapter-5-1',
     speaker: 'narrator',
-    text: '問心沒有直接帶她去見王陽明，而是帶她回到了蘇軾的庭院。',
+    text: '（……一片寂靜……）',
+    bgImage: 'black_screen', // 全黑畫面
+    effect: 'fade-in-slow',  // 極慢速亮起
     nextNodeId: 'yi1-chapter-5-2',
   },
   {
     id: 'yi1-chapter-5-2',
-    speaker: 'wenxin',
-    text: '在那之前，蘇軾還有話要對你說。關於你剛才看到的，關於你的命樹。',
+    speaker: 'sushi',
+    text: '醒了嗎？雨停了。',
+    bgImage: 'garden_after_rain', // 雨後清新的庭院
+    emotionSFX: 'birds_chirping',  // 鳥叫聲
     nextNodeId: 'yi1-chapter-5-3',
   },
   {
     id: 'yi1-chapter-5-3',
-    speaker: 'narrator',
-    text: '她的心沉了一下。那些扭曲的枝幹、醜陋的結節、黑色的洞——每想起一次，她的心就痛一次。',
+    speaker: 'sushi',
+    text: '剛才那棵樹確實不好看。但樹瘤也是木頭的一部分，燒起來，火特別旺。',
     nextNodeId: 'yi1-chapter-5-4',
   },
-
-  // 二、蘇軾的自我反省
   {
     id: 'yi1-chapter-5-4',
-    speaker: 'narrator',
-    text: '蘇軾還在樹下坐著，這一次他在煮茶。',
+    speaker: 'protagonist',
+    text: '你不覺得噁心嗎？那些傷疤……',
     nextNodeId: 'yi1-chapter-5-5',
   },
   {
     id: 'yi1-chapter-5-5',
     speaker: 'sushi',
-    text: '回來了？看見你的樹了？我猜，不太好看？',
+    text: '回首向來蕭瑟處，歸去，也無風雨也無晴。',
+    effect: 'glow',
     nextNodeId: 'yi1-chapter-5-6',
   },
   {
     id: 'yi1-chapter-5-6',
-    speaker: 'protagonist',
-    text: '很醜。',
-    nextNodeId: 'yi1-chapter-5-7',
+    speaker: 'sushi',
+    text: '完整不是沒有缺口，而是不再害怕缺口。接納它，它就會變成妳的力量。',
+    nextNodeId: 'yi1-chapter-5-end',
   },
   {
-    id: 'yi1-chapter-5-7',
+    id: 'yi1-chapter-5-end',
     speaker: 'sushi',
-    text: '第一次看見自己的命樹，都會這樣。我第一次看見我的樹的時候，差點沒認出來那是我的。',
+    text: '既然心已經安了，就該去行動了。陽明兄還有最後一課要教妳。',
+    nextNodeId: 'yi1-chapter-6-1', // 🔗 連接到王陽明（下）
+    effect: 'fade-out',
+  },
+];
     nextNodeId: 'yi1-chapter-5-8',
   },
   {
