@@ -3,7 +3,7 @@
 
 import type { EmotionSFXType } from '@/hooks/useAudio';
 
-// 說話者類型
+// 說話者類型（與 gameStore 中的 SpeakerType 同步）
 export type SpeakerType = 
   | 'narrator' 
   | 'protagonist' 
@@ -20,7 +20,10 @@ export type SpeakerType =
   | 'caesar'
   | 'cleopatra'
   | 'lincoln'
-  | 'jobs';
+  | 'jobs'
+  | 'vangogh'
+  | 'helenkeller'
+  | 'system';
 
 // 說話者情緒音效配置
 interface SpeakerEmotionConfig {
@@ -156,6 +159,21 @@ export const speakerEmotionSFXConfig: Record<SpeakerType, SpeakerEmotionConfig> 
     default: ['gentle_laugh'],
     probability: 0.08,
   },
+
+  vangogh: {
+    default: ['sad_sigh'],
+    probability: 0.1,
+  },
+
+  helenkeller: {
+    default: ['gentle_laugh'],
+    probability: 0.1,
+  },
+
+  system: {
+    default: [],
+    probability: 0,
+  },
 };
 
 /**
@@ -167,7 +185,7 @@ export const speakerEmotionSFXConfig: Record<SpeakerType, SpeakerEmotionConfig> 
  */
 export function getSpeakerEmotionSFX(
   speaker: SpeakerType,
-  effect?: 'glitch' | 'glow' | 'fade' | null,
+  effect?: string | null,
   explicitSFX?: EmotionSFXType | null
 ): EmotionSFXType | null {
   // 優先使用節點明確指定的音效

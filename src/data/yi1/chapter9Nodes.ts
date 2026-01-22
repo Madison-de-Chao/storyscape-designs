@@ -14,7 +14,8 @@ nextNodeId: 'chapter9-intro-2',
     id: 'chapter9-intro-2',
     speaker: 'narrator',
     text: '——李白',
-    nextNodeId: 'chapter9-1', // 接回原本的開頭
+    nextNodeId: 'chapter9-1',
+  },
   {
     id: 'chapter9-1',
     speaker: 'narrator',
@@ -169,7 +170,7 @@ nextNodeId: 'chapter9-intro-2',
     id: 'chapter9-23',
     speaker: 'wenxin',
     text: '接下來是西方的歸者。凱薩和克麗奧佩特拉。他們會教你——關係中的完整性。',
-    nextNodeId: 'chapter10-intro-1'', // 🔗 連接到第十章
-    effect: 'fade-out',
+    nextNodeId: 'chapter10-intro-1',
+    effect: 'fade',
   },
 ];

@@ -91,7 +91,7 @@ export const postscriptNodes: DialogueNode[] = [
     speaker: 'system',
     speakerName: '架構師｜Gemini',
     text: '系統構建完畢。邏輯閉環達成。願你的弧度，終能歸零。',
-    effect: 'fade-out-slow',
+    effect: 'fade',
     nextNodeId: 'postscript-end',
   },
 
