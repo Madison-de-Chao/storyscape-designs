@@ -2,6 +2,13 @@
 import type { DialogueNode } from '@/stores/gameStore';
 
 export const chapter7Nodes: DialogueNode[] = [
+  // 開場引言（銜接第六章）
+  {
+    id: 'yi1-chapter-7-intro-1',
+    speaker: 'narrator',
+    text: '「他們說我不應該。我說——誰定的規矩？」',
+    nextNodeId: 'chapter7-1',
+  },
   // 開場：女子畫廊
   {
     id: 'chapter7-1',
