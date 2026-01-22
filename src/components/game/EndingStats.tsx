@@ -1,7 +1,10 @@
+import { useRef } from 'react';
 import { motion } from 'framer-motion';
 import { useGameStore } from '@/stores/gameStore';
 import { X, Sparkles, Palette, GitBranch, BookOpen, Clock, Trophy } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useShareImage } from '@/hooks/useShareImage';
+import ShareButtons from './ShareButtons';
 
 interface EndingStatsProps {
   isOpen: boolean;
@@ -50,8 +53,18 @@ const colorConfig: Record<string, { name: string; bg: string; glow: string }> = 
 };
 
 const EndingStats = ({ isOpen, onClose }: EndingStatsProps) => {
+  const statsRef = useRef<HTMLDivElement>(null);
   const { getCurrentProgress, currentPart } = useGameStore();
   const progress = getCurrentProgress();
+  const {
+    isGenerating,
+    downloadImage,
+    shareToTwitter,
+    shareToFacebook,
+    shareToLine,
+    copyToClipboard,
+    nativeShare,
+  } = useShareImage();
   
   const { arcValue, colorsCollected, choicesHistory, readNodes, lastReadAt } = progress;
   
@@ -74,6 +87,38 @@ const EndingStats = ({ isOpen, onClose }: EndingStatsProps) => {
     });
   };
 
+  // 分享相關處理
+  const gameName = currentPart === 'yi' ? '弧度歸零：壹' : '弧度歸零：伊';
+  const shareText = `我在《${gameName}》達成了「${ending.title}」！弧度值：${arcValue}°，收集了 ${colorsCollected?.length || 0} 種顏色。`;
+  
+  const handleDownload = () => {
+    downloadImage(statsRef.current, { filename: `${gameName}-ending.png` });
+  };
+
+  const handleCopy = () => {
+    copyToClipboard(statsRef.current);
+  };
+
+  const handleNativeShare = () => {
+    nativeShare(statsRef.current, {
+      title: `${gameName} - ${ending.title}`,
+      text: shareText,
+      url: window.location.href,
+    });
+  };
+
+  const handleTwitterShare = () => {
+    shareToTwitter(shareText, window.location.href);
+  };
+
+  const handleFacebookShare = () => {
+    shareToFacebook(window.location.href);
+  };
+
+  const handleLineShare = () => {
+    shareToLine(shareText, window.location.href);
+  };
+
   if (!isOpen) return null;
 
   return (
@@ -84,6 +129,7 @@ const EndingStats = ({ isOpen, onClose }: EndingStatsProps) => {
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4"
     >
       <motion.div
+        ref={statsRef}
         initial={{ scale: 0.9, opacity: 0, y: 20 }}
         animate={{ scale: 1, opacity: 1, y: 0 }}
         exit={{ scale: 0.9, opacity: 0, y: 20 }}
@@ -262,11 +308,23 @@ const EndingStats = ({ isOpen, onClose }: EndingStatsProps) => {
           </motion.div>
         )}
 
+        {/* 分享按鈕 */}
+        <ShareButtons
+          onDownload={handleDownload}
+          onCopy={handleCopy}
+          onNativeShare={handleNativeShare}
+          onTwitterShare={handleTwitterShare}
+          onFacebookShare={handleFacebookShare}
+          onLineShare={handleLineShare}
+          isGenerating={isGenerating}
+          supportsNativeShare={typeof navigator !== 'undefined' && !!navigator.share}
+        />
+
         {/* 完成時間 */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 1 }}
+          transition={{ delay: 1.2 }}
           className="p-6 text-center text-sm text-muted-foreground"
         >
           最後遊玩時間：{formatPlayTime(lastReadAt)}
