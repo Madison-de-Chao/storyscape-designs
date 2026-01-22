@@ -48,17 +48,6 @@ export const chapter3Nodes: DialogueNode[] = [
     effect: 'fade-out',
   },
 ];
-  },
-  {
-    id: 'yi1-chapter-3-10',
-    speaker: 'protagonist',
-    text: '等我？一個五百年前的人在等我？',
-    nextNodeId: 'yi1-chapter-3-11',
-  },
-  {
-    id: 'yi1-chapter-3-11',
-    speaker: 'wenxin',
-    text: '在元壹境，時間不是一條直線。過去、現在、未來，都只是不同的房間。',
     nextNodeId: 'yi1-chapter-3-12',
     emotionSFX: 'mysterious_whisper',
   },
