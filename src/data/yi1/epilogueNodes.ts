@@ -1,7 +1,7 @@
 import type { DialogueNode } from '@/stores/gameStore';
 
 export const epilogueNodes: DialogueNode[] = [
-  // 一、取消刪除
+  // ... (前面的內容保持不變) ...
   {
     id: 'epilogue-1',
     speaker: 'narrator',
@@ -114,12 +114,15 @@ export const epilogueNodes: DialogueNode[] = [
   },
   {
 
+
+// 尾聲結尾
+  {
     id: 'epilogue-end',
     speaker: 'system',
     text: '感謝您的體驗。\n\n—— 弧度歸零 Arc Zero ——',
-    nextNodeId: 'postscript-1', // 🔗 修改這裡：連接到後記
-
+    nextNodeId: 'postscript-1', // 🔗 連接到後記
   },
+];,
 
   // 五、後記（彩蛋）
   {
