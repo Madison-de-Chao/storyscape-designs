@@ -8,7 +8,13 @@ export const chapter9Nodes: DialogueNode[] = [
   text: '君不見\n黃河之水天上來\n奔流到海不復回', // 記得用 \n 換行
   effect: 'vertical', // 👈 使用這個特效
   bgImage: 'moon_bg',
-}
+nextNodeId: 'chapter9-intro-2',
+  },
+  {
+    id: 'chapter9-intro-2',
+    speaker: 'narrator',
+    text: '——李白',
+    nextNodeId: 'chapter9-1', // 接回原本的開頭
   {
     id: 'chapter9-1',
     speaker: 'narrator',
