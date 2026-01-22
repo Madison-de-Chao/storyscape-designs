@@ -97,12 +97,13 @@ export const chapter1Nodes: DialogueNode[] = [
     text: '一個對話框彈了出來。但上面寫的不是「確定要刪除嗎？」，而是——',
     nextNodeId: 'yi1-chapter-1-15',
   },
-  {
+{
     id: 'yi1-chapter-1-15',
     speaker: 'system',
     speakerName: 'SYSTEM',
     text: '「你確定要丟棄這些嗎？它們還沒完成。」',
-    effect: 'glitch', // 故障特效
+    effect: 'glitch', // 👈 這裡！加上故障特效
+    emotionSFX: 'digital_break', 
     nextNodeId: 'yi1-chapter-1-16',
   },
   {
