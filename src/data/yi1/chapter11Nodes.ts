@@ -1,6 +1,21 @@
 import type { DialogueNode } from '@/stores/gameStore';
 
 export const chapter11Nodes: DialogueNode[] = [
+ // 開場引言
+  {
+    id: 'chapter11-intro-1',
+    speaker: 'narrator',
+    text: '「仇恨是毒藥。」',
+    nextNodeId: 'chapter11-intro-2',
+  },
+  {
+    id: 'chapter11-intro-2',
+    speaker: 'narrator',
+    text: '「你喝下它，卻指望敵人會死。」',
+    effect: 'glow',
+    nextNodeId: 'chapter11-1', // 接回原本的開頭
+  },
+  // 接著是原本的 chapter11-1 ...
   // 開場：野花園
   {
     id: 'chapter11-1',
