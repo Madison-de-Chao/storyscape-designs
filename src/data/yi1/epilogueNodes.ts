@@ -415,6 +415,13 @@ export const epilogueNodes: DialogueNode[] = [
     text: '**她是她自己。不多，不少。剛剛好。**',
     effect: 'glow',
     emotionSFX: 'gentle_laugh',
+    specialScene: 'revelation',
+    revelationConfig: {
+      text: '完整',
+      subtitle: '新的開始 · 她是她自己',
+      theme: 'celestial',
+      duration: 6000,
+    },
     nextNodeId: 'epilogue-66',
   },
 
