@@ -155,7 +155,7 @@ export const chapter1Nodes: DialogueNode[] = [
     id: 'yi1-chapter-1-20',
     speaker: 'narrator',
     text: '她最後聽見的，是一個聲音：「你來了。我們等你很久了。」',
-    nextNodeId: 'yi1-chapter-2-1', // 🔗 連接到第二章（渡口）
+    nextNodeId: 'yi1-chapter-2-intro-1', // 🔗 連接到第二章（渡口）
     effect: 'fade-out',
   },
 ];
