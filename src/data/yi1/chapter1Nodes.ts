@@ -86,6 +86,7 @@ export const chapter1Nodes: DialogueNode[] = [
     id: 'yi1-chapter-1-13',
     speaker: 'narrator',
     text: '她按下了 Delete。檔案消失了。她打開資源回收筒，點擊右鍵：「清空資源回收筒」。',
+  effect: 'crt-off', // 👈 瞬間關機感
     nextNodeId: 'yi1-chapter-1-14',
     effect: 'shake',
   },
