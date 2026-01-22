@@ -143,7 +143,7 @@ export const chapter11Nodes: DialogueNode[] = [
     id: 'chapter11-19',
     speaker: 'mandela',
     text: '去吧。下一位歸者在等你。他輸了很多次，才學會怎麼贏。',
-    nextNodeId: 'chapter12-1', // 🔗 連接到林肯
+    nextNodeId: 'chapter12-intro-1', // 🔗 連接到林肯
     effect: 'fade-out',
   },
 ];
