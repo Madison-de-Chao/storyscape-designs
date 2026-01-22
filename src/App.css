@@ -147,5 +147,37 @@
   animation: shatter-shake 0.2s infinite;
   filter: contrast(1.2) sepia(0.3);
 }
+/* --- 直排文字特效 (修正版) --- */
+.effect-vertical {
+  /* 核心設定 */
+  writing-mode: vertical-rl;  /* 關鍵：Vertical Right-to-Left (從右到左直排) */
+  text-orientation: upright;  /* 關鍵：Upright (讓字體站直，不要躺著！) */
+  
+  /* 排版美化 */
+  white-space: pre-wrap;      /* 保留換行格式 */
+  line-height: 2.5;           /* 行距拉大，更有詩意 */
+  letter-spacing: 0.2em;      /* 字距拉大 */
+  font-family: 'Kaiti', 'STKaiti', 'DFKai-SB', serif; /* 強烈建議：使用楷體 */
+  
+  /* 容器定位 */
+  width: 100%;
+  height: 100%;
+  display: flex;              /* 使用 Flex 讓文字區塊置中 */
+  justify-content: center;    /* 水平置中 (因為是直排，這是控制左右) */
+  align-items: center;        /* 垂直置中 (因為是直排，這是控制上下) */
+  text-align: justify;        /* 讓文字對齊 */
+  
+  /* 稍微加一點文字陰影增加立體感 */
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+}
 
+/* 如果您希望直排文字慢慢浮現 (Fade In) */
+.effect-vertical {
+  animation: fade-in-vertical 2s ease-out forwards;
+}
+
+@keyframes fade-in-vertical {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
 
