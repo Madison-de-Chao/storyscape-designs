@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { Menu, Home, BookOpen, RotateCcw, Image } from 'lucide-react';
+import { Menu, Home, BookOpen, RotateCcw, Image, Trophy } from 'lucide-react';
 import { useGameStore } from '@/stores/gameStore';
 import { useSFX, useBGM, useAmbient, getAmbientTypeForScene, getBGMForNode } from '@/hooks/useAudio';
 import ParticleBackground from './ParticleBackground';
@@ -11,6 +11,7 @@ import SceneImage from './SceneImage';
 import Gallery from './Gallery';
 import AudioControls from './AudioControls';
 import SceneTransition from './SceneTransition';
+import EndingStats from './EndingStats';
 import { getNodeById } from '@/data/prologueStory';
 import { getYiPart2NodeById } from '@/data/yiPart2Story';
 import { getYi1NodeById } from '@/data/yi1';
@@ -75,6 +76,7 @@ const GameScene = () => {
   const [isChapterSelectOpen, setIsChapterSelectOpen] = useState(false);
   const [isGalleryOpen, setIsGalleryOpen] = useState(false);
   const [isDialogueHidden, setIsDialogueHidden] = useState(false);
+  const [isEndingStatsOpen, setIsEndingStatsOpen] = useState(false);
   
   // 章節轉場狀態
   const [isChapterTransition, setIsChapterTransition] = useState(false);
@@ -283,6 +285,18 @@ const GameScene = () => {
             </button>
           )}
 
+          {/* 結局統計 */}
+          <button
+            onClick={() => {
+              setIsMenuOpen(false);
+              setIsEndingStatsOpen(true);
+            }}
+            className="w-full flex items-center gap-3 px-4 py-3 text-sm text-foreground hover:bg-muted/50 transition-colors border-t border-border/50"
+          >
+            <Trophy className="w-4 h-4 text-amber-400" />
+            結局統計
+          </button>
+
           {/* 返回標題 */}
           <button
             onClick={() => {
@@ -334,6 +348,12 @@ const GameScene = () => {
       <Gallery 
         isOpen={isGalleryOpen} 
         onClose={() => setIsGalleryOpen(false)} 
+      />
+
+      {/* 結局統計彈窗 */}
+      <EndingStats 
+        isOpen={isEndingStatsOpen} 
+        onClose={() => setIsEndingStatsOpen(false)} 
       />
 
       {/* 章節轉場動畫 - 傳遞章節主題色 */}
