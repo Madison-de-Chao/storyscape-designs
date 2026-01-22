@@ -1,64 +1,33 @@
-// 作者序｜致那個等待被擁抱的你
-// 精簡版：25節點 → 15節點
 import type { DialogueNode } from '@/stores/gameStore';
 
 export const prefaceNodes: DialogueNode[] = [
   {
     id: 'preface-1',
     speaker: 'narrator',
-    text: '我曾經是一個很努力想當**「好人」**的人。',
+    text: '致 每一位覺得自己「還不夠好」的靈魂。',
     nextNodeId: 'preface-2',
-    effect: 'glow',
+    effect: 'glow', // 文字微光
   },
   {
     id: 'preface-2',
     speaker: 'narrator',
-    text: '努力壓抑憤怒，因為「我**不應該**生氣」。努力隱藏悲傷，因為「我**不應該**軟弱」。',
+    text: '這個故事不教你如何成功，只教你如何「完整」。',
     nextNodeId: 'preface-3',
   },
   {
     id: 'preface-3',
     speaker: 'narrator',
-    text: '我把所有「不應該」的部分，一塊一塊地**切下來**，藏到心裡最深的角落。',
-    nextNodeId: 'preface-4',
-    effect: 'glitch',
+    text: '這是一場關於心理原型的探索之旅。你準備好了嗎？',
+    nextNodeId: 'preface-end',
   },
   {
-    id: 'preface-4',
+    id: 'preface-end',
     speaker: 'narrator',
-    text: '我錯了。每切掉一塊，**我就少一塊**。',
-    nextNodeId: 'preface-choice-1',
-    effect: 'glow',
+    text: '深呼吸。\n\n故事，開始了。',
+    nextNodeId: 'prologue-1', // 🔗 完美連接到序章
+    effect: 'fade-out', // 畫面漸黑，製造過場感
   },
-  {
-    id: 'preface-choice-1',
-    speaker: 'narrator',
-    text: '你是否也曾這樣對待自己？',
-    effect: 'glow',
-    choices: [
-      { id: 'preface-c1-a', text: '是的，我總是壓抑自己', nextNodeId: 'preface-5a', arcChange: -5, shadowChange: 5 },
-      { id: 'preface-c1-b', text: '偶爾會，但我知道不對', nextNodeId: 'preface-5b', arcChange: 5, shadowChange: 0 },
-      { id: 'preface-c1-c', text: '我不確定...', nextNodeId: 'preface-5c', arcChange: 0, shadowChange: 0 },
-    ],
-  },
-  {
-    id: 'preface-5a',
-    speaker: 'narrator',
-    text: '我明白。那份**壓抑的重量**，我也曾承受過。',
-    nextNodeId: 'preface-6',
-    effect: 'glow',
-  },
-  {
-    id: 'preface-5b',
-    speaker: 'narrator',
-    text: '能意識到這一點，已經是**改變的開始**。',
-    nextNodeId: 'preface-6',
-    effect: 'glow',
-  },
-  {
-    id: 'preface-5c',
-    speaker: 'narrator',
-    text: '沒關係。這個故事，會幫助你**找到答案**。',
+];
     nextNodeId: 'preface-6',
     effect: 'glow',
   },
