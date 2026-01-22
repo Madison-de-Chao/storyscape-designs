@@ -14,6 +14,7 @@ import AudioControls from './AudioControls';
 import SceneTransition from './SceneTransition';
 import EndingStats from './EndingStats';
 import IntroSequence from './IntroSequence';
+import ZenMoment from './ZenMoment';
 import { getNodeById } from '@/data/prologueStory';
 import { getYiPart2NodeById } from '@/data/yiPart2Story';
 import { getYi1NodeById } from '@/data/yi1';
@@ -94,6 +95,10 @@ const GameScene = () => {
   const [showIntroSequence, setShowIntroSequence] = useState(false);
   const introSequenceShownRef = useRef(false);
   
+  // 禪意時刻狀態（蘇軾「也無風雨也無晴」）
+  const [showZenMoment, setShowZenMoment] = useState(false);
+  const zenMomentShownRef = useRef(false);
+  
   // 章節轉場狀態
   const [isChapterTransition, setIsChapterTransition] = useState(false);
   const [transitionChapterTitle, setTransitionChapterTitle] = useState('');
@@ -125,6 +130,25 @@ const GameScene = () => {
 
   // 檢測是否在選擇時刻（yi1-chapter-1-choice）
   const isChoiceMoment = currentNodeId === 'yi1-chapter-1-choice';
+
+  // 檢測蘇軾「也無風雨也無晴」禪意時刻
+  useEffect(() => {
+    const normalizedId = currentNodeId.replace(/^yi1-/, '');
+    if (normalizedId === 'chapter-5-merge-26' && !zenMomentShownRef.current) {
+      zenMomentShownRef.current = true;
+      // 淡出 BGM，進入禪意時刻
+      stopBGM(true);
+      setShowZenMoment(true);
+    }
+  }, [currentNodeId, stopBGM]);
+
+  // 禪意時刻結束後恢復 BGM
+  const handleZenMomentComplete = useCallback(() => {
+    setShowZenMoment(false);
+    // 恢復播放背景音樂
+    const bgmType = getBGMForNode(currentNodeId);
+    playBGM(bgmType);
+  }, [currentNodeId, playBGM]);
 
   // 檢測序章開始節點，觸發直排禪意開場動畫
   useEffect(() => {
@@ -207,6 +231,17 @@ const GameScene = () => {
           lines={PROLOGUE_INTRO_LINES} 
           onComplete={handleIntroComplete}
           lineDelay={2800}
+        />
+      )}
+
+      {/* 蘇軾「也無風雨也無晴」禪意時刻 */}
+      {showZenMoment && (
+        <ZenMoment
+          text="也無風雨也無晴"
+          subtitle="— 蘇軾《定風波》"
+          onComplete={handleZenMomentComplete}
+          duration={7000}
+          theme="ink"
         />
       )}
 
