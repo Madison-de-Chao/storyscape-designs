@@ -218,7 +218,8 @@ export const chapter7Nodes: DialogueNode[] = [
   {
     id: 'chapter7-32',
     speaker: 'wuzetian',
-    text: '「他們說你不應該，你就問——誰定的規矩？他們說你沒資格，你就問——誰給的標準？」',
+    text: '「他們說你不應該，你就問——誰定的規矩？他們說你沒資格，你就問——誰給的標準？」'
+    effect: 'cinema', // 👈 開啟電影模式,
     effect: 'glow',
     nextNodeId: 'chapter7-33',
   },
