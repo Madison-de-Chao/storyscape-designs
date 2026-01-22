@@ -338,7 +338,8 @@ export const chapter5Nodes: DialogueNode[] = [
     id: 'chapter-5-merge-25',
     speaker: 'sushi',
     text: '「莫聽穿林打葉聲，何妨吟嘯且徐行。竹杖芒鞋輕勝馬，**誰怕？一蓑煙雨任平生。**」',
-    effect: 'glow',
+    effect: 'glitch',
+    emotionSFX: 'mysterious_whisper',
     nextNodeId: 'chapter-5-merge-26',
   },
   {
@@ -346,6 +347,7 @@ export const chapter5Nodes: DialogueNode[] = [
     speaker: 'sushi',
     text: '「回首向來蕭瑟處，歸去，**也無風雨也無晴**。」',
     effect: 'glow',
+    emotionSFX: 'gentle_laugh',
     nextNodeId: 'chapter-5-merge-27',
   },
   {

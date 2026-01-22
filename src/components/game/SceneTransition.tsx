@@ -46,10 +46,10 @@ const SceneTransition = ({
       const showTimer = setTimeout(() => {
         setShowContent(true);
         setPhase('display');
-      }, 600);
+      }, 400);
       const exitTimer = setTimeout(() => {
         setPhase('exit');
-      }, 2400);
+      }, 1600);
       return () => {
         clearTimeout(showTimer);
         clearTimeout(exitTimer);
@@ -62,7 +62,7 @@ const SceneTransition = ({
 
   useEffect(() => {
     if (isTransitioning && onTransitionComplete) {
-      const duration = transitionType === 'chapter' ? 3200 : 1500;
+      const duration = transitionType === 'chapter' ? 2200 : 1500;
       const timer = setTimeout(onTransitionComplete, duration);
       return () => clearTimeout(timer);
     }
