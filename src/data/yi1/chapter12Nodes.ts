@@ -1,6 +1,28 @@
 import type { DialogueNode } from '@/stores/gameStore';
 
 export const chapter12Nodes: DialogueNode[] = [
+  // 開場引言 (新增)
+  {
+    id: 'chapter12-intro-1',
+    speaker: 'narrator',
+    text: '「我輸過太多次了。」',
+    nextNodeId: 'chapter12-intro-2',
+  },
+  {
+    id: 'chapter12-intro-2',
+    speaker: 'narrator',
+    text: '「才知道怎麼贏。」',
+    effect: 'vertical', // 適合林肯的堅毅感
+    nextNodeId: 'chapter12-1', // 接回原本的開頭
+  },
+
+  // 原本的開頭：劈柴聲
+  {
+    id: 'chapter12-1',
+    speaker: 'narrator',
+    text: '砰。砰。砰。有節奏的劈柴聲傳來。',
+    // ... (以下保持不變)
+  
   // 開場：劈柴聲
   {
     id: 'chapter12-1',
