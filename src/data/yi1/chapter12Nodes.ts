@@ -126,7 +126,7 @@ export const chapter12Nodes: DialogueNode[] = [
     speaker: 'wenxin',
     speakerName: '問心',
     text: '下一位在等你。他會教你怎麼把「爛東西」變成藝術品。',
-    nextNodeId: 'chapter13-1', // 🔗 連接到賈伯斯
+    nextNodeId: 'chapter13-intro-1', // 🔗 連接到賈伯斯
     effect: 'fade-out',
   },
 ];
