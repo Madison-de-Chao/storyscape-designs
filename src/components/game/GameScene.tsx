@@ -38,6 +38,7 @@ const getChapterTitle = (nodeId: string): string => {
 
   if (normalizedId.startsWith('preface')) return '作者序';
   if (normalizedId.startsWith('prologue')) return '序章・未完成的檔案';
+  if (normalizedId.startsWith('epilogue')) return '終章・名字';
   
   // 支援兩種格式：chapter-1- 和 chapter1-
   if (normalizedId.startsWith('chapter-1-') || normalizedId.startsWith('chapter1-')) return '第一章・刪除';
@@ -49,9 +50,13 @@ const getChapterTitle = (nodeId: string): string => {
   if (normalizedId.startsWith('chapter-7-') || normalizedId.startsWith('chapter7-')) return '第七章・誰定的規矩';
   if (normalizedId.startsWith('chapter-8-') || normalizedId.startsWith('chapter8-')) return '第八章・筆比命長';
   if (normalizedId.startsWith('chapter-9-') || normalizedId.startsWith('chapter9-')) return '第九章・天生我材';
-  if (normalizedId.startsWith('chapter-10-') || normalizedId.startsWith('chapter10-')) return '第十章・海倫凱勒';
-  if (normalizedId.startsWith('chapter-11-') || normalizedId.startsWith('chapter11-')) return '第十一章・曼德拉';
+  if (normalizedId.startsWith('chapter-10-') || normalizedId.startsWith('chapter10-')) return '第十章・心靈之眼';
+  if (normalizedId.startsWith('chapter-11-') || normalizedId.startsWith('chapter11-')) return '第十一章・自由';
   if (normalizedId.startsWith('chapter-12-') || normalizedId.startsWith('chapter12-')) return '第十二章・星夜';
+  if (normalizedId.startsWith('chapter-13-') || normalizedId.startsWith('chapter13-')) return '第十三章・連結點';
+  if (normalizedId.startsWith('chapter-14-') || normalizedId.startsWith('chapter14-')) return '第十四章・未歸者畫廊';
+  if (normalizedId.startsWith('chapter-15-') || normalizedId.startsWith('chapter15-')) return '第十五章・伊';
+  if (normalizedId.startsWith('chapter-16-') || normalizedId.startsWith('chapter16-')) return '第十六章・歸一';
 
   return '序章';
 };
@@ -61,6 +66,7 @@ const getChapterNumber = (nodeId: string): string => {
   const normalizedId = nodeId.replace(/^yi1-/, '');
   if (normalizedId.startsWith('preface')) return 'preface';
   if (normalizedId.startsWith('prologue')) return 'prologue';
+  if (normalizedId.startsWith('epilogue')) return 'epilogue';
   
   // 支援兩種格式
   const matchDash = normalizedId.match(/chapter-(\d+)/);

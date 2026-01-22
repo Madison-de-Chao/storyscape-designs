@@ -787,6 +787,6 @@ export const chapter3Nodes: DialogueNode[] = [
     id: 'yi1-chapter-3-end',
     speaker: 'narrator',
     text: '她們走出書院，回到那條金色的河邊。下一段旅程，即將開始。',
-    nextNodeId: 'chapter-4-intro-1',
+    nextNodeId: 'yi1-chapter-4-intro-1',
   },
 ];
