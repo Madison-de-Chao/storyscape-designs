@@ -1,10 +1,11 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useGameStore } from '@/stores/gameStore';
 import { X, Sparkles, Palette, GitBranch, BookOpen, Clock, Trophy } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useShareImage } from '@/hooks/useShareImage';
 import ShareButtons from './ShareButtons';
+import ShareCard from './ShareCard';
 
 interface EndingStatsProps {
   isOpen: boolean;
@@ -54,6 +55,7 @@ const colorConfig: Record<string, { name: string; bg: string; glow: string }> = 
 
 const EndingStats = ({ isOpen, onClose }: EndingStatsProps) => {
   const statsRef = useRef<HTMLDivElement>(null);
+  const shareCardRef = useRef<HTMLDivElement>(null);
   const { getCurrentProgress, currentPart } = useGameStore();
   const progress = getCurrentProgress();
   const {
@@ -91,16 +93,17 @@ const EndingStats = ({ isOpen, onClose }: EndingStatsProps) => {
   const gameName = currentPart === 'yi' ? '弧度歸零：壹' : '弧度歸零：伊';
   const shareText = `我在《${gameName}》達成了「${ending.title}」！弧度值：${arcValue}°，收集了 ${colorsCollected?.length || 0} 種顏色。`;
   
+  // 使用分享卡片模板生成圖片
   const handleDownload = () => {
-    downloadImage(statsRef.current, { filename: `${gameName}-ending.png` });
+    downloadImage(shareCardRef.current, { filename: `${gameName}-ending.png` });
   };
 
   const handleCopy = () => {
-    copyToClipboard(statsRef.current);
+    copyToClipboard(shareCardRef.current);
   };
 
   const handleNativeShare = () => {
-    nativeShare(statsRef.current, {
+    nativeShare(shareCardRef.current, {
       title: `${gameName} - ${ending.title}`,
       text: shareText,
       url: window.location.href,
@@ -330,6 +333,27 @@ const EndingStats = ({ isOpen, onClose }: EndingStatsProps) => {
           最後遊玩時間：{formatPlayTime(lastReadAt)}
         </motion.div>
       </motion.div>
+
+      {/* 隱藏的分享卡片模板（用於生成圖片） */}
+      <div
+        style={{
+          position: 'absolute',
+          left: '-9999px',
+          top: 0,
+          pointerEvents: 'none',
+        }}
+      >
+        <ShareCard
+          ref={shareCardRef}
+          gameName={gameName}
+          endingTitle={ending.title}
+          endingColor={ending.color}
+          arcValue={arcValue}
+          colorsCollected={colorsCollected || []}
+          totalNodesRead={totalNodesRead}
+          totalChoices={totalChoices}
+        />
+      </div>
     </motion.div>
   );
 };
