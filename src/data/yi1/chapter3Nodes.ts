@@ -1,64 +1,52 @@
-// 第三章｜真相（王陽明）
 import type { DialogueNode } from '@/stores/gameStore';
 
 export const chapter3Nodes: DialogueNode[] = [
-  // 開場引言
-  {
-    id: 'yi1-chapter-3-intro-1',
-    speaker: 'narrator',
-    text: '「你心裡的真相，才是唯一的真相。」',
-    nextNodeId: 'yi1-chapter-3-intro-2',
-  },
-  {
-    id: 'yi1-chapter-3-intro-2',
-    speaker: 'narrator',
-    text: '——王陽明',
-    nextNodeId: 'yi1-chapter-3-1',
-  },
-
-  // 一
   {
     id: 'yi1-chapter-3-1',
     speaker: 'narrator',
-    text: '船在河面上緩緩行駛。',
+    text: '穿過迷霧，妳來到了一座簡樸的庭院。一位長者正在掃地。',
     nextNodeId: 'yi1-chapter-3-2',
+    bgImage: 'yangming_garden',
   },
   {
     id: 'yi1-chapter-3-2',
-    speaker: 'narrator',
-    text: '她坐在船頭，看著兩岸的景色慢慢變化。',
+    speaker: 'wangyangming',
+    speakerName: '王陽明',
+    text: '妳一直在找東西。找認可，找答案，找一個證明自己存在的理由。',
     nextNodeId: 'yi1-chapter-3-3',
   },
   {
     id: 'yi1-chapter-3-3',
-    speaker: 'narrator',
-    text: '先是銀白色的草原，然後是一片翠綠的竹林，竹葉在微風中沙沙作響。',
+    speaker: 'protagonist',
+    text: '難道不該找嗎？我只想要一個標準答案。',
     nextNodeId: 'yi1-chapter-3-4',
   },
   {
     id: 'yi1-chapter-3-4',
-    speaker: 'wendu',
-    text: '到了。',
+    speaker: 'wangyangming',
+    text: '聖人之道，吾性自足。妳向外找，就像是騎著馬找馬。',
     nextNodeId: 'yi1-chapter-3-5',
+    effect: 'glow',
   },
   {
     id: 'yi1-chapter-3-5',
-    speaker: 'narrator',
-    text: '問渡停下船槳，船輕輕靠岸。',
+    speaker: 'wangyangming',
+    text: '妳的心裡有一把尺，只是妳不敢用它。',
     nextNodeId: 'yi1-chapter-3-6',
   },
   {
     id: 'yi1-chapter-3-6',
-    speaker: 'narrator',
-    text: '她跳下船，腳踩在鬆軟的泥土上。竹林深處，隱約可見一座古樸的書院。',
-    nextNodeId: 'yi1-chapter-3-7',
+    speaker: 'wangyangming',
+    text: '道理妳都懂，但妳的心裡還有一個結沒解開。去吧，我的朋友蘇東坡在那裡等妳。',
+    nextNodeId: 'yi1-chapter-3-end',
   },
   {
-    id: 'yi1-chapter-3-7',
-    speaker: 'wenxin',
-    text: '這裡是陽明書院。',
-    nextNodeId: 'yi1-chapter-3-8',
-    emotionSFX: 'gentle_laugh',
+    id: 'yi1-chapter-3-end',
+    speaker: 'wangyangming',
+    text: '他會帶妳去看妳的「命樹」。做好心理準備，那可能...不太好看。',
+    nextNodeId: 'yi1-chapter-4-1', // 🔗 連接到蘇軾（命樹篇）
+  },
+];
   },
   {
     id: 'yi1-chapter-3-8',
