@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { BookOpen, Image, Music } from 'lucide-react';
+import { BookOpen, Image, Music, Volume2 } from 'lucide-react';
 import { useGameStore } from '@/stores/gameStore';
 import { useSFX, useBGM } from '@/hooks/useAudio';
 import ParticleBackground from './ParticleBackground';
@@ -8,6 +8,7 @@ import ChapterSelect from './ChapterSelect';
 import Gallery from './Gallery';
 import AudioControls from './AudioControls';
 import SFXGenerator from './SFXGenerator';
+import MusicGenerator from './MusicGenerator';
 
 const TitleScreen = () => {
   const { startGame, resetGame, yiProgress, yiPart2Progress } = useGameStore();
@@ -15,6 +16,7 @@ const TitleScreen = () => {
   const [isChapterSelectOpen, setIsChapterSelectOpen] = useState(false);
   const [isGalleryOpen, setIsGalleryOpen] = useState(false);
   const [isSFXGeneratorOpen, setIsSFXGeneratorOpen] = useState(false);
+  const [isMusicGeneratorOpen, setIsMusicGeneratorOpen] = useState(false);
   const { playSFX } = useSFX();
   const { playBGM, stopBGM } = useBGM();
   
@@ -292,8 +294,23 @@ const TitleScreen = () => {
               transition-all duration-300
             "
           >
-            <Music className="w-4 h-4" />
+            <Volume2 className="w-4 h-4" />
             AI 音效
+          </button>
+
+          {/* AI 音樂生成按鈕 */}
+          <button
+            onClick={() => setIsMusicGeneratorOpen(true)}
+            className="
+              flex items-center gap-2 px-4 py-2
+              text-sm text-muted-foreground hover:text-foreground 
+              border border-border/50 hover:border-purple-500/50
+              rounded-full backdrop-blur-sm
+              transition-all duration-300
+            "
+          >
+            <Music className="w-4 h-4" />
+            AI BGM
           </button>
         </motion.div>
 
@@ -336,6 +353,11 @@ const TitleScreen = () => {
       {/* AI 音效生成器 */}
       {isSFXGeneratorOpen && (
         <SFXGenerator onClose={() => setIsSFXGeneratorOpen(false)} />
+      )}
+
+      {/* AI 音樂生成器 */}
+      {isMusicGeneratorOpen && (
+        <MusicGenerator onClose={() => setIsMusicGeneratorOpen(false)} />
       )}
     </div>
   );
