@@ -23,7 +23,6 @@ export type SpeakerType =
   | 'lincoln'
   | 'jobs'
   | 'vangogh'
-  | 'helenkeller'
   | 'system';
 
 // 說話者情緒音效配置
@@ -99,11 +98,6 @@ export const speakerEmotionSFXConfig: Record<SpeakerType, SpeakerEmotionConfig> 
     },
   },
 
-  // 海倫凱勒 - 溫柔（女聲）
-  helenkeller: {
-    default: FEMALE_GENTLE_LAUGH,
-    probability: 0.1,
-  },
 
   // ============= 男性角色 =============
   
