@@ -233,7 +233,7 @@ export const chapter7Nodes: DialogueNode[] = [
     id: 'chapter7-end',
     speaker: 'wuzetian',
     text: '去吧。下一個歸者會教你，什麼叫「殘缺不等於不完整」。',
-    nextNodeId: 'chapter8-1', // 🔗 連接到司馬遷
+    nextNodeId: 'chapter8-intro-1', // 🔗 連接到司馬遷
     effect: 'fade-out',
   },
 ];
