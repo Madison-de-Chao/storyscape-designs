@@ -1,64 +1,51 @@
-// 第一章｜刪除
 import type { DialogueNode } from '@/stores/gameStore';
 
 export const chapter1Nodes: DialogueNode[] = [
-  // 一
   {
     id: 'yi1-chapter-1-1',
     speaker: 'narrator',
-    text: '凌晨兩點十七分。',
+    text: '（鍵盤敲擊聲）\n\n螢幕的光映在她疲憊的臉上。',
     nextNodeId: 'yi1-chapter-1-2',
+    bgImage: 'room_night',
   },
   {
     id: 'yi1-chapter-1-2',
-    speaker: 'narrator',
-    text: '她盯著螢幕，眼睛乾澀得像砂紙。',
+    speaker: 'protagonist',
+    text: '為什麼寫不出來……為什麼我這麼沒用？',
     nextNodeId: 'yi1-chapter-1-3',
   },
   {
     id: 'yi1-chapter-1-3',
     speaker: 'narrator',
-    text: '桌上的咖啡早就涼了，杯底沉澱著一層褐色的渣。窗外的城市還亮著零星的燈，像是這個世界最後幾顆沒睡的眼睛。',
-    nextNodeId: 'yi1-chapter-1-4',
+    text: '她的手指懸在「Delete」鍵上方。那個檔案夾裡，裝著她十年的心血。',
+    nextNodeId: 'yi1-chapter-1-choice',
+  },
+  {
+    id: 'yi1-chapter-1-choice',
+    speaker: 'narrator',
+    text: '她心中的聲音越來越大……',
+    choices: [
+      { id: 'ch1-del', text: '按下刪除', nextNodeId: 'yi1-chapter-1-4' }, // 強制選項，這就是命運
+    ],
   },
   {
     id: 'yi1-chapter-1-4',
-    speaker: 'narrator',
-    text: '她已經在這個位置坐了六個小時。',
-    nextNodeId: 'yi1-chapter-1-5',
+    speaker: 'protagonist',
+    text: '都消失吧。反正也沒人在乎。',
+    nextNodeId: 'yi1-chapter-1-end',
+    effect: 'shake', // 畫面震動
   },
   {
-    id: 'yi1-chapter-1-5',
-    speaker: 'narrator',
-    text: '不，如果把白天也算進去，應該是十四個小時。',
-    nextNodeId: 'yi1-chapter-1-6',
+    id: 'yi1-chapter-1-end',
+    speaker: 'system',
+    speakerName: 'SYSTEM',
+    text: '檔案已永久刪除。\n正在初始化元壹境......',
+    effect: 'glitch',        // ⚠️ 關鍵特效：故障
+    emotionSFX: 'digital_break', // 破碎音效
+    bgImage: 'void_chaos',   // 混沌背景
+    nextNodeId: 'yi1-chapter-2-1', // 🔗 連接到第二章
   },
-  {
-    id: 'yi1-chapter-1-6',
-    speaker: 'narrator',
-    text: '如果把這一週也算進去，應該是——她已經不想算了。',
-    nextNodeId: 'yi1-chapter-1-7',
-  },
-  {
-    id: 'yi1-chapter-1-7',
-    speaker: 'narrator',
-    text: '螢幕上是一份報告。第三次修改版。不對，第四次。還是第五次？',
-    nextNodeId: 'yi1-chapter-1-8',
-  },
-  {
-    id: 'yi1-chapter-1-8',
-    speaker: 'narrator',
-    text: '她記不清了。',
-    nextNodeId: 'yi1-chapter-1-9',
-  },
-  {
-    id: 'yi1-chapter-1-9',
-    speaker: 'narrator',
-    text: '她只記得主管的臉。那張臉在會議室裡看著她，眉頭皺成一個嫌棄的弧度。',
-    nextNodeId: 'yi1-chapter-1-10',
-  },
-  {
-    id: 'yi1-chapter-1-10',
+];
     speaker: 'narrator',
     text: '「這不是我要的。」',
     nextNodeId: 'yi1-chapter-1-11',
