@@ -97,7 +97,8 @@ export const chapter4Nodes: DialogueNode[] = [
     speaker: 'yi',
     speakerName: '伊',
     text: '嘻嘻……終於看到我了嗎？妳想假裝我不在嗎？',
-    effect: 'glitch',
+    effect: 'glitch', // 👈 伊的專屬特效
+    bgImage: 'yi_shadow', 
     nextNodeId: 'yi1-chapter-4-choice',
   },
   {
