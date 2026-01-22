@@ -113,10 +113,12 @@ export const epilogueNodes: DialogueNode[] = [
     nextNodeId: 'epilogue-end',
   },
   {
+
     id: 'epilogue-end',
     speaker: 'system',
     text: '感謝您的體驗。\n\n—— 弧度歸零 Arc Zero ——',
-    nextNodeId: 'postscript-1', // 🔗 接後記
+    nextNodeId: 'postscript-1', // 🔗 修改這裡：連接到後記
+
   },
 
   // 五、後記（彩蛋）
