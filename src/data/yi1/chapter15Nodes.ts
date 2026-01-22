@@ -1,7 +1,16 @@
 import type { DialogueNode } from '@/stores/gameStore';
 
 export const chapter15Nodes: DialogueNode[] = [
-  // 一、進入洞穴
+  // 開場引言 (新增直排特效)
+  {
+    id: 'chapter15-intro-1',
+    speaker: 'narrator',
+    text: '「我不是你的敵人。」\n「我是你的成全。」',
+    effect: 'vertical', 
+    nextNodeId: 'chapter15-1', // 接回原本的故事
+  },
+
+  // 一、進入洞穴 (原本的開頭)
   {
     id: 'chapter15-1',
     speaker: 'narrator',
@@ -15,6 +24,7 @@ export const chapter15Nodes: DialogueNode[] = [
     text: '她走向樹根。那個洞穴還在。黑暗的，深不見底。',
     nextNodeId: 'chapter15-3',
   },
+  // ... (保留中間伊的對話與崩潰劇情) ...
   {
     id: 'chapter15-3',
     speaker: 'wenxin',
@@ -28,8 +38,6 @@ export const chapter15Nodes: DialogueNode[] = [
     bgImage: 'cave_light',
     nextNodeId: 'chapter15-5',
   },
-
-  // 二、對峙：華服與破碎
   {
     id: 'chapter15-5',
     speaker: 'narrator',
@@ -40,7 +48,7 @@ export const chapter15Nodes: DialogueNode[] = [
     id: 'chapter15-6',
     speaker: 'narrator',
     text: '伊穿著一件破碎的華服——大紅、金黃、墨黑交織。她的妝容濃烈，眼神銳利、冷漠，像是在看一個陌生人。',
-    bgImage: 'yi_confrontation', 
+    bgImage: 'yi_confrontation',
     effect: 'glitch',
     nextNodeId: 'chapter15-7',
   },
@@ -57,8 +65,6 @@ export const chapter15Nodes: DialogueNode[] = [
     text: '我在這裡等了三十年，看著你把我推開，看著你假裝我不存在，看著你變成一個連自己都不認識的人。',
     nextNodeId: 'chapter15-9',
   },
-
-  // 三、傲慢的陷阱
   {
     id: 'chapter15-9',
     speaker: 'protagonist',
@@ -91,8 +97,6 @@ export const chapter15Nodes: DialogueNode[] = [
     effect: 'glitch',
     nextNodeId: 'chapter15-14',
   },
-
-  // 四、真實的質問
   {
     id: 'chapter15-14',
     speaker: 'yi',
@@ -112,8 +116,6 @@ export const chapter15Nodes: DialogueNode[] = [
     effect: 'shake',
     nextNodeId: 'chapter15-17',
   },
-
-  // 五、伊的眼淚
   {
     id: 'chapter15-17',
     speaker: 'yi',
@@ -133,8 +135,6 @@ export const chapter15Nodes: DialogueNode[] = [
     effect: 'glow',
     nextNodeId: 'chapter15-20',
   },
-
-  // 六、真正的懺悔
   {
     id: 'chapter15-20',
     speaker: 'protagonist',
@@ -154,8 +154,6 @@ export const chapter15Nodes: DialogueNode[] = [
     effect: 'glow',
     nextNodeId: 'chapter15-23',
   },
-
-  // 七、歸位
   {
     id: 'chapter15-23',
     speaker: 'narrator',
@@ -180,7 +178,7 @@ export const chapter15Nodes: DialogueNode[] = [
     id: 'chapter15-end',
     speaker: 'wenxin',
     text: '走吧。最後一關在等你。選擇——去，或留。',
-    nextNodeId: 'chapter16-1', // 🔗 指向第 16 章 (新增檔案)
+    nextNodeId: 'chapter16-intro-1', // 🔗 注意：這裡要連到 Ch16 的 Intro
     effect: 'fade-out',
   },
 ];
