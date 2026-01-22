@@ -33,6 +33,9 @@ export type SpecialSceneType =
 // 禪意時刻主題
 export type ZenTheme = 'golden' | 'moonlight' | 'dawn' | 'ink';
 
+// 啟示時刻主題
+export type RevelationTheme = 'golden' | 'silver' | 'aurora' | 'celestial';
+
 export interface DialogueNode {
   id: string;
   speaker: 'narrator' | 'protagonist' | 'yi' | 'mentor' | 'wenxin' | 'wendu' | 'sushi' | 'wangyangming' | 'simaqian' | 'wuzetian' | 'libai' | 'mandela' | 'caesar' | 'cleopatra' | 'lincoln' | 'jobs' | 'vangogh' | 'helenkeller';
@@ -51,6 +54,13 @@ export interface DialogueNode {
     text: string;          // 顯示的主文字
     subtitle?: string;     // 副標題（如作者、出處）
     theme?: ZenTheme;      // 視覺主題
+    duration?: number;     // 持續時間（毫秒）
+  };
+  // 啟示時刻的配置（僅當 specialScene === 'revelation' 時使用）
+  revelationConfig?: {
+    text: string;          // 顯示的主文字
+    subtitle?: string;     // 副標題
+    theme?: RevelationTheme; // 視覺主題（golden/silver/aurora/celestial）
     duration?: number;     // 持續時間（毫秒）
   };
 }

@@ -15,6 +15,7 @@ import SceneTransition from './SceneTransition';
 import EndingStats from './EndingStats';
 import IntroSequence from './IntroSequence';
 import ZenMoment from './ZenMoment';
+import RevelationMoment from './RevelationMoment';
 import { getNodeById } from '@/data/prologueStory';
 import { getYiPart2NodeById } from '@/data/yiPart2Story';
 import { getYi1NodeById } from '@/data/yi1';
@@ -105,6 +106,16 @@ const GameScene = () => {
   } | null>(null);
   const zenMomentShownRef = useRef<Set<string>>(new Set());
   
+  // 啟示時刻狀態
+  const [showRevelation, setShowRevelation] = useState(false);
+  const [revelationConfig, setRevelationConfig] = useState<{
+    text: string;
+    subtitle?: string;
+    theme?: 'golden' | 'silver' | 'aurora' | 'celestial';
+    duration?: number;
+  } | null>(null);
+  const revelationShownRef = useRef<Set<string>>(new Set());
+  
   // 章節轉場狀態
   const [isChapterTransition, setIsChapterTransition] = useState(false);
   const [transitionChapterTitle, setTransitionChapterTitle] = useState('');
@@ -157,10 +168,35 @@ const GameScene = () => {
     }
   }, [currentNodeId, currentNode, stopBGM]);
 
+  // 檢測啟示時刻（通過 specialScene === 'revelation'）
+  useEffect(() => {
+    if (currentNode?.specialScene === 'revelation' && !revelationShownRef.current.has(currentNodeId)) {
+      revelationShownRef.current.add(currentNodeId);
+      // 淡出 BGM，進入啟示時刻
+      stopBGM(true);
+      // 設定啟示配置
+      setRevelationConfig(currentNode.revelationConfig || {
+        text: currentNode.text.replace(/\*\*/g, ''), // 移除 markdown 粗體標記
+        theme: 'golden',
+        duration: 5000,
+      });
+      setShowRevelation(true);
+    }
+  }, [currentNodeId, currentNode, stopBGM]);
+
   // 禪意時刻結束後恢復 BGM
   const handleZenMomentComplete = useCallback(() => {
     setShowZenMoment(false);
     setZenConfig(null);
+    // 恢復播放背景音樂
+    const bgmType = getBGMForNode(currentNodeId);
+    playBGM(bgmType);
+  }, [currentNodeId, playBGM]);
+
+  // 啟示時刻結束後恢復 BGM
+  const handleRevelationComplete = useCallback(() => {
+    setShowRevelation(false);
+    setRevelationConfig(null);
     // 恢復播放背景音樂
     const bgmType = getBGMForNode(currentNodeId);
     playBGM(bgmType);
@@ -258,6 +294,17 @@ const GameScene = () => {
           onComplete={handleZenMomentComplete}
           duration={zenConfig.duration || 6000}
           theme={zenConfig.theme || 'golden'}
+        />
+      )}
+
+      {/* 啟示時刻（由節點 specialScene: 'revelation' 觸發） */}
+      {showRevelation && revelationConfig && (
+        <RevelationMoment
+          text={revelationConfig.text}
+          subtitle={revelationConfig.subtitle}
+          onComplete={handleRevelationComplete}
+          duration={revelationConfig.duration || 5000}
+          theme={revelationConfig.theme || 'golden'}
         />
       )}
 
