@@ -382,10 +382,18 @@ export const sceneImages: SceneImageConfig[] = [
   },
 ];
 
+// 正規化節點 ID（處理多種格式）
+function normalizeNodeId(nodeId: string): string {
+  // 移除 yi1- 前綴
+  let normalized = nodeId.replace(/^yi1-/, '');
+  // 將 chapterX- 格式轉換為 chapter-X- 格式
+  normalized = normalized.replace(/^chapter(\d+)-/, 'chapter-$1-');
+  return normalized;
+}
+
 // 根據節點 ID 獲取對應的場景圖片
 export function getSceneImage(nodeId: string): SceneImageConfig | null {
-  // 統一移除 yi1- 前綴進行匹配
-  const normalizedId = nodeId.replace(/^yi1-/, '');
+  const normalizedId = normalizeNodeId(nodeId);
   
   // 優先進行精確匹配
   for (const config of sceneImages) {
@@ -401,6 +409,19 @@ export function getSceneImage(nodeId: string): SceneImageConfig | null {
     for (const pattern of config.nodePatterns) {
       if (pattern.endsWith('-') && normalizedId.startsWith(pattern)) {
         return config;
+      }
+      // 也嘗試部分前綴匹配（如 chapter-4-1 匹配 chapter-4-）
+      if (!pattern.endsWith('-') && normalizedId.startsWith(pattern.replace(/-\d+$/, '-'))) {
+        // 進一步驗證數字匹配
+        const patternMatch = pattern.match(/^(.*-)(\d+)$/);
+        const idMatch = normalizedId.match(/^(.*-)(\d+)/);
+        if (patternMatch && idMatch && patternMatch[1] === idMatch[1]) {
+          const patternNum = parseInt(patternMatch[2]);
+          const idNum = parseInt(idMatch[2]);
+          if (idNum === patternNum) {
+            return config;
+          }
+        }
       }
     }
   }
