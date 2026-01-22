@@ -348,6 +348,13 @@ export const chapter5Nodes: DialogueNode[] = [
     text: '「回首向來蕭瑟處，歸去，**也無風雨也無晴**。」',
     effect: 'glow',
     emotionSFX: 'gentle_laugh',
+    specialScene: 'zen',
+    zenConfig: {
+      text: '也無風雨也無晴',
+      subtitle: '— 蘇軾《定風波》',
+      theme: 'ink',
+      duration: 7000,
+    },
     nextNodeId: 'chapter-5-merge-27',
   },
   {

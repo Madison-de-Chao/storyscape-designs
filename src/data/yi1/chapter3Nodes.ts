@@ -362,6 +362,13 @@ export const chapter3Nodes: DialogueNode[] = [
     text: '**心即理。**',
     effect: 'glitch',
     emotionSFX: 'mysterious_whisper',
+    specialScene: 'zen',
+    zenConfig: {
+      text: '心即理',
+      subtitle: '— 王陽明・龍場悟道',
+      theme: 'moonlight',
+      duration: 6000,
+    },
     nextNodeId: 'yi1-chapter-3-57',
   },
 

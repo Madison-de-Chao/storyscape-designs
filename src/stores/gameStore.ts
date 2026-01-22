@@ -23,6 +23,16 @@ export type EmotionSFXKey =
   | 'mysterious_whisper' | 'mysterious_whisper_1'
   | 'mockery';
 
+// 特殊場景類型（用於觸發全螢幕視覺效果）
+export type SpecialSceneType = 
+  | 'intro'      // 直排禪意開場動畫
+  | 'collapse'   // 崩潰刪除效果（故障閃爍）
+  | 'zen'        // 禪意時刻（全螢幕留白）
+  | 'revelation'; // 啟示時刻（光芒綻放）
+
+// 禪意時刻主題
+export type ZenTheme = 'golden' | 'moonlight' | 'dawn' | 'ink';
+
 export interface DialogueNode {
   id: string;
   speaker: 'narrator' | 'protagonist' | 'yi' | 'mentor' | 'wenxin' | 'wendu' | 'sushi' | 'wangyangming' | 'simaqian' | 'wuzetian' | 'libai' | 'mandela' | 'caesar' | 'cleopatra' | 'lincoln' | 'jobs' | 'vangogh' | 'helenkeller';
@@ -34,6 +44,15 @@ export interface DialogueNode {
   arcChange?: number;
   // 明確指定此節點播放的情緒音效（覆蓋說話者預設）
   emotionSFX?: EmotionSFXKey;
+  // 特殊場景：觸發全螢幕視覺效果
+  specialScene?: SpecialSceneType;
+  // 禪意時刻的配置（僅當 specialScene === 'zen' 時使用）
+  zenConfig?: {
+    text: string;          // 顯示的主文字
+    subtitle?: string;     // 副標題（如作者、出處）
+    theme?: ZenTheme;      // 視覺主題
+    duration?: number;     // 持續時間（毫秒）
+  };
 }
 
 export interface Chapter {
