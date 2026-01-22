@@ -3,6 +3,13 @@ import type { DialogueNode } from '@/stores/gameStore';
 export const chapter9Nodes: DialogueNode[] = [
   // 開場：屋頂喝酒
   {
+  id: 'chapter9-intro',
+  speaker: 'libai',
+  text: '君不見\n黃河之水天上來\n奔流到海不復回', // 記得用 \n 換行
+  effect: 'vertical', // 👈 使用這個特效
+  bgImage: 'moon_bg',
+}
+  {
     id: 'chapter9-1',
     speaker: 'narrator',
     effect: 'ink', // 使用水墨特效
