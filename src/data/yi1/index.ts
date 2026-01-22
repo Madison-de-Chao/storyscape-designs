@@ -54,18 +54,41 @@ export const yi1Chapter: Chapter = {
   nodes: yi1AllNodes,
 };
 
-// 根據 ID 獲取節點
+// 根據 ID 獲取節點（支援多種 ID 格式的正規化匹配）
 export const getYi1NodeById = (nodeId: string): DialogueNode | undefined => {
   // 先直接查找
   let node = yi1AllNodes.find(node => node.id === nodeId);
+  if (node) return node;
   
-  // 如果找不到，嘗試移除 'yi1-' 前綴再找（兼容舊的節點 ID）
-  if (!node && nodeId.startsWith('yi1-')) {
+  // 嘗試移除 'yi1-' 前綴再找（兼容舊的節點 ID）
+  if (nodeId.startsWith('yi1-')) {
     const strippedId = nodeId.replace('yi1-', '');
     node = yi1AllNodes.find(node => node.id === strippedId);
+    if (node) return node;
   }
   
-  return node;
+  // 嘗試添加 'yi1-' 前綴再找
+  if (!nodeId.startsWith('yi1-')) {
+    node = yi1AllNodes.find(node => node.id === `yi1-${nodeId}`);
+    if (node) return node;
+  }
+  
+  // 處理 chapter-X- 與 chapterX- 格式差異
+  // 例如: chapter-4-intro-1 <-> chapter4-intro-1 的轉換
+  const withDash = nodeId.replace(/chapter(\d+)-/, 'chapter-$1-');
+  const withoutDash = nodeId.replace(/chapter-(\d+)-/, 'chapter$1-');
+  
+  if (withDash !== nodeId) {
+    node = yi1AllNodes.find(node => node.id === withDash);
+    if (node) return node;
+  }
+  
+  if (withoutDash !== nodeId) {
+    node = yi1AllNodes.find(node => node.id === withoutDash);
+    if (node) return node;
+  }
+  
+  return undefined;
 };
 
 // 導出
