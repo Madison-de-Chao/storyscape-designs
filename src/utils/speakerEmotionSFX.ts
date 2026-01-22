@@ -29,14 +29,26 @@ export type SpeakerType =
 interface SpeakerEmotionConfig {
   // 預設情緒音效（隨機選擇一個）
   default?: EmotionSFXType[];
-  // 機率（0-1，0 表示不播放）
+  // 基礎機率（0-1，0 表示不播放）
   probability?: number;
   // 特殊情境觸發的音效
   onEffect?: {
     glitch?: EmotionSFXType[];
     glow?: EmotionSFXType[];
+    shake?: EmotionSFXType[];
+    flash?: EmotionSFXType[];
   };
 }
+
+// 特效觸發時的機率加成（更重要的對話更容易播放音效）
+const EFFECT_PROBABILITY_BOOST: Record<string, number> = {
+  glitch: 0.75,   // glitch 效果：75% 機率播放
+  glow: 0.65,     // glow 效果：65% 機率播放
+  shake: 0.60,    // shake 效果：60% 機率播放
+  flash: 0.55,    // flash 效果：55% 機率播放
+  'fade-out': 0.40,
+  'fade-in-slow': 0.30,
+};
 
 // ============= 音效池定義 =============
 // 女聲音效池（用於問心、伊、克麗奧佩脫拉、武則天、海倫凱勒）
@@ -63,36 +75,40 @@ export const speakerEmotionSFXConfig: Record<SpeakerType, SpeakerEmotionConfig> 
   // 問心 - 神秘、溫柔、有時嘲諷（女聲）
   wenxin: {
     default: FEMALE_GENTLE_LAUGH,
-    probability: 0.25,
+    probability: 0.30, // 提高基礎機率
     onEffect: {
       glow: FEMALE_MYSTERIOUS_WHISPER,
       glitch: [...FEMALE_MOCKERY, ...FEMALE_EVIL_GIGGLE],
+      shake: FEMALE_MYSTERIOUS_WHISPER,
     },
   },
 
   // 伊 - 神秘、邪惡、誘惑（女聲）
   yi: {
     default: [...FEMALE_EVIL_GIGGLE, ...FEMALE_SEDUCTIVE],
-    probability: 0.35,
+    probability: 0.45, // 伊是重要角色，提高機率
     onEffect: {
       glitch: [...FEMALE_EVIL_GIGGLE, ...FEMALE_MOCKERY],
       glow: [...FEMALE_MYSTERIOUS_WHISPER, ...FEMALE_SEDUCTIVE],
+      shake: FEMALE_EVIL_GIGGLE,
+      flash: FEMALE_MOCKERY,
     },
   },
 
   // 武則天 - 威嚴、誘惑（女聲）
   wuzetian: {
     default: [...FEMALE_MOCKERY, ...FEMALE_SEDUCTIVE],
-    probability: 0.2,
+    probability: 0.25,
     onEffect: {
       glow: FEMALE_SEDUCTIVE,
+      shake: FEMALE_MOCKERY,
     },
   },
 
   // 克麗奧佩脫拉 - 誘惑、溫柔（女聲）
   cleopatra: {
     default: [...FEMALE_SEDUCTIVE, ...FEMALE_GENTLE_LAUGH],
-    probability: 0.15,
+    probability: 0.20,
     onEffect: {
       glow: FEMALE_SEDUCTIVE,
     },
@@ -190,20 +206,23 @@ export const speakerEmotionSFXConfig: Record<SpeakerType, SpeakerEmotionConfig> 
   // 主角（女性）- 恐懼、驚訝、哀傷
   protagonist: {
     default: FEMALE_SAD_SIGH,
-    probability: 0.15,
+    probability: 0.20, // 提高基礎機率
     onEffect: {
       glitch: ['fear', 'fear_1', 'surprise'],
       glow: ['surprise'],
+      shake: ['fear', 'fear_1'],
+      flash: ['surprise'],
     },
   },
 
   // 旁白 - 偶爾的神秘氛圍（混合男女神秘低語）
   narrator: {
     default: [],
-    probability: 0,
+    probability: 0.05, // 旁白也有機會觸發
     onEffect: {
       glow: [...FEMALE_MYSTERIOUS_WHISPER, ...MALE_MYSTERIOUS_WHISPER],
       glitch: [...MALE_FEAR, 'fear'],
+      shake: [...MALE_MYSTERIOUS_WHISPER],
     },
   },
 
@@ -236,10 +255,13 @@ export function getSpeakerEmotionSFX(
 
   // 檢查是否有效果觸發的特殊音效
   if (effect && config.onEffect) {
-    const effectSFXList = config.onEffect[effect as 'glitch' | 'glow'];
+    const effectKey = effect as keyof typeof config.onEffect;
+    const effectSFXList = config.onEffect[effectKey];
+    
     if (effectSFXList && effectSFXList.length > 0) {
-      // 效果觸發的音效有更高的播放機率（50%）
-      if (Math.random() < 0.5) {
+      // 根據特效類型使用對應的高機率（重要對話更容易觸發）
+      const effectProbability = EFFECT_PROBABILITY_BOOST[effect] || 0.5;
+      if (Math.random() < effectProbability) {
         return effectSFXList[Math.floor(Math.random() * effectSFXList.length)];
       }
     }
