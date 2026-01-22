@@ -92,6 +92,13 @@ const EMOTION_PRESETS = [
     prompt: "A young woman's seductive whisper. Low, breathy, and alluring. A soft, drawn-out hum followed by a quiet, inviting chuckle. Realistic female voice, sultry and mysterious",
     duration: 2.5,
   },
+  {
+    id: 'revelation',
+    label: '啟示',
+    emoji: '✨',
+    prompt: "Ethereal resonating crystal chime with gentle ascending chord, magical spiritual awakening moment, soft bells and celestial harmonics, cinematic epiphany sound effect",
+    duration: 4,
+  },
 ];
 
 const SFXGenerator = ({ onClose }: SFXGeneratorProps) => {
