@@ -95,9 +95,15 @@ const GameScene = () => {
   const [showIntroSequence, setShowIntroSequence] = useState(false);
   const introSequenceShownRef = useRef(false);
   
-  // 禪意時刻狀態（蘇軾「也無風雨也無晴」）
+  // 禪意時刻狀態
   const [showZenMoment, setShowZenMoment] = useState(false);
-  const zenMomentShownRef = useRef(false);
+  const [zenConfig, setZenConfig] = useState<{
+    text: string;
+    subtitle?: string;
+    theme?: 'golden' | 'moonlight' | 'dawn' | 'ink';
+    duration?: number;
+  } | null>(null);
+  const zenMomentShownRef = useRef<Set<string>>(new Set());
   
   // 章節轉場狀態
   const [isChapterTransition, setIsChapterTransition] = useState(false);
@@ -117,8 +123,12 @@ const GameScene = () => {
     : [];
   const isImagesLoaded = usePreloadImages(preloadImages);
 
-  // 檢測是否在「刪除崩潰」場景（yi1-chapter-1-69 到 yi1-chapter-1-78）
+  // 檢測是否在「崩潰」場景（通過 specialScene 欄位或節點 ID）
   const isCollapseScene = useMemo(() => {
+    // 優先使用節點的 specialScene 欄位
+    if (currentNode?.specialScene === 'collapse') return true;
+    
+    // 向後兼容：硬編碼的節點 ID 範圍
     const normalizedId = currentNodeId.replace(/^yi1-/, '');
     const match = normalizedId.match(/^chapter-1-(\d+)$/);
     if (match) {
@@ -126,25 +136,31 @@ const GameScene = () => {
       return nodeNum >= 69 && nodeNum <= 78;
     }
     return false;
-  }, [currentNodeId]);
+  }, [currentNodeId, currentNode?.specialScene]);
 
   // 檢測是否在選擇時刻（yi1-chapter-1-choice）
   const isChoiceMoment = currentNodeId === 'yi1-chapter-1-choice';
 
-  // 檢測蘇軾「也無風雨也無晴」禪意時刻
+  // 檢測禪意時刻（通過 specialScene === 'zen'）
   useEffect(() => {
-    const normalizedId = currentNodeId.replace(/^yi1-/, '');
-    if (normalizedId === 'chapter-5-merge-26' && !zenMomentShownRef.current) {
-      zenMomentShownRef.current = true;
+    if (currentNode?.specialScene === 'zen' && !zenMomentShownRef.current.has(currentNodeId)) {
+      zenMomentShownRef.current.add(currentNodeId);
       // 淡出 BGM，進入禪意時刻
       stopBGM(true);
+      // 設定禪意配置
+      setZenConfig(currentNode.zenConfig || {
+        text: currentNode.text.replace(/\*\*/g, ''), // 移除 markdown 粗體標記
+        theme: 'golden',
+        duration: 6000,
+      });
       setShowZenMoment(true);
     }
-  }, [currentNodeId, stopBGM]);
+  }, [currentNodeId, currentNode, stopBGM]);
 
   // 禪意時刻結束後恢復 BGM
   const handleZenMomentComplete = useCallback(() => {
     setShowZenMoment(false);
+    setZenConfig(null);
     // 恢復播放背景音樂
     const bgmType = getBGMForNode(currentNodeId);
     playBGM(bgmType);
@@ -234,14 +250,14 @@ const GameScene = () => {
         />
       )}
 
-      {/* 蘇軾「也無風雨也無晴」禪意時刻 */}
-      {showZenMoment && (
+      {/* 禪意時刻（由節點 specialScene: 'zen' 觸發） */}
+      {showZenMoment && zenConfig && (
         <ZenMoment
-          text="也無風雨也無晴"
-          subtitle="— 蘇軾《定風波》"
+          text={zenConfig.text}
+          subtitle={zenConfig.subtitle}
           onComplete={handleZenMomentComplete}
-          duration={7000}
-          theme="ink"
+          duration={zenConfig.duration || 6000}
+          theme={zenConfig.theme || 'golden'}
         />
       )}
 

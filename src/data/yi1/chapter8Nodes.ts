@@ -352,6 +352,13 @@ export const chapter8Nodes: DialogueNode[] = [
     text: '所以我選擇——**把自己活完**。我不是為了活著而活著，我是為了完成那本書而活著。',
     effect: 'glitch',
     emotionSFX: 'mysterious_whisper',
+    specialScene: 'zen',
+    zenConfig: {
+      text: '把自己活完',
+      subtitle: '— 司馬遷・發憤著書',
+      theme: 'dawn',
+      duration: 6000,
+    },
     nextNodeId: 'chapter8-49',
   },
 
