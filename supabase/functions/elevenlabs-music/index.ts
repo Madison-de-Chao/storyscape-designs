@@ -24,38 +24,56 @@ serve(async (req) => {
       throw new Error("Prompt is required");
     }
 
-    console.log(`Generating music: "${prompt}" (duration: ${duration || 30}s)`);
+    const requestedDuration = duration || 30;
+    console.log(`Generating music: "${prompt}" (duration: ${requestedDuration}s)`);
 
-    const response = await fetch(
-      "https://api.elevenlabs.io/v1/music",
-      {
-        method: "POST",
-        headers: {
-          "xi-api-key": ELEVENLABS_API_KEY,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          prompt,
-          duration_seconds: duration || 30,
-        }),
+    // Use AbortController with extended timeout for music generation
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 120000); // 2 minute timeout
+
+    try {
+      const response = await fetch(
+        "https://api.elevenlabs.io/v1/music",
+        {
+          method: "POST",
+          headers: {
+            "xi-api-key": ELEVENLABS_API_KEY,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            prompt,
+            duration_seconds: requestedDuration,
+          }),
+          signal: controller.signal,
+        }
+      );
+
+      clearTimeout(timeoutId);
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error("ElevenLabs Music API error:", response.status, errorText);
+        throw new Error(`ElevenLabs Music API error: ${response.status} - ${errorText}`);
       }
-    );
 
-    if (!response.ok) {
-      const errorText = await response.text();
-      console.error("ElevenLabs Music API error:", response.status, errorText);
-      throw new Error(`ElevenLabs Music API error: ${response.status}`);
+      // Stream the response directly to avoid buffering timeout
+      const audioData = await response.arrayBuffer();
+      console.log(`Generated music: ${audioData.byteLength} bytes`);
+
+      return new Response(audioData, {
+        headers: {
+          ...corsHeaders,
+          "Content-Type": "audio/mpeg",
+          "Cache-Control": "public, max-age=3600",
+        },
+      });
+    } catch (fetchError: unknown) {
+      clearTimeout(timeoutId);
+      if (fetchError instanceof Error && fetchError.name === 'AbortError') {
+        throw new Error("Music generation timed out. Please try again.");
+      }
+      throw fetchError;
     }
-
-    const audioBuffer = await response.arrayBuffer();
-    console.log(`Generated music: ${audioBuffer.byteLength} bytes`);
-
-    return new Response(audioBuffer, {
-      headers: {
-        ...corsHeaders,
-        "Content-Type": "audio/mpeg",
-      },
-    });
   } catch (error) {
     console.error("Music generation error:", error);
     return new Response(
