@@ -1,6 +1,21 @@
 import type { DialogueNode } from '@/stores/gameStore';
 
 export const chapter8Nodes: DialogueNode[] = [
+  // 開場引言
+  {
+    id: 'chapter8-intro-1',
+    speaker: 'narrator',
+    text: '「人固有一死，或重于泰山，或輕于鴻毛。」',
+    effect: 'vertical', // 直排特效
+    nextNodeId: 'chapter8-intro-2',
+  },
+  {
+    id: 'chapter8-intro-2',
+    speaker: 'narrator',
+    text: '——司馬遷',
+    nextNodeId: 'chapter8-1', // 接回原本的開頭
+  },
+  // 接著是原本的 chapter8-1 ...
   // 開場：迷路
   {
     id: 'chapter8-1',
