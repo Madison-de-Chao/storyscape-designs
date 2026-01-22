@@ -144,7 +144,7 @@ export const chapter10Nodes: DialogueNode[] = [
     id: 'chapter10-19',
     speaker: 'caesar',
     text: '去吧。記住，每一步棋都是妳自己下的。輸了也是妳選的，這才叫活著。',
-    nextNodeId: 'chapter11-1', // 🔗 連接到曼德拉
+    nextNodeId: 'chapter11-intro-1', // 🔗 連接到曼德拉
     effect: 'fade-out',
   },
 ];
