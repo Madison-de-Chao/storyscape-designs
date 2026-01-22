@@ -6,6 +6,7 @@ export const usePreloadImages = (imageUrls: string[]) => {
   useEffect(() => {
     let loadedCount = 0;
     const total = imageUrls.length;
+    const imageRefs: HTMLImageElement[] = [];
 
     if (total === 0) {
       setImagesLoaded(true);
@@ -14,6 +15,7 @@ export const usePreloadImages = (imageUrls: string[]) => {
 
     imageUrls.forEach((url) => {
       const img = new Image();
+      imageRefs.push(img);
       img.src = url;
       img.onload = () => {
         loadedCount++;
@@ -24,6 +26,13 @@ export const usePreloadImages = (imageUrls: string[]) => {
         if (loadedCount === total) setImagesLoaded(true);
       };
     });
+
+    return () => {
+      imageRefs.forEach((img) => {
+        img.onload = null;
+        img.onerror = null;
+      });
+    };
   }, [imageUrls]);
 
   return imagesLoaded;

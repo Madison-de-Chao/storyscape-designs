@@ -19,8 +19,8 @@ export const useBGM = (src: string, volume: number = 0.5) => {
             clearInterval(fadeIn);
           }
         }, 100);
-      } catch (err) {
-        console.log("等待使用者互動後播放");
+      } catch {
+        // Waiting for user interaction before playback is allowed
       }
     };
 

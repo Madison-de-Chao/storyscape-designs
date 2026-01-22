@@ -445,7 +445,7 @@ const SceneImage = ({ nodeId, hideOverlay = false, isLoaded: externalLoaded }: S
               src={currentImage.image}
               alt={currentImage.alt}
               className="w-full h-full object-cover"
-            onLoad={() => setIsLoaded(true)}
+              onLoad={() => setIsLoaded(true)}
               initial={{ scale: 1.08 }}
               animate={{
                 scale: 1,
