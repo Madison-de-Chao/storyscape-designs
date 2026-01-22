@@ -1,12 +1,21 @@
 import type { DialogueNode } from '@/stores/gameStore';
 
 export const chapter16Nodes: DialogueNode[] = [
-  // 一、半圓的山
+  // 開場引言 (新增直排特效)
+  {
+    id: 'chapter16-intro-1',
+    speaker: 'narrator',
+    text: '「完整不是一個狀態。」\n「而是一個選擇。」',
+    effect: 'vertical', 
+    nextNodeId: 'chapter16-1', // 接回原本的故事
+  },
+
+  // 一、半圓的山 (原本的開頭)
   {
     id: 'chapter16-1',
     speaker: 'narrator',
     text: '圓心閣在歸元山的山頂。那座山是一個完美的半圓形，像是被切了一半。',
-    bgImage: 'half_mountain', 
+    bgImage: 'half_mountain',
     nextNodeId: 'chapter16-2',
   },
   {
@@ -22,8 +31,6 @@ export const chapter16Nodes: DialogueNode[] = [
     effect: 'glow',
     nextNodeId: 'chapter16-4',
   },
-
-  // 二、最後的選擇
   {
     id: 'chapter16-4',
     speaker: 'narrator',
@@ -50,8 +57,6 @@ export const chapter16Nodes: DialogueNode[] = [
     effect: 'glow',
     nextNodeId: 'chapter16-8',
   },
-
-  // 三、我是壹
   {
     id: 'chapter16-8',
     speaker: 'protagonist',
@@ -64,16 +69,14 @@ export const chapter16Nodes: DialogueNode[] = [
     text: '那就點亮這盞燈吧。用你自己。',
     nextNodeId: 'chapter16-10',
   },
-{
+  {
     id: 'chapter16-10',
     speaker: 'narrator',
     text: '她伸出手。一瞬間，意願化為光芒。燈亮了，金銀交織的光。',
-    effect: 'flash', // 👈 全螢幕閃白光
-    emotionSFX: 'holy_bell', // 建議搭配一個神聖的鐘聲
+    effect: 'flash',
+    emotionSFX: 'holy_bell',
     nextNodeId: 'chapter16-11',
   },
-
-  // 四、眾人的祝福
   {
     id: 'chapter16-11',
     speaker: 'narrator',
@@ -117,8 +120,6 @@ export const chapter16Nodes: DialogueNode[] = [
     effect: 'glow',
     nextNodeId: 'chapter16-18',
   },
-
-  // 五、名字與回歸
   {
     id: 'chapter16-18',
     speaker: 'wenxin',
