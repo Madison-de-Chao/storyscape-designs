@@ -48,7 +48,8 @@ export type SFXType =
   | 'menu_open'
   | 'menu_close'
   | 'unlock'
-  | 'chapter_transition';  // 章節過場音效
+  | 'chapter_transition'  // 章節過場音效
+  | 'revelation';         // 啟示頓悟音效
 
 // 情緒音效類型
 export type EmotionSFXType = 
@@ -193,6 +194,7 @@ const SFX_PATHS: Record<SFXType, string> = {
   menu_close: '/audio/sfx/menu_close.mp3',
   unlock: '/audio/sfx/unlock.mp3',
   chapter_transition: '/audio/sfx/chapter_transition_1.mp3',
+  revelation: '/audio/sfx/revelation.mp3',
 };
 
 // 情緒音效路徑映射

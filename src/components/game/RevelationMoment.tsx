@@ -1,5 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
+import { useSFX, useAudioSettings } from "@/hooks/useAudio";
 
 interface RevelationMomentProps {
   text: string;
@@ -49,6 +50,17 @@ export const RevelationMoment = ({
 }: RevelationMomentProps) => {
   const [phase, setPhase] = useState<'burst' | 'display' | 'fade'>('burst');
   const style = themeStyles[theme];
+  const { playSFX } = useSFX();
+  const { isMuted } = useAudioSettings();
+  const sfxPlayedRef = useRef(false);
+
+  // 播放啟示音效（僅播放一次）
+  useEffect(() => {
+    if (!sfxPlayedRef.current && !isMuted) {
+      playSFX('revelation');
+      sfxPlayedRef.current = true;
+    }
+  }, [playSFX, isMuted]);
 
   useEffect(() => {
     // 爆發階段完成後進入展示階段
