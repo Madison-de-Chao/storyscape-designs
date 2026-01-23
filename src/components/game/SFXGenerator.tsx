@@ -45,7 +45,7 @@ const MISSING_SFX_PRESETS = [
     id: 'digital_break',
     label: '數位破碎聲',
     emoji: '💥',
-    prompt: "Digital glitch destruction sound. Electronic circuits breaking apart, data corruption noise. Static bursts, pixelated crackle, binary disintegration. Cyberpunk system crash effect",
+    prompt: "Digital voice distortion and breakdown. Robotic vocoder voice fragmenting and glitching, pitch-shifted syllables breaking apart. Auto-tune malfunction effect with stuttering echoes. Electronic voice synthesis failing, words stretching and warping. Cybernetic speech dissolving into digital fragments",
     duration: 3,
     usage: '刪除場景',
   },
