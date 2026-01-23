@@ -1,12 +1,12 @@
 import { useRef, useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useGameStore } from '@/stores/gameStore';
-import { X, Sparkles, Palette, GitBranch, BookOpen, Clock, Trophy, Star, AlertCircle } from 'lucide-react';
+import { X, Sparkles, Palette, GitBranch, BookOpen, Clock, Trophy, Star, AlertCircle, Map } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useShareImage } from '@/hooks/useShareImage';
 import ShareButtons from './ShareButtons';
 import ShareCard from './ShareCard';
-
+import JourneyReflection from './JourneyReflection';
 interface EndingStatsProps {
   isOpen: boolean;
   onClose: () => void;
@@ -123,6 +123,9 @@ const EndingStats = ({ isOpen, onClose }: EndingStatsProps) => {
     copyToClipboard,
     nativeShare,
   } = useShareImage();
+  
+  // 旅程回顧頁面狀態
+  const [showJourneyReflection, setShowJourneyReflection] = useState(false);
   
   const { arcValue, colorsCollected, choicesHistory, readNodes, lastReadAt } = progress;
   
@@ -357,6 +360,26 @@ const EndingStats = ({ isOpen, onClose }: EndingStatsProps) => {
           </motion.div>
         </motion.div>
 
+        {/* 旅程回顧按鈕 */}
+        {currentPart === 'yi' && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.48 }}
+            className="mx-6 mt-4"
+          >
+            <Button
+              onClick={() => setShowJourneyReflection(true)}
+              variant="outline"
+              className="w-full py-6 border-primary/30 hover:border-primary/60 hover:bg-primary/10 transition-all group"
+            >
+              <Map className="w-5 h-5 mr-3 text-primary group-hover:scale-110 transition-transform" />
+              <span className="text-foreground font-medium">查看心路歷程</span>
+              <span className="ml-2 text-xs text-muted-foreground">從破碎到完整的英雄之旅</span>
+            </Button>
+          </motion.div>
+        )}
+
         {/* 統計網格 */}
         <div className="grid grid-cols-2 gap-4 mx-6 mt-4">
           <motion.div
@@ -507,6 +530,12 @@ const EndingStats = ({ isOpen, onClose }: EndingStatsProps) => {
           totalChoices={totalChoices}
         />
       </div>
+
+      {/* 旅程回顧頁面 */}
+      <JourneyReflection
+        isOpen={showJourneyReflection}
+        onClose={() => setShowJourneyReflection(false)}
+      />
     </motion.div>
   );
 };
