@@ -90,6 +90,16 @@ import IMG_白天書桌_Delete鍵 from '@/assets/scenes/白天書桌_Delete鍵_�
 // 新增賈伯斯場景
 import IMG_賈伯斯與主角_蘋果之光 from '@/assets/scenes/賈伯斯與主角_蘋果之光_美男子版.png';
 
+// 新增粉嫩少女漫畫版場景圖片
+import IMG_李白月下屋頂_詩句化光 from '@/assets/scenes/李白月下屋頂_詩句化光_粉嫩少女漫畫版.png';
+import IMG_月光倒影分裂_伊的暗示 from '@/assets/scenes/月光倒影分裂_伊的暗示_粉嫩少女漫畫版.png';
+import IMG_問心初登場_端莊神女 from '@/assets/scenes/問心初登場_端莊神女_粉嫩少女漫畫版.png';
+import IMG_擺渡人剪影_小船對峙 from '@/assets/scenes/擺渡人剪影_小船對峙_粉嫩少女漫畫版.png';
+import IMG_蘇軾竹林斜雨_瀟灑堅韌 from '@/assets/scenes/蘇軾竹林斜雨_瀟灑堅韌_粉嫩少女漫畫版.png';
+import IMG_伊整合擁抱與回歸_最終圓滿 from '@/assets/scenes/伊整合擁抱與回歸_最終圓滿_粉嫩少女漫畫版.png';
+import IMG_王陽明龍場石洞_心即理 from '@/assets/scenes/王陽明龍場石洞_心即理_粉嫩少女漫畫版.png';
+import IMG_武則天寶座_權力威儀 from '@/assets/scenes/武則天寶座_權力威儀_粉嫩少女漫畫版.png';
+
 export interface SceneImageConfig {
   image: string;
   alt: string;
@@ -138,17 +148,17 @@ export const sceneImages: SceneImageConfig[] = [
 
   // === 第二章：渡口（支援 yi1- 前綴）===
   {
-    image: IMG_月光倒影_渡口尋問,
+    image: IMG_月光倒影分裂_伊的暗示,
     alt: '迷霧渡口',
     nodePatterns: ['chapter-2-intro', 'chapter-2-1', 'chapter-2-2', 'chapter-2-3', 'chapter-2-4', 'chapter-2-5', 'chapter-2-6', 'chapter-2-7', 'chapter-2-8', 'chapter-2-9', 'chapter-2-10', 'chapter-2-11', 'chapter-2-12', 'chapter-2-13', 'chapter-2-14', 'chapter-2-15'],
   },
   {
-    image: IMG_問心微笑_光之相遇,
+    image: IMG_問心初登場_端莊神女,
     alt: '問心初登場',
     nodePatterns: ['chapter-2-16', 'chapter-2-17', 'chapter-2-18', 'chapter-2-19', 'chapter-2-20', 'chapter-2-21', 'chapter-2-22', 'chapter-2-23', 'chapter-2-24', 'chapter-2-25', 'chapter-2-26', 'chapter-2-27', 'chapter-2-28', 'chapter-2-29', 'chapter-2-30', 'chapter-2-choice-1', 'chapter-2-31', 'chapter-2-32', 'chapter-2-33', 'chapter-2-34', 'chapter-2-35'],
   },
   {
-    image: IMG_迷霧小船_擺渡人,
+    image: IMG_擺渡人剪影_小船對峙,
     alt: '擺渡人',
     nodePatterns: ['chapter-2-36', 'chapter-2-37', 'chapter-2-38', 'chapter-2-39', 'chapter-2-40', 'chapter-2-41', 'chapter-2-42', 'chapter-2-43', 'chapter-2-44', 'chapter-2-45', 'chapter-2-46', 'chapter-2-47', 'chapter-2-48', 'chapter-2-49', 'chapter-2-50', 'chapter-2-51', 'chapter-2-52', 'chapter-2-53', 'chapter-2-54', 'chapter-2-55', 'chapter-2-56', 'chapter-2-57', 'chapter-2-58', 'chapter-2-59', 'chapter-2-60', 'chapter-2-end', 'chapter-2-choice-2'],
   },
@@ -160,14 +170,14 @@ export const sceneImages: SceneImageConfig[] = [
     nodePatterns: ['chapter-3-intro', 'chapter-3-1', 'chapter-3-2', 'chapter-3-3', 'chapter-3-4', 'chapter-3-5', 'chapter-3-6', 'chapter-3-7', 'chapter-3-8', 'chapter-3-9', 'chapter-3-10', 'chapter-3-11', 'chapter-3-12', 'chapter-3-13', 'chapter-3-14', 'chapter-3-15', 'chapter-3-16', 'chapter-3-17', 'chapter-3-18', 'chapter-3-19', 'chapter-3-20', 'chapter-3-21', 'chapter-3-22', 'chapter-3-23', 'chapter-3-24', 'chapter-3-25', 'chapter-3-26', 'chapter-3-27', 'chapter-3-28', 'chapter-3-29', 'chapter-3-30'],
   },
   {
-    image: IMG10_心即理,
+    image: IMG_王陽明龍場石洞_心即理,
     alt: '心即理',
     nodePatterns: ['chapter-3-31', 'chapter-3-32', 'chapter-3-33', 'chapter-3-34', 'chapter-3-35', 'chapter-3-36', 'chapter-3-37', 'chapter-3-38', 'chapter-3-39', 'chapter-3-40', 'chapter-3-41', 'chapter-3-42', 'chapter-3-43', 'chapter-3-44', 'chapter-3-45', 'chapter-3-46', 'chapter-3-47', 'chapter-3-48', 'chapter-3-49', 'chapter-3-50', 'chapter-3-choice-1', 'chapter-3-choice-2', 'chapter-3-end'],
   },
 
   // === 第四章：命樹（蘇軾）===
   {
-    image: IMG_竹林斜雨_蘇軾引路,
+    image: IMG_蘇軾竹林斜雨_瀟灑堅韌,
     alt: '蘇軾命樹',
     nodePatterns: ['chapter-4-intro', 'chapter-4-1', 'chapter-4-2', 'chapter-4-3', 'chapter-4-4', 'chapter-4-5', 'chapter-4-6', 'chapter-4-7', 'chapter-4-8', 'chapter-4-9', 'chapter-4-10', 'chapter-4-11', 'chapter-4-12', 'chapter-4-13', 'chapter-4-14', 'chapter-4-15', 'chapter-4-16', 'chapter-4-17', 'chapter-4-18', 'chapter-4-19', 'chapter-4-20'],
   },
@@ -189,7 +199,7 @@ export const sceneImages: SceneImageConfig[] = [
 
   // === 第五章：也無風雨也無晴 ===
   {
-    image: IMG_竹林斜雨_蘇軾引路,
+    image: IMG_蘇軾竹林斜雨_瀟灑堅韌,
     alt: '蘇軾庭院',
     nodePatterns: ['chapter-5-intro', 'chapter-5-1', 'chapter-5-2', 'chapter-5-3', 'chapter-5-4', 'chapter-5-5', 'chapter-5-6', 'chapter-5-7', 'chapter-5-8', 'chapter-5-9', 'chapter-5-10', 'chapter-5-11', 'chapter-5-12', 'chapter-5-13', 'chapter-5-14', 'chapter-5-15', 'chapter-5-16', 'chapter-5-17', 'chapter-5-18', 'chapter-5-19', 'chapter-5-20'],
   },
@@ -228,7 +238,7 @@ export const sceneImages: SceneImageConfig[] = [
     nodePatterns: ['chapter7-11', 'chapter7-12', 'chapter7-13', 'chapter7-14', 'chapter7-15', 'chapter7-16', 'chapter7-17', 'chapter7-18', 'chapter7-19', 'chapter7-20', 'chapter-7-11', 'chapter-7-12', 'chapter-7-13', 'chapter-7-14', 'chapter-7-15', 'chapter-7-16', 'chapter-7-17', 'chapter-7-18', 'chapter-7-19', 'chapter-7-20'],
   },
   {
-    image: IMG19_武則天,
+    image: IMG_武則天寶座_權力威儀,
     alt: '武則天',
     nodePatterns: ['chapter7-', 'chapter-7-'],
   },
@@ -252,8 +262,8 @@ export const sceneImages: SceneImageConfig[] = [
     nodePatterns: ['chapter8-11', 'chapter8-12', 'chapter8-13', 'chapter8-14', 'chapter8-15', 'chapter8-16', 'chapter8-17', 'chapter8-18', 'chapter8-19', 'chapter8-20', 'chapter-8-11', 'chapter-8-12', 'chapter-8-13', 'chapter-8-14', 'chapter-8-15', 'chapter-8-16', 'chapter-8-17', 'chapter-8-18', 'chapter-8-19', 'chapter-8-20'],
   },
   {
-    image: IMG_李白撈月_水中對戲,
-    alt: '李白撈月',
+    image: IMG_李白月下屋頂_詩句化光,
+    alt: '李白詩句化光',
     nodePatterns: ['chapter8-', 'chapter-8-'],
   },
 
@@ -321,7 +331,7 @@ export const sceneImages: SceneImageConfig[] = [
     nodePatterns: ['chapter15-1', 'chapter15-2', 'chapter15-3', 'chapter15-4', 'chapter15-5', 'chapter15-6', 'chapter15-7', 'chapter15-8', 'chapter-15-1', 'chapter-15-2', 'chapter-15-3', 'chapter-15-4', 'chapter-15-5', 'chapter-15-6', 'chapter-15-7', 'chapter-15-8'],
   },
   {
-    image: IMG_伊的對峙_命運之戰,
+    image: IMG_伊整合擁抱與回歸_最終圓滿,
     alt: '伊的對峙',
     nodePatterns: ['chapter15-9', 'chapter15-10', 'chapter15-11', 'chapter15-12', 'chapter15-13', 'chapter15-14', 'chapter15-15', 'chapter15-16', 'chapter15-17', 'chapter15-18', 'chapter15-19', 'chapter15-20', 'chapter15-21', 'chapter15-22', 'chapter15-23', 'chapter15-24', 'chapter15-25', 'chapter15-26', 'chapter15-27', 'chapter15-28', 'chapter15-29', 'chapter15-30', 'chapter15-31', 'chapter15-32', 'chapter15-33', 'chapter15-34', 'chapter15-35', 'chapter15-36', 'chapter15-37', 'chapter15-38', 'chapter15-39', 'chapter15-40', 'chapter-15-9', 'chapter-15-10', 'chapter-15-11', 'chapter-15-12', 'chapter-15-13', 'chapter-15-14', 'chapter-15-15', 'chapter-15-16', 'chapter-15-17', 'chapter-15-18', 'chapter-15-19', 'chapter-15-20'],
   },
