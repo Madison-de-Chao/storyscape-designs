@@ -86,11 +86,23 @@ export type EmotionSFXType =
   | 'mysterious_whisper_male_2'
   // 環境/特殊音效
   | 'wood_chop'
+  | 'wood_chop_1'
   | 'rain_light'
+  | 'rain_light_1'
+  | 'rain_light_2'
   | 'ear_ringing'
+  | 'ear_ringing_1'
+  | 'ear_ringing_2'
   | 'birds_chirping'
+  | 'birds_chirping_1'
   | 'digital_break'
-  | 'holy_bell';
+  | 'digital_break_1'
+  | 'digital_break_2'
+  | 'digital_break_3'
+  | 'holy_bell'
+  | 'holy_bell_1'
+  | 'holy_bell_2'
+  | 'holy_bell_3';
 
 // 章節過場音效類型（1-6 循環使用）
 export type ChapterTransitionSFXType = 
@@ -252,11 +264,23 @@ const EMOTION_SFX_PATHS: Record<EmotionSFXType, string> = {
   mysterious_whisper_male_2: '/audio/ambient/mysterious_whisper_male (2).mp3',
   // 環境/特殊音效
   wood_chop: '/audio/sfx/wood_chop.mp3',
+  wood_chop_1: '/audio/sfx/wood_chop_1.mp3',
   rain_light: '/audio/sfx/rain_light.mp3',
+  rain_light_1: '/audio/sfx/rain_light_1.mp3',
+  rain_light_2: '/audio/sfx/rain_light_2.mp3',
   ear_ringing: '/audio/sfx/ear_ringing.mp3',
+  ear_ringing_1: '/audio/sfx/ear_ringing_1.mp3',
+  ear_ringing_2: '/audio/sfx/ear_ringing_2.mp3',
   birds_chirping: '/audio/sfx/birds_chirping.mp3',
+  birds_chirping_1: '/audio/sfx/birds_chirping_1.mp3',
   digital_break: '/audio/sfx/digital_break.mp3',
+  digital_break_1: '/audio/sfx/digital_break_1.mp3',
+  digital_break_2: '/audio/sfx/digital_break_2.mp3',
+  digital_break_3: '/audio/sfx/digital_break_3.mp3',
   holy_bell: '/audio/sfx/holy_bell.mp3',
+  holy_bell_1: '/audio/sfx/holy_bell_1.mp3',
+  holy_bell_2: '/audio/sfx/holy_bell_2.mp3',
+  holy_bell_3: '/audio/sfx/holy_bell_3.mp3',
 };
 
 // 章節過場音效路徑映射
