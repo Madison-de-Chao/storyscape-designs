@@ -62,6 +62,15 @@ import IMG_問心微笑_光之相遇 from '@/assets/scenes/問心微笑_光之�
 import IMG_迷霧小船_擺渡人 from '@/assets/scenes/迷霧小船_擺渡人_藝術版.png';
 import IMG_螢幕吞沒_靈魂轉化 from '@/assets/scenes/螢幕吞沒_靈魂轉化_藝術版.png';
 
+// 新增唯美/美男子版場景圖片
+import IMG_晚間書桌_深夜掙扎 from '@/assets/scenes/晚間書桌_深夜掙扎_唯美耽美版.png';
+import IMG_螢幕強光_決斷時刻 from '@/assets/scenes/螢幕強光_決斷時刻_唯美耽美版.png';
+import IMG_影子伊_雙生對峙 from '@/assets/scenes/影子伊_雙生對峙_唯美耽美版.png';
+import IMG_李白月下_詩酒狂歌 from '@/assets/scenes/李白月下_詩酒狂歌_唯美版.png';
+import IMG_李白與主角_月下贈酒 from '@/assets/scenes/李白與主角_月下贈酒_唯美版.png';
+import IMG_李白撈月_水中對戲 from '@/assets/scenes/李白撈月_水中對戲_唯美版.png';
+import IMG_未歸者廊_命運壁龕 from '@/assets/scenes/未歸者廊_命運壁龕_美男子版.png';
+
 export interface SceneImageConfig {
   image: string;
   alt: string;
@@ -93,13 +102,13 @@ export const sceneImages: SceneImageConfig[] = [
 
   // === 第一章：刪除 ===
   {
-    image: IMG04_刪除之夜,
-    alt: '刪除之夜',
+    image: IMG_晚間書桌_深夜掙扎,
+    alt: '深夜書桌',
     nodePatterns: ['chapter-1-intro', 'chapter-1-1', 'chapter-1-2', 'chapter-1-3', 'chapter-1-4', 'chapter-1-5', 'chapter-1-6', 'chapter-1-7', 'chapter-1-8', 'chapter-1-9', 'chapter-1-10', 'chapter-1-11', 'chapter-1-12', 'chapter-1-13', 'chapter-1-14', 'chapter-1-15', 'chapter-1-16', 'chapter-1-17', 'chapter-1-18', 'chapter-1-19', 'chapter-1-20', 'chapter-1-21', 'chapter-1-22', 'chapter-1-23', 'chapter-1-24', 'chapter-1-25', 'chapter-1-26', 'chapter-1-27', 'chapter-1-28', 'chapter-1-29', 'chapter-1-30'],
   },
   {
-    image: IMG05_刪除鍵特寫,
-    alt: '刪除鍵特寫',
+    image: IMG_螢幕強光_決斷時刻,
+    alt: '決斷時刻',
     nodePatterns: ['chapter-1-31', 'chapter-1-32', 'chapter-1-33', 'chapter-1-34', 'chapter-1-35', 'chapter-1-36', 'chapter-1-37', 'chapter-1-38', 'chapter-1-39', 'chapter-1-40', 'chapter-1-41', 'chapter-1-42', 'chapter-1-43', 'chapter-1-44', 'chapter-1-45', 'chapter-1-choice', 'chapter-1-confirm', 'chapter-1-cancel'],
   },
   {
@@ -219,13 +228,18 @@ export const sceneImages: SceneImageConfig[] = [
 
   // === 第九章：天生我材（李白）===
   {
-    image: IMG21_李白月下醉臥,
-    alt: '李白月下醉臥',
-    nodePatterns: ['chapter9-1', 'chapter9-2', 'chapter9-3', 'chapter9-4', 'chapter9-5', 'chapter9-6', 'chapter9-7', 'chapter9-8', 'chapter9-9', 'chapter9-10', 'chapter9-11', 'chapter9-12', 'chapter9-13', 'chapter9-14', 'chapter9-15', 'chapter9-16', 'chapter9-17', 'chapter9-18', 'chapter9-19', 'chapter9-20', 'chapter-9-1', 'chapter-9-2', 'chapter-9-3', 'chapter-9-4', 'chapter-9-5', 'chapter-9-6', 'chapter-9-7', 'chapter-9-8', 'chapter-9-9', 'chapter-9-10', 'chapter-9-11', 'chapter-9-12', 'chapter-9-13', 'chapter-9-14', 'chapter-9-15', 'chapter-9-16', 'chapter-9-17', 'chapter-9-18', 'chapter-9-19', 'chapter-9-20'],
+    image: IMG_李白月下_詩酒狂歌,
+    alt: '李白月下詩酒',
+    nodePatterns: ['chapter9-1', 'chapter9-2', 'chapter9-3', 'chapter9-4', 'chapter9-5', 'chapter9-6', 'chapter9-7', 'chapter9-8', 'chapter9-9', 'chapter9-10', 'chapter-9-1', 'chapter-9-2', 'chapter-9-3', 'chapter-9-4', 'chapter-9-5', 'chapter-9-6', 'chapter-9-7', 'chapter-9-8', 'chapter-9-9', 'chapter-9-10'],
   },
   {
-    image: IMG22_詩句化光,
-    alt: '詩句化光',
+    image: IMG_李白與主角_月下贈酒,
+    alt: '李白贈酒',
+    nodePatterns: ['chapter9-11', 'chapter9-12', 'chapter9-13', 'chapter9-14', 'chapter9-15', 'chapter9-16', 'chapter9-17', 'chapter9-18', 'chapter9-19', 'chapter9-20', 'chapter-9-11', 'chapter-9-12', 'chapter-9-13', 'chapter-9-14', 'chapter-9-15', 'chapter-9-16', 'chapter-9-17', 'chapter-9-18', 'chapter-9-19', 'chapter-9-20'],
+  },
+  {
+    image: IMG_李白撈月_水中對戲,
+    alt: '李白撈月',
     nodePatterns: ['chapter9-', 'chapter-9-'],
   },
 
@@ -294,13 +308,13 @@ export const sceneImages: SceneImageConfig[] = [
 
   // === 第十四章：未歸者廊 ===
   {
-    image: IMG18_女子畫廊,
+    image: IMG_未歸者廊_命運壁龕,
     alt: '未歸者廊',
     nodePatterns: ['chapter14-1', 'chapter14-2', 'chapter14-3', 'chapter14-4', 'chapter14-5', 'chapter14-6', 'chapter14-7', 'chapter14-8', 'chapter14-9', 'chapter14-10', 'chapter14-11', 'chapter14-12', 'chapter14-13', 'chapter14-14', 'chapter14-15', 'chapter-14-1', 'chapter-14-2', 'chapter-14-3', 'chapter-14-4', 'chapter-14-5', 'chapter-14-6', 'chapter-14-7', 'chapter-14-8', 'chapter-14-9', 'chapter-14-10', 'chapter-14-11', 'chapter-14-12', 'chapter-14-13', 'chapter-14-14', 'chapter-14-15'],
   },
   {
-    image: IMG36_記憶洞穴,
-    alt: '記憶洞穴',
+    image: IMG_未歸者廊_命運壁龕,
+    alt: '命運壁龕',
     nodePatterns: ['chapter14-', 'chapter-14-'],
   },
 
@@ -311,8 +325,8 @@ export const sceneImages: SceneImageConfig[] = [
     nodePatterns: ['chapter15-1', 'chapter15-2', 'chapter15-3', 'chapter15-4', 'chapter15-5', 'chapter15-6', 'chapter15-7', 'chapter15-8', 'chapter-15-1', 'chapter-15-2', 'chapter-15-3', 'chapter-15-4', 'chapter-15-5', 'chapter-15-6', 'chapter-15-7', 'chapter-15-8'],
   },
   {
-    image: IMG36_記憶洞穴,
-    alt: '洞穴內部',
+    image: IMG_影子伊_雙生對峙,
+    alt: '影子伊對峙',
     nodePatterns: ['chapter15-9', 'chapter15-10', 'chapter15-11', 'chapter15-12', 'chapter15-13', 'chapter15-14', 'chapter15-15', 'chapter15-16', 'chapter15-17', 'chapter15-18', 'chapter15-19', 'chapter15-20', 'chapter15-21', 'chapter15-22', 'chapter15-23', 'chapter15-24', 'chapter15-25', 'chapter15-26', 'chapter15-27', 'chapter15-28', 'chapter15-29', 'chapter15-30', 'chapter15-31', 'chapter15-32', 'chapter15-33', 'chapter15-34', 'chapter15-35', 'chapter15-36', 'chapter15-37', 'chapter15-38', 'chapter15-39', 'chapter15-40'],
   },
   {
