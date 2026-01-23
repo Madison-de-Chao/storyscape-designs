@@ -125,8 +125,24 @@ const JourneyReflection = ({ isOpen, onClose }: JourneyReflectionProps) => {
                 transition={{ duration: 0.3 }}
                 className="space-y-6"
               >
+                {/* 完成圖片 */}
+                {journeySummary.completeImage && (
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: 0.2 }}
+                    className="rounded-xl overflow-hidden border border-primary/20 shadow-lg"
+                  >
+                    <img
+                      src={journeySummary.completeImage}
+                      alt="旅程完成"
+                      className="w-full h-auto"
+                    />
+                  </motion.div>
+                )}
+
                 {/* 總結標題 */}
-                <div className="text-center py-6">
+                <div className="text-center py-4">
                   <Sparkles className="w-10 h-10 mx-auto mb-4 text-amber-400" />
                   <h3 className="text-2xl font-serif-tc font-bold text-amber-400 mb-3">
                     {journeySummary.title}
