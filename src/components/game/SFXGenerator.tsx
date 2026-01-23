@@ -29,7 +29,7 @@ const MISSING_SFX_PRESETS = [
     id: 'ear_ringing',
     label: '耳鳴聲',
     emoji: '🔔',
-    prompt: "Tinnitus ear ringing sound effect. High-pitched continuous tone that swells and fades. Disorienting, unsettling frequency. Subtle pulsing, headache inducing whine. Psychological tension",
+    prompt: "Pure high-frequency tinnitus tone. Very high pitched ringing at 8000-12000 Hz, clean sine wave oscillating. Sharp piercing whistle in the ears, medical tinnitus sound. Crystal clear high pitch, not static noise. Ethereal, almost musical ringing that pulses gently",
     duration: 4,
     usage: '崩潰時刻',
   },
