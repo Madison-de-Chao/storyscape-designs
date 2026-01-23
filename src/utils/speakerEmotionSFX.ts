@@ -68,6 +68,20 @@ const MALE_FRUSTRATION: EmotionSFXType[] = ['frustration_male'];
 const MALE_CONTEMPT: EmotionSFXType[] = ['contempt_male'];
 const MALE_EXCITEMENT: EmotionSFXType[] = ['excitement_male'];
 
+// ============= 技術/環境音效池 =============
+// 林肯劈柴
+const WOOD_CHOP: EmotionSFXType[] = ['wood_chop', 'wood_chop_1'];
+// 數位崩潰（刪除場景、系統錯誤）
+const DIGITAL_BREAK: EmotionSFXType[] = ['digital_break', 'digital_break_1', 'digital_break_2', 'digital_break_3'];
+// 神聖鐘聲（頓悟、啟示時刻）
+const HOLY_BELL: EmotionSFXType[] = ['holy_bell', 'holy_bell_1', 'holy_bell_2', 'holy_bell_3'];
+// 耳鳴（恐懼、緊張、創傷回憶）
+const EAR_RINGING: EmotionSFXType[] = ['ear_ringing', 'ear_ringing_1', 'ear_ringing_2'];
+// 鳥鳴（平靜、清晨、自然場景）
+const BIRDS_CHIRPING: EmotionSFXType[] = ['birds_chirping', 'birds_chirping_1'];
+// 細雨（憂鬱、沉思、回憶場景）
+const RAIN_LIGHT: EmotionSFXType[] = ['rain_light', 'rain_light_1', 'rain_light_2'];
+
 // 說話者預設情緒音效映射
 export const speakerEmotionSFXConfig: Record<SpeakerType, SpeakerEmotionConfig> = {
   // ============= 女性角色 =============
@@ -168,10 +182,13 @@ export const speakerEmotionSFXConfig: Record<SpeakerType, SpeakerEmotionConfig> 
     probability: 0.12,
   },
 
-  // 林肯 - 堅韌、溫暖（男聲）
+  // 林肯 - 堅韌、溫暖（男聲）+ 劈柴音效
   lincoln: {
-    default: MALE_GENTLE_LAUGH,
-    probability: 0.1,
+    default: [...MALE_GENTLE_LAUGH, ...WOOD_CHOP],
+    probability: 0.15,
+    onEffect: {
+      glow: HOLY_BELL, // 頓悟時刻播放鐘聲
+    },
   },
 
   // 賈伯斯 - 激情、專注（男聲）
@@ -203,33 +220,38 @@ export const speakerEmotionSFXConfig: Record<SpeakerType, SpeakerEmotionConfig> 
 
   // ============= 中性/特殊角色 =============
   
-  // 主角（女性）- 恐懼、驚訝、哀傷
+  // 主角（女性）- 恐懼、驚訝、哀傷 + 環境音效
   protagonist: {
     default: FEMALE_SAD_SIGH,
     probability: 0.20, // 提高基礎機率
     onEffect: {
-      glitch: ['fear', 'fear_1', 'surprise'],
-      glow: ['surprise'],
-      shake: ['fear', 'fear_1'],
-      flash: ['surprise'],
+      glitch: ['fear', 'fear_1', 'surprise', ...DIGITAL_BREAK, ...EAR_RINGING],
+      glow: ['surprise', ...HOLY_BELL],
+      shake: ['fear', 'fear_1', ...EAR_RINGING],
+      flash: ['surprise', ...HOLY_BELL],
     },
   },
 
-  // 旁白 - 偶爾的神秘氛圍（混合男女神秘低語）
+  // 旁白 - 偶爾的神秘氛圍（混合男女神秘低語）+ 環境音效
   narrator: {
     default: [],
     probability: 0.05, // 旁白也有機會觸發
     onEffect: {
-      glow: [...FEMALE_MYSTERIOUS_WHISPER, ...MALE_MYSTERIOUS_WHISPER],
-      glitch: [...MALE_FEAR, 'fear'],
-      shake: [...MALE_MYSTERIOUS_WHISPER],
+      glow: [...FEMALE_MYSTERIOUS_WHISPER, ...MALE_MYSTERIOUS_WHISPER, ...HOLY_BELL],
+      glitch: [...MALE_FEAR, 'fear', ...DIGITAL_BREAK, ...EAR_RINGING],
+      shake: [...MALE_MYSTERIOUS_WHISPER, ...EAR_RINGING],
+      flash: HOLY_BELL, // 閃光時刻播放鐘聲
     },
   },
 
-  // 系統
+  // 系統 - 數位崩潰音效
   system: {
-    default: [],
-    probability: 0,
+    default: DIGITAL_BREAK,
+    probability: 0.6, // 系統訊息有較高機率播放數位音效
+    onEffect: {
+      glitch: DIGITAL_BREAK,
+      shake: EAR_RINGING,
+    },
   },
 };
 
