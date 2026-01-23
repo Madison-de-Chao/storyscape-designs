@@ -14,6 +14,7 @@ export const chapter7Nodes: DialogueNode[] = [
     id: 'yi1-chapter-7-1',
     speaker: 'narrator',
     text: '問心帶她穿過一條長長的迴廊。牆上掛著絹帛的畫軸，畫的都是女子——有彈琴的、讀書的、騎馬的、揮劍的。',
+    bgImage: 'gallery_women', // 女子畫廊
     nextNodeId: 'yi1-chapter-7-2',
   },
   {
@@ -39,14 +40,50 @@ export const chapter7Nodes: DialogueNode[] = [
     id: 'yi1-chapter-7-5',
     speaker: 'wenxin',
     text: '那是花木蘭。因為花木蘭證明了一件事——女子能做的，從來不比男子少。少的只是機會。',
+    nextNodeId: 'yi1-chapter-7-choice-1',
+  },
+
+  // === 選項1：對畫廊的感受 ===
+  {
+    id: 'yi1-chapter-7-choice-1',
+    speaker: 'narrator',
+    text: '看著這些畫，她的心裡湧起了一種複雜的感覺……',
+    choices: [
+      { id: 'ch7-inspired', text: '我從來不知道女子可以這樣', nextNodeId: 'yi1-chapter-7-inspired-1', arcChange: 5, shadowChange: 0 },
+      { id: 'ch7-doubt', text: '但現實不是這樣的', nextNodeId: 'yi1-chapter-7-doubt-1', arcChange: 0, shadowChange: 3 },
+      { id: 'ch7-question', text: '為什麼要特別強調「女子」？', nextNodeId: 'yi1-chapter-7-question-1', arcChange: 3, shadowChange: 0 },
+    ],
+  },
+
+  // 分支A：被啟發
+  {
+    id: 'yi1-chapter-7-inspired-1',
+    speaker: 'wenxin',
+    text: '你看見了。這就是改變的開始。',
+    effect: 'glow',
+    nextNodeId: 'yi1-chapter-7-6',
+  },
+  // 分支B：懷疑
+  {
+    id: 'yi1-chapter-7-doubt-1',
+    speaker: 'wenxin',
+    text: '現實是人造的。你以為的「不可能」，只是被說得太多了。',
+    nextNodeId: 'yi1-chapter-7-6',
+  },
+  // 分支C：質疑
+  {
+    id: 'yi1-chapter-7-question-1',
+    speaker: 'wenxin',
+    text: '好問題。因為在那個時代，「女子」這個身分本身就是一種枷鎖。打破枷鎖的第一步，是看見它。',
     nextNodeId: 'yi1-chapter-7-6',
   },
 
-  // 二、進入大殿
+  // 二、進入大殿（匯合點）
   {
     id: 'yi1-chapter-7-6',
     speaker: 'narrator',
     text: '迴廊盡頭是一扇朱紅色的大門，刻著展翅欲飛的鳳凰。',
+    bgImage: 'phoenix_door', // 朱紅鳳門
     nextNodeId: 'yi1-chapter-7-7',
   },
   {
@@ -74,7 +111,7 @@ export const chapter7Nodes: DialogueNode[] = [
     nextNodeId: 'yi1-chapter-7-11',
   },
 
-  // 三、武則天登場
+  // 三、武則天登場（切換場景）
   {
     id: 'yi1-chapter-7-11',
     speaker: 'narrator',
@@ -86,7 +123,7 @@ export const chapter7Nodes: DialogueNode[] = [
     id: 'yi1-chapter-7-12',
     speaker: 'narrator',
     text: '但她往那裡一坐，整個空氣都變得沉重。那是一種不需要裝飾就能讓人知道「這個人不一樣」的氣場。',
-    effect: 'shake', // 氣場震攝
+    effect: 'shake',
     nextNodeId: 'yi1-chapter-7-13',
   },
   {
@@ -145,8 +182,37 @@ export const chapter7Nodes: DialogueNode[] = [
     id: 'yi1-chapter-7-21',
     speaker: 'wuzetian',
     text: '你知道「資格」這個詞是怎麼來的嗎？那是別人用來限制你的工具。',
+    nextNodeId: 'yi1-chapter-7-choice-2',
+  },
+
+  // === 選項2：對「資格」的理解 ===
+  {
+    id: 'yi1-chapter-7-choice-2',
+    speaker: 'narrator',
+    text: '她仔細思考著「資格」這個詞……',
+    choices: [
+      { id: 'ch7-understand', text: '我好像懂了……資格是一種標籤', nextNodeId: 'yi1-chapter-7-understand-1', arcChange: 5, shadowChange: 0 },
+      { id: 'ch7-resist', text: '但有些規矩是有道理的吧？', nextNodeId: 'yi1-chapter-7-resist-1', arcChange: 0, shadowChange: 2 },
+    ],
+  },
+
+  // 分支A：理解
+  {
+    id: 'yi1-chapter-7-understand-1',
+    speaker: 'wuzetian',
+    text: '很好。你開始看見枷鎖的形狀了。',
+    effect: 'glow',
     nextNodeId: 'yi1-chapter-7-22',
   },
+  // 分支B：抵抗
+  {
+    id: 'yi1-chapter-7-resist-1',
+    speaker: 'wuzetian',
+    text: '有道理的叫「原則」，沒道理的叫「規矩」。分清楚這兩者，是獨立思考的第一步。',
+    nextNodeId: 'yi1-chapter-7-22',
+  },
+
+  // 匯合
   {
     id: 'yi1-chapter-7-22',
     speaker: 'wuzetian',
@@ -166,6 +232,7 @@ export const chapter7Nodes: DialogueNode[] = [
     id: 'yi1-chapter-7-24',
     speaker: 'wuzetian',
     text: '就像花木蘭。她的劍術、騎射和男人一樣好。但她必須假扮男人才能從軍。',
+    bgImage: 'mulan_painting', // 切回畫廊回憶
     nextNodeId: 'yi1-chapter-7-25',
   },
   {
@@ -178,6 +245,7 @@ export const chapter7Nodes: DialogueNode[] = [
     id: 'yi1-chapter-7-26',
     speaker: 'wuzetian',
     text: '所以她只能假扮。而我——我不想假扮。',
+    bgImage: 'wuzetian_throne', // 切回大殿
     nextNodeId: 'yi1-chapter-7-27',
   },
 
@@ -205,10 +273,37 @@ export const chapter7Nodes: DialogueNode[] = [
     id: 'yi1-chapter-7-30',
     speaker: 'wuzetian',
     text: '你也是。你把評價自己的權力，拱手讓給了全世界。這就是你的問題。',
+    nextNodeId: 'yi1-chapter-7-choice-3',
+  },
+
+  // === 選項3：面對自我評價權力 ===
+  {
+    id: 'yi1-chapter-7-choice-3',
+    speaker: 'narrator',
+    text: '她感受到心中某個地方被觸動了……',
+    choices: [
+      { id: 'ch7-accept', text: '我想把這個權力拿回來', nextNodeId: 'yi1-chapter-7-accept-1', arcChange: 8, shadowChange: 0 },
+      { id: 'ch7-fear', text: '但我害怕被孤立……', nextNodeId: 'yi1-chapter-7-fear-1', arcChange: 2, shadowChange: 3 },
+    ],
+  },
+
+  // 分支A：接受
+  {
+    id: 'yi1-chapter-7-accept-1',
+    speaker: 'wuzetian',
+    text: '好。記住這個感覺。這是你第一次為自己做決定。',
+    effect: 'glow',
+    nextNodeId: 'yi1-chapter-7-31',
+  },
+  // 分支B：恐懼
+  {
+    id: 'yi1-chapter-7-fear-1',
+    speaker: 'wuzetian',
+    text: '害怕是正常的。但你要明白——那些真正在乎你的人，不會因為你「做自己」就離開。',
     nextNodeId: 'yi1-chapter-7-31',
   },
 
-  // 七、贈言
+  // 七、贈言（匯合）
   {
     id: 'yi1-chapter-7-31',
     speaker: 'wuzetian',
@@ -220,6 +315,13 @@ export const chapter7Nodes: DialogueNode[] = [
     speaker: 'wuzetian',
     text: '「他們說你不應該，你就問——誰定的規矩？他們說你沒資格，你就問——誰給的標準？」',
     effect: 'glow',
+    specialScene: 'zen',
+    zenConfig: {
+      text: '誰定的規矩？',
+      subtitle: '——武則天',
+      theme: 'golden',
+      duration: 4000,
+    },
     nextNodeId: 'yi1-chapter-7-33',
   },
   {
@@ -232,7 +334,7 @@ export const chapter7Nodes: DialogueNode[] = [
     id: 'yi1-chapter-7-end',
     speaker: 'wuzetian',
     text: '去吧。下一個歸者會教你，什麼叫「殘缺不等於不完整」。',
-    nextNodeId: 'yi1-chapter-8-intro-1', // 🔗 連接到司馬遷
+    nextNodeId: 'yi1-chapter-8-intro-1',
     effect: 'fade-out',
   },
 ];
