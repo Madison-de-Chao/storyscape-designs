@@ -55,6 +55,29 @@ export const chapter11Nodes: DialogueNode[] = [
     id: 'yi1-chapter-11-6',
     speaker: 'mandela',
     text: '你看起來心裡有火。',
+    nextNodeId: 'yi1-chapter-11-choice-1',
+  },
+
+  // === 選項1：面對內心的憤怒 ===
+  {
+    id: 'yi1-chapter-11-choice-1',
+    speaker: 'narrator',
+    text: '曼德拉的話觸動了她內心深處的某個地方……',
+    choices: [
+      { id: 'ch11-angry', text: '是的，我很憤怒，這不公平！', nextNodeId: 'yi1-chapter-11-angry-1', arcChange: 0, shadowChange: 3 },
+      { id: 'ch11-admit', text: '我……我不知道該怎麼處理這種感覺', nextNodeId: 'yi1-chapter-11-admit-1', arcChange: 3, shadowChange: 0 },
+    ],
+  },
+  {
+    id: 'yi1-chapter-11-angry-1',
+    speaker: 'protagonist',
+    text: '是的！我很憤怒！為什麼我要經歷這些？為什麼那些傷害我的人可以過得好好的？',
+    nextNodeId: 'yi1-chapter-11-8',
+  },
+  {
+    id: 'yi1-chapter-11-admit-1',
+    speaker: 'protagonist',
+    text: '我不知道……我心裡有些東西，我不知道該怎麼處理。',
     nextNodeId: 'yi1-chapter-11-7',
   },
   {
@@ -67,6 +90,7 @@ export const chapter11Nodes: DialogueNode[] = [
     id: 'yi1-chapter-11-8',
     speaker: 'mandela',
     text: '我在牢裡待了二十七年。那些看守我不准我說話，不准我見家人，甚至在我的飯裡撒尿。',
+    bgImage: 'mandela_prison', // 切換場景：監獄回憶
     nextNodeId: 'yi1-chapter-11-9',
   },
   {
@@ -100,6 +124,36 @@ export const chapter11Nodes: DialogueNode[] = [
     id: 'yi1-chapter-11-13',
     speaker: 'protagonist',
     text: '可是原諒他們，不就代表他們贏了嗎？',
+    nextNodeId: 'yi1-chapter-11-choice-2',
+  },
+
+  // === 選項2：關於原諒的理解 ===
+  {
+    id: 'yi1-chapter-11-choice-2',
+    speaker: 'narrator',
+    text: '她心中的掙扎浮上表面……',
+    choices: [
+      { id: 'ch11-resist', text: '我做不到原諒，他們不值得', nextNodeId: 'yi1-chapter-11-resist-1', arcChange: 0, shadowChange: 3 },
+      { id: 'ch11-listen', text: '也許……我誤解了原諒的意義', nextNodeId: 'yi1-chapter-11-listen-1', arcChange: 5, shadowChange: 0 },
+    ],
+  },
+  {
+    id: 'yi1-chapter-11-resist-1',
+    speaker: 'protagonist',
+    text: '我做不到原諒。他們傷害了我，他們不值得被原諒。',
+    nextNodeId: 'yi1-chapter-11-14',
+  },
+  {
+    id: 'yi1-chapter-11-listen-1',
+    speaker: 'protagonist',
+    text: '也許……我一直誤解了原諒的意義？',
+    nextNodeId: 'yi1-chapter-11-listen-2',
+  },
+  {
+    id: 'yi1-chapter-11-listen-2',
+    speaker: 'mandela',
+    text: '你開始懂了。原諒從來不是給別人的禮物。',
+    emotionSFX: 'gentle_laugh',
     nextNodeId: 'yi1-chapter-11-14',
   },
   {
@@ -107,12 +161,19 @@ export const chapter11Nodes: DialogueNode[] = [
     speaker: 'mandela',
     text: '不。原諒不是為了他們。原諒是為了讓你自由。',
     effect: 'glow',
+    bgImage: 'mandela_garden_bloom', // 切換場景：花園盛開
     nextNodeId: 'yi1-chapter-11-15',
   },
   {
     id: 'yi1-chapter-11-15',
     speaker: 'mandela',
     text: '只要你還恨著一個人，你就還是他的囚犯。你的情緒被他控制，你的快樂取決於他。只有放下了，你才是自由的。',
+    specialScene: 'zen',
+    zenConfig: {
+      text: '放下仇恨',
+      subtitle: '才能真正自由',
+      theme: 'dawn',
+    },
     nextNodeId: 'yi1-chapter-11-16',
   },
 
