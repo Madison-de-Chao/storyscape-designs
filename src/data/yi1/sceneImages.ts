@@ -63,13 +63,18 @@ import IMG_迷霧小船_擺渡人 from '@/assets/scenes/迷霧小船_擺渡人_�
 import IMG_螢幕吞沒_靈魂轉化 from '@/assets/scenes/螢幕吞沒_靈魂轉化_藝術版.png';
 
 // 新增唯美/美男子版場景圖片
-import IMG_晚間書桌_深夜掙扎 from '@/assets/scenes/晚間書桌_深夜掙扎_唯美耽美版.png';
+import IMG_晚間書桌_深夜掙扎 from '@/assets/scenes/晚間書桌_深夜掙扎_橫向版.png';
 import IMG_螢幕強光_決斷時刻 from '@/assets/scenes/螢幕強光_決斷時刻_唯美耽美版.png';
-import IMG_影子伊_雙生對峙 from '@/assets/scenes/影子伊_雙生對峙_唯美耽美版.png';
+import IMG_影子伊_雙生對峙 from '@/assets/scenes/影子伊_雙生對峙_橫向版.png';
 import IMG_李白月下_詩酒狂歌 from '@/assets/scenes/李白月下_詩酒狂歌_唯美版.png';
 import IMG_李白與主角_月下贈酒 from '@/assets/scenes/李白與主角_月下贈酒_唯美版.png';
 import IMG_李白撈月_水中對戲 from '@/assets/scenes/李白撈月_水中對戲_唯美版.png';
 import IMG_未歸者廊_命運壁龕 from '@/assets/scenes/未歸者廊_命運壁龕_美男子版.png';
+
+// 新增橫向版與唯美耽美版場景圖片
+import IMG_虛空教室_靈魂訓練 from '@/assets/scenes/虛空教室_靈魂訓練_唯美耽美版.png';
+import IMG_月光倒影_渡口尋問 from '@/assets/scenes/月光倒影_渡口尋問_唯美耽美版.png';
+import IMG_影子伊_雙生對峙_唯美 from '@/assets/scenes/影子伊_雙生對峙_唯美耽美版_1.png';
 
 export interface SceneImageConfig {
   image: string;
@@ -93,10 +98,10 @@ export const sceneImages: SceneImageConfig[] = [
     nodePatterns: ['preface-'],
   },
 
-  // === 序章：訓練場 ===
+  // === 序章：訓練場（使用虛空教室版本）===
   {
-    image: IMG02_訓練場,
-    alt: '訓練場',
+    image: IMG_虛空教室_靈魂訓練,
+    alt: '虛空教室',
     nodePatterns: ['prologue-'],
   },
 
@@ -119,7 +124,7 @@ export const sceneImages: SceneImageConfig[] = [
 
   // === 第二章：渡口（支援 yi1- 前綴）===
   {
-    image: IMG_迷霧渡口_桂花醒來,
+    image: IMG_月光倒影_渡口尋問,
     alt: '迷霧渡口',
     nodePatterns: ['chapter-2-intro', 'chapter-2-1', 'chapter-2-2', 'chapter-2-3', 'chapter-2-4', 'chapter-2-5', 'chapter-2-6', 'chapter-2-7', 'chapter-2-8', 'chapter-2-9', 'chapter-2-10', 'chapter-2-11', 'chapter-2-12', 'chapter-2-13', 'chapter-2-14', 'chapter-2-15'],
   },
@@ -325,9 +330,9 @@ export const sceneImages: SceneImageConfig[] = [
     nodePatterns: ['chapter15-1', 'chapter15-2', 'chapter15-3', 'chapter15-4', 'chapter15-5', 'chapter15-6', 'chapter15-7', 'chapter15-8', 'chapter-15-1', 'chapter-15-2', 'chapter-15-3', 'chapter-15-4', 'chapter-15-5', 'chapter-15-6', 'chapter-15-7', 'chapter-15-8'],
   },
   {
-    image: IMG_影子伊_雙生對峙,
+    image: IMG_影子伊_雙生對峙_唯美,
     alt: '影子伊對峙',
-    nodePatterns: ['chapter15-9', 'chapter15-10', 'chapter15-11', 'chapter15-12', 'chapter15-13', 'chapter15-14', 'chapter15-15', 'chapter15-16', 'chapter15-17', 'chapter15-18', 'chapter15-19', 'chapter15-20', 'chapter15-21', 'chapter15-22', 'chapter15-23', 'chapter15-24', 'chapter15-25', 'chapter15-26', 'chapter15-27', 'chapter15-28', 'chapter15-29', 'chapter15-30', 'chapter15-31', 'chapter15-32', 'chapter15-33', 'chapter15-34', 'chapter15-35', 'chapter15-36', 'chapter15-37', 'chapter15-38', 'chapter15-39', 'chapter15-40'],
+    nodePatterns: ['chapter15-9', 'chapter15-10', 'chapter15-11', 'chapter15-12', 'chapter15-13', 'chapter15-14', 'chapter15-15', 'chapter15-16', 'chapter15-17', 'chapter15-18', 'chapter15-19', 'chapter15-20', 'chapter15-21', 'chapter15-22', 'chapter15-23', 'chapter15-24', 'chapter15-25', 'chapter15-26', 'chapter15-27', 'chapter15-28', 'chapter15-29', 'chapter15-30', 'chapter15-31', 'chapter15-32', 'chapter15-33', 'chapter15-34', 'chapter15-35', 'chapter15-36', 'chapter15-37', 'chapter15-38', 'chapter15-39', 'chapter15-40', 'chapter-15-9', 'chapter-15-10', 'chapter-15-11', 'chapter-15-12', 'chapter-15-13', 'chapter-15-14', 'chapter-15-15', 'chapter-15-16', 'chapter-15-17', 'chapter-15-18', 'chapter-15-19', 'chapter-15-20'],
   },
   {
     image: IMG40_洞穴光明,
