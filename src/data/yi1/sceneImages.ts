@@ -53,6 +53,15 @@ import IMG49_清晨窗景 from '@/assets/scenes/IMG49_清晨窗景_統一版.png
 import IMG50_起身 from '@/assets/scenes/IMG50_起身_統一版.png';
 import IMG51_新的開始 from '@/assets/scenes/IMG51_新的開始_統一版.png';
 
+// 新增藝術版場景圖片
+import IMG_雨後庭院_蘇軾贈茶 from '@/assets/scenes/雨後庭院_蘇軾贈茶_藝術版.png';
+import IMG_竹林斜雨_蘇軾引路 from '@/assets/scenes/竹林斜雨_蘇軾引路_藝術版.png';
+import IMG_虛空聽答_雨後沉思 from '@/assets/scenes/虛空聽答_雨後沉思_藝術版.png';
+import IMG_迷霧渡口_桂花醒來 from '@/assets/scenes/迷霧渡口_桂花醒來_藝術版.png';
+import IMG_問心微笑_光之相遇 from '@/assets/scenes/問心微笑_光之相遇_藝術版.png';
+import IMG_迷霧小船_擺渡人 from '@/assets/scenes/迷霧小船_擺渡人_藝術版.png';
+import IMG_螢幕吞沒_靈魂轉化 from '@/assets/scenes/螢幕吞沒_靈魂轉化_藝術版.png';
+
 export interface SceneImageConfig {
   image: string;
   alt: string;
@@ -94,24 +103,24 @@ export const sceneImages: SceneImageConfig[] = [
     nodePatterns: ['chapter-1-31', 'chapter-1-32', 'chapter-1-33', 'chapter-1-34', 'chapter-1-35', 'chapter-1-36', 'chapter-1-37', 'chapter-1-38', 'chapter-1-39', 'chapter-1-40', 'chapter-1-41', 'chapter-1-42', 'chapter-1-43', 'chapter-1-44', 'chapter-1-45', 'chapter-1-choice', 'chapter-1-confirm', 'chapter-1-cancel'],
   },
   {
-    image: IMG06_靈魂抽離,
+    image: IMG_螢幕吞沒_靈魂轉化,
     alt: '靈魂抽離',
     nodePatterns: ['chapter-1-46', 'chapter-1-47', 'chapter-1-48', 'chapter-1-49', 'chapter-1-50', 'chapter-1-end'],
   },
 
   // === 第二章：渡口（支援 yi1- 前綴）===
   {
-    image: IMG07_迷霧渡口,
+    image: IMG_迷霧渡口_桂花醒來,
     alt: '迷霧渡口',
     nodePatterns: ['chapter-2-intro', 'chapter-2-1', 'chapter-2-2', 'chapter-2-3', 'chapter-2-4', 'chapter-2-5', 'chapter-2-6', 'chapter-2-7', 'chapter-2-8', 'chapter-2-9', 'chapter-2-10', 'chapter-2-11', 'chapter-2-12', 'chapter-2-13', 'chapter-2-14', 'chapter-2-15'],
   },
   {
-    image: IMG03_問心初登場,
+    image: IMG_問心微笑_光之相遇,
     alt: '問心初登場',
     nodePatterns: ['chapter-2-16', 'chapter-2-17', 'chapter-2-18', 'chapter-2-19', 'chapter-2-20', 'chapter-2-21', 'chapter-2-22', 'chapter-2-23', 'chapter-2-24', 'chapter-2-25', 'chapter-2-26', 'chapter-2-27', 'chapter-2-28', 'chapter-2-29', 'chapter-2-30', 'chapter-2-choice-1', 'chapter-2-31', 'chapter-2-32', 'chapter-2-33', 'chapter-2-34', 'chapter-2-35'],
   },
   {
-    image: IMG08_擺渡人,
+    image: IMG_迷霧小船_擺渡人,
     alt: '擺渡人',
     nodePatterns: ['chapter-2-36', 'chapter-2-37', 'chapter-2-38', 'chapter-2-39', 'chapter-2-40', 'chapter-2-41', 'chapter-2-42', 'chapter-2-43', 'chapter-2-44', 'chapter-2-45', 'chapter-2-46', 'chapter-2-47', 'chapter-2-48', 'chapter-2-49', 'chapter-2-50', 'chapter-2-51', 'chapter-2-52', 'chapter-2-53', 'chapter-2-54', 'chapter-2-55', 'chapter-2-56', 'chapter-2-57', 'chapter-2-58', 'chapter-2-59', 'chapter-2-60', 'chapter-2-end', 'chapter-2-choice-2'],
   },
@@ -130,7 +139,7 @@ export const sceneImages: SceneImageConfig[] = [
 
   // === 第四章：命樹（蘇軾）===
   {
-    image: IMG11_蘇軾命樹,
+    image: IMG_竹林斜雨_蘇軾引路,
     alt: '蘇軾命樹',
     nodePatterns: ['chapter-4-intro', 'chapter-4-1', 'chapter-4-2', 'chapter-4-3', 'chapter-4-4', 'chapter-4-5', 'chapter-4-6', 'chapter-4-7', 'chapter-4-8', 'chapter-4-9', 'chapter-4-10', 'chapter-4-11', 'chapter-4-12', 'chapter-4-13', 'chapter-4-14', 'chapter-4-15', 'chapter-4-16', 'chapter-4-17', 'chapter-4-18', 'chapter-4-19', 'chapter-4-20'],
   },
@@ -152,17 +161,17 @@ export const sceneImages: SceneImageConfig[] = [
 
   // === 第五章：也無風雨也無晴 ===
   {
-    image: IMG11_蘇軾命樹,
+    image: IMG_竹林斜雨_蘇軾引路,
     alt: '蘇軾庭院',
     nodePatterns: ['chapter-5-intro', 'chapter-5-1', 'chapter-5-2', 'chapter-5-3', 'chapter-5-4', 'chapter-5-5', 'chapter-5-6', 'chapter-5-7', 'chapter-5-8', 'chapter-5-9', 'chapter-5-10', 'chapter-5-11', 'chapter-5-12', 'chapter-5-13', 'chapter-5-14', 'chapter-5-15', 'chapter-5-16', 'chapter-5-17', 'chapter-5-18', 'chapter-5-19', 'chapter-5-20'],
   },
   {
-    image: IMG12_命樹特寫,
+    image: IMG_雨後庭院_蘇軾贈茶,
     alt: '命樹特寫',
     nodePatterns: ['chapter-5-21', 'chapter-5-22', 'chapter-5-23', 'chapter-5-24', 'chapter-5-25', 'chapter-5-26', 'chapter-5-27', 'chapter-5-28', 'chapter-5-29', 'chapter-5-30', 'chapter-5-31', 'chapter-5-32', 'chapter-5-33', 'chapter-5-34', 'chapter-5-35', 'chapter-5-36', 'chapter-5-37', 'chapter-5-38', 'chapter-5-39', 'chapter-5-40'],
   },
   {
-    image: IMG14_弧度林全景,
+    image: IMG_虛空聽答_雨後沉思,
     alt: '弧度林',
     nodePatterns: ['chapter-5-'],
   },
