@@ -55,6 +55,29 @@ export const chapter10Nodes: DialogueNode[] = [
     id: 'yi1-chapter-10-6',
     speaker: 'caesar',
     text: '我們在討論「關係」。聽說妳在關係裡總是很卑微？',
+    nextNodeId: 'yi1-chapter-10-choice-1',
+  },
+
+  // === 選項1：面對凱薩的直言 ===
+  {
+    id: 'yi1-chapter-10-choice-1',
+    speaker: 'narrator',
+    text: '凱薩的話讓她有些不自在……',
+    choices: [
+      { id: 'ch10-admit', text: '是的，我總是在討好別人', nextNodeId: 'yi1-chapter-10-admit-1', arcChange: 3, shadowChange: 0 },
+      { id: 'ch10-defend', text: '我只是想讓大家都開心', nextNodeId: 'yi1-chapter-10-defend-1', arcChange: 0, shadowChange: 2 },
+    ],
+  },
+  {
+    id: 'yi1-chapter-10-admit-1',
+    speaker: 'protagonist',
+    text: '是的……我好像總是在討好別人。害怕被討厭。',
+    nextNodeId: 'yi1-chapter-10-8',
+  },
+  {
+    id: 'yi1-chapter-10-defend-1',
+    speaker: 'protagonist',
+    text: '我只是……不想讓別人不開心。我習慣配合別人。',
     nextNodeId: 'yi1-chapter-10-7',
   },
   {
@@ -67,6 +90,7 @@ export const chapter10Nodes: DialogueNode[] = [
     id: 'yi1-chapter-10-8',
     speaker: 'cleopatra',
     text: '配合？親愛的，那叫「消失」。當妳在關係裡把自己縮到最小，妳就消失了。',
+    bgImage: 'cleopatra_close', // 切換場景：克麗奧佩特拉特寫
     nextNodeId: 'yi1-chapter-10-9',
   },
   {
@@ -109,12 +133,43 @@ export const chapter10Nodes: DialogueNode[] = [
     id: 'yi1-chapter-10-14',
     speaker: 'protagonist',
     text: '可是……如果我表達真實的自己，對方離開了怎麼辦？',
+    nextNodeId: 'yi1-chapter-10-choice-2',
+  },
+
+  // === 選項2：面對「被離開」的恐懼 ===
+  {
+    id: 'yi1-chapter-10-choice-2',
+    speaker: 'narrator',
+    text: '她心中的恐懼浮現出來……',
+    choices: [
+      { id: 'ch10-fear', text: '我害怕一個人', nextNodeId: 'yi1-chapter-10-fear-1', arcChange: 0, shadowChange: 3 },
+      { id: 'ch10-realize', text: '也許……我該面對這個恐懼', nextNodeId: 'yi1-chapter-10-realize-1', arcChange: 5, shadowChange: 0 },
+    ],
+  },
+  {
+    id: 'yi1-chapter-10-fear-1',
+    speaker: 'protagonist',
+    text: '我害怕一個人……沒有人陪的感覺太可怕了。',
+    nextNodeId: 'yi1-chapter-10-15',
+  },
+  {
+    id: 'yi1-chapter-10-realize-1',
+    speaker: 'protagonist',
+    text: '也許……我該面對這個恐懼。就算被離開，我也還是我。',
+    nextNodeId: 'yi1-chapter-10-realize-2',
+  },
+  {
+    id: 'yi1-chapter-10-realize-2',
+    speaker: 'cleopatra',
+    text: '看來你開始懂了。',
+    emotionSFX: 'gentle_laugh',
     nextNodeId: 'yi1-chapter-10-15',
   },
   {
     id: 'yi1-chapter-10-15',
     speaker: 'caesar',
     text: '那就讓他走。',
+    bgImage: 'caesar_close', // 切換場景：凱薩特寫
     nextNodeId: 'yi1-chapter-10-16',
   },
   {
@@ -128,6 +183,12 @@ export const chapter10Nodes: DialogueNode[] = [
     speaker: 'cleopatra',
     text: '敢於失去，妳才擁有選擇權。不敢失去的人，永遠是奴隸。',
     effect: 'glow',
+    specialScene: 'zen',
+    zenConfig: {
+      text: '敢於失去',
+      subtitle: '才擁有選擇權',
+      theme: 'golden',
+    },
     nextNodeId: 'yi1-chapter-10-18',
   },
 

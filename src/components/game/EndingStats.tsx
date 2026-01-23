@@ -13,7 +13,8 @@ interface EndingStatsProps {
 }
 
 // 全篇總選項數（根據實際章節選項統計）
-const TOTAL_CHOICES_AVAILABLE = 8; // ch1:1, ch4:1, ch7:3, ch8:3
+// ch1:1, ch4:1, ch7:3, ch8:3, ch9:2, ch10:2, ch11:2, ch12:2 = 16個
+const TOTAL_CHOICES_AVAILABLE = 16;
 
 // 根據弧度值計算結局類型
 const getEndingType = (arcValue: number): { title: string; description: string; color: string } => {
