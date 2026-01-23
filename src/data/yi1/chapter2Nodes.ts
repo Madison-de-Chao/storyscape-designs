@@ -70,12 +70,40 @@ export const chapter2Nodes: DialogueNode[] = [
     speaker: 'wenxin',
     speakerName: '問心',
     text: '這裡是元壹境。妳沒死，只是把自己的世界炸了。',
-    nextNodeId: 'yi1-chapter-2-9',
+    nextNodeId: 'yi1-chapter-2-choice-1',
+  },
+  // 🎯 選項1：對「炸了」的反應
+  {
+    id: 'yi1-chapter-2-choice-1',
+    speaker: 'narrator',
+    text: '「把自己的世界炸了」——這句話像一記重錘，敲在她心上。',
+    choices: [
+      {
+        id: 'choice-2-1a',
+        text: '「我只是想結束一切……」',
+        arcChange: -5,
+        shadowChange: 5,
+        nextNodeId: 'yi1-chapter-2-9a',
+      },
+      {
+        id: 'choice-2-1b',
+        text: '「那個按鈕……我記得。」',
+        arcChange: 5,
+        shadowChange: 0,
+        nextNodeId: 'yi1-chapter-2-9b',
+      },
+    ],
   },
   {
-    id: 'yi1-chapter-2-9',
-    speaker: 'protagonist',
-    text: '炸了？',
+    id: 'yi1-chapter-2-9a',
+    speaker: 'wenxin',
+    text: '結束？不，妳只是按下了暫停鍵。真正的結束，需要妳親自走完這段路。',
+    nextNodeId: 'yi1-chapter-2-10',
+  },
+  {
+    id: 'yi1-chapter-2-9b',
+    speaker: 'wenxin',
+    text: '記得就好。那一刻的感覺，妳需要好好面對。',
     nextNodeId: 'yi1-chapter-2-10',
   },
   {
@@ -88,7 +116,7 @@ export const chapter2Nodes: DialogueNode[] = [
     id: 'yi1-chapter-2-11',
     speaker: 'wenxin',
     text: '我是這裡的擺渡人。妳可以叫我——問心。',
-    bgImage: 'wenxin_smile', // 問心露臉
+    bgImage: 'wenxin_smile',
     effect: 'glow',
     nextNodeId: 'yi1-chapter-2-12',
   },
@@ -104,19 +132,55 @@ export const chapter2Nodes: DialogueNode[] = [
     id: 'yi1-chapter-2-13',
     speaker: 'wenxin',
     text: '去見第一位導師。他等妳很久了。',
-    nextNodeId: 'yi1-chapter-2-14',
+    bgImage: 'foggy_river_distant',
+    nextNodeId: 'yi1-chapter-2-choice-2',
+  },
+  // 🎯 選項2：對導師的態度
+  {
+    id: 'yi1-chapter-2-choice-2',
+    speaker: 'narrator',
+    text: '導師？她從來不相信什麼導師。人生的路不都是自己走的嗎？',
+    choices: [
+      {
+        id: 'choice-2-2a',
+        text: '「我不需要導師。」',
+        arcChange: -3,
+        shadowChange: 3,
+        nextNodeId: 'yi1-chapter-2-14a',
+      },
+      {
+        id: 'choice-2-2b',
+        text: '「……好吧，我願意試試。」',
+        arcChange: 5,
+        shadowChange: -2,
+        nextNodeId: 'yi1-chapter-2-14b',
+      },
+    ],
   },
   {
-    id: 'yi1-chapter-2-14',
+    id: 'yi1-chapter-2-14a',
     speaker: 'wenxin',
-    text: '妳一直在找一個標準答案，想知道什麼是對的，什麼是錯的。這個人，或許能回答妳。',
+    text: '（輕笑）不需要？那妳為什麼會來到這裡？',
+    nextNodeId: 'yi1-chapter-2-15',
+  },
+  {
+    id: 'yi1-chapter-2-14b',
+    speaker: 'wenxin',
+    text: '（微微點頭）願意嘗試，這就是改變的開始。',
+    nextNodeId: 'yi1-chapter-2-15',
+  },
+  {
+    id: 'yi1-chapter-2-15',
+    speaker: 'wenxin',
+    text: '妳一直在向外找答案，想知道什麼是對的，什麼是錯的。這個人，或許能回答妳。',
     nextNodeId: 'yi1-chapter-2-end',
   },
   {
     id: 'yi1-chapter-2-end',
     speaker: 'narrator',
     text: '船穿過迷霧，前方隱約出現了一座古樸的庭院。',
-    nextNodeId: 'yi1-chapter-3-intro-1', // 🔗 連接到第三章
+    bgImage: 'courtyard_distant',
+    nextNodeId: 'yi1-chapter-3-intro-1',
     effect: 'mist',
   },
 ];
