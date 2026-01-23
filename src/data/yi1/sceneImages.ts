@@ -87,6 +87,9 @@ import IMG_書店角落_書的相遇 from '@/assets/scenes/書店角落_書的�
 import IMG_出版社辦公室_簽約 from '@/assets/scenes/出版社辦公室_簽約_藝術版.png';
 import IMG_白天書桌_Delete鍵 from '@/assets/scenes/白天書桌_Delete鍵_藝術版.png';
 
+// 新增賈伯斯場景
+import IMG_賈伯斯與主角_蘋果之光 from '@/assets/scenes/賈伯斯與主角_蘋果之光_美男子版.png';
+
 export interface SceneImageConfig {
   image: string;
   alt: string;
@@ -294,8 +297,8 @@ export const sceneImages: SceneImageConfig[] = [
 
   // === 第十三章：最後一課（賈伯斯）===
   {
-    image: IMG32_問心再現,  // TODO: 需要替換為賈伯斯極簡空間
-    alt: '賈伯斯空間',
+    image: IMG_賈伯斯與主角_蘋果之光,
+    alt: '賈伯斯極簡空間',
     nodePatterns: ['chapter13-', 'chapter-13-'],
   },
 
