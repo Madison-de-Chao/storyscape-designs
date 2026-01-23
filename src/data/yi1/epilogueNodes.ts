@@ -1,7 +1,7 @@
 import type { DialogueNode } from '@/stores/gameStore';
 
 export const epilogueNodes: DialogueNode[] = [
-  // ... (前面的內容保持不變) ...
+  // 一、回到房間
   {
     id: 'yi1-epilogue-1',
     speaker: 'narrator',
