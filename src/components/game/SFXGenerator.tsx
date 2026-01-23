@@ -7,111 +7,61 @@ interface SFXGeneratorProps {
   onClose?: () => void;
 }
 
-const EMOTION_PRESETS = [
-  // 男聲版本
+// 只保留尚未製作的音效
+const MISSING_SFX_PRESETS = [
   {
-    id: 'cold_laugh_male',
-    label: '冷笑（男）',
-    emoji: '😏',
-    prompt: "A young man's cold, dismissive scoff. Short and sharp with a hint of condescension. Subtle breath followed by a brief, icy chuckle that trails off. Realistic male voice, slightly mocking tone",
+    id: 'wood_chop',
+    label: '劈柴聲',
+    emoji: '🪓',
+    prompt: "Realistic wood chopping sound. A sharp axe striking a log with a satisfying thunk, wood splitting apart. Single clean chop with slight echo, outdoor forest setting. Crisp and powerful impact",
     duration: 2,
+    usage: '林肯章節',
   },
   {
-    id: 'mockery_male',
-    label: '嘲諷（男）',
-    emoji: '🙄',
-    prompt: "A young man's mocking laugh. Exaggerated and theatrical with an air of superiority. A sharp 'ha!' followed by a drawn-out, condescending chuckle. Realistic male voice, sarcastic and dismissive",
-    duration: 2,
+    id: 'rain_light',
+    label: '輕柔雨聲',
+    emoji: '🌧️',
+    prompt: "Gentle light rain ambient sound. Soft raindrops falling on leaves and rooftops. Peaceful, calming drizzle without thunder. Continuous gentle patter, relaxing nature atmosphere",
+    duration: 8,
+    usage: '蘇軾章節',
   },
   {
-    id: 'contempt_male',
-    label: '輕蔑（男）',
-    emoji: '😤',
-    prompt: "A young man's contemptuous huff. A sharp exhale through the nose followed by a quiet, disdainful 'tch' sound. Brief and cutting. Realistic male voice, expressing disgust and superiority",
-    duration: 1.5,
-  },
-  {
-    id: 'mysterious_whisper_male',
-    label: '神秘低語（男）',
-    emoji: '🤫',
-    prompt: "A young man's mysterious whisper. Soft, breathy, and enigmatic. A quiet, drawn-out unintelligible murmur that fades into silence. Realistic male voice, ethereal and haunting",
-    duration: 3,
-  },
-  {
-    id: 'mysterious_whisper_female',
-    label: '神秘低語（女）',
-    emoji: '🤫',
-    prompt: "A young woman's mysterious whisper. Soft, breathy, and enigmatic. A quiet, drawn-out unintelligible murmur that fades into silence. Realistic female voice, ethereal and haunting",
-    duration: 3,
-  },
-  {
-    id: 'evil_giggle_male',
-    label: '邪惡輕笑（男）',
-    emoji: '😈',
-    prompt: "A young man's sinister giggle. Low and unsettling, starting soft then building to a brief, unnerving laugh. Realistic male voice with a dark, threatening undertone",
-    duration: 2.5,
-  },
-  {
-    id: 'sad_sigh_male',
-    label: '哀傷嘆息（男）',
-    emoji: '😢',
-    prompt: "A young man's sad, melancholic sigh. A deep, trembling breath followed by a soft, sorrowful exhale. Realistic male voice filled with grief and longing",
-    duration: 2,
-  },
-  {
-    id: 'surprise_male',
-    label: '驚訝（男）',
-    emoji: '😲',
-    prompt: "A young man's surprised gasp. A sudden sharp intake of breath followed by a soft 'oh!' with rising intonation. Realistic male voice expressing genuine shock and wonder",
-    duration: 1.5,
-  },
-  {
-    id: 'excitement_male',
-    label: '興奮（男）',
-    emoji: '🤩',
-    prompt: "A young man's excited exclamation. A quick, energetic laugh bursting with joy and enthusiasm. Breathless and energetic with infectious happiness. Realistic male voice, youthful and thrilled",
-    duration: 2,
-  },
-  {
-    id: 'fear_male',
-    label: '恐懼（男）',
-    emoji: '😨',
-    prompt: "A young man's fearful whimper. A trembling, shaky breath followed by a quiet, terrified gasp. Voice quivering with dread and vulnerability. Realistic male voice expressing deep fear",
-    duration: 2,
-  },
-  {
-    id: 'gentle_laugh_male',
-    label: '溫柔笑聲（男）',
-    emoji: '🥰',
-    prompt: "A young man's gentle, warm laugh. Soft and melodic, like sunlight through leaves. A quiet, affectionate chuckle that conveys kindness and comfort. Realistic male voice, soothing and warm",
-    duration: 2,
-  },
-  {
-    id: 'frustration_male',
-    label: '煩躁（男）',
-    emoji: '😫',
-    prompt: "A young man's frustrated groan. An exasperated sigh followed by a muttered complaint. Tense and impatient with barely contained irritation. Realistic male voice expressing annoyance",
-    duration: 2,
-  },
-  {
-    id: 'seductive_male',
-    label: '魅惑（男）',
-    emoji: '💋',
-    prompt: "A young man's seductive whisper. Low, breathy, and alluring. A soft, drawn-out hum followed by a quiet, inviting chuckle. Realistic male voice, sultry and mysterious",
-    duration: 2.5,
-  },
-  {
-    id: 'revelation',
-    label: '啟示',
-    emoji: '✨',
-    prompt: "Ethereal resonating crystal chime with gentle ascending chord, magical spiritual awakening moment, soft bells and celestial harmonics, cinematic epiphany sound effect",
+    id: 'ear_ringing',
+    label: '耳鳴聲',
+    emoji: '🔔',
+    prompt: "Tinnitus ear ringing sound effect. High-pitched continuous tone that swells and fades. Disorienting, unsettling frequency. Subtle pulsing, headache inducing whine. Psychological tension",
     duration: 4,
+    usage: '崩潰時刻',
+  },
+  {
+    id: 'birds_chirping',
+    label: '鳥鳴聲',
+    emoji: '🐦',
+    prompt: "Morning birds chirping and singing. Multiple songbirds creating a peaceful dawn chorus. Cheerful, hopeful ambient sound. Clear tweets and melodic calls, new beginning atmosphere",
+    duration: 6,
+    usage: '清晨場景',
+  },
+  {
+    id: 'digital_break',
+    label: '數位破碎聲',
+    emoji: '💥',
+    prompt: "Digital glitch destruction sound. Electronic circuits breaking apart, data corruption noise. Static bursts, pixelated crackle, binary disintegration. Cyberpunk system crash effect",
+    duration: 3,
+    usage: '刪除場景',
+  },
+  {
+    id: 'holy_bell',
+    label: '神聖鐘聲',
+    emoji: '🛕',
+    prompt: "Sacred temple bell resonating. Deep, pure bronze bell strike with long ethereal reverb. Spiritual awakening tone, Buddhist meditation bell. Single majestic chime fading into silence",
+    duration: 5,
+    usage: '頓悟時刻',
   },
 ];
 
 const SFXGenerator = ({ onClose }: SFXGeneratorProps) => {
   const [isGenerating, setIsGenerating] = useState(false);
-  const [selectedEmotion, setSelectedEmotion] = useState(EMOTION_PRESETS[0]);
+  const [selectedSFX, setSelectedSFX] = useState(MISSING_SFX_PRESETS[0]);
   const [audioBlob, setAudioBlob] = useState<Blob | null>(null);
   const [audioUrl, setAudioUrl] = useState<string | null>(null);
 
@@ -128,8 +78,8 @@ const SFXGenerator = ({ onClose }: SFXGeneratorProps) => {
             'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
           },
           body: JSON.stringify({
-            prompt: selectedEmotion.prompt,
-            duration: selectedEmotion.duration,
+            prompt: selectedSFX.prompt,
+            duration: selectedSFX.duration,
           }),
         }
       );
@@ -162,7 +112,7 @@ const SFXGenerator = ({ onClose }: SFXGeneratorProps) => {
     if (audioBlob && audioUrl) {
       const link = document.createElement('a');
       link.href = audioUrl;
-      link.download = `${selectedEmotion.id}.mp3`;
+      link.download = `${selectedSFX.id}.mp3`;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
@@ -175,31 +125,34 @@ const SFXGenerator = ({ onClose }: SFXGeneratorProps) => {
       <div className="bg-gradient-to-br from-slate-900 to-slate-800 rounded-xl p-6 max-w-md w-full border border-amber-500/30 shadow-2xl max-h-[90vh] overflow-y-auto">
         <h2 className="text-2xl font-bold text-amber-400 mb-4 flex items-center gap-2">
           <Volume2 className="w-6 h-6" />
-          AI 女聲音效生成
+          缺失音效生成器
         </h2>
         
         <p className="text-slate-300 mb-4 text-sm">
-          選擇情緒類型，生成不同風格的女聲音效
+          以下音效尚未製作，選擇後可生成並下載
         </p>
 
-        {/* Emotion Selection Grid */}
-        <div className="grid grid-cols-3 gap-2 mb-6">
-          {EMOTION_PRESETS.map((emotion) => (
+        {/* SFX Selection Grid */}
+        <div className="grid grid-cols-2 gap-3 mb-6">
+          {MISSING_SFX_PRESETS.map((sfx) => (
             <button
-              key={emotion.id}
+              key={sfx.id}
               onClick={() => {
-                setSelectedEmotion(emotion);
+                setSelectedSFX(sfx);
                 setAudioUrl(null);
                 setAudioBlob(null);
               }}
-              className={`p-3 rounded-lg border transition-all text-center ${
-                selectedEmotion.id === emotion.id
+              className={`p-3 rounded-lg border transition-all text-left ${
+                selectedSFX.id === sfx.id
                   ? 'border-amber-500 bg-amber-500/20 text-amber-300'
                   : 'border-slate-600 bg-slate-800/50 text-slate-400 hover:border-slate-500 hover:bg-slate-700/50'
               }`}
             >
-              <span className="text-2xl block mb-1">{emotion.emoji}</span>
-              <span className="text-xs font-medium">{emotion.label}</span>
+              <div className="flex items-center gap-2 mb-1">
+                <span className="text-xl">{sfx.emoji}</span>
+                <span className="text-sm font-medium">{sfx.label}</span>
+              </div>
+              <span className="text-xs text-slate-500">用於：{sfx.usage}</span>
             </button>
           ))}
         </div>
@@ -216,7 +169,7 @@ const SFXGenerator = ({ onClose }: SFXGeneratorProps) => {
                 生成中...
               </>
             ) : (
-              <>生成「{selectedEmotion.label}」音效</>
+              <>生成「{selectedSFX.label}」音效</>
             )}
           </Button>
 
