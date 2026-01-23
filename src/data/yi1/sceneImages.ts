@@ -100,6 +100,11 @@ import IMG_伊整合擁抱與回歸_最終圓滿 from '@/assets/scenes/伊整合
 import IMG_王陽明龍場石洞_心即理 from '@/assets/scenes/王陽明龍場石洞_心即理_粉嫩少女漫畫版.png';
 import IMG_武則天寶座_權力威儀 from '@/assets/scenes/武則天寶座_權力威儀_粉嫩少女漫畫版.png';
 
+// 新增粉嫩少女漫畫版場景圖片（第二批）
+import IMG_訓練場_虛空圓形平台 from '@/assets/scenes/訓練場_虛空圓形平台_粉嫩少女漫畫版.png';
+import IMG_靈魂抽離_靈魂與肉身 from '@/assets/scenes/靈魂抽離_靈魂與肉身_粉嫩少女漫畫版.png';
+import IMG_刪除之夜_深夜房間 from '@/assets/scenes/刪除之夜_深夜房間_粉嫩少女漫畫版.png';
+import IMG_作者序場景_起源微光 from '@/assets/scenes/作者序場景_起源微光_粉嫩少女漫畫版.png';
 export interface SceneImageConfig {
   image: string;
   alt: string;
@@ -115,24 +120,24 @@ export const defaultSceneImage: SceneImageConfig = {
 };
 
 export const sceneImages: SceneImageConfig[] = [
-  // === 作者序 ===
+  // === 作者序（使用粉嫩少女漫畫版）===
   {
-    image: IMG01_作者序,
-    alt: '作者序',
+    image: IMG_作者序場景_起源微光,
+    alt: '作者序 - 起源微光',
     nodePatterns: ['preface-'],
   },
 
-  // === 序章：訓練場（使用虛空教室版本）===
+  // === 序章：訓練場（使用粉嫩少女漫畫版）===
   {
-    image: IMG_虛空教室_靈魂訓練,
-    alt: '虛空教室',
+    image: IMG_訓練場_虛空圓形平台,
+    alt: '虛空圓形平台',
     nodePatterns: ['prologue-'],
   },
 
-  // === 第一章：刪除 ===
+  // === 第一章：刪除（使用粉嫩少女漫畫版）===
   {
-    image: IMG_晚間書桌_深夜掙扎,
-    alt: '深夜書桌',
+    image: IMG_刪除之夜_深夜房間,
+    alt: '深夜房間',
     nodePatterns: ['chapter-1-intro', 'chapter-1-1', 'chapter-1-2', 'chapter-1-3', 'chapter-1-4', 'chapter-1-5', 'chapter-1-6', 'chapter-1-7', 'chapter-1-8', 'chapter-1-9', 'chapter-1-10', 'chapter-1-11', 'chapter-1-12', 'chapter-1-13', 'chapter-1-14', 'chapter-1-15', 'chapter-1-16', 'chapter-1-17', 'chapter-1-18', 'chapter-1-19', 'chapter-1-20', 'chapter-1-21', 'chapter-1-22', 'chapter-1-23', 'chapter-1-24', 'chapter-1-25', 'chapter-1-26', 'chapter-1-27', 'chapter-1-28', 'chapter-1-29', 'chapter-1-30'],
   },
   {
@@ -141,7 +146,7 @@ export const sceneImages: SceneImageConfig[] = [
     nodePatterns: ['chapter-1-31', 'chapter-1-32', 'chapter-1-33', 'chapter-1-34', 'chapter-1-35', 'chapter-1-36', 'chapter-1-37', 'chapter-1-38', 'chapter-1-39', 'chapter-1-40', 'chapter-1-41', 'chapter-1-42', 'chapter-1-43', 'chapter-1-44', 'chapter-1-45', 'chapter-1-choice', 'chapter-1-confirm', 'chapter-1-cancel'],
   },
   {
-    image: IMG_螢幕吞沒_靈魂轉化,
+    image: IMG_靈魂抽離_靈魂與肉身,
     alt: '靈魂抽離',
     nodePatterns: ['chapter-1-46', 'chapter-1-47', 'chapter-1-48', 'chapter-1-49', 'chapter-1-50', 'chapter-1-end'],
   },

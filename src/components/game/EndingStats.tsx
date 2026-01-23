@@ -1,7 +1,7 @@
-import { useRef, useState } from 'react';
-import { motion } from 'framer-motion';
+import { useRef, useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useGameStore } from '@/stores/gameStore';
-import { X, Sparkles, Palette, GitBranch, BookOpen, Clock, Trophy } from 'lucide-react';
+import { X, Sparkles, Palette, GitBranch, BookOpen, Clock, Trophy, Star, AlertCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useShareImage } from '@/hooks/useShareImage';
 import ShareButtons from './ShareButtons';
@@ -11,6 +11,9 @@ interface EndingStatsProps {
   isOpen: boolean;
   onClose: () => void;
 }
+
+// 全篇總選項數（根據實際章節選項統計）
+const TOTAL_CHOICES_AVAILABLE = 8; // ch1:1, ch4:1, ch7:3, ch8:3
 
 // 根據弧度值計算結局類型
 const getEndingType = (arcValue: number): { title: string; description: string; color: string } => {
@@ -39,6 +42,58 @@ const getEndingType = (arcValue: number): { title: string; description: string; 
       color: 'text-gray-400',
     };
   }
+};
+
+// 完整度計算與調侃語句
+const getCompletenessData = (choicesMade: number, totalAvailable: number) => {
+  const percentage = Math.round((choicesMade / totalAvailable) * 100);
+  
+  // 根據完整度返回對應的調侃語句（會輪播）
+  let teasingMessages: string[] = [];
+  let level: 'perfect' | 'good' | 'medium' | 'low' = 'low';
+  
+  if (percentage >= 100) {
+    level = 'perfect';
+    teasingMessages = [
+      '✨ 恭喜你，真正的完美主義者！連問心都在鼓掌！',
+      '🌟 每一個選擇都沒放過，這執著讓我感動！',
+      '💫 你是不是連攻略都看完了？（開玩笑的）',
+    ];
+  } else if (percentage >= 75) {
+    level = 'good';
+    teasingMessages = [
+      '👏 做得不錯！只差一點點就完美了～',
+      '🎯 看來你很認真體驗這趟旅程呢',
+      '💪 距離完美就差那麼一咪咪',
+    ];
+  } else if (percentage >= 50) {
+    level = 'medium';
+    teasingMessages = [
+      '🤔 一半一半……是選擇困難症嗎？',
+      '😅 有些關鍵時刻你選擇了沉默呢',
+      '🎭 猶豫之間，錯過了一些風景',
+      '💭 下次可以更勇敢一點喔',
+    ];
+  } else if (percentage >= 25) {
+    level = 'low';
+    teasingMessages = [
+      '😶 你……是不是一直按跳過？',
+      '🙈 問心：「我說了那麼多，你到底有沒有在聽！」',
+      '💤 這趟旅程你好像有點心不在焉呢',
+      '🌫️ 很多選擇的岔路，你都擦肩而過了',
+    ];
+  } else {
+    level = 'low';
+    teasingMessages = [
+      '😱 你確定有玩過嗎？！',
+      '🏃 快到終點才發現你一直在趕路',
+      '📖 這本書你好像只看了封面和封底',
+      '🤯 問心表示：我講的你一個字都沒聽進去吧',
+      '💔 歷史人物們：「我們的故事白說了」',
+    ];
+  }
+  
+  return { percentage, level, teasingMessages };
 };
 
 // 收集顏色的展示配置
@@ -75,6 +130,23 @@ const EndingStats = ({ isOpen, onClose }: EndingStatsProps) => {
   const chaptersVisited = Object.keys(readNodes || {}).length;
   const totalChoices = Object.keys(choicesHistory || {}).length;
   const ending = getEndingType(arcValue);
+  
+  // 計算完整度
+  const completeness = getCompletenessData(totalChoices, TOTAL_CHOICES_AVAILABLE);
+  
+  // 跑馬燈狀態
+  const [currentMessageIndex, setCurrentMessageIndex] = useState(0);
+  
+  // 跑馬燈輪播
+  useEffect(() => {
+    if (!isOpen || completeness.teasingMessages.length <= 1) return;
+    
+    const interval = setInterval(() => {
+      setCurrentMessageIndex((prev) => (prev + 1) % completeness.teasingMessages.length);
+    }, 4000);
+    
+    return () => clearInterval(interval);
+  }, [isOpen, completeness.teasingMessages.length]);
   
   // 格式化時間
   const formatPlayTime = (timestamp: number | null) => {
@@ -202,6 +274,86 @@ const EndingStats = ({ isOpen, onClose }: EndingStatsProps) => {
             <span>0°</span>
             <span>180°</span>
           </div>
+        </motion.div>
+
+        {/* 完整度區塊 */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.45 }}
+          className="mx-6 mt-4 p-4 rounded-xl bg-surface/50 border border-border/30"
+        >
+          <div className="flex items-center justify-between mb-3">
+            <span className="text-sm text-muted-foreground flex items-center gap-2">
+              <Star className="w-4 h-4" />
+              旅程完整度
+            </span>
+            <span className={`text-2xl font-bold ${
+              completeness.level === 'perfect' ? 'text-amber-400' :
+              completeness.level === 'good' ? 'text-emerald-400' :
+              completeness.level === 'medium' ? 'text-blue-400' :
+              'text-gray-400'
+            }`}>
+              {completeness.percentage}%
+            </span>
+          </div>
+          <div className="h-3 rounded-full bg-muted/30 overflow-hidden">
+            <motion.div
+              initial={{ width: 0 }}
+              animate={{ width: `${completeness.percentage}%` }}
+              transition={{ delay: 0.55, duration: 1, ease: 'easeOut' }}
+              className={`h-full rounded-full ${
+                completeness.level === 'perfect' ? 'bg-gradient-to-r from-amber-400 via-yellow-400 to-amber-400' :
+                completeness.level === 'good' ? 'bg-gradient-to-r from-emerald-500 to-teal-400' :
+                completeness.level === 'medium' ? 'bg-gradient-to-r from-blue-500 to-cyan-400' :
+                'bg-gradient-to-r from-gray-500 to-gray-400'
+              }`}
+            />
+          </div>
+          <div className="flex justify-between mt-1 text-xs text-muted-foreground">
+            <span>已做 {totalChoices} 個選擇</span>
+            <span>共 {TOTAL_CHOICES_AVAILABLE} 個</span>
+          </div>
+          
+          {/* 跑馬燈調侃 */}
+          <motion.div 
+            className="mt-4 relative h-8 overflow-hidden"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.7 }}
+          >
+            <div className="absolute inset-0 flex items-center justify-center">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={currentMessageIndex}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.5 }}
+                  className={`text-sm text-center px-4 ${
+                    completeness.level === 'perfect' ? 'text-amber-300' :
+                    completeness.level === 'good' ? 'text-emerald-300' :
+                    completeness.level === 'medium' ? 'text-blue-300' :
+                    'text-gray-400'
+                  }`}
+                >
+                  {completeness.teasingMessages[currentMessageIndex]}
+                </motion.div>
+              </AnimatePresence>
+            </div>
+            {completeness.teasingMessages.length > 1 && (
+              <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 flex gap-1">
+                {completeness.teasingMessages.map((_, idx) => (
+                  <div 
+                    key={idx}
+                    className={`w-1.5 h-1.5 rounded-full transition-colors ${
+                      idx === currentMessageIndex ? 'bg-primary' : 'bg-muted/50'
+                    }`}
+                  />
+                ))}
+              </div>
+            )}
+          </motion.div>
         </motion.div>
 
         {/* 統計網格 */}
