@@ -230,95 +230,72 @@ export const sceneImages: SceneImageConfig[] = [
     nodePatterns: ['chapter7-', 'chapter-7-'],
   },
 
-  // === 第八章：筆比命長（司馬遷）===
+  // === 第六章：書匣（司馬遷）===
   {
     image: IMG_司馬遷書房_竹簡對話,
     alt: '司馬遷書房',
-    nodePatterns: ['chapter8-1', 'chapter8-2', 'chapter8-3', 'chapter8-4', 'chapter8-5', 'chapter8-6', 'chapter8-7', 'chapter8-8', 'chapter8-9', 'chapter8-10', 'chapter8-11', 'chapter8-12', 'chapter8-13', 'chapter8-14', 'chapter8-15', 'chapter8-16', 'chapter8-17', 'chapter8-18', 'chapter8-19', 'chapter8-20', 'chapter-8-1', 'chapter-8-2', 'chapter-8-3', 'chapter-8-4', 'chapter-8-5', 'chapter-8-6', 'chapter-8-7', 'chapter-8-8', 'chapter-8-9', 'chapter-8-10', 'chapter-8-11', 'chapter-8-12', 'chapter-8-13', 'chapter-8-14', 'chapter-8-15', 'chapter-8-16', 'chapter-8-17', 'chapter-8-18', 'chapter-8-19', 'chapter-8-20'],
-  },
-  {
-    image: IMG17_書匣打開,
-    alt: '書匣打開',
-    nodePatterns: ['chapter8-', 'chapter-8-'],
+    nodePatterns: ['chapter6-', 'chapter-6-'],
   },
 
-  // === 第九章：天生我材（李白）===
+  // === 第八章：醉與醒（李白）===
   {
     image: IMG_李白月下_詩酒狂歌,
     alt: '李白月下詩酒',
-    nodePatterns: ['chapter9-1', 'chapter9-2', 'chapter9-3', 'chapter9-4', 'chapter9-5', 'chapter9-6', 'chapter9-7', 'chapter9-8', 'chapter9-9', 'chapter9-10', 'chapter-9-1', 'chapter-9-2', 'chapter-9-3', 'chapter-9-4', 'chapter-9-5', 'chapter-9-6', 'chapter-9-7', 'chapter-9-8', 'chapter-9-9', 'chapter-9-10'],
+    nodePatterns: ['chapter8-1', 'chapter8-2', 'chapter8-3', 'chapter8-4', 'chapter8-5', 'chapter8-6', 'chapter8-7', 'chapter8-8', 'chapter8-9', 'chapter8-10', 'chapter-8-1', 'chapter-8-2', 'chapter-8-3', 'chapter-8-4', 'chapter-8-5', 'chapter-8-6', 'chapter-8-7', 'chapter-8-8', 'chapter-8-9', 'chapter-8-10'],
   },
   {
     image: IMG_李白與主角_月下贈酒,
     alt: '李白贈酒',
-    nodePatterns: ['chapter9-11', 'chapter9-12', 'chapter9-13', 'chapter9-14', 'chapter9-15', 'chapter9-16', 'chapter9-17', 'chapter9-18', 'chapter9-19', 'chapter9-20', 'chapter-9-11', 'chapter-9-12', 'chapter-9-13', 'chapter-9-14', 'chapter-9-15', 'chapter-9-16', 'chapter-9-17', 'chapter-9-18', 'chapter-9-19', 'chapter-9-20'],
+    nodePatterns: ['chapter8-11', 'chapter8-12', 'chapter8-13', 'chapter8-14', 'chapter8-15', 'chapter8-16', 'chapter8-17', 'chapter8-18', 'chapter8-19', 'chapter8-20', 'chapter-8-11', 'chapter-8-12', 'chapter-8-13', 'chapter-8-14', 'chapter-8-15', 'chapter-8-16', 'chapter-8-17', 'chapter-8-18', 'chapter-8-19', 'chapter-8-20'],
   },
   {
     image: IMG_李白撈月_水中對戲,
     alt: '李白撈月',
-    nodePatterns: ['chapter9-', 'chapter-9-'],
+    nodePatterns: ['chapter8-', 'chapter-8-'],
   },
 
-  // === 第十章：海倫凱勒 ===
-  {
-    image: IMG26_海倫凱勒,
-    alt: '海倫凱勒',
-    nodePatterns: ['chapter10-1', 'chapter10-2', 'chapter10-3', 'chapter10-4', 'chapter10-5', 'chapter10-6', 'chapter10-7', 'chapter10-8', 'chapter10-9', 'chapter10-10', 'chapter10-11', 'chapter10-12', 'chapter10-13', 'chapter10-14', 'chapter10-15', 'chapter-10-1', 'chapter-10-2', 'chapter-10-3', 'chapter-10-4', 'chapter-10-5', 'chapter-10-6', 'chapter-10-7', 'chapter-10-8', 'chapter-10-9', 'chapter-10-10', 'chapter-10-11', 'chapter-10-12', 'chapter-10-13', 'chapter-10-14', 'chapter-10-15'],
-  },
-  {
-    image: IMG27_觸覺世界,
-    alt: '觸覺世界',
-    nodePatterns: ['chapter10-16', 'chapter10-17', 'chapter10-18', 'chapter10-19', 'chapter10-20', 'chapter10-21', 'chapter10-22', 'chapter10-23', 'chapter10-24', 'chapter10-25', 'chapter10-26', 'chapter10-27', 'chapter10-28', 'chapter10-29', 'chapter10-30', 'chapter-10-16', 'chapter-10-17', 'chapter-10-18', 'chapter-10-19', 'chapter-10-20', 'chapter-10-21', 'chapter-10-22', 'chapter-10-23', 'chapter-10-24', 'chapter-10-25', 'chapter-10-26', 'chapter-10-27', 'chapter-10-28', 'chapter-10-29', 'chapter-10-30'],
-  },
-  {
-    image: IMG28_心靈之眼,
-    alt: '心靈之眼',
-    nodePatterns: ['chapter10-', 'chapter-10-'],
-  },
-
-  // === 第十一章：毒藥（曼德拉）===
+  // === 第九章：困獸與自由（曼德拉）===
   {
     image: IMG_曼德拉花園_幼芽守護,
     alt: '曼德拉花園',
-    nodePatterns: ['chapter11-1', 'chapter11-2', 'chapter11-3', 'chapter11-4', 'chapter11-5', 'chapter11-6', 'chapter11-7', 'chapter11-8', 'chapter11-9', 'chapter11-10', 'chapter11-11', 'chapter11-12', 'chapter11-13', 'chapter11-14', 'chapter11-15', 'chapter-11-1', 'chapter-11-2', 'chapter-11-3', 'chapter-11-4', 'chapter-11-5', 'chapter-11-6', 'chapter-11-7', 'chapter-11-8', 'chapter-11-9', 'chapter-11-10', 'chapter-11-11', 'chapter-11-12', 'chapter-11-13', 'chapter-11-14', 'chapter-11-15'],
+    nodePatterns: ['chapter9-1', 'chapter9-2', 'chapter9-3', 'chapter9-4', 'chapter9-5', 'chapter9-6', 'chapter9-7', 'chapter9-8', 'chapter9-9', 'chapter9-10', 'chapter-9-1', 'chapter-9-2', 'chapter-9-3', 'chapter-9-4', 'chapter-9-5', 'chapter-9-6', 'chapter-9-7', 'chapter-9-8', 'chapter-9-9', 'chapter-9-10'],
   },
   {
     image: IMG23_曼德拉鐵窗,
     alt: '曼德拉鐵窗',
-    nodePatterns: ['chapter11-16', 'chapter11-17', 'chapter11-18', 'chapter11-19', 'chapter11-20', 'chapter11-21', 'chapter11-22', 'chapter11-23', 'chapter11-24', 'chapter11-25', 'chapter11-26', 'chapter11-27', 'chapter11-28', 'chapter11-29', 'chapter11-30', 'chapter-11-16', 'chapter-11-17', 'chapter-11-18', 'chapter-11-19', 'chapter-11-20', 'chapter-11-21', 'chapter-11-22', 'chapter-11-23', 'chapter-11-24', 'chapter-11-25', 'chapter-11-26', 'chapter-11-27', 'chapter-11-28', 'chapter-11-29', 'chapter-11-30'],
+    nodePatterns: ['chapter9-11', 'chapter9-12', 'chapter9-13', 'chapter9-14', 'chapter9-15', 'chapter9-16', 'chapter9-17', 'chapter9-18', 'chapter9-19', 'chapter9-20', 'chapter-9-11', 'chapter-9-12', 'chapter-9-13', 'chapter-9-14', 'chapter-9-15', 'chapter-9-16', 'chapter-9-17', 'chapter-9-18', 'chapter-9-19', 'chapter-9-20'],
   },
   {
     image: IMG25_寬恕釋放,
     alt: '寬恕釋放',
+    nodePatterns: ['chapter9-', 'chapter-9-'],
+  },
+
+  // === 第十章：權力與愛（凱薩＆克麗奧佩特拉）===
+  {
+    image: IMG26_海倫凱勒,  // TODO: 需要替換為歐式花園場景
+    alt: '歐式花園',
+    nodePatterns: ['chapter10-', 'chapter-10-'],
+  },
+
+  // === 第十一章：選擇（主角整合）===
+  {
+    image: IMG33_主角轉變,
+    alt: '主角整合',
     nodePatterns: ['chapter11-', 'chapter-11-'],
   },
 
-  // === 第十二章：林肯木屋 ===
+  // === 第十二章：失敗老師（林肯）===
   {
     image: IMG_林肯木屋_劈柴對峙,
     alt: '林肯木屋',
-    nodePatterns: ['chapter12-1', 'chapter12-2', 'chapter12-3', 'chapter12-4', 'chapter12-5', 'chapter12-6', 'chapter12-7', 'chapter12-8', 'chapter12-9', 'chapter12-10', 'chapter12-11', 'chapter12-12', 'chapter12-13', 'chapter12-14', 'chapter12-15', 'chapter-12-1', 'chapter-12-2', 'chapter-12-3', 'chapter-12-4', 'chapter-12-5', 'chapter-12-6', 'chapter-12-7', 'chapter-12-8', 'chapter-12-9', 'chapter-12-10', 'chapter-12-11', 'chapter-12-12', 'chapter-12-13', 'chapter-12-14', 'chapter-12-15'],
-  },
-  {
-    image: IMG_林肯木屋_劈柴對峙,
-    alt: '林肯劈柴',
-    nodePatterns: ['chapter12-16', 'chapter12-17', 'chapter12-18', 'chapter12-19', 'chapter12-20', 'chapter12-21', 'chapter12-22', 'chapter12-23', 'chapter12-24', 'chapter12-25', 'chapter12-26', 'chapter12-27', 'chapter12-28', 'chapter12-29', 'chapter12-30', 'chapter-12-16', 'chapter-12-17', 'chapter-12-18', 'chapter-12-19', 'chapter-12-20', 'chapter-12-21', 'chapter-12-22', 'chapter-12-23', 'chapter-12-24', 'chapter-12-25', 'chapter-12-26', 'chapter-12-27', 'chapter-12-28', 'chapter-12-29', 'chapter-12-30'],
-  },
-  {
-    image: IMG_林肯木屋_劈柴對峙,
-    alt: '林肯智慧',
     nodePatterns: ['chapter12-', 'chapter-12-'],
   },
 
-  // === 第十三章：被拒絕的禮物（賈伯斯）===
+  // === 第十三章：最後一課（賈伯斯）===
   {
-    image: IMG32_問心再現,
-    alt: '問心再現',
-    nodePatterns: ['chapter13-1', 'chapter13-2', 'chapter13-3', 'chapter13-4', 'chapter13-5', 'chapter13-6', 'chapter13-7', 'chapter13-8', 'chapter13-9', 'chapter13-10', 'chapter13-11', 'chapter13-12', 'chapter13-13', 'chapter13-14', 'chapter13-15', 'chapter13-16', 'chapter13-17', 'chapter13-18', 'chapter-13-1', 'chapter-13-2', 'chapter-13-3', 'chapter-13-4', 'chapter-13-5', 'chapter-13-6', 'chapter-13-7', 'chapter-13-8', 'chapter-13-9', 'chapter-13-10', 'chapter-13-11', 'chapter-13-12', 'chapter-13-13', 'chapter-13-14', 'chapter-13-15', 'chapter-13-16', 'chapter-13-17', 'chapter-13-18'],
-  },
-  {
-    image: IMG33_主角轉變,
-    alt: '主角轉變',
+    image: IMG32_問心再現,  // TODO: 需要替換為賈伯斯極簡空間
+    alt: '賈伯斯空間',
     nodePatterns: ['chapter13-', 'chapter-13-'],
   },
 
