@@ -1,6 +1,18 @@
 // 弧度歸零：壹 - 旅程心得數據
 // 基於完整旅程回顧整理
 
+// 畢業圖片 imports
+import lesson01Sushi from '@/assets/scenes/graduation/lesson01_sushi_止血.jpg';
+import lesson02Wang from '@/assets/scenes/graduation/lesson02_wangyangming_內求.jpg';
+import lesson03Wu from '@/assets/scenes/graduation/lesson03_wuzetian_定義.jpg';
+import lesson04Sima from '@/assets/scenes/graduation/lesson04_simaqian_使命.jpg';
+import lesson05Libai from '@/assets/scenes/graduation/lesson05_libai_自由.jpg';
+import lesson06Caesar from '@/assets/scenes/graduation/lesson06_caesar_關係.jpg';
+import lesson07Mandela from '@/assets/scenes/graduation/lesson07_mandela_寬恕.jpg';
+import lesson08Lincoln from '@/assets/scenes/graduation/lesson08_lincoln_幽默.jpg';
+import lesson09Jobs from '@/assets/scenes/graduation/lesson09_jobs_破框.jpg';
+import journeyComplete from '@/assets/scenes/graduation/journey_complete_歸零.jpg';
+
 export interface ChapterReflection {
   id: string;
   chapter: string;
@@ -9,7 +21,7 @@ export interface ChapterReflection {
   theme: string;
   lesson: string;
   quote?: string;
-  graduationImage?: string; // 畢業圖片路徑（待上傳後填入）
+  graduationImage?: string; // 畢業圖片路徑
 }
 
 export interface JourneyPhase {
@@ -44,29 +56,32 @@ export const yi1JourneyPhases: JourneyPhase[] = [
       {
         id: 'ch3-5',
         chapter: '第三～五章',
-        title: '蘇軾的止血課',
+        title: '第一課：止血',
         mentor: '蘇軾',
         theme: '止血',
         lesson: '外在的際遇（被貶、失敗）可以很糟，但那不代表我們沒有價值。「也無風雨也無晴」是一劑強心針。',
         quote: '「莫聽穿林打葉聲，何妨吟嘯且徐行。」',
+        graduationImage: lesson01Sushi,
       },
       {
         id: 'ch6',
         chapter: '第六章',
-        title: '王陽明的內求課',
+        title: '第二課：內求',
         mentor: '王陽明',
         theme: '內求',
         lesson: '當我們習慣向外討愛、討認可時，陽明先生提醒：「吾性自足」。答案不在別人的嘴裡，在自己的良知裡。',
         quote: '「心即理。心外無物，心外無理。」',
+        graduationImage: lesson02Wang,
       },
       {
         id: 'ch7',
         chapter: '第七章',
-        title: '武則天的定義課',
+        title: '第三課：定義',
         mentor: '武則天',
         theme: '定義',
         lesson: '誰說女生不能當皇帝？誰說你不行？武則天用霸氣打破了社會的框架，把「定義自己」的權力拿回來。',
         quote: '「規矩是前人寫的，我便是書寫規矩的人。」',
+        graduationImage: lesson03Wu,
       },
     ],
   },
@@ -78,29 +93,32 @@ export const yi1JourneyPhases: JourneyPhase[] = [
       {
         id: 'ch8',
         chapter: '第八章',
-        title: '司馬遷的使命課',
+        title: '第四課：使命',
         mentor: '司馬遷',
         theme: '使命',
         lesson: '面對身體或命運的殘缺，司馬遷展現了極致的韌性——「把自己活完」。殘缺不是羞恥，活得像個廢墟才是。',
         quote: '「人固有一死，或重於泰山，或輕於鴻毛。」',
+        graduationImage: lesson04Sima,
       },
       {
         id: 'ch9',
         chapter: '第九章',
-        title: '李白的自由課',
+        title: '第五課：自由',
         mentor: '李白',
         theme: '自由',
         lesson: '李白點破了我們被「應該」綁架的人生。真正的自由不是隨心所欲，而是分得清什麼是雜訊，什麼是自己真正「想要」的。',
         quote: '「天生我材必有用，千金散盡還復來。」',
+        graduationImage: lesson05Libai,
       },
       {
         id: 'ch10',
         chapter: '第十章',
-        title: '凱薩與艷后的關係課',
+        title: '第六課：關係',
         mentor: '凱薩、克麗奧佩特拉',
         theme: '關係',
         lesson: '在愛裡不失去自我，在背叛中不否定信任。他們展現了成熟的邊界感：我愛你，但我依然是我。',
         quote: '「真正的愛，不是融化，而是兩個完整的人彼此輝映。」',
+        graduationImage: lesson06Caesar,
       },
     ],
   },
@@ -112,29 +130,32 @@ export const yi1JourneyPhases: JourneyPhase[] = [
       {
         id: 'ch11',
         chapter: '第十一章',
-        title: '曼德拉的寬恕課',
+        title: '第七課：寬恕',
         mentor: '曼德拉',
         theme: '寬恕',
         lesson: '不是為了原諒對方，而是為了放過自己。走出心中的監獄，才能真正自由。',
         quote: '「當我走出監獄大門，如果無法放下仇恨，我仍是個囚犯。」',
+        graduationImage: lesson07Mandela,
       },
       {
         id: 'ch12',
         chapter: '第十二章',
-        title: '林肯的幽默課',
+        title: '第八課：幽默',
         mentor: '林肯',
         theme: '幽默',
         lesson: '面對無數次的失敗與憂鬱，林肯教我們學會自嘲。失敗只是數據，幽默則是最高的防禦。',
         quote: '「我走得很慢，但從不後退。」',
+        graduationImage: lesson08Lincoln,
       },
       {
         id: 'ch13',
         chapter: '第十三章',
-        title: '賈伯斯的破框課',
+        title: '第九課：破框',
         mentor: '賈伯斯',
         theme: '破框',
         lesson: '賈伯斯打破了我們對「標準答案」的迷思。被拒絕往往是包裝得很醜的禮物，因為此地不留人，自有留人處。',
         quote: '「Stay hungry. Stay foolish.」',
+        graduationImage: lesson09Jobs,
       },
     ],
   },
@@ -169,6 +190,7 @@ export const journeySummary = {
   title: '這本書告訴我們',
   content: '完整不是沒有缺口，而是不再害怕缺口。',
   epilogue: '第一部的旅程，就是把那些散落在歷史長河裡的智慧撿回來，把我們身上那些被切掉的肉（伊）縫回去。這是一個關於「回家」的故事，而家，就在我們心裡。',
+  completeImage: journeyComplete,
 };
 
 // 計算總章節數
