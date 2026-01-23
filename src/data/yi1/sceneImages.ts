@@ -76,6 +76,17 @@ import IMG_虛空教室_靈魂訓練 from '@/assets/scenes/虛空教室_靈魂�
 import IMG_月光倒影_渡口尋問 from '@/assets/scenes/月光倒影_渡口尋問_唯美耽美版.png';
 import IMG_影子伊_雙生對峙_唯美 from '@/assets/scenes/影子伊_雙生對峙_唯美耽美版_1.png';
 
+// 新增藝術版場景圖片（第二批）
+import IMG_王陽明山徑_燈籠對峙 from '@/assets/scenes/王陽明山徑_燈籠對峙_藝術版.png';
+import IMG_司馬遷書房_竹簡對話 from '@/assets/scenes/司馬遷書房_竹簡對話_藝術版.png';
+import IMG_林肯木屋_劈柴對峙 from '@/assets/scenes/林肯木屋_劈柴對峙_藝術版.png';
+import IMG_伊的對峙_命運之戰 from '@/assets/scenes/伊的對峙_命運之戰_藝術版.png';
+import IMG_樹根洞穴_琉璃光路 from '@/assets/scenes/樹根洞穴_琉璃光路_藝術版.png';
+import IMG_曼德拉花園_幼芽守護 from '@/assets/scenes/曼德拉花園_幼芽守護_藝術版.png';
+import IMG_書店角落_書的相遇 from '@/assets/scenes/書店角落_書的相遇_藝術版.png';
+import IMG_出版社辦公室_簽約 from '@/assets/scenes/出版社辦公室_簽約_藝術版.png';
+import IMG_白天書桌_Delete鍵 from '@/assets/scenes/白天書桌_Delete鍵_藝術版.png';
+
 export interface SceneImageConfig {
   image: string;
   alt: string;
@@ -141,8 +152,8 @@ export const sceneImages: SceneImageConfig[] = [
 
   // === 第三章：心即理（王陽明，支援 yi1- 前綴）===
   {
-    image: IMG09_王陽明,
-    alt: '王陽明',
+    image: IMG_王陽明山徑_燈籠對峙,
+    alt: '王陽明山徑',
     nodePatterns: ['chapter-3-intro', 'chapter-3-1', 'chapter-3-2', 'chapter-3-3', 'chapter-3-4', 'chapter-3-5', 'chapter-3-6', 'chapter-3-7', 'chapter-3-8', 'chapter-3-9', 'chapter-3-10', 'chapter-3-11', 'chapter-3-12', 'chapter-3-13', 'chapter-3-14', 'chapter-3-15', 'chapter-3-16', 'chapter-3-17', 'chapter-3-18', 'chapter-3-19', 'chapter-3-20', 'chapter-3-21', 'chapter-3-22', 'chapter-3-23', 'chapter-3-24', 'chapter-3-25', 'chapter-3-26', 'chapter-3-27', 'chapter-3-28', 'chapter-3-29', 'chapter-3-30'],
   },
   {
@@ -221,7 +232,7 @@ export const sceneImages: SceneImageConfig[] = [
 
   // === 第八章：筆比命長（司馬遷）===
   {
-    image: IMG16_司馬遷書房,
+    image: IMG_司馬遷書房_竹簡對話,
     alt: '司馬遷書房',
     nodePatterns: ['chapter8-1', 'chapter8-2', 'chapter8-3', 'chapter8-4', 'chapter8-5', 'chapter8-6', 'chapter8-7', 'chapter8-8', 'chapter8-9', 'chapter8-10', 'chapter8-11', 'chapter8-12', 'chapter8-13', 'chapter8-14', 'chapter8-15', 'chapter8-16', 'chapter8-17', 'chapter8-18', 'chapter8-19', 'chapter8-20', 'chapter-8-1', 'chapter-8-2', 'chapter-8-3', 'chapter-8-4', 'chapter-8-5', 'chapter-8-6', 'chapter-8-7', 'chapter-8-8', 'chapter-8-9', 'chapter-8-10', 'chapter-8-11', 'chapter-8-12', 'chapter-8-13', 'chapter-8-14', 'chapter-8-15', 'chapter-8-16', 'chapter-8-17', 'chapter-8-18', 'chapter-8-19', 'chapter-8-20'],
   },
@@ -267,7 +278,7 @@ export const sceneImages: SceneImageConfig[] = [
 
   // === 第十一章：毒藥（曼德拉）===
   {
-    image: IMG24_牢籠成花園,
+    image: IMG_曼德拉花園_幼芽守護,
     alt: '曼德拉花園',
     nodePatterns: ['chapter11-1', 'chapter11-2', 'chapter11-3', 'chapter11-4', 'chapter11-5', 'chapter11-6', 'chapter11-7', 'chapter11-8', 'chapter11-9', 'chapter11-10', 'chapter11-11', 'chapter11-12', 'chapter11-13', 'chapter11-14', 'chapter11-15', 'chapter-11-1', 'chapter-11-2', 'chapter-11-3', 'chapter-11-4', 'chapter-11-5', 'chapter-11-6', 'chapter-11-7', 'chapter-11-8', 'chapter-11-9', 'chapter-11-10', 'chapter-11-11', 'chapter-11-12', 'chapter-11-13', 'chapter-11-14', 'chapter-11-15'],
   },
@@ -282,20 +293,20 @@ export const sceneImages: SceneImageConfig[] = [
     nodePatterns: ['chapter11-', 'chapter-11-'],
   },
 
-  // === 第十二章：星夜（梵谷）===
+  // === 第十二章：林肯木屋 ===
   {
-    image: IMG29_梵谷星夜,
-    alt: '梵谷星夜',
+    image: IMG_林肯木屋_劈柴對峙,
+    alt: '林肯木屋',
     nodePatterns: ['chapter12-1', 'chapter12-2', 'chapter12-3', 'chapter12-4', 'chapter12-5', 'chapter12-6', 'chapter12-7', 'chapter12-8', 'chapter12-9', 'chapter12-10', 'chapter12-11', 'chapter12-12', 'chapter12-13', 'chapter12-14', 'chapter12-15', 'chapter-12-1', 'chapter-12-2', 'chapter-12-3', 'chapter-12-4', 'chapter-12-5', 'chapter-12-6', 'chapter-12-7', 'chapter-12-8', 'chapter-12-9', 'chapter-12-10', 'chapter-12-11', 'chapter-12-12', 'chapter-12-13', 'chapter-12-14', 'chapter-12-15'],
   },
   {
-    image: IMG30_畫布流動,
-    alt: '畫布流動',
+    image: IMG_林肯木屋_劈柴對峙,
+    alt: '林肯劈柴',
     nodePatterns: ['chapter12-16', 'chapter12-17', 'chapter12-18', 'chapter12-19', 'chapter12-20', 'chapter12-21', 'chapter12-22', 'chapter12-23', 'chapter12-24', 'chapter12-25', 'chapter12-26', 'chapter12-27', 'chapter12-28', 'chapter12-29', 'chapter12-30', 'chapter-12-16', 'chapter-12-17', 'chapter-12-18', 'chapter-12-19', 'chapter-12-20', 'chapter-12-21', 'chapter-12-22', 'chapter-12-23', 'chapter-12-24', 'chapter-12-25', 'chapter-12-26', 'chapter-12-27', 'chapter-12-28', 'chapter-12-29', 'chapter-12-30'],
   },
   {
-    image: IMG31_痛苦昇華,
-    alt: '痛苦昇華',
+    image: IMG_林肯木屋_劈柴對峙,
+    alt: '林肯智慧',
     nodePatterns: ['chapter12-', 'chapter-12-'],
   },
 
@@ -325,17 +336,17 @@ export const sceneImages: SceneImageConfig[] = [
 
   // === 第十五章：伊 ===
   {
-    image: IMG35_洞穴入口,
+    image: IMG_樹根洞穴_琉璃光路,
     alt: '洞穴入口',
     nodePatterns: ['chapter15-1', 'chapter15-2', 'chapter15-3', 'chapter15-4', 'chapter15-5', 'chapter15-6', 'chapter15-7', 'chapter15-8', 'chapter-15-1', 'chapter-15-2', 'chapter-15-3', 'chapter-15-4', 'chapter-15-5', 'chapter-15-6', 'chapter-15-7', 'chapter-15-8'],
   },
   {
-    image: IMG_影子伊_雙生對峙_唯美,
-    alt: '影子伊對峙',
+    image: IMG_伊的對峙_命運之戰,
+    alt: '伊的對峙',
     nodePatterns: ['chapter15-9', 'chapter15-10', 'chapter15-11', 'chapter15-12', 'chapter15-13', 'chapter15-14', 'chapter15-15', 'chapter15-16', 'chapter15-17', 'chapter15-18', 'chapter15-19', 'chapter15-20', 'chapter15-21', 'chapter15-22', 'chapter15-23', 'chapter15-24', 'chapter15-25', 'chapter15-26', 'chapter15-27', 'chapter15-28', 'chapter15-29', 'chapter15-30', 'chapter15-31', 'chapter15-32', 'chapter15-33', 'chapter15-34', 'chapter15-35', 'chapter15-36', 'chapter15-37', 'chapter15-38', 'chapter15-39', 'chapter15-40', 'chapter-15-9', 'chapter-15-10', 'chapter-15-11', 'chapter-15-12', 'chapter-15-13', 'chapter-15-14', 'chapter-15-15', 'chapter-15-16', 'chapter-15-17', 'chapter-15-18', 'chapter-15-19', 'chapter-15-20'],
   },
   {
-    image: IMG40_洞穴光明,
+    image: IMG_樹根洞穴_琉璃光路,
     alt: '洞穴光明',
     nodePatterns: ['chapter15-41', 'chapter15-42', 'chapter15-43', 'chapter15-44', 'chapter15-45', 'chapter15-46', 'chapter15-47', 'chapter15-48', 'chapter15-49', 'chapter15-50', 'chapter15-51'],
   },
@@ -384,13 +395,13 @@ export const sceneImages: SceneImageConfig[] = [
 
   // === 終章：名字 ===
   {
-    image: IMG47_回到房間,
-    alt: '房間',
+    image: IMG_白天書桌_Delete鍵,
+    alt: '房間書桌',
     nodePatterns: ['epilogue-1', 'epilogue-2', 'epilogue-3', 'epilogue-4', 'epilogue-5', 'epilogue-6', 'epilogue-7', 'epilogue-8', 'epilogue-9', 'epilogue-10', 'epilogue-11', 'epilogue-12', 'epilogue-13', 'epilogue-14', 'epilogue-15', 'epilogue-16', 'epilogue-17', 'epilogue-18', 'epilogue-19', 'epilogue-20', 'epilogue-21', 'epilogue-22', 'epilogue-23', 'epilogue-24', 'epilogue-25', 'epilogue-26', 'epilogue-27', 'epilogue-28'],
   },
   {
-    image: IMG50_起身,
-    alt: '出版社',
+    image: IMG_出版社辦公室_簽約,
+    alt: '出版社簽約',
     nodePatterns: ['epilogue-29', 'epilogue-30', 'epilogue-31', 'epilogue-32', 'epilogue-33', 'epilogue-34', 'epilogue-35', 'epilogue-36', 'epilogue-37', 'epilogue-38', 'epilogue-39', 'epilogue-40', 'epilogue-41', 'epilogue-42', 'epilogue-43', 'epilogue-44', 'epilogue-45', 'epilogue-46', 'epilogue-47', 'epilogue-48', 'epilogue-49', 'epilogue-50', 'epilogue-51', 'epilogue-52', 'epilogue-53', 'epilogue-54'],
   },
   {
@@ -399,12 +410,12 @@ export const sceneImages: SceneImageConfig[] = [
     nodePatterns: ['epilogue-55', 'epilogue-56', 'epilogue-57'],
   },
   {
-    image: IMG51_新的開始,
-    alt: '書店',
+    image: IMG_書店角落_書的相遇,
+    alt: '書店相遇',
     nodePatterns: ['epilogue-58', 'epilogue-59', 'epilogue-60', 'epilogue-61', 'epilogue-62', 'epilogue-63', 'epilogue-64', 'epilogue-65', 'epilogue-66', 'epilogue-end'],
   },
   {
-    image: IMG51_新的開始,
+    image: IMG_書店角落_書的相遇,
     alt: '新的開始',
     nodePatterns: ['epilogue-'],
   },
