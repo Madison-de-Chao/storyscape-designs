@@ -422,6 +422,6 @@ export const chapter16Nodes: DialogueNode[] = [
     text: '但她知道一件事——她在做她想做的事。不是別人要她做的事，不是她「應該」做的事，是她「想要」做的事。這個感覺——很好。',
     effect: 'fade-out',
     bgImage: 'ch16_sunrise',
-    nextNodeId: 'yi1-epilogue',
+    nextNodeId: 'yi1-epilogue-intro',
   },
 ];
