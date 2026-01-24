@@ -1,16 +1,22 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
+import type { ZenTheme } from "@/stores/gameStore";
 
 interface ZenMomentProps {
   text: string;
   subtitle?: string;
   onComplete: () => void;
   duration?: number;
-  theme?: 'golden' | 'moonlight' | 'dawn' | 'ink';
+  theme?: ZenTheme;
 }
 
-const themeStyles = {
+const themeStyles: Record<ZenTheme, { glow: string; text: string; accent: string }> = {
   golden: {
+    glow: 'rgba(212, 175, 55, 0.4)',
+    text: 'text-amber-100',
+    accent: 'border-amber-400/30',
+  },
+  gold: {
     glow: 'rgba(212, 175, 55, 0.4)',
     text: 'text-amber-100',
     accent: 'border-amber-400/30',
@@ -29,7 +35,47 @@ const themeStyles = {
     glow: 'rgba(100, 100, 100, 0.2)',
     text: 'text-gray-200',
     accent: 'border-gray-400/30',
-  }
+  },
+  'yin-yang': {
+    glow: 'rgba(180, 180, 180, 0.3)',
+    text: 'text-gray-100',
+    accent: 'border-gray-300/30',
+  },
+  cosmos: {
+    glow: 'rgba(100, 100, 200, 0.4)',
+    text: 'text-indigo-100',
+    accent: 'border-indigo-400/30',
+  },
+  earth: {
+    glow: 'rgba(139, 90, 43, 0.4)',
+    text: 'text-amber-200',
+    accent: 'border-amber-600/30',
+  },
+  wood: {
+    glow: 'rgba(101, 67, 33, 0.4)',
+    text: 'text-amber-100',
+    accent: 'border-amber-700/30',
+  },
+  white: {
+    glow: 'rgba(255, 255, 255, 0.3)',
+    text: 'text-white',
+    accent: 'border-white/30',
+  },
+  crimson: {
+    glow: 'rgba(180, 30, 30, 0.4)',
+    text: 'text-red-100',
+    accent: 'border-red-400/30',
+  },
+  silver: {
+    glow: 'rgba(192, 192, 192, 0.4)',
+    text: 'text-gray-100',
+    accent: 'border-gray-300/30',
+  },
+  rain: {
+    glow: 'rgba(100, 150, 200, 0.3)',
+    text: 'text-blue-200',
+    accent: 'border-blue-400/30',
+  },
 };
 
 export const ZenMoment = ({ 

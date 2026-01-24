@@ -244,31 +244,4 @@ export const chapter5Nodes: DialogueNode[] = [
     effect: 'fade-out',
     nextNodeId: 'yi1-ch6-intro',
   },
-];  },
-  {
-    id: 'yi1-chapter-5-11a',
-    speaker: 'sushi',
-    text: '別人給的，別人也能收回。只有自己給的，才真正屬於妳。',
-    nextNodeId: 'yi1-chapter-5-12',
-  },
-  {
-    id: 'yi1-chapter-5-11b',
-    speaker: 'sushi',
-    text: '（微笑）這就對了。妳願意來這裡，願意面對那些痛苦，這本身就是價值。',
-    nextNodeId: 'yi1-chapter-5-12',
-  },
-  {
-    id: 'yi1-chapter-5-12',
-    speaker: 'sushi',
-    text: '妳願意來這裡，願意面對那些痛苦，這本身就是價值。',
-    nextNodeId: 'yi1-chapter-5-end',
-  },
-  {
-    id: 'yi1-chapter-5-end',
-    speaker: 'sushi',
-    text: '心定了，就該行動了。陽明兄還有最後一課要教妳——知行合一。',
-    bgImage: 'path_to_mountain',
-    nextNodeId: 'yi1-chapter-6-intro-1',
-    effect: 'fade-out',
-  },
 ];

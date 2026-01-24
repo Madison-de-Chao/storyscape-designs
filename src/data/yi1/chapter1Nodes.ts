@@ -1,3 +1,5 @@
+import type { DialogueNode } from '@/stores/gameStore';
+
 export const chapter1Nodes: DialogueNode[] = [
   // 一、崩潰
   {
