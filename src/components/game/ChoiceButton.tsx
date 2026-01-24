@@ -6,10 +6,11 @@ import { useState } from 'react';
 interface ChoiceButtonProps {
   choice: Choice;
   index: number;
-  onClick: () => void;
+  onClick: (arcChange: number, shadowChange: number) => void;
+  showScorePreview?: boolean;
 }
 
-const ChoiceButton = ({ choice, index, onClick }: ChoiceButtonProps) => {
+const ChoiceButton = ({ choice, index, onClick, showScorePreview = true }: ChoiceButtonProps) => {
   const { playSFX } = useSFX();
   const [isPressed, setIsPressed] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
@@ -18,7 +19,7 @@ const ChoiceButton = ({ choice, index, onClick }: ChoiceButtonProps) => {
     playSFX('choice');
     setIsPressed(true);
     setTimeout(() => {
-      onClick();
+      onClick(choice.arcChange, choice.shadowChange);
     }, 400);
   };
 
@@ -26,6 +27,10 @@ const ChoiceButton = ({ choice, index, onClick }: ChoiceButtonProps) => {
     playSFX('hover');
     setIsHovered(true);
   };
+
+  // 預覽分數變化指示器
+  const hasArcChange = choice.arcChange !== 0;
+  const hasShadowChange = choice.shadowChange !== 0;
 
   return (
     <motion.button
@@ -196,6 +201,38 @@ const ChoiceButton = ({ choice, index, onClick }: ChoiceButtonProps) => {
         >
           {choice.text}
         </motion.span>
+
+        {/* 分數變化預覽（懸停時顯示） */}
+        <AnimatePresence>
+          {isHovered && showScorePreview && (hasArcChange || hasShadowChange) && !isPressed && (
+            <motion.div
+              className="flex items-center gap-2 ml-2"
+              initial={{ opacity: 0, x: -10 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -10 }}
+              transition={{ duration: 0.2 }}
+            >
+              {hasArcChange && (
+                <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${
+                  choice.arcChange > 0 
+                    ? 'bg-amber-500/20 text-amber-400' 
+                    : 'bg-red-500/20 text-red-400'
+                }`}>
+                  {choice.arcChange > 0 ? '+' : ''}{choice.arcChange} 弧度
+                </span>
+              )}
+              {hasShadowChange && (
+                <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${
+                  choice.shadowChange > 0 
+                    ? 'bg-purple-500/20 text-purple-400' 
+                    : 'bg-emerald-500/20 text-emerald-400'
+                }`}>
+                  {choice.shadowChange > 0 ? '+' : ''}{choice.shadowChange} 陰影
+                </span>
+              )}
+            </motion.div>
+          )}
+        </AnimatePresence>
         
         {/* 右側箭頭指示 - 增強動畫 */}
         <motion.span

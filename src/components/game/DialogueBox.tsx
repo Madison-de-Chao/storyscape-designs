@@ -39,9 +39,10 @@ const parseDialogueText = (text: string, speaker: string) => {
 interface DialogueBoxProps {
   isHidden?: boolean;
   onToggleHide?: () => void;
+  onScoreChange?: (arcChange: number, shadowChange: number) => void;
 }
 
-const DialogueBox = ({ isHidden = false, onToggleHide }: DialogueBoxProps) => {
+const DialogueBox = ({ isHidden = false, onToggleHide, onScoreChange }: DialogueBoxProps) => {
   const { getCurrentProgress, advanceToNextNode, makeChoice, currentPart, markNodeAsRead } = useGameStore();
   const progress = getCurrentProgress();
   const currentNodeId = progress.currentNodeId;
@@ -658,7 +659,11 @@ const DialogueBox = ({ isHidden = false, onToggleHide }: DialogueBoxProps) => {
                         key={choice.id}
                         choice={choice}
                         index={index}
-                        onClick={() => makeChoice(choice)}
+                        onClick={(arcChange, shadowChange) => {
+                          // 觸發分數變化反饋
+                          onScoreChange?.(arcChange, shadowChange);
+                          makeChoice(choice);
+                        }}
                       />
                     ))}
                   </motion.div>

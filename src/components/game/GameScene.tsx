@@ -17,6 +17,10 @@ import IntroSequence from './IntroSequence';
 import ZenMoment from './ZenMoment';
 import RevelationMoment from './RevelationMoment';
 import JourneyReflection from './JourneyReflection';
+import ScoreChange from './ScoreChange';
+import ProgressHUD from './ProgressHUD';
+import AchievementToast from './AchievementToast';
+import { useAchievements } from '@/hooks/useAchievements';
 import { getNodeById } from '@/data/prologueStory';
 import { getYiPart2NodeById } from '@/data/yiPart2Story';
 import { getYi1NodeById } from '@/data/yi1';
@@ -130,6 +134,17 @@ const GameScene = () => {
   const [transitionChapterKey, setTransitionChapterKey] = useState('');
   const prevChapterRef = useRef<string>('');
 
+  // 分數變化即時反饋
+  const [scoreChangeVisible, setScoreChangeVisible] = useState(false);
+  const [lastArcChange, setLastArcChange] = useState(0);
+  const [lastShadowChange, setLastShadowChange] = useState(0);
+  
+  // 進度 HUD 顯示狀態
+  const [isProgressHUDVisible, setIsProgressHUDVisible] = useState(false);
+
+  // 成就系統
+  const { pendingAchievement, dismissAchievement } = useAchievements();
+
   const currentNode = currentPart === 'yi' 
     ? (getYi1NodeById(currentNodeId) || getNodeById(currentNodeId))
     : getYiPart2NodeById(currentNodeId);
@@ -209,6 +224,20 @@ const GameScene = () => {
     const bgmType = getBGMForNode(currentNodeId);
     playBGM(bgmType);
   }, [currentNodeId, playBGM]);
+
+  // 處理選擇時的分數變化反饋
+  const handleScoreChange = useCallback((arcChange: number, shadowChange: number) => {
+    if (arcChange !== 0 || shadowChange !== 0) {
+      setLastArcChange(arcChange);
+      setLastShadowChange(shadowChange);
+      setScoreChangeVisible(true);
+      
+      // 2秒後隱藏
+      setTimeout(() => {
+        setScoreChangeVisible(false);
+      }, 2000);
+    }
+  }, []);
 
   // 檢測序章開始節點，觸發直排禪意開場動畫
   useEffect(() => {
@@ -500,6 +529,32 @@ const GameScene = () => {
       {/* 弧度指示器 */}
       <ArcIndicator />
 
+      {/* 進度 HUD */}
+      <ProgressHUD
+        chapterProgress={progress.readNodes[getChapterKey(currentNodeId)]?.length || 0}
+        currentChapterTitle={isYiPart ? getChapterTitle(currentNodeId) : '序章・另一個我們'}
+        isVisible={isProgressHUDVisible}
+        onToggle={() => setIsProgressHUDVisible(!isProgressHUDVisible)}
+      />
+
+      {/* 分數變化反饋 */}
+      <ScoreChange
+        change={lastArcChange}
+        type="arc"
+        isVisible={scoreChangeVisible && lastArcChange !== 0}
+      />
+      <ScoreChange
+        change={lastShadowChange}
+        type="shadow"
+        isVisible={scoreChangeVisible && lastShadowChange !== 0 && lastArcChange === 0}
+      />
+
+      {/* 成就通知 */}
+      <AchievementToast
+        achievement={pendingAchievement}
+        onClose={dismissAchievement}
+      />
+
       {/* 選單按鈕 */}
       {/* 音量控制 */}
       <AudioControls />
@@ -632,6 +687,7 @@ const GameScene = () => {
       <DialogueBox 
         isHidden={isDialogueHidden}
         onToggleHide={() => setIsDialogueHidden(!isDialogueHidden)}
+        onScoreChange={handleScoreChange}
       />
 
       {/* 章節選擇彈窗 */}
