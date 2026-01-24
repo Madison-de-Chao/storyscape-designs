@@ -97,7 +97,15 @@ export interface Chapter {
   nodes: DialogueNode[];
 }
 
-interface PartProgress {
+// 弧度歷史記錄
+export interface ArcHistoryEntry {
+  value: number;
+  timestamp: number;
+  nodeId: string;
+  change: number;
+}
+
+export interface PartProgress {
   arcValue: number;
   currentChapter: number;
   currentNodeId: string;
@@ -110,6 +118,10 @@ interface PartProgress {
   lastReadAt: number | null; // 上次閱讀時間戳
   // 已解鎖的圖片 URL 列表
   unlockedImages: string[];
+  // 弧度歷史趨勢
+  arcHistory: ArcHistoryEntry[];
+  // 已解鎖成就
+  unlockedAchievements: string[];
 }
 
 interface GameState {
@@ -136,6 +148,8 @@ interface GameState {
   markNodeAsRead: (nodeId: string) => void;
   getChapterProgress: (chapterId: string) => number;
   unlockImage: (imageUrl: string) => void;
+  addArcHistory: (change: number, nodeId: string) => void;
+  unlockAchievement: (achievementId: string) => void;
   
   // 獲取當前進度
   getCurrentProgress: () => PartProgress;
@@ -152,6 +166,8 @@ const defaultProgress: PartProgress = {
   readNodes: {},
   lastReadAt: null,
   unlockedImages: [],
+  arcHistory: [{ value: 180, timestamp: Date.now(), nodeId: 'start', change: 0 }],
+  unlockedAchievements: [],
 };
 
 const defaultPart2Progress: PartProgress = {
@@ -165,6 +181,8 @@ const defaultPart2Progress: PartProgress = {
   readNodes: {},
   lastReadAt: null,
   unlockedImages: [],
+  arcHistory: [{ value: 180, timestamp: Date.now(), nodeId: 'start', change: 0 }],
+  unlockedAchievements: [],
 };
 
 // 每個章節的總節點數（用於計算閱讀百分比）
@@ -376,6 +394,53 @@ export const useGameStore = create<GameState>()(
           const updatedProgress = {
             ...progress,
             unlockedImages: [...unlockedImages, imageUrl],
+          };
+          
+          if (state.currentPart === 'yi') {
+            set({ yiProgress: updatedProgress });
+          } else {
+            set({ yiPart2Progress: updatedProgress });
+          }
+        }
+      },
+
+      addArcHistory: (change: number, nodeId: string) => {
+        const state = get();
+        const progress = state.getCurrentProgress();
+        const arcHistory = progress.arcHistory || [];
+        
+        // 只保留最近 20 筆記錄
+        const newHistory = [
+          ...arcHistory.slice(-19),
+          {
+            value: progress.arcValue,
+            timestamp: Date.now(),
+            nodeId,
+            change,
+          },
+        ];
+        
+        const updatedProgress = {
+          ...progress,
+          arcHistory: newHistory,
+        };
+        
+        if (state.currentPart === 'yi') {
+          set({ yiProgress: updatedProgress });
+        } else {
+          set({ yiPart2Progress: updatedProgress });
+        }
+      },
+
+      unlockAchievement: (achievementId: string) => {
+        const state = get();
+        const progress = state.getCurrentProgress();
+        const unlockedAchievements = progress.unlockedAchievements || [];
+        
+        if (!unlockedAchievements.includes(achievementId)) {
+          const updatedProgress = {
+            ...progress,
+            unlockedAchievements: [...unlockedAchievements, achievementId],
           };
           
           if (state.currentPart === 'yi') {
