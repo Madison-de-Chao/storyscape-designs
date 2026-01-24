@@ -144,6 +144,19 @@ import IMG_ch7_武則天告別_傳承的力量 from '@/assets/scenes/ch7_武則�
 import IMG_ch8_迷途走廊_迷失與尋找 from '@/assets/scenes/ch8_迷途走廊_迷失與尋找_粉嫩少女耽美版.png';
 import IMG_ch8_書房_堅持的光 from '@/assets/scenes/ch8_書房_堅持的光_粉嫩少女耽美版.png';
 import IMG_ch8_叩問_直視的勇氣 from '@/assets/scenes/ch8_叩問_直視的勇氣_粉嫩少女耽美版.png';
+import IMG_ch8_司馬遷的故事_滄桑的叩問 from '@/assets/scenes/ch8_司馬遷的故事_滄桑的叩問_粉嫩少女耽美版.png';
+import IMG_ch8_書匣開啟_承擔的光輝 from '@/assets/scenes/ch8_書匣開啟_承擔的光輝_粉嫩少女耽美版.png';
+import IMG_ch9_月光庭院_浪漫的召喚 from '@/assets/scenes/ch9_月光庭院_浪漫的召喚_粉嫩少女耽美版.png';
+import IMG_ch9_李白對坐_一杯的坦然 from '@/assets/scenes/ch9_李白對坐_一杯的坦然_粉嫩少女耽美版.png';
+import IMG_ch9_李白降落_狂亮的登場 from '@/assets/scenes/ch9_李白降落_狂亮的登場_粉嫩少女耽美版.png';
+import IMG_ch9_水中月_頓悟的寧靜 from '@/assets/scenes/ch9_水中月_頓悟的寧靜_粉嫩少女耽美版.png';
+import IMG_ch9_李白告別_傳奇的禮物 from '@/assets/scenes/ch9_李白告別_傳奇的禮物_粉嫩少女耽美版.png';
+import IMG_ch10_歐式花園_異域權力的召喚 from '@/assets/scenes/ch10_歐式花園_異域權力的召喚_粉嫩少女耽美版_v2.png';
+import IMG_ch10_凱薩與克麗奧佩特拉_權力的三角 from '@/assets/scenes/ch10_凱薩與克麗奧佩特拉_權力的三角_粉嫩少女耽美版_v2.png';
+import IMG_ch10_克麗奧佩特拉的故事_野心的象徵 from '@/assets/scenes/ch10_克麗奧佩特拉的故事_野心的象徵_粉嫩少女耽美版_v2.png';
+import IMG_ch10_凱薩的故事_背叛的反思 from '@/assets/scenes/ch10_凱薩的故事_背叛的反思_粉嫩少女耽美版_v2.png';
+import IMG_ch10_凱薩與克麗奧佩特拉告別_和解的智慧 from '@/assets/scenes/ch10_凱薩與克麗奧佩特拉告別_和解的智慧_粉嫩少女耽美版_v2.png';
+import IMG_ch11_曼德拉認真談話_仇恨與選擇 from '@/assets/scenes/ch11_曼德拉認真談話_仇恨與選擇_粉嫩少女耽美版.png';
 export interface SceneImageConfig {
   image: string;
   alt: string;
@@ -396,12 +409,22 @@ export const sceneImages: SceneImageConfig[] = [
   {
     image: IMG_ch8_書房_堅持的光,
     alt: '書房 - 堅持的光',
-    nodePatterns: ['chapter-8-9', 'chapter-8-10', 'chapter-8-11', 'chapter-8-12', 'chapter-8-13', 'chapter-8-14', 'chapter-8-15', 'chapter-8-16', 'chapter-8-17', 'chapter-8-18', 'chapter-8-19', 'chapter-8-20', 'chapter-8-choice-1'],
+    nodePatterns: ['chapter-8-9', 'chapter-8-10', 'chapter-8-11', 'chapter-8-12', 'chapter-8-13', 'chapter-8-14', 'chapter-8-15', 'chapter-8-choice-1'],
+  },
+  {
+    image: IMG_ch8_司馬遷的故事_滄桑的叩問,
+    alt: '司馬遷的故事 - 滄桑的叩問',
+    nodePatterns: ['chapter-8-16', 'chapter-8-17', 'chapter-8-18', 'chapter-8-19', 'chapter-8-20', 'chapter-8-21', 'chapter-8-22', 'chapter-8-23', 'chapter-8-24', 'chapter-8-25'],
   },
   {
     image: IMG_ch8_叩問_直視的勇氣,
     alt: '叩問 - 直視的勇氣',
-    nodePatterns: ['chapter-8-21', 'chapter-8-22', 'chapter-8-23', 'chapter-8-24', 'chapter-8-25', 'chapter-8-26', 'chapter-8-27', 'chapter-8-28', 'chapter-8-29', 'chapter-8-30', 'chapter-8-choice-2', 'chapter-8-end'],
+    nodePatterns: ['chapter-8-26', 'chapter-8-27', 'chapter-8-28', 'chapter-8-29', 'chapter-8-30', 'chapter-8-31', 'chapter-8-32', 'chapter-8-33', 'chapter-8-34', 'chapter-8-35', 'chapter-8-choice-2'],
+  },
+  {
+    image: IMG_ch8_書匣開啟_承擔的光輝,
+    alt: '書匣開啟 - 承擔的光輝',
+    nodePatterns: ['chapter-8-36', 'chapter-8-37', 'chapter-8-38', 'chapter-8-39', 'chapter-8-40', 'chapter-8-end'],
   },
   {
     image: IMG_司馬遷書房_竹簡對話,
@@ -409,34 +432,94 @@ export const sceneImages: SceneImageConfig[] = [
     nodePatterns: ['chapter8-', 'chapter-8-'],
   },
 
-  // === 第九章：困獸與自由（曼德拉）===
+  // === 第九章：天生我才（李白，使用粉嫩少女耽美版）===
   {
-    image: IMG_曼德拉花園_幼芽守護,
-    alt: '曼德拉花園',
-    nodePatterns: ['chapter9-1', 'chapter9-2', 'chapter9-3', 'chapter9-4', 'chapter9-5', 'chapter9-6', 'chapter9-7', 'chapter9-8', 'chapter9-9', 'chapter9-10', 'chapter-9-1', 'chapter-9-2', 'chapter-9-3', 'chapter-9-4', 'chapter-9-5', 'chapter-9-6', 'chapter-9-7', 'chapter-9-8', 'chapter-9-9', 'chapter-9-10'],
+    image: IMG_ch9_月光庭院_浪漫的召喚,
+    alt: '月光庭院 - 浪漫的召喚',
+    nodePatterns: ['chapter-9-intro', 'chapter-9-1', 'chapter-9-2', 'chapter-9-3', 'chapter-9-4', 'chapter-9-5', 'chapter-9-6', 'chapter-9-7', 'chapter-9-8'],
   },
   {
-    image: IMG23_曼德拉鐵窗,
-    alt: '曼德拉鐵窗',
-    nodePatterns: ['chapter9-11', 'chapter9-12', 'chapter9-13', 'chapter9-14', 'chapter9-15', 'chapter9-16', 'chapter9-17', 'chapter9-18', 'chapter9-19', 'chapter9-20', 'chapter-9-11', 'chapter-9-12', 'chapter-9-13', 'chapter-9-14', 'chapter-9-15', 'chapter-9-16', 'chapter-9-17', 'chapter-9-18', 'chapter-9-19', 'chapter-9-20'],
+    image: IMG_ch9_李白降落_狂亮的登場,
+    alt: '李白降落 - 狂亮的登場',
+    nodePatterns: ['chapter-9-9', 'chapter-9-10', 'chapter-9-11', 'chapter-9-12', 'chapter-9-13', 'chapter-9-14', 'chapter-9-15', 'chapter-9-choice-1'],
   },
   {
-    image: IMG25_寬恕釋放,
-    alt: '寬恕釋放',
+    image: IMG_ch9_李白對坐_一杯的坦然,
+    alt: '李白對坐 - 一杯的坦然',
+    nodePatterns: ['chapter-9-16', 'chapter-9-17', 'chapter-9-18', 'chapter-9-19', 'chapter-9-20', 'chapter-9-21', 'chapter-9-22', 'chapter-9-23', 'chapter-9-24', 'chapter-9-25'],
+  },
+  {
+    image: IMG_ch9_水中月_頓悟的寧靜,
+    alt: '水中月 - 頓悟的寧靜',
+    nodePatterns: ['chapter-9-26', 'chapter-9-27', 'chapter-9-28', 'chapter-9-29', 'chapter-9-30', 'chapter-9-31', 'chapter-9-32', 'chapter-9-33', 'chapter-9-34', 'chapter-9-35', 'chapter-9-choice-2'],
+  },
+  {
+    image: IMG_ch9_李白告別_傳奇的禮物,
+    alt: '李白告別 - 傳奇的禮物',
+    nodePatterns: ['chapter-9-36', 'chapter-9-37', 'chapter-9-38', 'chapter-9-39', 'chapter-9-40', 'chapter-9-end'],
+  },
+  {
+    image: IMG_李白月下_詩酒狂歌,
+    alt: '李白月下',
     nodePatterns: ['chapter9-', 'chapter-9-'],
   },
 
-  // === 第十章：權力與愛（凱薩＆克麗奧佩特拉）===
+  // === 第十章：權力與愛（凱薩＆克麗奧佩特拉，使用粉嫩少女耽美版）===
   {
-    image: IMG26_海倫凱勒,  // TODO: 需要替換為歐式花園場景
+    image: IMG_ch10_歐式花園_異域權力的召喚,
+    alt: '歐式花園 - 異域權力的召喚',
+    nodePatterns: ['chapter-10-intro', 'chapter-10-1', 'chapter-10-2', 'chapter-10-3', 'chapter-10-4', 'chapter-10-5', 'chapter-10-6', 'chapter-10-7', 'chapter-10-8'],
+  },
+  {
+    image: IMG_ch10_凱薩與克麗奧佩特拉_權力的三角,
+    alt: '凱薩與克麗奧佩特拉 - 權力的三角',
+    nodePatterns: ['chapter-10-9', 'chapter-10-10', 'chapter-10-11', 'chapter-10-12', 'chapter-10-13', 'chapter-10-14', 'chapter-10-15', 'chapter-10-choice-1'],
+  },
+  {
+    image: IMG_ch10_凱薩的故事_背叛的反思,
+    alt: '凱薩的故事 - 背叛的反思',
+    nodePatterns: ['chapter-10-16', 'chapter-10-17', 'chapter-10-18', 'chapter-10-19', 'chapter-10-20', 'chapter-10-21', 'chapter-10-22', 'chapter-10-23', 'chapter-10-24', 'chapter-10-25'],
+  },
+  {
+    image: IMG_ch10_克麗奧佩特拉的故事_野心的象徵,
+    alt: '克麗奧佩特拉的故事 - 野心的象徵',
+    nodePatterns: ['chapter-10-26', 'chapter-10-27', 'chapter-10-28', 'chapter-10-29', 'chapter-10-30', 'chapter-10-31', 'chapter-10-32', 'chapter-10-33', 'chapter-10-34', 'chapter-10-35', 'chapter-10-choice-2'],
+  },
+  {
+    image: IMG_ch10_凱薩與克麗奧佩特拉告別_和解的智慧,
+    alt: '凱薩與克麗奧佩特拉告別 - 和解的智慧',
+    nodePatterns: ['chapter-10-36', 'chapter-10-37', 'chapter-10-38', 'chapter-10-39', 'chapter-10-40', 'chapter-10-end'],
+  },
+  {
+    image: IMG_ch10_歐式花園_異域權力的召喚,
     alt: '歐式花園',
     nodePatterns: ['chapter10-', 'chapter-10-'],
   },
 
-  // === 第十一章：選擇（主角整合）===
+  // === 第十一章：曼德拉（寬恕與選擇，使用粉嫩少女耽美版）===
   {
-    image: IMG33_主角轉變,
-    alt: '主角整合',
+    image: IMG_曼德拉花園_幼芽守護,
+    alt: '曼德拉花園 - 幼芽守護',
+    nodePatterns: ['chapter-11-intro', 'chapter-11-1', 'chapter-11-2', 'chapter-11-3', 'chapter-11-4', 'chapter-11-5', 'chapter-11-6', 'chapter-11-7', 'chapter-11-8'],
+  },
+  {
+    image: IMG23_曼德拉鐵窗,
+    alt: '曼德拉鐵窗',
+    nodePatterns: ['chapter-11-9', 'chapter-11-10', 'chapter-11-11', 'chapter-11-12', 'chapter-11-13', 'chapter-11-14', 'chapter-11-15', 'chapter-11-choice-1'],
+  },
+  {
+    image: IMG_ch11_曼德拉認真談話_仇恨與選擇,
+    alt: '曼德拉認真談話 - 仇恨與選擇',
+    nodePatterns: ['chapter-11-16', 'chapter-11-17', 'chapter-11-18', 'chapter-11-19', 'chapter-11-20', 'chapter-11-21', 'chapter-11-22', 'chapter-11-23', 'chapter-11-24', 'chapter-11-25', 'chapter-11-26', 'chapter-11-27', 'chapter-11-28', 'chapter-11-29', 'chapter-11-30', 'chapter-11-choice-2'],
+  },
+  {
+    image: IMG25_寬恕釋放,
+    alt: '寬恕釋放',
+    nodePatterns: ['chapter-11-31', 'chapter-11-32', 'chapter-11-33', 'chapter-11-34', 'chapter-11-35', 'chapter-11-36', 'chapter-11-37', 'chapter-11-38', 'chapter-11-39', 'chapter-11-40', 'chapter-11-end'],
+  },
+  {
+    image: IMG_曼德拉花園_幼芽守護,
+    alt: '曼德拉',
     nodePatterns: ['chapter11-', 'chapter-11-'],
   },
 
