@@ -136,6 +136,14 @@ import IMG_ch6_洞口石刻_歷史的呼吸 from '@/assets/scenes/ch6_洞口石�
 import IMG_ch6_王陽明洞中_專注的光 from '@/assets/scenes/ch6_王陽明洞中_專注的光_粉嫩少女耽美版.png';
 import IMG_ch6_頓悟_星光的點醒 from '@/assets/scenes/ch6_頓悟_星光的點醒_粉嫩少女耽美版.png';
 import IMG_ch6_告別_永恆的守望 from '@/assets/scenes/ch6_告別_永恆的守望_粉嫩少女耽美版.png';
+import IMG_ch7_畫廊_女性力量的震動 from '@/assets/scenes/ch7_畫廊_女性力量的震動_粉嫩少女耽美版.png';
+import IMG_ch7_武則天寶座_權力的對峙 from '@/assets/scenes/ch7_武則天寶座_權力的對峙_粉嫩少女耽美版.png';
+import IMG_ch7_武則天窗邊_背影的堅定 from '@/assets/scenes/ch7_武則天窗邊_背影的堅定_粉嫩少女耽美版.png';
+import IMG_ch7_無字碑_自我定義的莊嚴 from '@/assets/scenes/ch7_無字碑_自我定義的莊嚴_粉嫩少女耽美版.png';
+import IMG_ch7_武則天告別_傳承的力量 from '@/assets/scenes/ch7_武則天告別_傳承的力量_粉嫩少女耽美版.png';
+import IMG_ch8_迷途走廊_迷失與尋找 from '@/assets/scenes/ch8_迷途走廊_迷失與尋找_粉嫩少女耽美版.png';
+import IMG_ch8_書房_堅持的光 from '@/assets/scenes/ch8_書房_堅持的光_粉嫩少女耽美版.png';
+import IMG_ch8_叩問_直視的勇氣 from '@/assets/scenes/ch8_叩問_直視的勇氣_粉嫩少女耽美版.png';
 export interface SceneImageConfig {
   image: string;
   alt: string;
@@ -347,16 +355,31 @@ export const sceneImages: SceneImageConfig[] = [
     nodePatterns: ['chapter-6-'],
   },
 
-  // === 第七章：誰定的規矩（武則天）===
+  // === 第七章：誰定的規矩（武則天，使用粉嫩少女耽美版）===
   {
-    image: IMG18_女子畫廊,
-    alt: '女子畫廊',
-    nodePatterns: ['chapter7-1', 'chapter7-2', 'chapter7-3', 'chapter7-4', 'chapter7-5', 'chapter7-6', 'chapter7-7', 'chapter7-8', 'chapter7-9', 'chapter7-10', 'chapter-7-1', 'chapter-7-2', 'chapter-7-3', 'chapter-7-4', 'chapter-7-5', 'chapter-7-6', 'chapter-7-7', 'chapter-7-8', 'chapter-7-9', 'chapter-7-10'],
+    image: IMG_ch7_畫廊_女性力量的震動,
+    alt: '畫廊 - 女性力量的震動',
+    nodePatterns: ['chapter-7-intro', 'chapter-7-1', 'chapter-7-2', 'chapter-7-3', 'chapter-7-4', 'chapter-7-5', 'chapter-7-6', 'chapter-7-7', 'chapter-7-8'],
   },
   {
-    image: IMG20_朱紅鳳門,
-    alt: '朱紅鳳門',
-    nodePatterns: ['chapter7-11', 'chapter7-12', 'chapter7-13', 'chapter7-14', 'chapter7-15', 'chapter7-16', 'chapter7-17', 'chapter7-18', 'chapter7-19', 'chapter7-20', 'chapter-7-11', 'chapter-7-12', 'chapter-7-13', 'chapter-7-14', 'chapter-7-15', 'chapter-7-16', 'chapter-7-17', 'chapter-7-18', 'chapter-7-19', 'chapter-7-20'],
+    image: IMG_ch7_武則天寶座_權力的對峙,
+    alt: '武則天寶座 - 權力的對峙',
+    nodePatterns: ['chapter-7-9', 'chapter-7-10', 'chapter-7-11', 'chapter-7-12', 'chapter-7-13', 'chapter-7-14', 'chapter-7-15', 'chapter-7-16', 'chapter-7-choice-1'],
+  },
+  {
+    image: IMG_ch7_武則天窗邊_背影的堅定,
+    alt: '武則天窗邊 - 背影的堅定',
+    nodePatterns: ['chapter-7-17', 'chapter-7-18', 'chapter-7-19', 'chapter-7-20', 'chapter-7-21', 'chapter-7-22', 'chapter-7-23', 'chapter-7-24', 'chapter-7-25'],
+  },
+  {
+    image: IMG_ch7_無字碑_自我定義的莊嚴,
+    alt: '無字碑 - 自我定義的莊嚴',
+    nodePatterns: ['chapter-7-26', 'chapter-7-27', 'chapter-7-28', 'chapter-7-29', 'chapter-7-30', 'chapter-7-31', 'chapter-7-32', 'chapter-7-33', 'chapter-7-34', 'chapter-7-35', 'chapter-7-choice-2'],
+  },
+  {
+    image: IMG_ch7_武則天告別_傳承的力量,
+    alt: '武則天告別 - 傳承的力量',
+    nodePatterns: ['chapter-7-36', 'chapter-7-37', 'chapter-7-38', 'chapter-7-39', 'chapter-7-40', 'chapter-7-end'],
   },
   {
     image: IMG_武則天寶座_權力威儀,
@@ -364,27 +387,25 @@ export const sceneImages: SceneImageConfig[] = [
     nodePatterns: ['chapter7-', 'chapter-7-'],
   },
 
-  // === 第六章：書匣（司馬遷）===
+  // === 第八章：把自己活完（司馬遷，使用粉嫩少女耽美版）===
+  {
+    image: IMG_ch8_迷途走廊_迷失與尋找,
+    alt: '迷途走廊 - 迷失與尋找',
+    nodePatterns: ['chapter-8-intro', 'chapter-8-1', 'chapter-8-2', 'chapter-8-3', 'chapter-8-4', 'chapter-8-5', 'chapter-8-6', 'chapter-8-7', 'chapter-8-8'],
+  },
+  {
+    image: IMG_ch8_書房_堅持的光,
+    alt: '書房 - 堅持的光',
+    nodePatterns: ['chapter-8-9', 'chapter-8-10', 'chapter-8-11', 'chapter-8-12', 'chapter-8-13', 'chapter-8-14', 'chapter-8-15', 'chapter-8-16', 'chapter-8-17', 'chapter-8-18', 'chapter-8-19', 'chapter-8-20', 'chapter-8-choice-1'],
+  },
+  {
+    image: IMG_ch8_叩問_直視的勇氣,
+    alt: '叩問 - 直視的勇氣',
+    nodePatterns: ['chapter-8-21', 'chapter-8-22', 'chapter-8-23', 'chapter-8-24', 'chapter-8-25', 'chapter-8-26', 'chapter-8-27', 'chapter-8-28', 'chapter-8-29', 'chapter-8-30', 'chapter-8-choice-2', 'chapter-8-end'],
+  },
   {
     image: IMG_司馬遷書房_竹簡對話,
     alt: '司馬遷書房',
-    nodePatterns: ['chapter6-', 'chapter-6-'],
-  },
-
-  // === 第八章：醉與醒（李白）===
-  {
-    image: IMG_李白月下_詩酒狂歌,
-    alt: '李白月下詩酒',
-    nodePatterns: ['chapter8-1', 'chapter8-2', 'chapter8-3', 'chapter8-4', 'chapter8-5', 'chapter8-6', 'chapter8-7', 'chapter8-8', 'chapter8-9', 'chapter8-10', 'chapter-8-1', 'chapter-8-2', 'chapter-8-3', 'chapter-8-4', 'chapter-8-5', 'chapter-8-6', 'chapter-8-7', 'chapter-8-8', 'chapter-8-9', 'chapter-8-10'],
-  },
-  {
-    image: IMG_李白與主角_月下贈酒,
-    alt: '李白贈酒',
-    nodePatterns: ['chapter8-11', 'chapter8-12', 'chapter8-13', 'chapter8-14', 'chapter8-15', 'chapter8-16', 'chapter8-17', 'chapter8-18', 'chapter8-19', 'chapter8-20', 'chapter-8-11', 'chapter-8-12', 'chapter-8-13', 'chapter-8-14', 'chapter-8-15', 'chapter-8-16', 'chapter-8-17', 'chapter-8-18', 'chapter-8-19', 'chapter-8-20'],
-  },
-  {
-    image: IMG_李白月下屋頂_詩句化光,
-    alt: '李白詩句化光',
     nodePatterns: ['chapter8-', 'chapter-8-'],
   },
 
