@@ -105,6 +105,15 @@ export interface ArcHistoryEntry {
   change: number;
 }
 
+// 對話歷史記錄（用於回顧模式）
+export interface DialogueHistoryEntry {
+  nodeId: string;
+  speaker: string;
+  speakerName: string;
+  text: string;
+  timestamp: number;
+}
+
 export interface PartProgress {
   arcValue: number;
   currentChapter: number;
@@ -122,6 +131,8 @@ export interface PartProgress {
   arcHistory: ArcHistoryEntry[];
   // 已解鎖成就
   unlockedAchievements: string[];
+  // 對話歷史（回顧模式）
+  dialogueHistory: DialogueHistoryEntry[];
 }
 
 interface GameState {
@@ -150,6 +161,8 @@ interface GameState {
   unlockImage: (imageUrl: string) => void;
   addArcHistory: (change: number, nodeId: string) => void;
   unlockAchievement: (achievementId: string) => void;
+  addDialogueHistory: (entry: Omit<DialogueHistoryEntry, 'timestamp'>) => void;
+  getDialogueHistory: () => DialogueHistoryEntry[];
   
   // 獲取當前進度
   getCurrentProgress: () => PartProgress;
@@ -168,6 +181,7 @@ const defaultProgress: PartProgress = {
   unlockedImages: [],
   arcHistory: [{ value: 180, timestamp: Date.now(), nodeId: 'start', change: 0 }],
   unlockedAchievements: [],
+  dialogueHistory: [],
 };
 
 const defaultPart2Progress: PartProgress = {
@@ -183,6 +197,7 @@ const defaultPart2Progress: PartProgress = {
   unlockedImages: [],
   arcHistory: [{ value: 180, timestamp: Date.now(), nodeId: 'start', change: 0 }],
   unlockedAchievements: [],
+  dialogueHistory: [],
 };
 
 // 每個章節的總節點數（用於計算閱讀百分比）
@@ -449,6 +464,42 @@ export const useGameStore = create<GameState>()(
             set({ yiPart2Progress: updatedProgress });
           }
         }
+      },
+
+      addDialogueHistory: (entry: Omit<DialogueHistoryEntry, 'timestamp'>) => {
+        const state = get();
+        const progress = state.getCurrentProgress();
+        const dialogueHistory = progress.dialogueHistory || [];
+        
+        // 避免重複添加相同節點
+        const lastEntry = dialogueHistory[dialogueHistory.length - 1];
+        if (lastEntry?.nodeId === entry.nodeId) return;
+        
+        // 限制歷史記錄最多保留 200 條
+        const newHistory = [
+          ...dialogueHistory.slice(-199),
+          {
+            ...entry,
+            timestamp: Date.now(),
+          },
+        ];
+        
+        const updatedProgress = {
+          ...progress,
+          dialogueHistory: newHistory,
+        };
+        
+        if (state.currentPart === 'yi') {
+          set({ yiProgress: updatedProgress });
+        } else {
+          set({ yiPart2Progress: updatedProgress });
+        }
+      },
+
+      getDialogueHistory: () => {
+        const state = get();
+        const progress = state.getCurrentProgress();
+        return progress.dialogueHistory || [];
       },
 
       getCurrentProgress: () => {
