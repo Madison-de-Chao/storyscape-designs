@@ -177,6 +177,7 @@ import IMG_ch13_賈伯斯_挑戰的氣場 from '@/assets/scenes/ch13_賈伯斯_�
 import IMG_ch13_白色建築_秩序的刺醒 from '@/assets/scenes/ch13_白色建築_秩序的刺醒_粉嫩少女耽美版.png';
 import IMG_ch13_蘋果物件_點亮的傳承 from '@/assets/scenes/ch13_蘋果物件_點亮的傳承_粉嫩少女耽美版.png';
 import IMG_ch13_賈伯斯沉思_轉折的覺醒 from '@/assets/scenes/ch13_賈伯斯沉思_轉折的覺醒_粉嫩少女耽美版.png';
+import IMG_ch13_賈伯斯告別_溫暖的傳承 from '@/assets/scenes/ch13_賈伯斯告別_溫暖的傳承_色彩演進版.png';
 
 // 新增第十四章（未歸者廊）粉嫩少女耽美版場景圖片
 import IMG_ch14_廊入口_未歸者的啟程 from '@/assets/scenes/ch14_廊入口_未歸者的啟程_粉嫩少女耽美版_v3.png';
@@ -187,8 +188,16 @@ import IMG_ch14_梵谷_瘋狂的藝術 from '@/assets/scenes/ch14_梵谷_瘋狂�
 import IMG_ch14_夢露_分裂的自我 from '@/assets/scenes/ch14_夢露_分裂的自我_粉嫩少女耽美版_final.png';
 import IMG_ch14_空壁龕_恐懼的空白 from '@/assets/scenes/ch14_空壁龕_恐懼的空白_粉嫩少女耽美版.png';
 import IMG_ch14_壁龕深處_記憶的重複 from '@/assets/scenes/ch14_壁龕深處_記憶的重複_粉嫩少女耽美版_final.png';
+import IMG_ch14_壁龕深處_色彩演進 from '@/assets/scenes/ch14_壁龕深處_記憶的重複_色彩演進版.png';
 import IMG_ch14_告別廊_走出的覺醒 from '@/assets/scenes/ch14_告別廊_走出的覺醒_粉嫩少女耽美版.png';
 
+// 新增第十五章（伊）粉嫩少女耽美版場景圖片
+import IMG_ch15_洞穴入口_深淵的召喚 from '@/assets/scenes/ch15_洞穴入口_深淵的召喚_粉嫩少女耽美版.png';
+import IMG_ch15_洞穴內部_琉璃的引導 from '@/assets/scenes/ch15_洞穴內部_琉璃的引導_粉嫩少女耽美版.png';
+import IMG_ch15_伊登場_鏡像的震撼 from '@/assets/scenes/ch15_伊登場_鏡像的震撼_粉嫩少女耽美版.png';
+import IMG_ch15_伊痛苦_遺棄的淚光 from '@/assets/scenes/ch15_伊痛苦_遺棄的淚光_色彩演進最終版.png';
+import IMG_ch15_伊柔化_連結的開始 from '@/assets/scenes/ch15_伊柔化_連結的開始_粉嫩少女耽美版.png';
+import IMG_ch15_擁抱_和解的光芒 from '@/assets/scenes/ch15_擁抱_和解的光芒_粉嫩少女耽美版.png';
 export interface SceneImageConfig {
   image: string;
   alt: string;
@@ -631,7 +640,12 @@ export const sceneImages: SceneImageConfig[] = [
   {
     image: IMG_ch13_蘋果物件_點亮的傳承,
     alt: '蘋果物件 - 點亮的傳承',
-    nodePatterns: ['yi1-ch13-19', 'yi1-ch13-20', 'yi1-ch13-21', 'yi1-ch13-22', 'yi1-ch13-23', 'yi1-ch13-24', 'yi1-ch13-25', 'yi1-ch13-choice-3', 'yi1-ch13-foreshadow'],
+    nodePatterns: ['yi1-ch13-19', 'yi1-ch13-20', 'yi1-ch13-21', 'yi1-ch13-22', 'yi1-ch13-23', 'yi1-ch13-24'],
+  },
+  {
+    image: IMG_ch13_賈伯斯告別_溫暖的傳承,
+    alt: '賈伯斯告別 - 溫暖的傳承',
+    nodePatterns: ['yi1-ch13-25', 'yi1-ch13-choice-3', 'yi1-ch13-foreshadow'],
   },
   {
     image: IMG_賈伯斯與主角_蘋果之光,
@@ -691,21 +705,36 @@ export const sceneImages: SceneImageConfig[] = [
     nodePatterns: ['chapter14-', 'chapter-14-'],
   },
 
-  // === 第十五章：伊 ===
+  // === 第十五章：伊（使用粉嫩少女耽美版完整版）===
   {
-    image: IMG_樹根洞穴_琉璃光路,
-    alt: '洞穴入口',
-    nodePatterns: ['chapter15-1', 'chapter15-2', 'chapter15-3', 'chapter15-4', 'chapter15-5', 'chapter15-6', 'chapter15-7', 'chapter15-8', 'chapter-15-1', 'chapter-15-2', 'chapter-15-3', 'chapter-15-4', 'chapter-15-5', 'chapter-15-6', 'chapter-15-7', 'chapter-15-8'],
+    image: IMG_ch15_洞穴入口_深淵的召喚,
+    alt: '洞穴入口 - 深淵的召喚',
+    nodePatterns: ['yi1-ch15-intro', 'yi1-ch15-1', 'yi1-ch15-2', 'yi1-ch15-3', 'yi1-ch15-4', 'yi1-ch15-5', 'chapter15-1', 'chapter15-2', 'chapter15-3', 'chapter15-4', 'chapter-15-1', 'chapter-15-2', 'chapter-15-3', 'chapter-15-4'],
   },
   {
-    image: IMG_伊整合擁抱與回歸_最終圓滿,
-    alt: '伊的對峙',
-    nodePatterns: ['chapter15-9', 'chapter15-10', 'chapter15-11', 'chapter15-12', 'chapter15-13', 'chapter15-14', 'chapter15-15', 'chapter15-16', 'chapter15-17', 'chapter15-18', 'chapter15-19', 'chapter15-20', 'chapter15-21', 'chapter15-22', 'chapter15-23', 'chapter15-24', 'chapter15-25', 'chapter15-26', 'chapter15-27', 'chapter15-28', 'chapter15-29', 'chapter15-30', 'chapter15-31', 'chapter15-32', 'chapter15-33', 'chapter15-34', 'chapter15-35', 'chapter15-36', 'chapter15-37', 'chapter15-38', 'chapter15-39', 'chapter15-40', 'chapter-15-9', 'chapter-15-10', 'chapter-15-11', 'chapter-15-12', 'chapter-15-13', 'chapter-15-14', 'chapter-15-15', 'chapter-15-16', 'chapter-15-17', 'chapter-15-18', 'chapter-15-19', 'chapter-15-20'],
+    image: IMG_ch15_洞穴內部_琉璃的引導,
+    alt: '洞穴內部 - 琉璃的引導',
+    nodePatterns: ['yi1-ch15-6', 'yi1-ch15-7', 'yi1-ch15-8', 'yi1-ch15-9', 'yi1-ch15-10', 'chapter15-5', 'chapter15-6', 'chapter15-7', 'chapter15-8', 'chapter-15-5', 'chapter-15-6', 'chapter-15-7', 'chapter-15-8'],
   },
   {
-    image: IMG_樹根洞穴_琉璃光路,
-    alt: '洞穴光明',
-    nodePatterns: ['chapter15-41', 'chapter15-42', 'chapter15-43', 'chapter15-44', 'chapter15-45', 'chapter15-46', 'chapter15-47', 'chapter15-48', 'chapter15-49', 'chapter15-50', 'chapter15-51'],
+    image: IMG_ch15_伊登場_鏡像的震撼,
+    alt: '伊登場 - 鏡像的震撼',
+    nodePatterns: ['yi1-ch15-11', 'yi1-ch15-12', 'yi1-ch15-13', 'yi1-ch15-14', 'yi1-ch15-15', 'yi1-ch15-choice-1', 'chapter15-9', 'chapter15-10', 'chapter15-11', 'chapter15-12', 'chapter-15-9', 'chapter-15-10', 'chapter-15-11', 'chapter-15-12'],
+  },
+  {
+    image: IMG_ch15_伊痛苦_遺棄的淚光,
+    alt: '伊痛苦 - 遺棄的淚光',
+    nodePatterns: ['yi1-ch15-16', 'yi1-ch15-17', 'yi1-ch15-18', 'yi1-ch15-19', 'yi1-ch15-20', 'yi1-ch15-choice-2', 'chapter15-13', 'chapter15-14', 'chapter15-15', 'chapter15-16', 'chapter15-17', 'chapter15-18', 'chapter-15-13', 'chapter-15-14', 'chapter-15-15', 'chapter-15-16'],
+  },
+  {
+    image: IMG_ch15_伊柔化_連結的開始,
+    alt: '伊柔化 - 連結的開始',
+    nodePatterns: ['yi1-ch15-21', 'yi1-ch15-22', 'yi1-ch15-23', 'yi1-ch15-24', 'yi1-ch15-25', 'yi1-ch15-choice-3', 'chapter15-19', 'chapter15-20', 'chapter15-21', 'chapter15-22', 'chapter15-23', 'chapter15-24', 'chapter-15-17', 'chapter-15-18', 'chapter-15-19', 'chapter-15-20'],
+  },
+  {
+    image: IMG_ch15_擁抱_和解的光芒,
+    alt: '擁抱 - 和解的光芒',
+    nodePatterns: ['yi1-ch15-26', 'yi1-ch15-27', 'yi1-ch15-28', 'yi1-ch15-29', 'yi1-ch15-30', 'yi1-ch15-foreshadow', 'chapter15-25', 'chapter15-26', 'chapter15-27', 'chapter15-28', 'chapter15-29', 'chapter15-30'],
   },
   {
     image: IMG34_海棠盛開,
