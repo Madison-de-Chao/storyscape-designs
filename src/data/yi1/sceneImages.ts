@@ -123,6 +123,13 @@ import IMG_ch3_石燈籠對話_點醒的瞬間 from '@/assets/scenes/ch3_石燈�
 import IMG_ch3_通往森林之路_轉場預告 from '@/assets/scenes/ch3_通往森林之路_轉場預告_粉嫩少女耽美版.png';
 import IMG_ch4_竹林小徑_引導前行 from '@/assets/scenes/ch4_竹林小徑_引導前行_粉嫩少女耽美版.png';
 import IMG_ch4_伊的陰影_洞口對峙 from '@/assets/scenes/ch4_伊的陰影_洞口對峙_粉嫩少女耽美版.png';
+import IMG_ch4_醜陋命樹_直視真實 from '@/assets/scenes/ch4_醜陋命樹_直視真實_粉嫩少女耽美版.png';
+import IMG_ch4_虛空混沌_崩潰空間 from '@/assets/scenes/ch4_虛空混沌_崩潰空間_粉嫩少女耽美版.png';
+import IMG_ch5_黑屏_微光脈動 from '@/assets/scenes/ch5_黑屏_微光脈動_粉嫩少女耽美版.png';
+import IMG_ch5_蘇軾雨中_定風波回憶 from '@/assets/scenes/ch5_蘇軾雨中_定風波回憶_粉嫩少女耽美版.png';
+import IMG_ch5_茶的時刻_溫暖接住 from '@/assets/scenes/ch5_茶的時刻_溫暖接住_粉嫩少女耽美版.png';
+import IMG_ch5_雨後庭院_清新重生 from '@/assets/scenes/ch5_雨後庭院_清新重生_粉嫩少女耽美版.png';
+import IMG_ch5_通往山頂之路_希望與目標 from '@/assets/scenes/ch5_通往山頂之路_希望與目標_粉嫩少女耽美版.png';
 export interface SceneImageConfig {
   image: string;
   alt: string;
@@ -247,29 +254,54 @@ export const sceneImages: SceneImageConfig[] = [
   {
     image: IMG_ch4_伊的陰影_洞口對峙,
     alt: '伊的陰影 - 洞口對峙',
-    nodePatterns: ['chapter-4-31', 'chapter-4-32', 'chapter-4-33', 'chapter-4-34', 'chapter-4-35', 'chapter-4-choice-1'],
+    nodePatterns: ['chapter-4-31', 'chapter-4-32', 'chapter-4-33', 'chapter-4-34', 'chapter-4-35'],
+  },
+  {
+    image: IMG_ch4_醜陋命樹_直視真實,
+    alt: '醜陋命樹 - 直視真實',
+    nodePatterns: ['chapter-4-36', 'chapter-4-37', 'chapter-4-38', 'chapter-4-39', 'chapter-4-40', 'chapter-4-choice-1'],
   },
   {
     image: IMG14_弧度林全景,
     alt: '弧度林全景',
-    nodePatterns: ['chapter-4-36', 'chapter-4-37', 'chapter-4-38', 'chapter-4-39', 'chapter-4-40', 'chapter-4-41', 'chapter-4-42', 'chapter-4-43', 'chapter-4-44', 'chapter-4-45', 'chapter-4-46', 'chapter-4-47', 'chapter-4-48', 'chapter-4-49', 'chapter-4-50'],
+    nodePatterns: ['chapter-4-41', 'chapter-4-42', 'chapter-4-43', 'chapter-4-44', 'chapter-4-45', 'chapter-4-46', 'chapter-4-47', 'chapter-4-48', 'chapter-4-49', 'chapter-4-50'],
+  },
+  {
+    image: IMG_ch4_虛空混沌_崩潰空間,
+    alt: '虛空混沌 - 崩潰空間',
+    nodePatterns: ['chapter-4-51', 'chapter-4-52', 'chapter-4-53', 'chapter-4-54', 'chapter-4-55'],
   },
   {
     image: IMG15_主角海棠命樹,
     alt: '主角海棠命樹',
-    nodePatterns: ['chapter-4-51', 'chapter-4-52', 'chapter-4-53', 'chapter-4-54', 'chapter-4-55', 'chapter-4-56', 'chapter-4-57', 'chapter-4-58', 'chapter-4-59', 'chapter-4-60', 'chapter-4-choice-2', 'chapter-4-end'],
+    nodePatterns: ['chapter-4-56', 'chapter-4-57', 'chapter-4-58', 'chapter-4-59', 'chapter-4-60', 'chapter-4-choice-2', 'chapter-4-end'],
   },
 
-  // === 第五章：也無風雨也無晴 ===
+  // === 第五章：也無風雨也無晴（使用粉嫩少女耽美版）===
   {
-    image: IMG_蘇軾竹林斜雨_瀟灑堅韌,
-    alt: '蘇軾庭院',
-    nodePatterns: ['chapter-5-intro', 'chapter-5-1', 'chapter-5-2', 'chapter-5-3', 'chapter-5-4', 'chapter-5-5', 'chapter-5-6', 'chapter-5-7', 'chapter-5-8', 'chapter-5-9', 'chapter-5-10', 'chapter-5-11', 'chapter-5-12', 'chapter-5-13', 'chapter-5-14', 'chapter-5-15', 'chapter-5-16', 'chapter-5-17', 'chapter-5-18', 'chapter-5-19', 'chapter-5-20'],
+    image: IMG_ch5_黑屏_微光脈動,
+    alt: '黑屏 - 微光脈動',
+    nodePatterns: ['chapter-5-intro', 'chapter-5-1', 'chapter-5-2', 'chapter-5-3', 'chapter-5-4', 'chapter-5-5'],
   },
   {
-    image: IMG_雨後庭院_蘇軾贈茶,
-    alt: '命樹特寫',
-    nodePatterns: ['chapter-5-21', 'chapter-5-22', 'chapter-5-23', 'chapter-5-24', 'chapter-5-25', 'chapter-5-26', 'chapter-5-27', 'chapter-5-28', 'chapter-5-29', 'chapter-5-30', 'chapter-5-31', 'chapter-5-32', 'chapter-5-33', 'chapter-5-34', 'chapter-5-35', 'chapter-5-36', 'chapter-5-37', 'chapter-5-38', 'chapter-5-39', 'chapter-5-40'],
+    image: IMG_ch5_蘇軾雨中_定風波回憶,
+    alt: '蘇軾雨中 - 定風波回憶',
+    nodePatterns: ['chapter-5-6', 'chapter-5-7', 'chapter-5-8', 'chapter-5-9', 'chapter-5-10', 'chapter-5-11', 'chapter-5-12', 'chapter-5-13', 'chapter-5-14', 'chapter-5-15'],
+  },
+  {
+    image: IMG_ch5_茶的時刻_溫暖接住,
+    alt: '茶的時刻 - 溫暖接住',
+    nodePatterns: ['chapter-5-16', 'chapter-5-17', 'chapter-5-18', 'chapter-5-19', 'chapter-5-20', 'chapter-5-21', 'chapter-5-22', 'chapter-5-23', 'chapter-5-24', 'chapter-5-25', 'chapter-5-choice-1'],
+  },
+  {
+    image: IMG_ch5_雨後庭院_清新重生,
+    alt: '雨後庭院 - 清新重生',
+    nodePatterns: ['chapter-5-26', 'chapter-5-27', 'chapter-5-28', 'chapter-5-29', 'chapter-5-30', 'chapter-5-31', 'chapter-5-32', 'chapter-5-33', 'chapter-5-34', 'chapter-5-35'],
+  },
+  {
+    image: IMG_ch5_通往山頂之路_希望與目標,
+    alt: '通往山頂之路 - 希望與目標',
+    nodePatterns: ['chapter-5-36', 'chapter-5-37', 'chapter-5-38', 'chapter-5-39', 'chapter-5-40', 'chapter-5-choice-2', 'chapter-5-end'],
   },
   {
     image: IMG_虛空聽答_雨後沉思,
