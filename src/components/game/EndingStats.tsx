@@ -1,12 +1,13 @@
 import { useRef, useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useGameStore } from '@/stores/gameStore';
-import { X, Sparkles, Palette, GitBranch, BookOpen, Clock, Trophy, Star, AlertCircle, Map } from 'lucide-react';
+import { X, Sparkles, Palette, GitBranch, BookOpen, Clock, Trophy, Star, AlertCircle, Map, Award, Lock, Compass, Eye, Book, Zap, Flame, Heart, Shield } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useShareImage } from '@/hooks/useShareImage';
 import ShareButtons from './ShareButtons';
 import ShareCard from './ShareCard';
 import JourneyReflection from './JourneyReflection';
+import { useAchievements } from '@/hooks/useAchievements';
 interface EndingStatsProps {
   isOpen: boolean;
   onClose: () => void;
@@ -109,6 +110,28 @@ const colorConfig: Record<string, { name: string; bg: string; glow: string }> = 
   azure: { name: '蔚藍', bg: 'bg-blue-500', glow: 'shadow-blue-500/50' },
 };
 
+// 成就圖標映射
+const achievementIconMap: Record<string, React.FC<{ className?: string }>> = {
+  compass: Compass,
+  eye: Eye,
+  book: Book,
+  star: Star,
+  trophy: Trophy,
+  sparkles: Sparkles,
+  zap: Zap,
+  flame: Flame,
+  heart: Heart,
+  shield: Shield,
+};
+
+// 稀有度顏色映射
+const rarityConfig: Record<string, { bg: string; border: string; text: string; glow: string }> = {
+  common: { bg: 'bg-slate-600/50', border: 'border-slate-500/50', text: 'text-slate-300', glow: '' },
+  rare: { bg: 'bg-blue-600/50', border: 'border-blue-500/50', text: 'text-blue-300', glow: 'shadow-blue-500/30' },
+  epic: { bg: 'bg-purple-600/50', border: 'border-purple-500/50', text: 'text-purple-300', glow: 'shadow-purple-500/30' },
+  legendary: { bg: 'bg-amber-600/50', border: 'border-amber-500/50', text: 'text-amber-300', glow: 'shadow-amber-500/50' },
+};
+
 const EndingStats = ({ isOpen, onClose }: EndingStatsProps) => {
   const statsRef = useRef<HTMLDivElement>(null);
   const shareCardRef = useRef<HTMLDivElement>(null);
@@ -126,6 +149,9 @@ const EndingStats = ({ isOpen, onClose }: EndingStatsProps) => {
   
   // 旅程回顧頁面狀態
   const [showJourneyReflection, setShowJourneyReflection] = useState(false);
+  
+  // 成就系統
+  const { achievements, unlockedIds, unlockedCount, totalCount } = useAchievements();
   
   const { arcValue, colorsCollected, choicesHistory, readNodes, lastReadAt } = progress;
   
@@ -486,6 +512,96 @@ const EndingStats = ({ isOpen, onClose }: EndingStatsProps) => {
             </div>
           </motion.div>
         )}
+
+        {/* 成就展示區 */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.85 }}
+          className="mx-6 mt-4 p-4 rounded-xl bg-surface/50 border border-border/30"
+        >
+          <div className="flex items-center justify-between mb-4">
+            <h4 className="text-sm font-medium text-muted-foreground flex items-center gap-2">
+              <Award className="w-4 h-4" />
+              成就徽章
+            </h4>
+            <span className="text-xs text-muted-foreground">
+              {unlockedCount} / {totalCount} ({Math.round((unlockedCount / totalCount) * 100)}%)
+            </span>
+          </div>
+          
+          {/* 成就進度條 */}
+          <div className="h-2 rounded-full bg-muted/30 overflow-hidden mb-4">
+            <motion.div
+              initial={{ width: 0 }}
+              animate={{ width: `${(unlockedCount / totalCount) * 100}%` }}
+              transition={{ delay: 0.9, duration: 0.8, ease: 'easeOut' }}
+              className="h-full rounded-full bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-500"
+            />
+          </div>
+          
+          {/* 成就網格 */}
+          <div className="grid grid-cols-4 sm:grid-cols-6 gap-2">
+            {achievements.map((achievement, index) => {
+              const isUnlocked = unlockedIds.includes(achievement.id);
+              const rarity = rarityConfig[achievement.rarity] || rarityConfig.common;
+              const IconComponent = achievementIconMap[achievement.icon] || Trophy;
+              
+              return (
+                <motion.div
+                  key={achievement.id}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 0.9 + index * 0.03 }}
+                  className={`relative group aspect-square rounded-lg border p-2 flex flex-col items-center justify-center transition-all ${
+                    isUnlocked 
+                      ? `${rarity.bg} ${rarity.border} shadow-lg ${rarity.glow}` 
+                      : 'bg-muted/20 border-muted/30 opacity-50'
+                  }`}
+                  title={isUnlocked ? `${achievement.title}: ${achievement.description}` : '???'}
+                >
+                  {isUnlocked ? (
+                    <IconComponent className={`w-5 h-5 ${rarity.text}`} />
+                  ) : (
+                    <Lock className="w-4 h-4 text-muted-foreground/50" />
+                  )}
+                  
+                  {/* Tooltip */}
+                  <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-surface border border-border rounded text-xs whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-10">
+                    {isUnlocked ? (
+                      <div className="text-center">
+                        <div className={`font-medium ${rarity.text}`}>{achievement.title}</div>
+                        <div className="text-muted-foreground text-[10px]">{achievement.description}</div>
+                      </div>
+                    ) : (
+                      <span className="text-muted-foreground">未解鎖</span>
+                    )}
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
+          
+          {/* 稀有度圖例 */}
+          <div className="flex flex-wrap justify-center gap-3 mt-4 text-[10px]">
+            <div className="flex items-center gap-1">
+              <div className="w-2 h-2 rounded-full bg-slate-500" />
+              <span className="text-slate-400">普通</span>
+            </div>
+            <div className="flex items-center gap-1">
+              <div className="w-2 h-2 rounded-full bg-blue-500" />
+              <span className="text-blue-400">稀有</span>
+            </div>
+            <div className="flex items-center gap-1">
+              <div className="w-2 h-2 rounded-full bg-purple-500" />
+              <span className="text-purple-400">史詩</span>
+            </div>
+            <div className="flex items-center gap-1">
+              <div className="w-2 h-2 rounded-full bg-amber-500" />
+              <span className="text-amber-400">傳說</span>
+            </div>
+          </div>
+        </motion.div>
 
         {/* 分享按鈕 */}
         <ShareButtons
