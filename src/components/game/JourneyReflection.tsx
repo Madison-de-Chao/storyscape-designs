@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { X, ChevronRight, ChevronLeft, BookOpen, Sparkles, Quote, User } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { yi1JourneyPhases, journeySummary, type JourneyPhase } from '@/data/journeyReflections';
+import GraduationImage from './GraduationImage';
 
 interface JourneyReflectionProps {
   isOpen: boolean;
@@ -273,108 +274,11 @@ const JourneyReflection = ({ isOpen, onClose }: JourneyReflectionProps) => {
                               </div>
                             )}
                             {chapter.graduationImage && (
-                              <motion.div
-                                initial={{ opacity: 0, scale: 0.9 }}
-                                animate={{ opacity: 1, scale: 1 }}
-                                transition={{ delay: 0.3, duration: 0.5, type: 'spring' }}
-                                className="mt-4 relative group"
-                              >
-                                {/* 畢業圖外框光暈 */}
-                                <div className="absolute -inset-1 bg-gradient-to-r from-primary/40 via-accent/40 to-primary/40 rounded-xl blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                                
-                                {/* 角落裝飾 */}
-                                <div className="absolute -top-2 -left-2 w-6 h-6 border-t-2 border-l-2 border-primary/60 rounded-tl-lg" />
-                                <div className="absolute -top-2 -right-2 w-6 h-6 border-t-2 border-r-2 border-primary/60 rounded-tr-lg" />
-                                <div className="absolute -bottom-2 -left-2 w-6 h-6 border-b-2 border-l-2 border-primary/60 rounded-bl-lg" />
-                                <div className="absolute -bottom-2 -right-2 w-6 h-6 border-b-2 border-r-2 border-primary/60 rounded-br-lg" />
-                                
-                                {/* 畢業標籤 */}
-                                <motion.div
-                                  initial={{ opacity: 0, y: -10 }}
-                                  animate={{ opacity: 1, y: 0 }}
-                                  transition={{ delay: 0.5 }}
-                                  className="absolute -top-3 left-1/2 -translate-x-1/2 z-10"
-                                >
-                                  <div className="flex items-center gap-1.5 px-3 py-1 bg-gradient-to-r from-primary via-accent to-primary text-background text-xs font-bold rounded-full shadow-lg">
-                                    <Sparkles className="w-3 h-3" />
-                                    <span>畢業圖</span>
-                                    <Sparkles className="w-3 h-3" />
-                                  </div>
-                                </motion.div>
-                                
-                                {/* 圖片容器 */}
-                                <div className="relative overflow-hidden rounded-xl border-2 border-primary/30 bg-surface-dark">
-                                  {/* 發光效果層 */}
-                                  <motion.div
-                                    animate={{
-                                      opacity: [0.3, 0.6, 0.3],
-                                      scale: [1, 1.02, 1],
-                                    }}
-                                    transition={{
-                                      duration: 3,
-                                      repeat: Infinity,
-                                      ease: 'easeInOut',
-                                    }}
-                                    className="absolute inset-0 bg-gradient-to-t from-primary/10 via-transparent to-accent/10 pointer-events-none"
-                                  />
-                                  
-                                  {/* 掃描光效 */}
-                                  <motion.div
-                                    animate={{
-                                      left: ['-100%', '200%'],
-                                    }}
-                                    transition={{
-                                      duration: 4,
-                                      repeat: Infinity,
-                                      repeatDelay: 2,
-                                      ease: 'easeInOut',
-                                    }}
-                                    className="absolute inset-y-0 w-1/3 bg-gradient-to-r from-transparent via-white/10 to-transparent pointer-events-none"
-                                  />
-                                  
-                                  {/* 畢業圖片 */}
-                                  <motion.img
-                                    src={chapter.graduationImage}
-                                    alt={`${chapter.title} 畢業圖`}
-                                    className="w-full relative z-0"
-                                    whileHover={{ scale: 1.02 }}
-                                    transition={{ duration: 0.3 }}
-                                  />
-                                  
-                                  {/* 底部漸層文字區 */}
-                                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-background/90 via-background/60 to-transparent p-3 pt-8">
-                                    <p className="text-xs text-center text-primary/80 font-serif-tc">
-                                      ✦ {chapter.theme} ✦
-                                    </p>
-                                  </div>
-                                </div>
-                                
-                                {/* 粒子效果 */}
-                                <div className="absolute inset-0 pointer-events-none overflow-hidden rounded-xl">
-                                  {[...Array(6)].map((_, i) => (
-                                    <motion.div
-                                      key={i}
-                                      className="absolute w-1.5 h-1.5 rounded-full bg-primary/60"
-                                      animate={{
-                                        y: [100, -20],
-                                        x: [0, (i % 2 === 0 ? 10 : -10)],
-                                        opacity: [0, 1, 0],
-                                        scale: [0, 1, 0.5],
-                                      }}
-                                      transition={{
-                                        duration: 2 + i * 0.3,
-                                        repeat: Infinity,
-                                        delay: i * 0.4,
-                                        ease: 'easeOut',
-                                      }}
-                                      style={{
-                                        left: `${15 + i * 14}%`,
-                                        bottom: 0,
-                                      }}
-                                    />
-                                  ))}
-                                </div>
-                              </motion.div>
+                              <GraduationImage
+                                src={chapter.graduationImage}
+                                title={chapter.title}
+                                theme={chapter.theme}
+                              />
                             )}
                           </div>
                         </motion.div>
