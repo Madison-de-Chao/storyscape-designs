@@ -110,8 +110,11 @@ import IMG_作者序場景_起源微光 from '@/assets/scenes/作者序場景_�
 import IMG_ch1_凌晨書桌_刪除的念頭 from '@/assets/scenes/ch1_凌晨書桌_刪除的念頭_粉嫩少女耽美版.png';
 import IMG_ch1_秘密資料夾_選取的瞬間 from '@/assets/scenes/ch1_秘密資料夾_選取的瞬間_粉嫩少女耽美版.png';
 import IMG_ch1_刪除對話框_指尖的猶豫 from '@/assets/scenes/ch1_刪除對話框_指尖的猶豫_粉嫩少女耽美版.png';
+import IMG_ch1_刪除的決心_按下的瞬間 from '@/assets/scenes/ch1_刪除的決心_按下的瞬間_粉嫩少女耽美版.png';
 import IMG_ch1_故障對話框_被打斷的決絕 from '@/assets/scenes/ch1_故障對話框_被打斷的決絕_粉嫩少女耽美版.png';
+import IMG_ch1_故障與束縛_鎖鏈纏繞 from '@/assets/scenes/ch1_故障與束縛_鎖鏈纏繞_粉嫩少女耽美版.png';
 import IMG_ch1_白光爆發_跨界的開始 from '@/assets/scenes/ch1_白光爆發_跨界的開始_粉嫩少女耽美版.png';
+import IMG_ch1_穿越與覺醒_跨界時刻 from '@/assets/scenes/ch1_穿越與覺醒_跨界時刻_粉嫩少女耽美版.png';
 import IMG_ch2_金色河流_醒來的寧靜 from '@/assets/scenes/ch2_金色河流_醒來的寧靜_粉嫩版.png';
 import IMG_ch2_問心登場_指尖相觸 from '@/assets/scenes/ch2_問心登場_指尖相觸_粉嫩少女耽美版.png';
 import IMG_ch2_碼頭與歸元山_壯觀目標 from '@/assets/scenes/ch2_碼頭與歸元山_壯觀目標_粉嫩少女耽美版.png';
@@ -387,17 +390,32 @@ export const sceneImages: SceneImageConfig[] = [
   {
     image: IMG_ch1_刪除對話框_指尖的猶豫,
     alt: '刪除對話框 - 指尖的猶豫',
-    nodePatterns: ['chapter-1-16', 'chapter-1-17', 'chapter-1-18', 'chapter-1-19', 'chapter-1-20', 'chapter-1-21', 'chapter-1-choice'],
+    nodePatterns: ['chapter-1-16', 'chapter-1-17', 'chapter-1-18', 'chapter-1-19'],
+  },
+  {
+    image: IMG_ch1_刪除的決心_按下的瞬間,
+    alt: '刪除的決心 - 按下的瞬間',
+    nodePatterns: ['chapter-1-20', 'chapter-1-21', 'chapter-1-choice'],
   },
   {
     image: IMG_ch1_故障對話框_被打斷的決絕,
     alt: '故障對話框 - 被打斷的決絕',
-    nodePatterns: ['chapter-1-confirm', 'chapter-1-cancel', 'chapter-1-22', 'chapter-1-23', 'chapter-1-24', 'chapter-1-25'],
+    nodePatterns: ['chapter-1-confirm', 'chapter-1-cancel', 'chapter-1-22', 'chapter-1-23'],
+  },
+  {
+    image: IMG_ch1_故障與束縛_鎖鏈纏繞,
+    alt: '故障與束縛 - 鎖鏈纏繞',
+    nodePatterns: ['chapter-1-24', 'chapter-1-25', 'chapter-1-26'],
   },
   {
     image: IMG_ch1_白光爆發_跨界的開始,
     alt: '白光爆發 - 跨界的開始',
-    nodePatterns: ['chapter-1-26', 'chapter-1-27', 'chapter-1-28', 'chapter-1-29', 'chapter-1-30', 'chapter-1-end'],
+    nodePatterns: ['chapter-1-27', 'chapter-1-28'],
+  },
+  {
+    image: IMG_ch1_穿越與覺醒_跨界時刻,
+    alt: '穿越與覺醒 - 跨界時刻',
+    nodePatterns: ['chapter-1-29', 'chapter-1-30', 'chapter-1-end'],
   },
 
   // === 第二章：渡口（使用粉嫩少女耽美版）===
