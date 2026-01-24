@@ -218,10 +218,18 @@ import IMG_ch16_新的開始_空白的頁面 from '@/assets/scenes/ch16_新的�
 
 // 新增作者序粉嫩少女耽美版場景圖片
 import IMG_preface_二元_對立的裂縫 from '@/assets/scenes/preface_二元_對立的裂縫_粉嫩少女耽美版.png';
+import IMG_preface_二元_對立的裂縫_v2 from '@/assets/scenes/preface_二元_對立的裂縫_粉嫩少女耽美版_v2.png';
+import IMG_preface_家門_等待的溫暖 from '@/assets/scenes/preface_家門_等待的溫暖_粉嫩少女耽美版.png';
+import IMG_preface_黑暗_心靈的角落 from '@/assets/scenes/preface_黑暗_心靈的角落_粉嫩少女耽美版_v2.png';
 
 // 新增序章粉嫩少女耽美版場景圖片
 import IMG_prologue_地球_二元的平衡 from '@/assets/scenes/prologue_地球_二元的平衡_粉嫩少女耽美版.png';
 import IMG_prologue_徒勞_無盡的攀登 from '@/assets/scenes/prologue_徒勞_無盡的攀登_粉嫩少女耽美版.png';
+import IMG_prologue_虛空_意識的光點 from '@/assets/scenes/prologue_虛空_意識的光點_粉嫩少女耽美版.png';
+import IMG_prologue_拉扯_分裂的痛苦 from '@/assets/scenes/prologue_拉扯_分裂的痛苦_粉嫩少女耽美版.png';
+import IMG_prologue_宇宙聚焦_窗戶的光 from '@/assets/scenes/prologue_宇宙聚焦_窗戶的光_粉嫩少女耽美版.png';
+import IMG_prologue_覺醒_超越的瞬間 from '@/assets/scenes/prologue_覺醒_超越的瞬間_粉嫩少女耽美版.png';
+import IMG_prologue_合一_治癒的完成 from '@/assets/scenes/prologue_合一_治癒的完成_粉嫩少女耽美版.png';
 
 // 新增終章粉嫩少女耽美版場景圖片（完整14階段敘事）
 import IMG_epilogue_三個月後_深夜檔案 from '@/assets/scenes/epilogue_三個月後_深夜檔案_粉嫩少女耽美版.png';
@@ -253,33 +261,68 @@ export const defaultSceneImage: SceneImageConfig = {
 };
 
 export const sceneImages: SceneImageConfig[] = [
-  // === 作者序（使用粉嫩少女耽美版，2階段）===
+  // === 作者序（使用粉嫩少女耽美版，4階段）===
   {
     image: IMG_作者序場景_起源微光,
     alt: '作者序 - 起源微光',
-    nodePatterns: ['preface-intro', 'preface-1', 'preface-2', 'preface-3', 'preface-4', 'preface-5'],
+    nodePatterns: ['preface-intro', 'preface-1', 'preface-2', 'preface-3'],
   },
   {
-    image: IMG_preface_二元_對立的裂縫,
+    image: IMG_preface_黑暗_心靈的角落,
+    alt: '黑暗 - 心靈的角落',
+    nodePatterns: ['preface-4', 'preface-5', 'preface-6'],
+  },
+  {
+    image: IMG_preface_二元_對立的裂縫_v2,
     alt: '二元 - 對立的裂縫',
-    nodePatterns: ['preface-6', 'preface-7', 'preface-8', 'preface-9', 'preface-10', 'preface-end', 'preface-'],
+    nodePatterns: ['preface-7', 'preface-8', 'preface-9'],
+  },
+  {
+    image: IMG_preface_家門_等待的溫暖,
+    alt: '家門 - 等待的溫暖',
+    nodePatterns: ['preface-10', 'preface-11', 'preface-12', 'preface-end', 'preface-'],
   },
 
-  // === 序章：訓練場（使用粉嫩少女耽美版，3階段）===
+  // === 序章：訓練場（使用粉嫩少女耽美版，8階段）===
   {
     image: IMG_訓練場_虛空圓形平台,
     alt: '虛空圓形平台',
-    nodePatterns: ['prologue-intro', 'prologue-1', 'prologue-2', 'prologue-3', 'prologue-4', 'prologue-5', 'prologue-6', 'prologue-7', 'prologue-8'],
+    nodePatterns: ['prologue-intro', 'prologue-1', 'prologue-2', 'prologue-3'],
+  },
+  {
+    image: IMG_prologue_虛空_意識的光點,
+    alt: '虛空 - 意識的光點',
+    nodePatterns: ['prologue-4', 'prologue-5', 'prologue-6'],
   },
   {
     image: IMG_prologue_地球_二元的平衡,
     alt: '地球 - 二元的平衡',
-    nodePatterns: ['prologue-9', 'prologue-10', 'prologue-11', 'prologue-12', 'prologue-13', 'prologue-14', 'prologue-15'],
+    nodePatterns: ['prologue-7', 'prologue-8', 'prologue-9', 'prologue-10'],
   },
   {
     image: IMG_prologue_徒勞_無盡的攀登,
     alt: '徒勞 - 無盡的攀登',
-    nodePatterns: ['prologue-16', 'prologue-17', 'prologue-18', 'prologue-19', 'prologue-20', 'prologue-end', 'prologue-'],
+    nodePatterns: ['prologue-11', 'prologue-12', 'prologue-13'],
+  },
+  {
+    image: IMG_prologue_拉扯_分裂的痛苦,
+    alt: '拉扯 - 分裂的痛苦',
+    nodePatterns: ['prologue-14', 'prologue-15', 'prologue-16'],
+  },
+  {
+    image: IMG_prologue_宇宙聚焦_窗戶的光,
+    alt: '宇宙聚焦 - 窗戶的光',
+    nodePatterns: ['prologue-17', 'prologue-18'],
+  },
+  {
+    image: IMG_prologue_覺醒_超越的瞬間,
+    alt: '覺醒 - 超越的瞬間',
+    nodePatterns: ['prologue-19', 'prologue-20'],
+  },
+  {
+    image: IMG_prologue_合一_治癒的完成,
+    alt: '合一 - 治癒的完成',
+    nodePatterns: ['prologue-21', 'prologue-22', 'prologue-end', 'prologue-'],
   },
 
   // === 第一章：刪除（使用粉嫩少女耽美版）===
