@@ -216,8 +216,16 @@ import IMG_ch16_告別_漸行漸遠 from '@/assets/scenes/ch16_告別_漸行漸�
 import IMG_ch16_日出_新的旅程 from '@/assets/scenes/ch16_日出_新的旅程_粉嫩少女耽美版.png';
 import IMG_ch16_新的開始_空白的頁面 from '@/assets/scenes/ch16_新的開始_空白的頁面_粉嫩少女耽美版.png';
 
-// 新增終章粉嫩少女耽美版場景圖片
+// 新增終章粉嫩少女耽美版場景圖片（完整9階段敘事）
 import IMG_epilogue_三個月後_深夜檔案 from '@/assets/scenes/epilogue_三個月後_深夜檔案_粉嫩少女耽美版.png';
+import IMG_epilogue_舊檔案_重新發現 from '@/assets/scenes/epilogue_舊檔案_重新發現_粉嫩少女耽美版.png';
+import IMG_epilogue_刪除_放下的瞬間 from '@/assets/scenes/epilogue_刪除_放下的瞬間_粉嫩少女耽美版.png';
+import IMG_epilogue_閱讀_釋然的接受 from '@/assets/scenes/epilogue_閱讀_釋然的接受_粉嫩少女耽美版.png';
+import IMG_epilogue_合約_承諾的簽署 from '@/assets/scenes/epilogue_合約_承諾的簽署_粉嫩少女耽美版.png';
+import IMG_epilogue_回信_平靜的喜悅 from '@/assets/scenes/epilogue_回信_平靜的喜悅_粉嫩少女耽美版.png';
+import IMG_epilogue_投稿_跨出的一步 from '@/assets/scenes/epilogue_投稿_跨出的一步_粉嫩少女耽美版.png';
+import IMG_epilogue_責編_認可的溫暖 from '@/assets/scenes/epilogue_責編_認可的溫暖_粉嫩少女耽美版.png';
+import IMG_epilogue_出版社_踏入新身份 from '@/assets/scenes/epilogue_出版社_踏入新身份_粉嫩少女耽美版.png';
 export interface SceneImageConfig {
   image: string;
   alt: string;
@@ -819,26 +827,60 @@ export const sceneImages: SceneImageConfig[] = [
     nodePatterns: ['yi1-ch16-41', 'yi1-ch16-42', 'yi1-ch16-43', 'yi1-ch16-44', 'yi1-ch16-coda', 'chapter16-41', 'chapter16-42', 'chapter16-43', 'chapter16-44', 'chapter16-'],
   },
 
-  // === 終章：名字（使用粉嫩少女耽美版）===
+  // === 終章：名字（使用粉嫩少女耽美版完整版，9階段視覺敘事）===
+  // 階段1：深夜檔案 - 三個月後的開場
   {
     image: IMG_epilogue_三個月後_深夜檔案,
     alt: '三個月後 - 深夜檔案',
-    nodePatterns: ['yi1-epilogue-intro', 'yi1-epilogue-1', 'yi1-epilogue-2', 'yi1-epilogue-3', 'yi1-epilogue-4', 'yi1-epilogue-5', 'yi1-epilogue-6', 'yi1-epilogue-7', 'yi1-epilogue-8', 'yi1-epilogue-9', 'yi1-epilogue-10', 'yi1-epilogue-11', 'yi1-epilogue-12', 'yi1-epilogue-13', 'yi1-epilogue-14', 'yi1-epilogue-15', 'epilogue-1', 'epilogue-2', 'epilogue-3', 'epilogue-4', 'epilogue-5', 'epilogue-6', 'epilogue-7', 'epilogue-8', 'epilogue-9', 'epilogue-10', 'epilogue-11', 'epilogue-12', 'epilogue-13', 'epilogue-14', 'epilogue-15'],
+    nodePatterns: ['yi1-epilogue-intro', 'yi1-epilogue-1', 'yi1-epilogue-2', 'yi1-epilogue-3', 'yi1-epilogue-4', 'yi1-epilogue-5', 'epilogue-1', 'epilogue-2', 'epilogue-3', 'epilogue-4', 'epilogue-5'],
   },
+  // 階段2：舊檔案 - 重新發現過去
   {
-    image: IMG_出版社辦公室_簽約,
-    alt: '出版社簽約',
-    nodePatterns: ['yi1-epilogue-16', 'yi1-epilogue-17', 'yi1-epilogue-18', 'yi1-epilogue-19', 'yi1-epilogue-20', 'yi1-epilogue-21', 'yi1-epilogue-22', 'yi1-epilogue-23', 'yi1-epilogue-24', 'yi1-epilogue-25', 'epilogue-29', 'epilogue-30', 'epilogue-31', 'epilogue-32', 'epilogue-33', 'epilogue-34', 'epilogue-35', 'epilogue-36', 'epilogue-37', 'epilogue-38', 'epilogue-39', 'epilogue-40', 'epilogue-41', 'epilogue-42', 'epilogue-43', 'epilogue-44', 'epilogue-45', 'epilogue-46', 'epilogue-47', 'epilogue-48', 'epilogue-49', 'epilogue-50', 'epilogue-51', 'epilogue-52', 'epilogue-53', 'epilogue-54'],
+    image: IMG_epilogue_舊檔案_重新發現,
+    alt: '舊檔案 - 重新發現',
+    nodePatterns: ['yi1-epilogue-6', 'yi1-epilogue-7', 'yi1-epilogue-8', 'yi1-epilogue-9', 'epilogue-6', 'epilogue-7', 'epilogue-8', 'epilogue-9'],
   },
+  // 階段3：刪除 - 放下的瞬間
   {
-    image: IMG49_清晨窗景,
-    alt: '街道',
-    nodePatterns: ['epilogue-55', 'epilogue-56', 'epilogue-57'],
+    image: IMG_epilogue_刪除_放下的瞬間,
+    alt: '刪除 - 放下的瞬間',
+    nodePatterns: ['yi1-epilogue-10', 'yi1-epilogue-11', 'yi1-epilogue-12', 'epilogue-10', 'epilogue-11', 'epilogue-12'],
   },
+  // 階段4：閱讀 - 釋然的接受
   {
-    image: IMG_書店角落_書的相遇,
-    alt: '書店相遇',
-    nodePatterns: ['yi1-epilogue-end', 'epilogue-58', 'epilogue-59', 'epilogue-60', 'epilogue-61', 'epilogue-62', 'epilogue-63', 'epilogue-64', 'epilogue-65', 'epilogue-66', 'epilogue-end', 'epilogue-'],
+    image: IMG_epilogue_閱讀_釋然的接受,
+    alt: '閱讀 - 釋然的接受',
+    nodePatterns: ['yi1-epilogue-13', 'yi1-epilogue-14', 'yi1-epilogue-15', 'yi1-epilogue-16', 'epilogue-13', 'epilogue-14', 'epilogue-15', 'epilogue-16'],
+  },
+  // 階段5：投稿 - 跨出的一步
+  {
+    image: IMG_epilogue_投稿_跨出的一步,
+    alt: '投稿 - 跨出的一步',
+    nodePatterns: ['yi1-epilogue-17', 'yi1-epilogue-18', 'yi1-epilogue-19', 'epilogue-17', 'epilogue-18', 'epilogue-19'],
+  },
+  // 階段6：回信 - 平靜的喜悅
+  {
+    image: IMG_epilogue_回信_平靜的喜悅,
+    alt: '回信 - 平靜的喜悅',
+    nodePatterns: ['yi1-epilogue-20', 'yi1-epilogue-21', 'yi1-epilogue-22', 'epilogue-20', 'epilogue-21', 'epilogue-22'],
+  },
+  // 階段7：責編 - 認可的溫暖
+  {
+    image: IMG_epilogue_責編_認可的溫暖,
+    alt: '責編 - 認可的溫暖',
+    nodePatterns: ['yi1-epilogue-23', 'yi1-epilogue-24', 'yi1-epilogue-25', 'epilogue-23', 'epilogue-24', 'epilogue-25'],
+  },
+  // 階段8：合約 - 承諾的簽署
+  {
+    image: IMG_epilogue_合約_承諾的簽署,
+    alt: '合約 - 承諾的簽署',
+    nodePatterns: ['yi1-epilogue-26', 'yi1-epilogue-27', 'yi1-epilogue-28', 'yi1-epilogue-29', 'yi1-epilogue-30', 'epilogue-26', 'epilogue-27', 'epilogue-28', 'epilogue-29', 'epilogue-30'],
+  },
+  // 階段9：出版社 - 踏入新身份（結局）
+  {
+    image: IMG_epilogue_出版社_踏入新身份,
+    alt: '出版社 - 踏入新身份',
+    nodePatterns: ['yi1-epilogue-31', 'yi1-epilogue-32', 'yi1-epilogue-33', 'yi1-epilogue-end', 'epilogue-31', 'epilogue-32', 'epilogue-33', 'epilogue-end', 'epilogue-'],
   },
 ];
 
