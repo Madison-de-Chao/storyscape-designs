@@ -166,6 +166,16 @@ import IMG_ch12_林肯悲傷_根性的堅持 from '@/assets/scenes/ch12_林肯�
 import IMG_ch12_林肯劈柴_踏實的力量 from '@/assets/scenes/ch12_林肯劈柴_踏實的力量_粉嫩少女耽美版.png';
 import IMG_ch12_林肯沉思_溫暖的堅持 from '@/assets/scenes/ch12_林肯沉思_溫暖的堅持_粉嫩少女耽美版_v2.png';
 
+// 新增第十三章（賈伯斯）粉嫩少女耽美版場景圖片
+import IMG_ch13_賈伯斯_挑戰的氣場 from '@/assets/scenes/ch13_賈伯斯_挑戰的氣場_粉嫩少女耽美版.png';
+import IMG_ch13_白色建築_秩序的刺醒 from '@/assets/scenes/ch13_白色建築_秩序的刺醒_粉嫩少女耽美版.png';
+
+// 新增第十四章（未歸者廊）粉嫩少女耽美版場景圖片
+import IMG_ch14_廊入口_未歸者的啟程 from '@/assets/scenes/ch14_廊入口_未歸者的啟程_粉嫩少女耽美版_v3.png';
+import IMG_ch14_壁龕走廊_記憶的深處 from '@/assets/scenes/ch14_壁龕走廊_記憶的深處_粉嫩少女耽美版_v3.png';
+import IMG_ch14_項羽_悲壯的終結 from '@/assets/scenes/ch14_項羽_悲壯的終結_粉嫩少女耽美版_v3.png';
+import IMG_ch14_屈原_悲劇的守護 from '@/assets/scenes/ch14_屈原_悲劇的守護_粉嫩少女耽美版_v3.png';
+
 export interface SceneImageConfig {
   image: string;
   alt: string;
@@ -574,22 +584,47 @@ export const sceneImages: SceneImageConfig[] = [
     nodePatterns: ['chapter12-', 'chapter-12-'],
   },
 
-  // === 第十三章：最後一課（賈伯斯）===
+  // === 第十三章：最後一課（賈伯斯，使用粉嫩少女耽美版）===
+  {
+    image: IMG_ch13_白色建築_秩序的刺醒,
+    alt: '白色建築 - 秩序的刺醒',
+    nodePatterns: ['yi1-ch13-intro', 'yi1-ch13-1', 'yi1-ch13-2', 'yi1-ch13-3', 'yi1-ch13-4', 'yi1-ch13-5', 'yi1-ch13-6', 'yi1-ch13-7', 'yi1-ch13-8'],
+  },
+  {
+    image: IMG_ch13_賈伯斯_挑戰的氣場,
+    alt: '賈伯斯 - 挑戰的氣場',
+    nodePatterns: ['yi1-ch13-9', 'yi1-ch13-10', 'yi1-ch13-11', 'yi1-ch13-12', 'yi1-ch13-13', 'yi1-ch13-14', 'yi1-ch13-15', 'yi1-ch13-16', 'yi1-ch13-17', 'yi1-ch13-18', 'yi1-ch13-19', 'yi1-ch13-20', 'yi1-ch13-21', 'yi1-ch13-22', 'yi1-ch13-23', 'yi1-ch13-24', 'yi1-ch13-25', 'yi1-ch13-choice-1', 'yi1-ch13-choice-2', 'yi1-ch13-choice-3', 'yi1-ch13-foreshadow'],
+  },
   {
     image: IMG_賈伯斯與主角_蘋果之光,
-    alt: '賈伯斯極簡空間',
+    alt: '賈伯斯極簡空間（備用）',
     nodePatterns: ['chapter13-', 'chapter-13-'],
   },
 
-  // === 第十四章：未歸者廊 ===
+  // === 第十四章：未歸者廊（使用粉嫩少女耽美版）===
   {
-    image: IMG_未歸者廊_命運壁龕,
-    alt: '未歸者廊',
-    nodePatterns: ['chapter14-1', 'chapter14-2', 'chapter14-3', 'chapter14-4', 'chapter14-5', 'chapter14-6', 'chapter14-7', 'chapter14-8', 'chapter14-9', 'chapter14-10', 'chapter14-11', 'chapter14-12', 'chapter14-13', 'chapter14-14', 'chapter14-15', 'chapter-14-1', 'chapter-14-2', 'chapter-14-3', 'chapter-14-4', 'chapter-14-5', 'chapter-14-6', 'chapter-14-7', 'chapter-14-8', 'chapter-14-9', 'chapter-14-10', 'chapter-14-11', 'chapter-14-12', 'chapter-14-13', 'chapter-14-14', 'chapter-14-15'],
+    image: IMG_ch14_廊入口_未歸者的啟程,
+    alt: '未歸者廊入口 - 啟程',
+    nodePatterns: ['yi1-ch14-intro', 'yi1-ch14-1', 'yi1-ch14-2', 'yi1-ch14-3', 'yi1-ch14-4', 'yi1-ch14-5'],
+  },
+  {
+    image: IMG_ch14_壁龕走廊_記憶的深處,
+    alt: '壁龕走廊 - 記憶的深處',
+    nodePatterns: ['yi1-ch14-6', 'yi1-ch14-7', 'yi1-ch14-8', 'yi1-ch14-9', 'yi1-ch14-10', 'yi1-ch14-choice-1'],
+  },
+  {
+    image: IMG_ch14_項羽_悲壯的終結,
+    alt: '項羽 - 悲壯的終結',
+    nodePatterns: ['yi1-ch14-11', 'yi1-ch14-12', 'yi1-ch14-13', 'yi1-ch14-14', 'yi1-ch14-15', 'yi1-ch14-16'],
+  },
+  {
+    image: IMG_ch14_屈原_悲劇的守護,
+    alt: '屈原 - 悲劇的守護',
+    nodePatterns: ['yi1-ch14-17', 'yi1-ch14-18', 'yi1-ch14-19', 'yi1-ch14-20', 'yi1-ch14-21', 'yi1-ch14-22', 'yi1-ch14-23', 'yi1-ch14-24', 'yi1-ch14-25', 'yi1-ch14-choice-2', 'yi1-ch14-26', 'yi1-ch14-27', 'yi1-ch14-28', 'yi1-ch14-foreshadow'],
   },
   {
     image: IMG_未歸者廊_命運壁龕,
-    alt: '命運壁龕',
+    alt: '命運壁龕（備用）',
     nodePatterns: ['chapter14-', 'chapter-14-'],
   },
 
