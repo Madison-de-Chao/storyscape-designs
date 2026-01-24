@@ -443,7 +443,7 @@ class AudioManager {
       return;
     }
 
-    // 停止當前播放
+    // 停止當前播放（快速淡出）
     this.stopBGM(false);
 
     const audio = new Audio(path);
@@ -454,20 +454,23 @@ class AudioManager {
 
     audio.play().then(() => {
       if (fadeIn && volume > 0) {
+        // 優化淡入：更平滑的漸變（60ms 間隔，每次增加 3%）
         let currentVol = 0;
+        const targetVol = volume;
+        const step = targetVol * 0.03;
         const fadeInterval = setInterval(() => {
           if (!this.bgmAudio || this.bgmAudio !== audio) {
             clearInterval(fadeInterval);
             return;
           }
-          currentVol += 0.05;
-          if (currentVol < volume) {
-            audio.volume = currentVol;
+          currentVol += step;
+          if (currentVol < targetVol) {
+            audio.volume = Math.min(currentVol, targetVol);
           } else {
-            audio.volume = volume;
+            audio.volume = targetVol;
             clearInterval(fadeInterval);
           }
-        }, 100);
+        }, 60);
       }
     }).catch(() => {});
   }
@@ -476,22 +479,24 @@ class AudioManager {
     if (!this.bgmAudio) return;
 
     const audio = this.bgmAudio;
+    this.bgmAudio = null;
+    this.currentBGM = null;
 
     if (fadeOut && audio.volume > 0) {
+      // 優化淡出：更平滑的漸變（50ms 間隔，更快完成）
+      const step = audio.volume * 0.08;
       const fadeInterval = setInterval(() => {
-        if (audio.volume > 0.05) {
-          audio.volume = Math.max(audio.volume - 0.05, 0);
+        if (audio.volume > step) {
+          audio.volume = Math.max(audio.volume - step, 0);
         } else {
           audio.pause();
+          audio.volume = 0;
           clearInterval(fadeInterval);
         }
-      }, 100);
+      }, 50);
     } else {
       audio.pause();
     }
-
-    this.bgmAudio = null;
-    this.currentBGM = null;
   }
 
   updateBGMVolume(volume: number) {
@@ -500,7 +505,7 @@ class AudioManager {
     }
   }
 
-  playAmbient(type: AmbientType, volume: number) {
+  playAmbient(type: AmbientType, volume: number, fadeIn = true) {
     const path = AMBIENT_PATHS[type];
     if (!path) return;
 
@@ -509,22 +514,56 @@ class AudioManager {
       return;
     }
 
-    this.stopAmbient();
+    this.stopAmbient(false);
 
     const audio = new Audio(path);
     audio.loop = true;
-    audio.volume = volume;
+    audio.volume = fadeIn ? 0 : volume;
     this.ambientAudio = audio;
     this.currentAmbient = type;
 
-    audio.play().catch(() => {});
+    audio.play().then(() => {
+      if (fadeIn && volume > 0) {
+        // 環境音效淡入：較慢的漸變（80ms 間隔）
+        let currentVol = 0;
+        const step = volume * 0.04;
+        const fadeInterval = setInterval(() => {
+          if (!this.ambientAudio || this.ambientAudio !== audio) {
+            clearInterval(fadeInterval);
+            return;
+          }
+          currentVol += step;
+          if (currentVol < volume) {
+            audio.volume = Math.min(currentVol, volume);
+          } else {
+            audio.volume = volume;
+            clearInterval(fadeInterval);
+          }
+        }, 80);
+      }
+    }).catch(() => {});
   }
 
-  stopAmbient() {
-    if (this.ambientAudio) {
-      this.ambientAudio.pause();
-      this.ambientAudio = null;
-      this.currentAmbient = null;
+  stopAmbient(fadeOut = true) {
+    if (!this.ambientAudio) return;
+    
+    const audio = this.ambientAudio;
+    this.ambientAudio = null;
+    this.currentAmbient = null;
+
+    if (fadeOut && audio.volume > 0) {
+      const step = audio.volume * 0.1;
+      const fadeInterval = setInterval(() => {
+        if (audio.volume > step) {
+          audio.volume = Math.max(audio.volume - step, 0);
+        } else {
+          audio.pause();
+          audio.volume = 0;
+          clearInterval(fadeInterval);
+        }
+      }, 60);
+    } else {
+      audio.pause();
     }
   }
 
@@ -577,8 +616,8 @@ export const useAmbient = () => {
     audioManager.updateAmbientVolume(effectiveVolume);
   }, [effectiveVolume]);
 
-  const playAmbient = useCallback((type: AmbientType) => {
-    audioManager.playAmbient(type, effectiveVolume);
+  const playAmbient = useCallback((type: AmbientType, fadeIn = true) => {
+    audioManager.playAmbient(type, effectiveVolume, fadeIn);
   }, [effectiveVolume]);
 
   const stopAmbient = useCallback(() => {

@@ -83,7 +83,7 @@ const DialogueBox = ({ isHidden = false, onToggleHide, onScoreChange }: Dialogue
     }
   }, [currentNodeId, currentPart, markNodeAsRead, playEmotionSFX]);
 
-  // 打字機效果
+  // 打字機效果 - 優化版本：更自然的節奏感
   useEffect(() => {
     if (!currentNode) return;
 
@@ -92,19 +92,35 @@ const DialogueBox = ({ isHidden = false, onToggleHide, onScoreChange }: Dialogue
     setDisplayedText('');
     setIsTyping(true);
 
-    const typingSpeed = isAutoForward ? 10 : 50;
-
-    const typingInterval = setInterval(() => {
+    // 基礎打字速度：快轉模式 8ms，正常模式 35ms
+    const baseSpeed = isAutoForward ? 8 : 35;
+    
+    const typeNextChar = () => {
       if (index < text.length) {
+        const char = text[index];
         setDisplayedText(text.slice(0, index + 1));
         index++;
+        
+        // 智能延遲：標點符號後暫停更長時間，提升閱讀節奏感
+        let delay = baseSpeed;
+        if (!isAutoForward) {
+          if ('。！？…」』' .includes(char)) {
+            delay = 180; // 結束標點：長暫停
+          } else if ('，、；：「『（）' .includes(char)) {
+            delay = 90;  // 中間標點：中等暫停
+          } else if (char === '\n') {
+            delay = 120; // 換行：額外暫停
+          }
+        }
+        
+        setTimeout(typeNextChar, delay);
       } else {
         setIsTyping(false);
-        clearInterval(typingInterval);
       }
-    }, typingSpeed);
+    };
 
-    return () => clearInterval(typingInterval);
+    const typingTimer = setTimeout(typeNextChar, 50); // 初始延遲
+    return () => clearTimeout(typingTimer);
   }, [currentNode, isAutoForward]);
 
   // 快轉自動前進
@@ -131,11 +147,19 @@ const DialogueBox = ({ isHidden = false, onToggleHide, onScoreChange }: Dialogue
     }
   }, [currentNode?.choices]);
 
-  // 自動播放模式
+  // 自動播放模式 - 優化：根據文字複雜度動態計算延遲
   useEffect(() => {
     if (isAutoPlay && !isAutoForward && !isTyping && currentNode?.nextNodeId && !currentNode.choices) {
-      const textLength = currentNode.text.length;
-      const delay = Math.min(Math.max(textLength * 100, 2000), 5000);
+      const text = currentNode.text;
+      const textLength = text.length;
+      
+      // 計算閱讀時間：基礎 1.5 秒 + 每個字 80ms，上限 6 秒
+      // 標點符號多的段落需要更多時間
+      const punctuationCount = (text.match(/[。！？…，、；：]/g) || []).length;
+      const baseDelay = 1500;
+      const charDelay = textLength * 80;
+      const punctuationBonus = punctuationCount * 100;
+      const delay = Math.min(Math.max(baseDelay + charDelay + punctuationBonus, 2000), 6000);
       
       autoPlayRef.current = setTimeout(() => {
         playSFX('dialogue_advance');

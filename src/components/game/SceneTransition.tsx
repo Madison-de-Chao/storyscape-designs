@@ -40,16 +40,19 @@ const SceneTransition = ({
     }
   }, [isTransitioning, transitionType, chapterKey, playChapterTransitionSFX]);
 
+  // 優化過場時序：更流暢的三階段動畫
   useEffect(() => {
     if (isTransitioning && transitionType === 'chapter') {
       setPhase('enter');
+      // 階段 1：進入（0-300ms）
       const showTimer = setTimeout(() => {
         setShowContent(true);
         setPhase('display');
-      }, 400);
+      }, 300);
+      // 階段 2：展示（300-1400ms）
       const exitTimer = setTimeout(() => {
         setPhase('exit');
-      }, 1600);
+      }, 1400);
       return () => {
         clearTimeout(showTimer);
         clearTimeout(exitTimer);
@@ -60,9 +63,10 @@ const SceneTransition = ({
     }
   }, [isTransitioning, transitionType]);
 
+  // 過場結束回調 - 縮短總時長至 1.8 秒
   useEffect(() => {
     if (isTransitioning && onTransitionComplete) {
-      const duration = transitionType === 'chapter' ? 2200 : 1500;
+      const duration = transitionType === 'chapter' ? 1800 : 1200;
       const timer = setTimeout(onTransitionComplete, duration);
       return () => clearTimeout(timer);
     }
@@ -114,8 +118,8 @@ const SceneTransition = ({
           animate={variants.animate}
           exit={variants.exit}
           transition={{
-            duration: transitionType === 'chapter' ? 0.8 : 0.5,
-            ease: [0.43, 0.13, 0.23, 0.96],
+            duration: transitionType === 'chapter' ? 0.6 : 0.4,
+            ease: [0.33, 0, 0.2, 1], // 更流暢的 ease-out 曲線
           }}
           style={{
             background: transitionType === 'cinematic'
