@@ -19,26 +19,28 @@ const AudioControls = () => {
   } = useAudioSettings();
 
   return (
-    <div className="fixed top-4 right-4 z-50">
+    <div className="fixed top-4 right-12 sm:right-4 z-50">
       {/* 靜音按鈕 */}
-      <div className="flex gap-2">
+      <div className="flex gap-1.5 sm:gap-2">
         <motion.button
           onClick={toggleMute}
           className="
-            p-2 rounded-full
+            p-2 sm:p-2.5 rounded-full
             bg-background/80 backdrop-blur-sm
             border border-border/50 hover:border-primary/50
             text-muted-foreground hover:text-foreground
-            transition-colors duration-200
+            transition-colors duration-200 active:scale-95
+            touch-manipulation
           "
+          style={{ WebkitTapHighlightColor: 'transparent' }}
           whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
+          whileTap={{ scale: 0.9 }}
           title={isMuted ? '取消靜音' : '靜音'}
         >
           {isMuted ? (
-            <VolumeX className="w-5 h-5" />
+            <VolumeX className="w-4 h-4 sm:w-5 sm:h-5" />
           ) : (
-            <Volume2 className="w-5 h-5" />
+            <Volume2 className="w-4 h-4 sm:w-5 sm:h-5" />
           )}
         </motion.button>
 
@@ -46,18 +48,20 @@ const AudioControls = () => {
         <motion.button
           onClick={() => setIsOpen(!isOpen)}
           className={`
-            p-2 rounded-full
+            p-2 sm:p-2.5 rounded-full
             bg-background/80 backdrop-blur-sm
             border border-border/50 hover:border-primary/50
             text-muted-foreground hover:text-foreground
-            transition-colors duration-200
+            transition-colors duration-200 active:scale-95
+            touch-manipulation
             ${isOpen ? 'border-primary/50 text-primary' : ''}
           `}
+          style={{ WebkitTapHighlightColor: 'transparent' }}
           whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
+          whileTap={{ scale: 0.9 }}
           title="音量設定"
         >
-          <Settings className="w-5 h-5" />
+          <Settings className="w-4 h-4 sm:w-5 sm:h-5" />
         </motion.button>
       </div>
 
@@ -71,7 +75,7 @@ const AudioControls = () => {
             transition={{ duration: 0.2 }}
             className="
               absolute top-full right-0 mt-2
-              w-64 p-4
+              w-56 sm:w-64 p-3 sm:p-4
               bg-background/95 backdrop-blur-md
               border border-border/50 rounded-lg
               shadow-lg

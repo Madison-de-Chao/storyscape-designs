@@ -35,14 +35,15 @@ const ChoiceButton = ({ choice, index, onClick, showScorePreview = true }: Choic
   return (
     <motion.button
       className={`
-        relative w-full text-left px-6 py-5 overflow-hidden
-        rounded-2xl border-2
-        font-sans-tc text-base md:text-lg
+        relative w-full text-left px-4 py-4 sm:px-6 sm:py-5 overflow-hidden
+        rounded-xl sm:rounded-2xl border sm:border-2
+        font-sans-tc text-sm sm:text-base md:text-lg
         backdrop-blur-md
         transition-all duration-300
+        touch-manipulation
         ${isPressed 
           ? 'border-primary bg-primary/40 text-primary-foreground' 
-          : 'border-border/40 bg-background/40 text-foreground/90 hover:text-foreground hover:border-primary/60'
+          : 'border-border/40 bg-background/60 text-foreground/90 hover:text-foreground hover:border-primary/60 active:bg-primary/20'
         }
       `}
       style={{
@@ -51,28 +52,31 @@ const ChoiceButton = ({ choice, index, onClick, showScorePreview = true }: Choic
           : isHovered 
             ? '0 8px 32px rgba(0, 0, 0, 0.4), 0 0 20px rgba(var(--primary-rgb), 0.2)' 
             : '0 4px 16px rgba(0, 0, 0, 0.3)',
+        WebkitTapHighlightColor: 'transparent',
       }}
-      initial={{ opacity: 0, x: -40, scale: 0.9 }}
+      initial={{ opacity: 0, x: -30, scale: 0.95 }}
       animate={{ 
         opacity: 1, 
         x: 0, 
-        scale: isPressed ? 1.03 : 1,
+        scale: isPressed ? 1.02 : 1,
       }}
       transition={{ 
-        duration: 0.5, 
-        delay: index * 0.15,
+        duration: 0.4, 
+        delay: index * 0.12,
         type: "spring",
-        stiffness: 80,
-        damping: 12,
+        stiffness: 100,
+        damping: 15,
       }}
       whileHover={{ 
-        scale: 1.03,
+        scale: 1.02,
         y: -2,
       }}
-      whileTap={{ scale: 0.97 }}
+      whileTap={{ scale: 0.98 }}
       onClick={handleClick}
       onMouseEnter={handleHover}
       onMouseLeave={() => setIsHovered(false)}
+      onTouchStart={() => setIsHovered(true)}
+      onTouchEnd={() => setIsHovered(false)}
       disabled={isPressed}
     >
       {/* 頂部發光邊線 */}
@@ -163,13 +167,13 @@ const ChoiceButton = ({ choice, index, onClick, showScorePreview = true }: Choic
         transition={{ duration: 0.3 }}
       />
 
-      <div className="relative flex items-center gap-4 z-10">
-        {/* 序號圓圈 - 增強動畫 */}
+      <div className="relative flex items-center gap-3 sm:gap-4 z-10">
+        {/* 序號圓圈 - 手機縮小 */}
         <motion.span 
           className={`
             flex items-center justify-center
-            w-9 h-9 rounded-full text-sm font-serif-tc font-bold
-            transition-all duration-300
+            w-7 h-7 sm:w-9 sm:h-9 rounded-full text-xs sm:text-sm font-serif-tc font-bold
+            transition-all duration-300 shrink-0
             ${isPressed 
               ? 'bg-primary text-primary-foreground' 
               : 'bg-primary/20 text-primary/90 border border-primary/30'
@@ -188,15 +192,15 @@ const ChoiceButton = ({ choice, index, onClick, showScorePreview = true }: Choic
           {index + 1}
         </motion.span>
         
-        {/* 選項文字 - 增強樣式 */}
+        {/* 選項文字 - 手機行高優化 */}
         <motion.span 
-          className="flex-1 leading-relaxed"
+          className="flex-1 leading-snug sm:leading-relaxed"
           style={{
             textShadow: isPressed 
               ? '0 0 20px hsl(var(--primary) / 0.8)' 
               : '0 2px 4px rgba(0, 0, 0, 0.5)',
           }}
-          animate={isPressed ? { x: 8 } : isHovered ? { x: 4 } : { x: 0 }}
+          animate={isPressed ? { x: 4 } : isHovered ? { x: 2 } : { x: 0 }}
           transition={{ duration: 0.2 }}
         >
           {choice.text}

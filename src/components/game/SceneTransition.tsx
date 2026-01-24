@@ -278,7 +278,7 @@ const SceneTransition = ({
                   />
                   
                   <motion.h1
-                    className="font-serif-tc text-3xl md:text-5xl lg:text-6xl tracking-[0.25em] relative"
+                    className="font-serif-tc text-2xl sm:text-3xl md:text-5xl lg:text-6xl tracking-[0.15em] sm:tracking-[0.25em] relative px-4"
                     initial={{ opacity: 0, y: 30, letterSpacing: '0.4em' }}
                     animate={showContent ? { 
                       opacity: 1, 

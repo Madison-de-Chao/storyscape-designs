@@ -110,18 +110,19 @@ const ProgressHUD = ({
 
   return (
     <>
-      {/* 展開/收起按鈕 */}
+      {/* 展開/收起按鈕 - 手機優化 */}
       <motion.button
-        className="fixed top-6 left-6 z-50 p-3 rounded-full 
-          bg-background/60 backdrop-blur-md border border-border/40
-          hover:bg-background/80 transition-colors"
+        className="fixed top-4 left-4 sm:top-6 sm:left-6 z-50 p-2.5 sm:p-3 rounded-full 
+          bg-background/70 backdrop-blur-md border border-border/40
+          hover:bg-background/80 active:scale-95 transition-all touch-manipulation"
         onClick={onToggle}
         whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
+        whileTap={{ scale: 0.9 }}
+        style={{ WebkitTapHighlightColor: 'transparent' }}
       >
-        <BookOpen className="w-5 h-5 text-primary" />
+        <BookOpen className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
         {choicesMade > 0 && (
-          <span className="absolute -top-1 -right-1 w-5 h-5 bg-primary text-primary-foreground text-xs rounded-full flex items-center justify-center">
+          <span className="absolute -top-1 -right-1 w-4 h-4 sm:w-5 sm:h-5 bg-primary text-primary-foreground text-[10px] sm:text-xs rounded-full flex items-center justify-center">
             {choicesMade > 9 ? '9+' : choicesMade}
           </span>
         )}
@@ -130,7 +131,7 @@ const ProgressHUD = ({
       <AnimatePresence>
         {isVisible && (
           <motion.div
-            className="fixed top-20 left-6 z-40 w-72"
+            className="fixed top-14 left-2 sm:top-20 sm:left-6 z-40 w-[calc(100vw-1rem)] sm:w-72 max-w-72"
             initial={{ opacity: 0, x: -20, scale: 0.9 }}
             animate={{ opacity: 1, x: 0, scale: 1 }}
             exit={{ opacity: 0, x: -20, scale: 0.9 }}
