@@ -106,7 +106,7 @@ import IMG_靈魂抽離_靈魂與肉身 from '@/assets/scenes/靈魂抽離_靈�
 import IMG_刪除之夜_深夜房間 from '@/assets/scenes/刪除之夜_深夜房間_粉嫩少女漫畫版.png';
 import IMG_作者序場景_起源微光 from '@/assets/scenes/作者序場景_起源微光_粉嫩少女漫畫版.png';
 
-// 新增粉嫩少女耽美版場景圖片（第一章、第二章）
+// 新增粉嫩少女耽美版場景圖片（第一章、第二章、第三章、第四章）
 import IMG_ch1_凌晨書桌_刪除的念頭 from '@/assets/scenes/ch1_凌晨書桌_刪除的念頭_粉嫩少女耽美版.png';
 import IMG_ch1_秘密資料夾_選取的瞬間 from '@/assets/scenes/ch1_秘密資料夾_選取的瞬間_粉嫩少女耽美版.png';
 import IMG_ch1_刪除對話框_指尖的猶豫 from '@/assets/scenes/ch1_刪除對話框_指尖的猶豫_粉嫩少女耽美版.png';
@@ -115,6 +115,14 @@ import IMG_ch1_白光爆發_跨界的開始 from '@/assets/scenes/ch1_白光爆�
 import IMG_ch2_金色河流_醒來的寧靜 from '@/assets/scenes/ch2_金色河流_醒來的寧靜_粉嫩版.png';
 import IMG_ch2_問心登場_指尖相觸 from '@/assets/scenes/ch2_問心登場_指尖相觸_粉嫩少女耽美版.png';
 import IMG_ch2_碼頭與歸元山_壯觀目標 from '@/assets/scenes/ch2_碼頭與歸元山_壯觀目標_粉嫩少女耽美版.png';
+import IMG_ch2_記憶之船_渡河航行 from '@/assets/scenes/ch2_記憶之船_渡河航行_粉嫩少女耽美版.png';
+import IMG_ch2_霧中庭院_路徑指引 from '@/assets/scenes/ch2_霧中庭院_路徑指引_粉嫩少女耽美版.png';
+import IMG_ch3_竹林庭院_靜定的開始 from '@/assets/scenes/ch3_竹林庭院_靜定的開始_粉嫩少女耽美版.png';
+import IMG_ch3_王陽明掃地_從容自若 from '@/assets/scenes/ch3_王陽明掃地_從容自若_粉嫩少女耽美版.png';
+import IMG_ch3_石燈籠對話_點醒的瞬間 from '@/assets/scenes/ch3_石燈籠對話_點醒的瞬間_粉嫩少女耽美版.png';
+import IMG_ch3_通往森林之路_轉場預告 from '@/assets/scenes/ch3_通往森林之路_轉場預告_粉嫩少女耽美版.png';
+import IMG_ch4_竹林小徑_引導前行 from '@/assets/scenes/ch4_竹林小徑_引導前行_粉嫩少女耽美版.png';
+import IMG_ch4_伊的陰影_洞口對峙 from '@/assets/scenes/ch4_伊的陰影_洞口對峙_粉嫩少女耽美版.png';
 export interface SceneImageConfig {
   image: string;
   alt: string;
@@ -175,41 +183,71 @@ export const sceneImages: SceneImageConfig[] = [
   {
     image: IMG_ch2_金色河流_醒來的寧靜,
     alt: '金色河流 - 醒來的寧靜',
-    nodePatterns: ['chapter-2-intro', 'chapter-2-1', 'chapter-2-2', 'chapter-2-3', 'chapter-2-4', 'chapter-2-5', 'chapter-2-6', 'chapter-2-7', 'chapter-2-8', 'chapter-2-9', 'chapter-2-10'],
+    nodePatterns: ['chapter-2-intro', 'chapter-2-1', 'chapter-2-2', 'chapter-2-3', 'chapter-2-4', 'chapter-2-5', 'chapter-2-6', 'chapter-2-7', 'chapter-2-8'],
   },
   {
     image: IMG_ch2_問心登場_指尖相觸,
     alt: '問心登場 - 指尖相觸',
-    nodePatterns: ['chapter-2-11', 'chapter-2-12', 'chapter-2-13', 'chapter-2-14', 'chapter-2-15', 'chapter-2-16', 'chapter-2-17', 'chapter-2-18', 'chapter-2-19', 'chapter-2-20', 'chapter-2-choice-1'],
+    nodePatterns: ['chapter-2-9', 'chapter-2-10', 'chapter-2-11', 'chapter-2-12', 'chapter-2-13', 'chapter-2-14', 'chapter-2-15', 'chapter-2-choice-1'],
   },
   {
     image: IMG_ch2_碼頭與歸元山_壯觀目標,
     alt: '碼頭與歸元山 - 壯觀目標',
-    nodePatterns: ['chapter-2-21', 'chapter-2-22', 'chapter-2-23', 'chapter-2-24', 'chapter-2-25', 'chapter-2-26', 'chapter-2-27', 'chapter-2-28', 'chapter-2-29', 'chapter-2-30', 'chapter-2-choice-2', 'chapter-2-end'],
+    nodePatterns: ['chapter-2-16', 'chapter-2-17', 'chapter-2-18', 'chapter-2-19', 'chapter-2-20', 'chapter-2-21', 'chapter-2-22'],
+  },
+  {
+    image: IMG_ch2_記憶之船_渡河航行,
+    alt: '記憶之船 - 渡河航行',
+    nodePatterns: ['chapter-2-23', 'chapter-2-24', 'chapter-2-25', 'chapter-2-26', 'chapter-2-27', 'chapter-2-choice-2'],
+  },
+  {
+    image: IMG_ch2_霧中庭院_路徑指引,
+    alt: '霧中庭院 - 路徑指引',
+    nodePatterns: ['chapter-2-28', 'chapter-2-29', 'chapter-2-30', 'chapter-2-end'],
   },
 
-  // === 第三章：心即理（王陽明，支援 yi1- 前綴）===
+  // === 第三章：心即理（王陽明，使用粉嫩少女耽美版）===
   {
-    image: IMG_王陽明山徑_燈籠對峙,
-    alt: '王陽明山徑',
-    nodePatterns: ['chapter-3-intro', 'chapter-3-1', 'chapter-3-2', 'chapter-3-3', 'chapter-3-4', 'chapter-3-5', 'chapter-3-6', 'chapter-3-7', 'chapter-3-8', 'chapter-3-9', 'chapter-3-10', 'chapter-3-11', 'chapter-3-12', 'chapter-3-13', 'chapter-3-14', 'chapter-3-15', 'chapter-3-16', 'chapter-3-17', 'chapter-3-18', 'chapter-3-19', 'chapter-3-20', 'chapter-3-21', 'chapter-3-22', 'chapter-3-23', 'chapter-3-24', 'chapter-3-25', 'chapter-3-26', 'chapter-3-27', 'chapter-3-28', 'chapter-3-29', 'chapter-3-30'],
+    image: IMG_ch3_竹林庭院_靜定的開始,
+    alt: '竹林庭院 - 靜定的開始',
+    nodePatterns: ['chapter-3-intro', 'chapter-3-1', 'chapter-3-2', 'chapter-3-3', 'chapter-3-4', 'chapter-3-5', 'chapter-3-6', 'chapter-3-7', 'chapter-3-8', 'chapter-3-9', 'chapter-3-10'],
+  },
+  {
+    image: IMG_ch3_王陽明掃地_從容自若,
+    alt: '王陽明掃地 - 從容自若',
+    nodePatterns: ['chapter-3-11', 'chapter-3-12', 'chapter-3-13', 'chapter-3-14', 'chapter-3-15', 'chapter-3-16', 'chapter-3-17', 'chapter-3-18', 'chapter-3-19', 'chapter-3-20'],
+  },
+  {
+    image: IMG_ch3_石燈籠對話_點醒的瞬間,
+    alt: '石燈籠對話 - 點醒的瞬間',
+    nodePatterns: ['chapter-3-21', 'chapter-3-22', 'chapter-3-23', 'chapter-3-24', 'chapter-3-25', 'chapter-3-26', 'chapter-3-27', 'chapter-3-28', 'chapter-3-29', 'chapter-3-30', 'chapter-3-31', 'chapter-3-32', 'chapter-3-33', 'chapter-3-34', 'chapter-3-35', 'chapter-3-choice-1'],
   },
   {
     image: IMG_王陽明龍場石洞_心即理,
     alt: '心即理',
-    nodePatterns: ['chapter-3-31', 'chapter-3-32', 'chapter-3-33', 'chapter-3-34', 'chapter-3-35', 'chapter-3-36', 'chapter-3-37', 'chapter-3-38', 'chapter-3-39', 'chapter-3-40', 'chapter-3-41', 'chapter-3-42', 'chapter-3-43', 'chapter-3-44', 'chapter-3-45', 'chapter-3-46', 'chapter-3-47', 'chapter-3-48', 'chapter-3-49', 'chapter-3-50', 'chapter-3-choice-1', 'chapter-3-choice-2', 'chapter-3-end'],
+    nodePatterns: ['chapter-3-36', 'chapter-3-37', 'chapter-3-38', 'chapter-3-39', 'chapter-3-40', 'chapter-3-41', 'chapter-3-42', 'chapter-3-43', 'chapter-3-44', 'chapter-3-45', 'chapter-3-46', 'chapter-3-47', 'chapter-3-48', 'chapter-3-49', 'chapter-3-50', 'chapter-3-choice-2'],
+  },
+  {
+    image: IMG_ch3_通往森林之路_轉場預告,
+    alt: '通往森林之路 - 轉場預告',
+    nodePatterns: ['chapter-3-end'],
   },
 
-  // === 第四章：命樹（蘇軾）===
+  // === 第四章：命樹（蘇軾，使用粉嫩少女耽美版）===
   {
-    image: IMG_蘇軾竹林斜雨_瀟灑堅韌,
-    alt: '蘇軾命樹',
-    nodePatterns: ['chapter-4-intro', 'chapter-4-1', 'chapter-4-2', 'chapter-4-3', 'chapter-4-4', 'chapter-4-5', 'chapter-4-6', 'chapter-4-7', 'chapter-4-8', 'chapter-4-9', 'chapter-4-10', 'chapter-4-11', 'chapter-4-12', 'chapter-4-13', 'chapter-4-14', 'chapter-4-15', 'chapter-4-16', 'chapter-4-17', 'chapter-4-18', 'chapter-4-19', 'chapter-4-20'],
+    image: IMG_ch4_竹林小徑_引導前行,
+    alt: '竹林小徑 - 引導前行',
+    nodePatterns: ['chapter-4-intro', 'chapter-4-1', 'chapter-4-2', 'chapter-4-3', 'chapter-4-4', 'chapter-4-5', 'chapter-4-6', 'chapter-4-7', 'chapter-4-8', 'chapter-4-9', 'chapter-4-10', 'chapter-4-11', 'chapter-4-12', 'chapter-4-13', 'chapter-4-14', 'chapter-4-15'],
   },
   {
-    image: IMG13_江邊回憶,
-    alt: '江邊回憶',
-    nodePatterns: ['chapter-4-21', 'chapter-4-22', 'chapter-4-23', 'chapter-4-24', 'chapter-4-25', 'chapter-4-26', 'chapter-4-27', 'chapter-4-28', 'chapter-4-29', 'chapter-4-30', 'chapter-4-31', 'chapter-4-32', 'chapter-4-33', 'chapter-4-34', 'chapter-4-35', 'chapter-4-choice-1'],
+    image: IMG_蘇軾竹林斜雨_瀟灑堅韌,
+    alt: '蘇軾竹林斜雨',
+    nodePatterns: ['chapter-4-16', 'chapter-4-17', 'chapter-4-18', 'chapter-4-19', 'chapter-4-20', 'chapter-4-21', 'chapter-4-22', 'chapter-4-23', 'chapter-4-24', 'chapter-4-25', 'chapter-4-26', 'chapter-4-27', 'chapter-4-28', 'chapter-4-29', 'chapter-4-30'],
+  },
+  {
+    image: IMG_ch4_伊的陰影_洞口對峙,
+    alt: '伊的陰影 - 洞口對峙',
+    nodePatterns: ['chapter-4-31', 'chapter-4-32', 'chapter-4-33', 'chapter-4-34', 'chapter-4-35', 'chapter-4-choice-1'],
   },
   {
     image: IMG14_弧度林全景,
