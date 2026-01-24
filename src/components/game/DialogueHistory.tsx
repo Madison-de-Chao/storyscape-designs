@@ -86,7 +86,7 @@ const DialogueHistory = ({ history, isOpen, onClose, onJumpToNode }: DialogueHis
   return (
     <AnimatePresence>
       <motion.div
-        className="fixed inset-0 z-[100] flex items-center justify-center"
+        className="fixed inset-0 z-[100] flex items-end sm:items-center justify-center"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
@@ -101,12 +101,12 @@ const DialogueHistory = ({ history, isOpen, onClose, onJumpToNode }: DialogueHis
           exit={{ opacity: 0 }}
         />
 
-        {/* 對話歷史面板 */}
+        {/* 對話歷史面板 - 手機優化 */}
         <motion.div
-          className="relative w-full max-w-2xl h-[80vh] mx-4 rounded-2xl border-2 border-border/40 overflow-hidden"
-          initial={{ opacity: 0, scale: 0.9, y: 50 }}
+          className="relative w-full sm:max-w-2xl h-[85vh] sm:h-[80vh] sm:mx-4 rounded-t-2xl sm:rounded-2xl border-t-2 sm:border-2 border-border/40 overflow-hidden"
+          initial={{ opacity: 0, scale: 0.95, y: 100 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.9, y: 50 }}
+          exit={{ opacity: 0, scale: 0.95, y: 100 }}
           transition={{ duration: 0.35, ease: [0.4, 0, 0.2, 1] }}
           style={{
             background: `linear-gradient(
@@ -120,8 +120,13 @@ const DialogueHistory = ({ history, isOpen, onClose, onJumpToNode }: DialogueHis
             `,
           }}
         >
+          {/* 頂部拖曳指示器（手機） */}
+          <div className="sm:hidden flex justify-center py-2">
+            <div className="w-10 h-1 rounded-full bg-muted-foreground/30" />
+          </div>
+
           {/* 頂部標題欄 */}
-          <div className="relative flex items-center justify-between px-6 py-4 border-b border-border/30">
+          <div className="relative flex items-center justify-between px-4 sm:px-6 py-3 sm:py-4 border-b border-border/30">
             {/* 頂部發光線 */}
             <div 
               className="absolute top-0 left-0 right-0 h-[2px]"
@@ -137,26 +142,26 @@ const DialogueHistory = ({ history, isOpen, onClose, onJumpToNode }: DialogueHis
               }}
             />
             
-            <div className="flex items-center gap-3">
-              <History className="w-5 h-5 text-primary" />
-              <h2 className="text-lg font-medium text-foreground">對話回顧</h2>
-              <span className="text-sm text-muted-foreground">
-                ({history.length} 條對話)
+            <div className="flex items-center gap-2 sm:gap-3">
+              <History className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
+              <h2 className="text-base sm:text-lg font-medium text-foreground">對話回顧</h2>
+              <span className="text-xs sm:text-sm text-muted-foreground">
+                ({history.length})
               </span>
             </div>
             
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1 sm:gap-2">
               {/* 快速跳轉按鈕 */}
               <button
                 onClick={handleScrollToTop}
-                className="p-2 rounded-lg bg-card/50 hover:bg-card/80 text-muted-foreground hover:text-foreground transition-colors"
+                className="p-1.5 sm:p-2 rounded-lg bg-card/50 hover:bg-card/80 active:bg-card text-muted-foreground hover:text-foreground transition-colors touch-manipulation"
                 title="跳至最新"
               >
                 <ChevronUp className="w-4 h-4" />
               </button>
               <button
                 onClick={handleScrollToEnd}
-                className="p-2 rounded-lg bg-card/50 hover:bg-card/80 text-muted-foreground hover:text-foreground transition-colors"
+                className="p-1.5 sm:p-2 rounded-lg bg-card/50 hover:bg-card/80 active:bg-card text-muted-foreground hover:text-foreground transition-colors touch-manipulation"
                 title="跳至開頭"
               >
                 <ChevronDown className="w-4 h-4" />
@@ -165,16 +170,16 @@ const DialogueHistory = ({ history, isOpen, onClose, onJumpToNode }: DialogueHis
               {/* 關閉按鈕 */}
               <button
                 onClick={onClose}
-                className="p-2 rounded-lg bg-card/50 hover:bg-destructive/20 text-muted-foreground hover:text-destructive transition-colors"
+                className="p-1.5 sm:p-2 rounded-lg bg-card/50 hover:bg-destructive/20 active:bg-destructive/30 text-muted-foreground hover:text-destructive transition-colors touch-manipulation"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
           </div>
 
-          {/* 對話列表 */}
-          <ScrollArea className="h-[calc(80vh-80px)]">
-            <div className="p-4 space-y-3">
+          {/* 對話列表 - 手機優化 */}
+          <ScrollArea className="h-[calc(85vh-100px)] sm:h-[calc(80vh-80px)]">
+            <div className="p-3 sm:p-4 space-y-2 sm:space-y-3">
               {sortedHistory.length === 0 ? (
                 <div className="flex flex-col items-center justify-center py-16 text-muted-foreground">
                   <MessageSquare className="w-12 h-12 mb-4 opacity-30" />
@@ -189,7 +194,7 @@ const DialogueHistory = ({ history, isOpen, onClose, onJumpToNode }: DialogueHis
                   return (
                     <motion.div
                       key={`${entry.nodeId}-${index}`}
-                      className="relative rounded-xl p-4 border transition-all duration-200 hover:border-primary/30"
+                      className="relative rounded-lg sm:rounded-xl p-3 sm:p-4 border transition-all duration-200 active:border-primary/40"
                       initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: index * 0.02, duration: 0.25 }}
@@ -200,10 +205,10 @@ const DialogueHistory = ({ history, isOpen, onClose, onJumpToNode }: DialogueHis
                     >
                       {/* 說話者標籤 */}
                       {!isNarrator && entry.speakerName && (
-                        <div className="flex items-center gap-2 mb-2">
-                          <User className="w-3.5 h-3.5" style={{ color: style.color }} />
+                        <div className="flex items-center gap-1.5 sm:gap-2 mb-1.5 sm:mb-2">
+                          <User className="w-3 h-3 sm:w-3.5 sm:h-3.5" style={{ color: style.color }} />
                           <span 
-                            className="text-sm font-medium"
+                            className="text-xs sm:text-sm font-medium"
                             style={{ color: style.color }}
                           >
                             {entry.speakerName}
@@ -213,18 +218,13 @@ const DialogueHistory = ({ history, isOpen, onClose, onJumpToNode }: DialogueHis
                       
                       {/* 對話內容 */}
                       <p 
-                        className={`text-sm leading-relaxed ${isNarrator ? 'italic opacity-80' : ''}`}
+                        className={`text-xs sm:text-sm leading-relaxed ${isNarrator ? 'italic opacity-80' : ''}`}
                         style={{ 
                           color: isNarrator ? 'hsl(220 15% 70%)' : 'hsl(45 20% 88%)',
                         }}
                       >
                         {cleanText(entry.text)}
                       </p>
-
-                      {/* 時間戳（可選顯示） */}
-                      {/* <span className="absolute top-2 right-3 text-xs text-muted-foreground/50">
-                        #{sortedHistory.length - index}
-                      </span> */}
                     </motion.div>
                   );
                 })

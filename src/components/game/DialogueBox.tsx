@@ -464,77 +464,77 @@ const DialogueBox = ({ isHidden = false, onToggleHide, onScoreChange }: Dialogue
         currentChapterTitle={getCurrentChapterTitle()}
       />
 
-      {/* 控制按鈕群組 */}
-      <div className="fixed bottom-4 right-4 z-50 flex gap-2">
+      {/* 控制按鈕群組 - 手機優化佈局 */}
+      <div className="fixed bottom-20 sm:bottom-4 right-2 sm:right-4 z-50 flex flex-col sm:flex-row gap-1.5 sm:gap-2">
         {/* 存檔按鈕 */}
         <motion.button
           onClick={() => { setIsSavePanelOpen(true); playSFX('click'); }}
-          className="p-3 rounded-full backdrop-blur-md border-2 transition-all duration-300 shadow-lg bg-card/70 border-border/40 text-muted-foreground hover:text-foreground hover:border-amber-500/40 hover:bg-card/90"
+          className="p-2.5 sm:p-3 rounded-full backdrop-blur-md border-2 transition-all duration-300 shadow-lg bg-card/80 border-border/40 text-muted-foreground hover:text-foreground hover:border-amber-500/40 hover:bg-card/90 active:scale-95"
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
+          whileTap={{ scale: 0.9 }}
           transition={{ delay: 0.1 }}
           title="存檔"
         >
-          <Save className="w-5 h-5" />
+          <Save className="w-4 h-4 sm:w-5 sm:h-5" />
         </motion.button>
 
         {/* 讀檔按鈕 */}
         <motion.button
           onClick={() => { setIsLoadPanelOpen(true); playSFX('click'); }}
-          className="p-3 rounded-full backdrop-blur-md border-2 transition-all duration-300 shadow-lg bg-card/70 border-border/40 text-muted-foreground hover:text-foreground hover:border-emerald-500/40 hover:bg-card/90"
+          className="p-2.5 sm:p-3 rounded-full backdrop-blur-md border-2 transition-all duration-300 shadow-lg bg-card/80 border-border/40 text-muted-foreground hover:text-foreground hover:border-emerald-500/40 hover:bg-card/90 active:scale-95"
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
+          whileTap={{ scale: 0.9 }}
           transition={{ delay: 0.15 }}
           title="讀取進度"
         >
-          <Download className="w-5 h-5" />
+          <Download className="w-4 h-4 sm:w-5 sm:h-5" />
         </motion.button>
 
         {/* 回顧按鈕 */}
         <motion.button
           onClick={toggleHistory}
           className={`
-            p-3 rounded-full backdrop-blur-md border-2 transition-all duration-300 shadow-lg
+            p-2.5 sm:p-3 rounded-full backdrop-blur-md border-2 transition-all duration-300 shadow-lg active:scale-95
             ${isHistoryOpen 
               ? 'bg-primary/25 border-primary/60 text-primary shadow-primary/20' 
-              : 'bg-card/70 border-border/40 text-muted-foreground hover:text-foreground hover:border-primary/30 hover:bg-card/90'
+              : 'bg-card/80 border-border/40 text-muted-foreground hover:text-foreground hover:border-primary/30 hover:bg-card/90'
             }
           `}
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
+          whileTap={{ scale: 0.9 }}
           transition={{ delay: 0.2 }}
           title="對話回顧"
         >
-          <History className="w-5 h-5" />
+          <History className="w-4 h-4 sm:w-5 sm:h-5" />
         </motion.button>
 
         {/* 自動播放按鈕 */}
         <motion.button
           onClick={toggleAutoPlay}
           className={`
-            p-3 rounded-full backdrop-blur-md border-2 transition-all duration-300 shadow-lg
+            p-2.5 sm:p-3 rounded-full backdrop-blur-md border-2 transition-all duration-300 shadow-lg active:scale-95
             ${isAutoPlay 
               ? 'bg-primary/25 border-primary/60 text-primary shadow-primary/20' 
-              : 'bg-card/70 border-border/40 text-muted-foreground hover:text-foreground hover:border-primary/30 hover:bg-card/90'
+              : 'bg-card/80 border-border/40 text-muted-foreground hover:text-foreground hover:border-primary/30 hover:bg-card/90'
             }
           `}
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
+          whileTap={{ scale: 0.9 }}
           transition={{ delay: 0.3 }}
           title={isAutoPlay ? '停止自動播放' : '自動播放'}
         >
           {isAutoPlay ? (
-            <Pause className="w-5 h-5" />
+            <Pause className="w-4 h-4 sm:w-5 sm:h-5" />
           ) : (
-            <Play className="w-5 h-5" />
+            <Play className="w-4 h-4 sm:w-5 sm:h-5" />
           )}
         </motion.button>
 
@@ -542,20 +542,20 @@ const DialogueBox = ({ isHidden = false, onToggleHide, onScoreChange }: Dialogue
         <motion.button
           onClick={toggleAutoForward}
           className={`
-            p-3 rounded-full backdrop-blur-md border-2 transition-all duration-300 shadow-lg
+            p-2.5 sm:p-3 rounded-full backdrop-blur-md border-2 transition-all duration-300 shadow-lg active:scale-95
             ${isAutoForward 
               ? 'bg-accent/25 border-accent/60 text-accent shadow-accent/20' 
-              : 'bg-card/70 border-border/40 text-muted-foreground hover:text-foreground hover:border-accent/30 hover:bg-card/90'
+              : 'bg-card/80 border-border/40 text-muted-foreground hover:text-foreground hover:border-accent/30 hover:bg-card/90'
             }
           `}
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
+          whileTap={{ scale: 0.9 }}
           transition={{ delay: 0.4 }}
           title={isAutoForward ? '停止快轉' : '快轉'}
         >
-          <FastForward className={`w-5 h-5 ${isAutoForward ? 'animate-pulse' : ''}`} />
+          <FastForward className={`w-4 h-4 sm:w-5 sm:h-5 ${isAutoForward ? 'animate-pulse' : ''}`} />
         </motion.button>
 
         {/* 隱藏/顯示按鈕 */}
@@ -563,29 +563,29 @@ const DialogueBox = ({ isHidden = false, onToggleHide, onScoreChange }: Dialogue
           <motion.button
             onClick={onToggleHide}
             className={`
-              p-3 rounded-full backdrop-blur-md border-2 transition-all duration-300 shadow-lg
+              p-2.5 sm:p-3 rounded-full backdrop-blur-md border-2 transition-all duration-300 shadow-lg active:scale-95
               ${isHidden 
                 ? 'bg-primary/25 border-primary/60 text-primary shadow-primary/20' 
-                : 'bg-card/70 border-border/40 text-muted-foreground hover:text-foreground hover:border-primary/30 hover:bg-card/90'
+                : 'bg-card/80 border-border/40 text-muted-foreground hover:text-foreground hover:border-primary/30 hover:bg-card/90'
               }
             `}
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+            whileTap={{ scale: 0.9 }}
             transition={{ delay: 0.5 }}
             title={isHidden ? '顯示對話框' : '隱藏對話框'}
           >
-            {isHidden ? <Eye className="w-5 h-5" /> : <EyeOff className="w-5 h-5" />}
+            {isHidden ? <Eye className="w-4 h-4 sm:w-5 sm:h-5" /> : <EyeOff className="w-4 h-4 sm:w-5 sm:h-5" />}
           </motion.button>
         )}
       </div>
 
-      {/* 對話框 - 優化進場動畫 */}
+      {/* 對話框 - 手機優化佈局 */}
       <AnimatePresence mode="wait">
         {!isHidden && (
           <motion.div
-            className="fixed bottom-0 left-0 right-0 z-40 p-4 md:p-6 lg:p-8"
+            className="fixed bottom-0 left-0 right-0 z-40 p-2 pb-4 sm:p-4 md:p-6 lg:p-8"
             initial={{ opacity: 0, y: 60, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 40, scale: 0.98 }}
@@ -596,11 +596,11 @@ const DialogueBox = ({ isHidden = false, onToggleHide, onScoreChange }: Dialogue
             }}
           >
             <div className="max-w-4xl mx-auto">
-              {/* 主對話框 - 增強視覺效果和文字可讀性 */}
+              {/* 主對話框 - 手機觸控優化 */}
               <motion.div
                 className={`
                   relative overflow-hidden cursor-pointer
-                  rounded-2xl border-2 border-border/30
+                  rounded-xl sm:rounded-2xl border sm:border-2 border-border/30
                   ${getEffectClass()}
                 `}
                 onClick={handleClick}
@@ -609,8 +609,8 @@ const DialogueBox = ({ isHidden = false, onToggleHide, onScoreChange }: Dialogue
                 style={{
                   background: `linear-gradient(
                     180deg, 
-                    hsl(222 47% 10% / 0.94) 0%, 
-                    hsl(222 47% 7% / 0.97) 100%
+                    hsl(222 47% 10% / 0.96) 0%, 
+                    hsl(222 47% 7% / 0.98) 100%
                   )`,
                   boxShadow: `
                     0 -8px 50px hsl(222 47% 4% / 0.7),
@@ -619,6 +619,7 @@ const DialogueBox = ({ isHidden = false, onToggleHide, onScoreChange }: Dialogue
                     inset 0 -1px 0 hsl(45 30% 90% / 0.03)
                   `,
                   backdropFilter: 'blur(20px)',
+                  WebkitBackdropFilter: 'blur(20px)',
                 }}
               >
                 {/* 頂部發光邊線 */}
@@ -637,24 +638,24 @@ const DialogueBox = ({ isHidden = false, onToggleHide, onScoreChange }: Dialogue
                   }}
                 />
 
-                {/* 角落裝飾 */}
-                <div className="absolute top-3 left-3 w-5 h-5 border-l-2 border-t-2 border-primary/25 rounded-tl-lg" />
-                <div className="absolute top-3 right-3 w-5 h-5 border-r-2 border-t-2 border-primary/25 rounded-tr-lg" />
-                <div className="absolute bottom-3 left-3 w-5 h-5 border-l-2 border-b-2 border-primary/15 rounded-bl-lg" />
-                <div className="absolute bottom-3 right-3 w-5 h-5 border-r-2 border-b-2 border-primary/15 rounded-br-lg" />
+                {/* 角落裝飾 - 手機上隱藏 */}
+                <div className="hidden sm:block absolute top-3 left-3 w-5 h-5 border-l-2 border-t-2 border-primary/25 rounded-tl-lg" />
+                <div className="hidden sm:block absolute top-3 right-3 w-5 h-5 border-r-2 border-t-2 border-primary/25 rounded-tr-lg" />
+                <div className="hidden sm:block absolute bottom-3 left-3 w-5 h-5 border-l-2 border-b-2 border-primary/15 rounded-bl-lg" />
+                <div className="hidden sm:block absolute bottom-3 right-3 w-5 h-5 border-r-2 border-b-2 border-primary/15 rounded-br-lg" />
 
-                {/* 內容區域 */}
-                <div className="relative px-8 py-6 md:px-10 md:py-7 lg:px-12 lg:py-8">
-                  {/* 說話者名稱 - 增強樣式 */}
+                {/* 內容區域 - 手機優化間距 */}
+                <div className="relative px-4 py-4 sm:px-8 sm:py-6 md:px-10 md:py-7 lg:px-12 lg:py-8">
+                  {/* 說話者名稱 */}
                   {currentNode.speaker !== 'narrator' && (
                     <motion.div
-                      className="mb-4 flex items-center gap-4"
+                      className="mb-2 sm:mb-4 flex items-center gap-2 sm:gap-4"
                       initial={{ opacity: 0, x: -15 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ duration: 0.3 }}
                     >
                       <span
-                        className={`font-serif-tc text-xl font-bold tracking-widest ${getSpeakerColor(currentNode.speaker)}`}
+                        className={`font-serif-tc text-base sm:text-xl font-bold tracking-widest ${getSpeakerColor(currentNode.speaker)}`}
                         style={{
                           textShadow: currentNode.speaker === 'yi'
                             ? '0 0 25px hsl(350 60% 45% / 0.7), 0 0 10px hsl(350 60% 45% / 0.4)'
@@ -666,7 +667,7 @@ const DialogueBox = ({ isHidden = false, onToggleHide, onScoreChange }: Dialogue
                         {getSpeakerName(currentNode)}
                       </span>
                       <span 
-                        className="flex-shrink-0 w-16 h-[2px]" 
+                        className="hidden sm:block flex-shrink-0 w-16 h-[2px]" 
                         style={{
                           background: `linear-gradient(90deg, hsl(38 80% 55% / 0.5), transparent)`,
                         }}
@@ -674,17 +675,17 @@ const DialogueBox = ({ isHidden = false, onToggleHide, onScoreChange }: Dialogue
                     </motion.div>
                   )}
 
-                  {/* 對話文字 - 角色專屬效果 */}
-                  <div className="min-h-[90px] flex items-start">
+                  {/* 對話文字 - 手機字體優化 */}
+                  <div className="min-h-[60px] sm:min-h-[90px] flex items-start">
                     <div
                       className={`
-                        font-sans-tc leading-loose relative
+                        font-sans-tc leading-relaxed sm:leading-loose relative
                         ${currentNode.speaker === 'yi' ? 'italic' : ''}
                       `}
                       style={{
-                        fontSize: 'clamp(1.125rem, 2.5vw, 1.35rem)',
-                        lineHeight: '2.1',
-                        letterSpacing: '0.05em',
+                        fontSize: 'clamp(0.95rem, 3.5vw, 1.35rem)',
+                        lineHeight: '1.9',
+                        letterSpacing: '0.03em',
                         fontWeight: 400,
                       }}
                     >
