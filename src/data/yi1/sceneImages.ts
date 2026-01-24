@@ -165,10 +165,18 @@ import IMG_ch12_木屋_根性的震動 from '@/assets/scenes/ch12_木屋_根性�
 import IMG_ch12_林肯悲傷_根性的堅持 from '@/assets/scenes/ch12_林肯悲傷_根性的堅持_粉嫩少女耽美版.png';
 import IMG_ch12_林肯劈柴_踏實的力量 from '@/assets/scenes/ch12_林肯劈柴_踏實的力量_粉嫩少女耽美版.png';
 import IMG_ch12_林肯沉思_溫暖的堅持 from '@/assets/scenes/ch12_林肯沉思_溫暖的堅持_粉嫩少女耽美版_v2.png';
+import IMG_ch12_林肯悲傷_根性的堅持_v2 from '@/assets/scenes/ch12_林肯悲傷_根性的堅持_粉嫩少女耽美版_v2.png';
+import IMG_ch12_林肯劈柴_踏實的力量_v2 from '@/assets/scenes/ch12_林肯劈柴_踏實的力量_粉嫩少女耽美版_v2.png';
+import IMG_ch12_林肯沉思_溫暖的堅持_v3 from '@/assets/scenes/ch12_林肯沉思_溫暖的堅持_粉嫩少女耽美版_v3.png';
+import IMG_ch12_林肯認真談話_溫暖的叩問 from '@/assets/scenes/ch12_林肯認真談話_溫暖的叩問_粉嫩少女耽美版_v2.png';
+import IMG_ch12_木屋_根性的溫暖 from '@/assets/scenes/ch12_木屋_根性的溫暖_粉嫩少女耽美版_v2.png';
+import IMG_ch12_林肯告別_溫暖的傳承 from '@/assets/scenes/ch12_林肯告別_溫暖的傳承_粉嫩少女耽美版_v2.png';
 
 // 新增第十三章（賈伯斯）粉嫩少女耽美版場景圖片
 import IMG_ch13_賈伯斯_挑戰的氣場 from '@/assets/scenes/ch13_賈伯斯_挑戰的氣場_粉嫩少女耽美版.png';
 import IMG_ch13_白色建築_秩序的刺醒 from '@/assets/scenes/ch13_白色建築_秩序的刺醒_粉嫩少女耽美版.png';
+import IMG_ch13_蘋果物件_點亮的傳承 from '@/assets/scenes/ch13_蘋果物件_點亮的傳承_粉嫩少女耽美版.png';
+import IMG_ch13_賈伯斯沉思_轉折的覺醒 from '@/assets/scenes/ch13_賈伯斯沉思_轉折的覺醒_粉嫩少女耽美版.png';
 
 // 新增第十四章（未歸者廊）粉嫩少女耽美版場景圖片
 import IMG_ch14_廊入口_未歸者的啟程 from '@/assets/scenes/ch14_廊入口_未歸者的啟程_粉嫩少女耽美版_v3.png';
@@ -562,43 +570,68 @@ export const sceneImages: SceneImageConfig[] = [
     nodePatterns: ['chapter11-', 'chapter-11-'],
   },
 
-  // === 第十二章：失敗老師（林肯，使用粉嫩少女耽美版）===
+  // === 第十二章：失敗老師（林肯，使用粉嫩少女耽美版完整版）===
   {
     image: IMG_ch12_木屋_根性的震動,
     alt: '木屋 - 根性的震動',
-    nodePatterns: ['chapter-12-intro', 'chapter-12-1', 'chapter-12-2', 'chapter-12-3', 'chapter-12-4', 'chapter-12-5', 'chapter-12-6', 'chapter-12-7', 'chapter-12-8'],
+    nodePatterns: ['chapter-12-intro', 'chapter-12-1', 'chapter-12-2', 'chapter-12-3', 'chapter-12-4'],
   },
   {
-    image: IMG_ch12_林肯悲傷_根性的堅持,
+    image: IMG_ch12_林肯悲傷_根性的堅持_v2,
     alt: '林肯悲傷 - 根性的堅持',
-    nodePatterns: ['chapter-12-9', 'chapter-12-10', 'chapter-12-11', 'chapter-12-12', 'chapter-12-13', 'chapter-12-14', 'chapter-12-15', 'chapter-12-choice-1'],
+    nodePatterns: ['chapter-12-5', 'chapter-12-6', 'chapter-12-7', 'chapter-12-8', 'chapter-12-9', 'chapter-12-10'],
   },
   {
-    image: IMG_ch12_林肯劈柴_踏實的力量,
+    image: IMG_ch12_林肯劈柴_踏實的力量_v2,
     alt: '林肯劈柴 - 踏實的力量',
-    nodePatterns: ['chapter-12-16', 'chapter-12-17', 'chapter-12-18', 'chapter-12-19', 'chapter-12-20', 'chapter-12-21', 'chapter-12-22', 'chapter-12-23', 'chapter-12-24', 'chapter-12-25'],
+    nodePatterns: ['chapter-12-11', 'chapter-12-12', 'chapter-12-13', 'chapter-12-14', 'chapter-12-15', 'chapter-12-choice-1'],
   },
   {
-    image: IMG_ch12_林肯沉思_溫暖的堅持,
+    image: IMG_ch12_林肯認真談話_溫暖的叩問,
+    alt: '林肯認真談話 - 溫暖的叩問',
+    nodePatterns: ['chapter-12-16', 'chapter-12-17', 'chapter-12-18', 'chapter-12-19', 'chapter-12-20', 'chapter-12-21'],
+  },
+  {
+    image: IMG_ch12_林肯沉思_溫暖的堅持_v3,
     alt: '林肯沉思 - 溫暖的堅持',
-    nodePatterns: ['chapter-12-26', 'chapter-12-27', 'chapter-12-28', 'chapter-12-29', 'chapter-12-30', 'chapter-12-31', 'chapter-12-32', 'chapter-12-33', 'chapter-12-34', 'chapter-12-35', 'chapter-12-choice-2', 'chapter-12-36', 'chapter-12-37', 'chapter-12-38', 'chapter-12-39', 'chapter-12-40', 'chapter-12-end'],
+    nodePatterns: ['chapter-12-22', 'chapter-12-23', 'chapter-12-24', 'chapter-12-25', 'chapter-12-26', 'chapter-12-27', 'chapter-12-28', 'chapter-12-choice-2'],
+  },
+  {
+    image: IMG_ch12_木屋_根性的溫暖,
+    alt: '木屋 - 根性的溫暖',
+    nodePatterns: ['chapter-12-29', 'chapter-12-30', 'chapter-12-31', 'chapter-12-32', 'chapter-12-33'],
+  },
+  {
+    image: IMG_ch12_林肯告別_溫暖的傳承,
+    alt: '林肯告別 - 溫暖的傳承',
+    nodePatterns: ['chapter-12-34', 'chapter-12-35', 'chapter-12-36', 'chapter-12-37', 'chapter-12-38', 'chapter-12-39', 'chapter-12-40', 'chapter-12-end'],
   },
   {
     image: IMG_林肯木屋_劈柴對峙,
-    alt: '林肯木屋',
+    alt: '林肯木屋（備用）',
     nodePatterns: ['chapter12-', 'chapter-12-'],
   },
 
-  // === 第十三章：最後一課（賈伯斯，使用粉嫩少女耽美版）===
+  // === 第十三章：最後一課（賈伯斯，使用粉嫩少女耽美版完整版）===
   {
     image: IMG_ch13_白色建築_秩序的刺醒,
     alt: '白色建築 - 秩序的刺醒',
-    nodePatterns: ['yi1-ch13-intro', 'yi1-ch13-1', 'yi1-ch13-2', 'yi1-ch13-3', 'yi1-ch13-4', 'yi1-ch13-5', 'yi1-ch13-6', 'yi1-ch13-7', 'yi1-ch13-8'],
+    nodePatterns: ['yi1-ch13-intro', 'yi1-ch13-1', 'yi1-ch13-2', 'yi1-ch13-3', 'yi1-ch13-4', 'yi1-ch13-5'],
   },
   {
     image: IMG_ch13_賈伯斯_挑戰的氣場,
     alt: '賈伯斯 - 挑戰的氣場',
-    nodePatterns: ['yi1-ch13-9', 'yi1-ch13-10', 'yi1-ch13-11', 'yi1-ch13-12', 'yi1-ch13-13', 'yi1-ch13-14', 'yi1-ch13-15', 'yi1-ch13-16', 'yi1-ch13-17', 'yi1-ch13-18', 'yi1-ch13-19', 'yi1-ch13-20', 'yi1-ch13-21', 'yi1-ch13-22', 'yi1-ch13-23', 'yi1-ch13-24', 'yi1-ch13-25', 'yi1-ch13-choice-1', 'yi1-ch13-choice-2', 'yi1-ch13-choice-3', 'yi1-ch13-foreshadow'],
+    nodePatterns: ['yi1-ch13-6', 'yi1-ch13-7', 'yi1-ch13-8', 'yi1-ch13-9', 'yi1-ch13-10', 'yi1-ch13-11', 'yi1-ch13-12'],
+  },
+  {
+    image: IMG_ch13_賈伯斯沉思_轉折的覺醒,
+    alt: '賈伯斯沉思 - 轉折的覺醒',
+    nodePatterns: ['yi1-ch13-13', 'yi1-ch13-14', 'yi1-ch13-15', 'yi1-ch13-16', 'yi1-ch13-17', 'yi1-ch13-18', 'yi1-ch13-choice-1', 'yi1-ch13-choice-2'],
+  },
+  {
+    image: IMG_ch13_蘋果物件_點亮的傳承,
+    alt: '蘋果物件 - 點亮的傳承',
+    nodePatterns: ['yi1-ch13-19', 'yi1-ch13-20', 'yi1-ch13-21', 'yi1-ch13-22', 'yi1-ch13-23', 'yi1-ch13-24', 'yi1-ch13-25', 'yi1-ch13-choice-3', 'yi1-ch13-foreshadow'],
   },
   {
     image: IMG_賈伯斯與主角_蘋果之光,
