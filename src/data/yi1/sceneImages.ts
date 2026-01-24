@@ -105,6 +105,16 @@ import IMG_訓練場_虛空圓形平台 from '@/assets/scenes/訓練場_虛空�
 import IMG_靈魂抽離_靈魂與肉身 from '@/assets/scenes/靈魂抽離_靈魂與肉身_粉嫩少女漫畫版.png';
 import IMG_刪除之夜_深夜房間 from '@/assets/scenes/刪除之夜_深夜房間_粉嫩少女漫畫版.png';
 import IMG_作者序場景_起源微光 from '@/assets/scenes/作者序場景_起源微光_粉嫩少女漫畫版.png';
+
+// 新增粉嫩少女耽美版場景圖片（第一章、第二章）
+import IMG_ch1_凌晨書桌_刪除的念頭 from '@/assets/scenes/ch1_凌晨書桌_刪除的念頭_粉嫩少女耽美版.png';
+import IMG_ch1_秘密資料夾_選取的瞬間 from '@/assets/scenes/ch1_秘密資料夾_選取的瞬間_粉嫩少女耽美版.png';
+import IMG_ch1_刪除對話框_指尖的猶豫 from '@/assets/scenes/ch1_刪除對話框_指尖的猶豫_粉嫩少女耽美版.png';
+import IMG_ch1_故障對話框_被打斷的決絕 from '@/assets/scenes/ch1_故障對話框_被打斷的決絕_粉嫩少女耽美版.png';
+import IMG_ch1_白光爆發_跨界的開始 from '@/assets/scenes/ch1_白光爆發_跨界的開始_粉嫩少女耽美版.png';
+import IMG_ch2_金色河流_醒來的寧靜 from '@/assets/scenes/ch2_金色河流_醒來的寧靜_粉嫩版.png';
+import IMG_ch2_問心登場_指尖相觸 from '@/assets/scenes/ch2_問心登場_指尖相觸_粉嫩少女耽美版.png';
+import IMG_ch2_碼頭與歸元山_壯觀目標 from '@/assets/scenes/ch2_碼頭與歸元山_壯觀目標_粉嫩少女耽美版.png';
 export interface SceneImageConfig {
   image: string;
   alt: string;
@@ -134,38 +144,48 @@ export const sceneImages: SceneImageConfig[] = [
     nodePatterns: ['prologue-'],
   },
 
-  // === 第一章：刪除（使用粉嫩少女漫畫版）===
+  // === 第一章：刪除（使用粉嫩少女耽美版）===
   {
-    image: IMG_刪除之夜_深夜房間,
-    alt: '深夜房間',
-    nodePatterns: ['chapter-1-intro', 'chapter-1-1', 'chapter-1-2', 'chapter-1-3', 'chapter-1-4', 'chapter-1-5', 'chapter-1-6', 'chapter-1-7', 'chapter-1-8', 'chapter-1-9', 'chapter-1-10', 'chapter-1-11', 'chapter-1-12', 'chapter-1-13', 'chapter-1-14', 'chapter-1-15', 'chapter-1-16', 'chapter-1-17', 'chapter-1-18', 'chapter-1-19', 'chapter-1-20', 'chapter-1-21', 'chapter-1-22', 'chapter-1-23', 'chapter-1-24', 'chapter-1-25', 'chapter-1-26', 'chapter-1-27', 'chapter-1-28', 'chapter-1-29', 'chapter-1-30'],
+    image: IMG_ch1_凌晨書桌_刪除的念頭,
+    alt: '凌晨書桌 - 刪除的念頭',
+    nodePatterns: ['chapter-1-intro', 'chapter-1-1', 'chapter-1-2', 'chapter-1-3', 'chapter-1-4', 'chapter-1-5', 'chapter-1-6', 'chapter-1-7', 'chapter-1-8'],
   },
   {
-    image: IMG_螢幕強光_決斷時刻,
-    alt: '決斷時刻',
-    nodePatterns: ['chapter-1-31', 'chapter-1-32', 'chapter-1-33', 'chapter-1-34', 'chapter-1-35', 'chapter-1-36', 'chapter-1-37', 'chapter-1-38', 'chapter-1-39', 'chapter-1-40', 'chapter-1-41', 'chapter-1-42', 'chapter-1-43', 'chapter-1-44', 'chapter-1-45', 'chapter-1-choice', 'chapter-1-confirm', 'chapter-1-cancel'],
+    image: IMG_ch1_秘密資料夾_選取的瞬間,
+    alt: '秘密資料夾 - 選取的瞬間',
+    nodePatterns: ['chapter-1-9', 'chapter-1-10', 'chapter-1-11', 'chapter-1-12', 'chapter-1-13', 'chapter-1-14', 'chapter-1-15'],
   },
   {
-    image: IMG_靈魂抽離_靈魂與肉身,
-    alt: '靈魂抽離',
-    nodePatterns: ['chapter-1-46', 'chapter-1-47', 'chapter-1-48', 'chapter-1-49', 'chapter-1-50', 'chapter-1-end'],
+    image: IMG_ch1_刪除對話框_指尖的猶豫,
+    alt: '刪除對話框 - 指尖的猶豫',
+    nodePatterns: ['chapter-1-16', 'chapter-1-17', 'chapter-1-18', 'chapter-1-19', 'chapter-1-20', 'chapter-1-21', 'chapter-1-choice'],
+  },
+  {
+    image: IMG_ch1_故障對話框_被打斷的決絕,
+    alt: '故障對話框 - 被打斷的決絕',
+    nodePatterns: ['chapter-1-confirm', 'chapter-1-cancel', 'chapter-1-22', 'chapter-1-23', 'chapter-1-24', 'chapter-1-25'],
+  },
+  {
+    image: IMG_ch1_白光爆發_跨界的開始,
+    alt: '白光爆發 - 跨界的開始',
+    nodePatterns: ['chapter-1-26', 'chapter-1-27', 'chapter-1-28', 'chapter-1-29', 'chapter-1-30', 'chapter-1-end'],
   },
 
-  // === 第二章：渡口（支援 yi1- 前綴）===
+  // === 第二章：渡口（使用粉嫩少女耽美版）===
   {
-    image: IMG_月光倒影分裂_伊的暗示,
-    alt: '迷霧渡口',
-    nodePatterns: ['chapter-2-intro', 'chapter-2-1', 'chapter-2-2', 'chapter-2-3', 'chapter-2-4', 'chapter-2-5', 'chapter-2-6', 'chapter-2-7', 'chapter-2-8', 'chapter-2-9', 'chapter-2-10', 'chapter-2-11', 'chapter-2-12', 'chapter-2-13', 'chapter-2-14', 'chapter-2-15'],
+    image: IMG_ch2_金色河流_醒來的寧靜,
+    alt: '金色河流 - 醒來的寧靜',
+    nodePatterns: ['chapter-2-intro', 'chapter-2-1', 'chapter-2-2', 'chapter-2-3', 'chapter-2-4', 'chapter-2-5', 'chapter-2-6', 'chapter-2-7', 'chapter-2-8', 'chapter-2-9', 'chapter-2-10'],
   },
   {
-    image: IMG_問心初登場_端莊神女,
-    alt: '問心初登場',
-    nodePatterns: ['chapter-2-16', 'chapter-2-17', 'chapter-2-18', 'chapter-2-19', 'chapter-2-20', 'chapter-2-21', 'chapter-2-22', 'chapter-2-23', 'chapter-2-24', 'chapter-2-25', 'chapter-2-26', 'chapter-2-27', 'chapter-2-28', 'chapter-2-29', 'chapter-2-30', 'chapter-2-choice-1', 'chapter-2-31', 'chapter-2-32', 'chapter-2-33', 'chapter-2-34', 'chapter-2-35'],
+    image: IMG_ch2_問心登場_指尖相觸,
+    alt: '問心登場 - 指尖相觸',
+    nodePatterns: ['chapter-2-11', 'chapter-2-12', 'chapter-2-13', 'chapter-2-14', 'chapter-2-15', 'chapter-2-16', 'chapter-2-17', 'chapter-2-18', 'chapter-2-19', 'chapter-2-20', 'chapter-2-choice-1'],
   },
   {
-    image: IMG_擺渡人剪影_小船對峙,
-    alt: '擺渡人',
-    nodePatterns: ['chapter-2-36', 'chapter-2-37', 'chapter-2-38', 'chapter-2-39', 'chapter-2-40', 'chapter-2-41', 'chapter-2-42', 'chapter-2-43', 'chapter-2-44', 'chapter-2-45', 'chapter-2-46', 'chapter-2-47', 'chapter-2-48', 'chapter-2-49', 'chapter-2-50', 'chapter-2-51', 'chapter-2-52', 'chapter-2-53', 'chapter-2-54', 'chapter-2-55', 'chapter-2-56', 'chapter-2-57', 'chapter-2-58', 'chapter-2-59', 'chapter-2-60', 'chapter-2-end', 'chapter-2-choice-2'],
+    image: IMG_ch2_碼頭與歸元山_壯觀目標,
+    alt: '碼頭與歸元山 - 壯觀目標',
+    nodePatterns: ['chapter-2-21', 'chapter-2-22', 'chapter-2-23', 'chapter-2-24', 'chapter-2-25', 'chapter-2-26', 'chapter-2-27', 'chapter-2-28', 'chapter-2-29', 'chapter-2-30', 'chapter-2-choice-2', 'chapter-2-end'],
   },
 
   // === 第三章：心即理（王陽明，支援 yi1- 前綴）===
