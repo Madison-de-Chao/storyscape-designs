@@ -232,7 +232,7 @@ export const chapter1Nodes: DialogueNode[] = [
     speaker: 'narrator',
     text: '「你來了。我們等你很久了。」',
     effect: 'glow',
-    nextNodeId: 'yi1-chapter-2-intro-1',
+    nextNodeId: 'yi1-ch2-intro',
   },
 ];
 // 總計：21 主線句 + 3 選項（6 分支句）= 27 節點
