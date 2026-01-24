@@ -157,6 +157,15 @@ import IMG_ch10_克麗奧佩特拉的故事_野心的象徵 from '@/assets/scene
 import IMG_ch10_凱薩的故事_背叛的反思 from '@/assets/scenes/ch10_凱薩的故事_背叛的反思_粉嫩少女耽美版_v2.png';
 import IMG_ch10_凱薩與克麗奧佩特拉告別_和解的智慧 from '@/assets/scenes/ch10_凱薩與克麗奧佩特拉告別_和解的智慧_粉嫩少女耽美版_v2.png';
 import IMG_ch11_曼德拉認真談話_仇恨與選擇 from '@/assets/scenes/ch11_曼德拉認真談話_仇恨與選擇_粉嫩少女耽美版.png';
+import IMG_ch11_曼德拉洞察_寬恕的光 from '@/assets/scenes/ch11_曼德拉洞察_寬恕的光_粉嫩少女耽美版.png';
+import IMG_ch11_野花花園_自由的生命力 from '@/assets/scenes/ch11_野花花園_自由的生命力_粉嫩少女耽美版.png';
+import IMG_ch11_曼德拉種菜_生命的脈動 from '@/assets/scenes/ch11_曼德拉種菜_生命的脈動_粉嫩少女耽美版.png';
+import IMG_ch11_曼德拉告別_希望的傳承 from '@/assets/scenes/ch11_曼德拉告別_希望的傳承_粉嫩少女耽美版.png';
+import IMG_ch12_木屋_根性的震動 from '@/assets/scenes/ch12_木屋_根性的震動_粉嫩少女耽美版.png';
+import IMG_ch12_林肯悲傷_根性的堅持 from '@/assets/scenes/ch12_林肯悲傷_根性的堅持_粉嫩少女耽美版.png';
+import IMG_ch12_林肯劈柴_踏實的力量 from '@/assets/scenes/ch12_林肯劈柴_踏實的力量_粉嫩少女耽美版.png';
+import IMG_ch12_林肯沉思_溫暖的堅持 from '@/assets/scenes/ch12_林肯沉思_溫暖的堅持_粉嫩少女耽美版_v2.png';
+
 export interface SceneImageConfig {
   image: string;
   alt: string;
@@ -510,12 +519,27 @@ export const sceneImages: SceneImageConfig[] = [
   {
     image: IMG_ch11_曼德拉認真談話_仇恨與選擇,
     alt: '曼德拉認真談話 - 仇恨與選擇',
-    nodePatterns: ['chapter-11-16', 'chapter-11-17', 'chapter-11-18', 'chapter-11-19', 'chapter-11-20', 'chapter-11-21', 'chapter-11-22', 'chapter-11-23', 'chapter-11-24', 'chapter-11-25', 'chapter-11-26', 'chapter-11-27', 'chapter-11-28', 'chapter-11-29', 'chapter-11-30', 'chapter-11-choice-2'],
+    nodePatterns: ['chapter-11-16', 'chapter-11-17', 'chapter-11-18', 'chapter-11-19', 'chapter-11-20'],
   },
   {
-    image: IMG25_寬恕釋放,
-    alt: '寬恕釋放',
-    nodePatterns: ['chapter-11-31', 'chapter-11-32', 'chapter-11-33', 'chapter-11-34', 'chapter-11-35', 'chapter-11-36', 'chapter-11-37', 'chapter-11-38', 'chapter-11-39', 'chapter-11-40', 'chapter-11-end'],
+    image: IMG_ch11_曼德拉種菜_生命的脈動,
+    alt: '曼德拉種菜 - 生命的脈動',
+    nodePatterns: ['chapter-11-21', 'chapter-11-22', 'chapter-11-23', 'chapter-11-24', 'chapter-11-25', 'chapter-11-choice-2'],
+  },
+  {
+    image: IMG_ch11_曼德拉洞察_寬恕的光,
+    alt: '曼德拉洞察 - 寬恕的光',
+    nodePatterns: ['chapter-11-26', 'chapter-11-27', 'chapter-11-28', 'chapter-11-29', 'chapter-11-30'],
+  },
+  {
+    image: IMG_ch11_野花花園_自由的生命力,
+    alt: '野花花園 - 自由的生命力',
+    nodePatterns: ['chapter-11-31', 'chapter-11-32', 'chapter-11-33', 'chapter-11-34', 'chapter-11-35'],
+  },
+  {
+    image: IMG_ch11_曼德拉告別_希望的傳承,
+    alt: '曼德拉告別 - 希望的傳承',
+    nodePatterns: ['chapter-11-36', 'chapter-11-37', 'chapter-11-38', 'chapter-11-39', 'chapter-11-40', 'chapter-11-end'],
   },
   {
     image: IMG_曼德拉花園_幼芽守護,
@@ -523,7 +547,27 @@ export const sceneImages: SceneImageConfig[] = [
     nodePatterns: ['chapter11-', 'chapter-11-'],
   },
 
-  // === 第十二章：失敗老師（林肯）===
+  // === 第十二章：失敗老師（林肯，使用粉嫩少女耽美版）===
+  {
+    image: IMG_ch12_木屋_根性的震動,
+    alt: '木屋 - 根性的震動',
+    nodePatterns: ['chapter-12-intro', 'chapter-12-1', 'chapter-12-2', 'chapter-12-3', 'chapter-12-4', 'chapter-12-5', 'chapter-12-6', 'chapter-12-7', 'chapter-12-8'],
+  },
+  {
+    image: IMG_ch12_林肯悲傷_根性的堅持,
+    alt: '林肯悲傷 - 根性的堅持',
+    nodePatterns: ['chapter-12-9', 'chapter-12-10', 'chapter-12-11', 'chapter-12-12', 'chapter-12-13', 'chapter-12-14', 'chapter-12-15', 'chapter-12-choice-1'],
+  },
+  {
+    image: IMG_ch12_林肯劈柴_踏實的力量,
+    alt: '林肯劈柴 - 踏實的力量',
+    nodePatterns: ['chapter-12-16', 'chapter-12-17', 'chapter-12-18', 'chapter-12-19', 'chapter-12-20', 'chapter-12-21', 'chapter-12-22', 'chapter-12-23', 'chapter-12-24', 'chapter-12-25'],
+  },
+  {
+    image: IMG_ch12_林肯沉思_溫暖的堅持,
+    alt: '林肯沉思 - 溫暖的堅持',
+    nodePatterns: ['chapter-12-26', 'chapter-12-27', 'chapter-12-28', 'chapter-12-29', 'chapter-12-30', 'chapter-12-31', 'chapter-12-32', 'chapter-12-33', 'chapter-12-34', 'chapter-12-35', 'chapter-12-choice-2', 'chapter-12-36', 'chapter-12-37', 'chapter-12-38', 'chapter-12-39', 'chapter-12-40', 'chapter-12-end'],
+  },
   {
     image: IMG_林肯木屋_劈柴對峙,
     alt: '林肯木屋',
