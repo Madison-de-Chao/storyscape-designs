@@ -175,6 +175,11 @@ import IMG_ch14_廊入口_未歸者的啟程 from '@/assets/scenes/ch14_廊入�
 import IMG_ch14_壁龕走廊_記憶的深處 from '@/assets/scenes/ch14_壁龕走廊_記憶的深處_粉嫩少女耽美版_v3.png';
 import IMG_ch14_項羽_悲壯的終結 from '@/assets/scenes/ch14_項羽_悲壯的終結_粉嫩少女耽美版_v3.png';
 import IMG_ch14_屈原_悲劇的守護 from '@/assets/scenes/ch14_屈原_悲劇的守護_粉嫩少女耽美版_v3.png';
+import IMG_ch14_梵谷_瘋狂的藝術 from '@/assets/scenes/ch14_梵谷_瘋狂的藝術_粉嫩少女耽美版.png';
+import IMG_ch14_夢露_分裂的自我 from '@/assets/scenes/ch14_夢露_分裂的自我_粉嫩少女耽美版_final.png';
+import IMG_ch14_空壁龕_恐懼的空白 from '@/assets/scenes/ch14_空壁龕_恐懼的空白_粉嫩少女耽美版.png';
+import IMG_ch14_壁龕深處_記憶的重複 from '@/assets/scenes/ch14_壁龕深處_記憶的重複_粉嫩少女耽美版_final.png';
+import IMG_ch14_告別廊_走出的覺醒 from '@/assets/scenes/ch14_告別廊_走出的覺醒_粉嫩少女耽美版.png';
 
 export interface SceneImageConfig {
   image: string;
@@ -601,26 +606,51 @@ export const sceneImages: SceneImageConfig[] = [
     nodePatterns: ['chapter13-', 'chapter-13-'],
   },
 
-  // === 第十四章：未歸者廊（使用粉嫩少女耽美版）===
+  // === 第十四章：未歸者廊（使用粉嫩少女耽美版，完整敘事流程）===
   {
     image: IMG_ch14_廊入口_未歸者的啟程,
     alt: '未歸者廊入口 - 啟程',
-    nodePatterns: ['yi1-ch14-intro', 'yi1-ch14-1', 'yi1-ch14-2', 'yi1-ch14-3', 'yi1-ch14-4', 'yi1-ch14-5'],
+    nodePatterns: ['yi1-ch14-intro', 'yi1-ch14-1', 'yi1-ch14-2', 'yi1-ch14-3'],
   },
   {
     image: IMG_ch14_壁龕走廊_記憶的深處,
     alt: '壁龕走廊 - 記憶的深處',
-    nodePatterns: ['yi1-ch14-6', 'yi1-ch14-7', 'yi1-ch14-8', 'yi1-ch14-9', 'yi1-ch14-10', 'yi1-ch14-choice-1'],
+    nodePatterns: ['yi1-ch14-4', 'yi1-ch14-5', 'yi1-ch14-6', 'yi1-ch14-7'],
   },
   {
     image: IMG_ch14_項羽_悲壯的終結,
     alt: '項羽 - 悲壯的終結',
-    nodePatterns: ['yi1-ch14-11', 'yi1-ch14-12', 'yi1-ch14-13', 'yi1-ch14-14', 'yi1-ch14-15', 'yi1-ch14-16'],
+    nodePatterns: ['yi1-ch14-8', 'yi1-ch14-9', 'yi1-ch14-10', 'yi1-ch14-choice-1'],
   },
   {
     image: IMG_ch14_屈原_悲劇的守護,
     alt: '屈原 - 悲劇的守護',
-    nodePatterns: ['yi1-ch14-17', 'yi1-ch14-18', 'yi1-ch14-19', 'yi1-ch14-20', 'yi1-ch14-21', 'yi1-ch14-22', 'yi1-ch14-23', 'yi1-ch14-24', 'yi1-ch14-25', 'yi1-ch14-choice-2', 'yi1-ch14-26', 'yi1-ch14-27', 'yi1-ch14-28', 'yi1-ch14-foreshadow'],
+    nodePatterns: ['yi1-ch14-11', 'yi1-ch14-12', 'yi1-ch14-13', 'yi1-ch14-14'],
+  },
+  {
+    image: IMG_ch14_梵谷_瘋狂的藝術,
+    alt: '梵谷 - 瘋狂的藝術',
+    nodePatterns: ['yi1-ch14-15', 'yi1-ch14-16', 'yi1-ch14-17', 'yi1-ch14-18'],
+  },
+  {
+    image: IMG_ch14_夢露_分裂的自我,
+    alt: '夢露 - 分裂的自我',
+    nodePatterns: ['yi1-ch14-19', 'yi1-ch14-20', 'yi1-ch14-21', 'yi1-ch14-22', 'yi1-ch14-choice-2'],
+  },
+  {
+    image: IMG_ch14_空壁龕_恐懼的空白,
+    alt: '空壁龕 - 恐懼的空白',
+    nodePatterns: ['yi1-ch14-23', 'yi1-ch14-24', 'yi1-ch14-25'],
+  },
+  {
+    image: IMG_ch14_壁龕深處_記憶的重複,
+    alt: '壁龕深處 - 記憶的重複',
+    nodePatterns: ['yi1-ch14-26', 'yi1-ch14-27', 'yi1-ch14-28', 'yi1-ch14-29'],
+  },
+  {
+    image: IMG_ch14_告別廊_走出的覺醒,
+    alt: '告別廊 - 走出的覺醒',
+    nodePatterns: ['yi1-ch14-30', 'yi1-ch14-31', 'yi1-ch14-32', 'yi1-ch14-foreshadow'],
   },
   {
     image: IMG_未歸者廊_命運壁龕,
