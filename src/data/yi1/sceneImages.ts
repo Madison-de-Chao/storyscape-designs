@@ -216,7 +216,14 @@ import IMG_ch16_告別_漸行漸遠 from '@/assets/scenes/ch16_告別_漸行漸�
 import IMG_ch16_日出_新的旅程 from '@/assets/scenes/ch16_日出_新的旅程_粉嫩少女耽美版.png';
 import IMG_ch16_新的開始_空白的頁面 from '@/assets/scenes/ch16_新的開始_空白的頁面_粉嫩少女耽美版.png';
 
-// 新增終章粉嫩少女耽美版場景圖片（完整9階段敘事）
+// 新增作者序粉嫩少女耽美版場景圖片
+import IMG_preface_二元_對立的裂縫 from '@/assets/scenes/preface_二元_對立的裂縫_粉嫩少女耽美版.png';
+
+// 新增序章粉嫩少女耽美版場景圖片
+import IMG_prologue_地球_二元的平衡 from '@/assets/scenes/prologue_地球_二元的平衡_粉嫩少女耽美版.png';
+import IMG_prologue_徒勞_無盡的攀登 from '@/assets/scenes/prologue_徒勞_無盡的攀登_粉嫩少女耽美版.png';
+
+// 新增終章粉嫩少女耽美版場景圖片（完整14階段敘事）
 import IMG_epilogue_三個月後_深夜檔案 from '@/assets/scenes/epilogue_三個月後_深夜檔案_粉嫩少女耽美版.png';
 import IMG_epilogue_舊檔案_重新發現 from '@/assets/scenes/epilogue_舊檔案_重新發現_粉嫩少女耽美版.png';
 import IMG_epilogue_刪除_放下的瞬間 from '@/assets/scenes/epilogue_刪除_放下的瞬間_粉嫩少女耽美版.png';
@@ -226,6 +233,11 @@ import IMG_epilogue_回信_平靜的喜悅 from '@/assets/scenes/epilogue_回信
 import IMG_epilogue_投稿_跨出的一步 from '@/assets/scenes/epilogue_投稿_跨出的一步_粉嫩少女耽美版.png';
 import IMG_epilogue_責編_認可的溫暖 from '@/assets/scenes/epilogue_責編_認可的溫暖_粉嫩少女耽美版.png';
 import IMG_epilogue_出版社_踏入新身份 from '@/assets/scenes/epilogue_出版社_踏入新身份_粉嫩少女耽美版.png';
+import IMG_epilogue_雨中_轉折的接受 from '@/assets/scenes/epilogue_雨中_轉折的接受_粉嫩少女耽美版.png';
+import IMG_epilogue_雨中行走_和解的旅程 from '@/assets/scenes/epilogue_雨中行走_和解的旅程_粉嫩少女耽美版.png';
+import IMG_epilogue_雨後_希望的出口 from '@/assets/scenes/epilogue_雨後_希望的出口_粉嫩少女耽美版.png';
+import IMG_epilogue_背影_成就的靜止 from '@/assets/scenes/epilogue_背影_成就的靜止_粉嫩少女耽美版.png';
+import IMG_epilogue_寫下名字_誕生的瞬間 from '@/assets/scenes/epilogue_寫下名字_誕生的瞬間_粉嫩少女耽美版.png';
 export interface SceneImageConfig {
   image: string;
   alt: string;
@@ -241,18 +253,33 @@ export const defaultSceneImage: SceneImageConfig = {
 };
 
 export const sceneImages: SceneImageConfig[] = [
-  // === 作者序（使用粉嫩少女漫畫版）===
+  // === 作者序（使用粉嫩少女耽美版，2階段）===
   {
     image: IMG_作者序場景_起源微光,
     alt: '作者序 - 起源微光',
-    nodePatterns: ['preface-'],
+    nodePatterns: ['preface-intro', 'preface-1', 'preface-2', 'preface-3', 'preface-4', 'preface-5'],
+  },
+  {
+    image: IMG_preface_二元_對立的裂縫,
+    alt: '二元 - 對立的裂縫',
+    nodePatterns: ['preface-6', 'preface-7', 'preface-8', 'preface-9', 'preface-10', 'preface-end', 'preface-'],
   },
 
-  // === 序章：訓練場（使用粉嫩少女漫畫版）===
+  // === 序章：訓練場（使用粉嫩少女耽美版，3階段）===
   {
     image: IMG_訓練場_虛空圓形平台,
     alt: '虛空圓形平台',
-    nodePatterns: ['prologue-'],
+    nodePatterns: ['prologue-intro', 'prologue-1', 'prologue-2', 'prologue-3', 'prologue-4', 'prologue-5', 'prologue-6', 'prologue-7', 'prologue-8'],
+  },
+  {
+    image: IMG_prologue_地球_二元的平衡,
+    alt: '地球 - 二元的平衡',
+    nodePatterns: ['prologue-9', 'prologue-10', 'prologue-11', 'prologue-12', 'prologue-13', 'prologue-14', 'prologue-15'],
+  },
+  {
+    image: IMG_prologue_徒勞_無盡的攀登,
+    alt: '徒勞 - 無盡的攀登',
+    nodePatterns: ['prologue-16', 'prologue-17', 'prologue-18', 'prologue-19', 'prologue-20', 'prologue-end', 'prologue-'],
   },
 
   // === 第一章：刪除（使用粉嫩少女耽美版）===
@@ -862,25 +889,55 @@ export const sceneImages: SceneImageConfig[] = [
   {
     image: IMG_epilogue_回信_平靜的喜悅,
     alt: '回信 - 平靜的喜悅',
-    nodePatterns: ['yi1-epilogue-20', 'yi1-epilogue-21', 'yi1-epilogue-22', 'epilogue-20', 'epilogue-21', 'epilogue-22'],
+    nodePatterns: ['yi1-epilogue-20', 'yi1-epilogue-21', 'epilogue-20', 'epilogue-21'],
   },
   // 階段7：責編 - 認可的溫暖
   {
     image: IMG_epilogue_責編_認可的溫暖,
     alt: '責編 - 認可的溫暖',
-    nodePatterns: ['yi1-epilogue-23', 'yi1-epilogue-24', 'yi1-epilogue-25', 'epilogue-23', 'epilogue-24', 'epilogue-25'],
+    nodePatterns: ['yi1-epilogue-22', 'yi1-epilogue-23', 'epilogue-22', 'epilogue-23'],
   },
   // 階段8：合約 - 承諾的簽署
   {
     image: IMG_epilogue_合約_承諾的簽署,
     alt: '合約 - 承諾的簽署',
-    nodePatterns: ['yi1-epilogue-26', 'yi1-epilogue-27', 'yi1-epilogue-28', 'yi1-epilogue-29', 'yi1-epilogue-30', 'epilogue-26', 'epilogue-27', 'epilogue-28', 'epilogue-29', 'epilogue-30'],
+    nodePatterns: ['yi1-epilogue-24', 'yi1-epilogue-25', 'yi1-epilogue-26', 'epilogue-24', 'epilogue-25', 'epilogue-26'],
   },
-  // 階段9：出版社 - 踏入新身份（結局）
+  // 階段9：雨中 - 轉折的接受
+  {
+    image: IMG_epilogue_雨中_轉折的接受,
+    alt: '雨中 - 轉折的接受',
+    nodePatterns: ['yi1-epilogue-27', 'yi1-epilogue-28', 'epilogue-27', 'epilogue-28'],
+  },
+  // 階段10：雨中行走 - 和解的旅程
+  {
+    image: IMG_epilogue_雨中行走_和解的旅程,
+    alt: '雨中行走 - 和解的旅程',
+    nodePatterns: ['yi1-epilogue-29', 'yi1-epilogue-30', 'epilogue-29', 'epilogue-30'],
+  },
+  // 階段11：雨後 - 希望的出口
+  {
+    image: IMG_epilogue_雨後_希望的出口,
+    alt: '雨後 - 希望的出口',
+    nodePatterns: ['yi1-epilogue-31', 'yi1-epilogue-32', 'epilogue-31', 'epilogue-32'],
+  },
+  // 階段12：出版社 - 踏入新身份
   {
     image: IMG_epilogue_出版社_踏入新身份,
     alt: '出版社 - 踏入新身份',
-    nodePatterns: ['yi1-epilogue-31', 'yi1-epilogue-32', 'yi1-epilogue-33', 'yi1-epilogue-end', 'epilogue-31', 'epilogue-32', 'epilogue-33', 'epilogue-end', 'epilogue-'],
+    nodePatterns: ['yi1-epilogue-33', 'yi1-epilogue-34', 'epilogue-33', 'epilogue-34'],
+  },
+  // 階段13：背影 - 成就的靜止
+  {
+    image: IMG_epilogue_背影_成就的靜止,
+    alt: '背影 - 成就的靜止',
+    nodePatterns: ['yi1-epilogue-35', 'yi1-epilogue-36', 'epilogue-35', 'epilogue-36'],
+  },
+  // 階段14：寫下名字 - 誕生的瞬間（結局）
+  {
+    image: IMG_epilogue_寫下名字_誕生的瞬間,
+    alt: '寫下名字 - 誕生的瞬間',
+    nodePatterns: ['yi1-epilogue-37', 'yi1-epilogue-38', 'yi1-epilogue-end', 'epilogue-37', 'epilogue-38', 'epilogue-end', 'epilogue-'],
   },
 ];
 
