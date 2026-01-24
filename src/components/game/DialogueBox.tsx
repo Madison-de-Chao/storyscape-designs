@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useRef, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Eye, EyeOff, FastForward, Play, Pause } from 'lucide-react';
+import { Eye, EyeOff, FastForward, Play, Pause, History } from 'lucide-react';
 import { useGameStore } from '@/stores/gameStore';
 import { getNodeById } from '@/data/prologueStory';
 import { getYiPart2NodeById } from '@/data/yiPart2Story';
@@ -9,6 +9,7 @@ import { DialogueNode } from '@/stores/gameStore';
 import { useSFX } from '@/hooks/useAudio';
 import { getSpeakerEmotionSFX, shouldPlayEmotionSFX, type SpeakerType } from '@/utils/speakerEmotionSFX';
 import ChoiceButton from './ChoiceButton';
+import DialogueHistory from './DialogueHistory';
 
 // 解析文字中的強調標記 **text** 和角色專屬效果
 const parseDialogueText = (text: string, speaker: string) => {
@@ -43,7 +44,7 @@ interface DialogueBoxProps {
 }
 
 const DialogueBox = ({ isHidden = false, onToggleHide, onScoreChange }: DialogueBoxProps) => {
-  const { getCurrentProgress, advanceToNextNode, makeChoice, currentPart, markNodeAsRead } = useGameStore();
+  const { getCurrentProgress, advanceToNextNode, makeChoice, currentPart, markNodeAsRead, addDialogueHistory, getDialogueHistory } = useGameStore();
   const progress = getCurrentProgress();
   const currentNodeId = progress.currentNodeId;
   const { playSFX, playEmotionSFX } = useSFX();
@@ -53,8 +54,32 @@ const DialogueBox = ({ isHidden = false, onToggleHide, onScoreChange }: Dialogue
   const [currentNode, setCurrentNode] = useState<DialogueNode | null>(null);
   const [isAutoForward, setIsAutoForward] = useState(false);
   const [isAutoPlay, setIsAutoPlay] = useState(false);
+  const [isHistoryOpen, setIsHistoryOpen] = useState(false);
   const autoForwardRef = useRef<NodeJS.Timeout | null>(null);
   const autoPlayRef = useRef<NodeJS.Timeout | null>(null);
+
+  // 獲取說話者名稱（用於歷史記錄）- 必須在 useEffect 之前定義
+  const getSpeakerNameForHistory = useCallback((speaker: string): string => {
+    switch (speaker) {
+      case 'yi': return '???';
+      case 'protagonist': return currentPart === 'yi' ? '她' : '你';
+      case 'mentor': return '歸者';
+      case 'wenxin': return '問心';
+      case 'wendu': return '問渡';
+      case 'wangyangming': return '王陽明';
+      case 'sushi': return '蘇軾';
+      case 'simaqian': return '司馬遷';
+      case 'wuzetian': return '武則天';
+      case 'libai': return '李白';
+      case 'mandela': return '曼德拉';
+      case 'caesar': return '凱撒';
+      case 'cleopatra': return '埃及豔后';
+      case 'lincoln': return '林肯';
+      case 'jobs': return '賈伯斯';
+      case 'narrator': return '';
+      default: return '';
+    }
+  }, [currentPart]);
 
   useEffect(() => {
     const node = currentPart === 'yi' 
@@ -65,6 +90,15 @@ const DialogueBox = ({ isHidden = false, onToggleHide, onScoreChange }: Dialogue
       setDisplayedText('');
       setIsTyping(true);
       markNodeAsRead(currentNodeId);
+
+      // 記錄對話歷史（用於回顧模式）
+      const speakerName = node.speakerName || getSpeakerNameForHistory(node.speaker);
+      addDialogueHistory({
+        nodeId: currentNodeId,
+        speaker: node.speaker,
+        speakerName,
+        text: node.text,
+      });
 
       // 根據說話者和節點效果播放情緒音效
       if (shouldPlayEmotionSFX()) {
@@ -81,7 +115,7 @@ const DialogueBox = ({ isHidden = false, onToggleHide, onScoreChange }: Dialogue
         }
       }
     }
-  }, [currentNodeId, currentPart, markNodeAsRead, playEmotionSFX]);
+  }, [currentNodeId, currentPart, markNodeAsRead, playEmotionSFX, addDialogueHistory, getSpeakerNameForHistory]);
 
   // 打字機效果 - 優化版本：更自然的節奏感
   useEffect(() => {
@@ -207,6 +241,15 @@ const DialogueBox = ({ isHidden = false, onToggleHide, onScoreChange }: Dialogue
     if (!displayedText || !currentNode) return [];
     return parseDialogueText(displayedText, currentNode.speaker);
   }, [displayedText, currentNode]);
+
+  // 開關回顧模式 - 必須在 early return 之前
+  const toggleHistory = useCallback(() => {
+    setIsHistoryOpen(prev => !prev);
+    playSFX('click');
+  }, [playSFX]);
+
+  // 獲取對話歷史 - 必須在 early return 之前
+  const dialogueHistory = getDialogueHistory();
 
   if (!currentNode) return null;
 
@@ -355,8 +398,35 @@ const DialogueBox = ({ isHidden = false, onToggleHide, onScoreChange }: Dialogue
 
   return (
     <>
+      {/* 對話回顧面板 */}
+      <DialogueHistory
+        history={dialogueHistory}
+        isOpen={isHistoryOpen}
+        onClose={() => setIsHistoryOpen(false)}
+      />
+
       {/* 控制按鈕群組 */}
       <div className="fixed bottom-4 right-4 z-50 flex gap-2">
+        {/* 回顧按鈕 */}
+        <motion.button
+          onClick={toggleHistory}
+          className={`
+            p-3 rounded-full backdrop-blur-md border-2 transition-all duration-300 shadow-lg
+            ${isHistoryOpen 
+              ? 'bg-primary/25 border-primary/60 text-primary shadow-primary/20' 
+              : 'bg-card/70 border-border/40 text-muted-foreground hover:text-foreground hover:border-primary/30 hover:bg-card/90'
+            }
+          `}
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          transition={{ delay: 0.2 }}
+          title="對話回顧"
+        >
+          <History className="w-5 h-5" />
+        </motion.button>
+
         {/* 自動播放按鈕 */}
         <motion.button
           onClick={toggleAutoPlay}
