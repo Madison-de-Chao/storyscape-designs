@@ -6,6 +6,7 @@ export interface ChapterMeta {
   title: string;
   subtitle: string;
   theme: string;
+  keyQuote?: string;  // 章節金句
   character?: string;
   suggestedImages: number;
   imageDescriptions: string[];
@@ -18,6 +19,7 @@ export const yi1ChaptersMeta: ChapterMeta[] = [
     title: '作者序',
     subtitle: '致那個等待被擁抱的你',
     theme: '開場哲理',
+    keyQuote: '每切掉一塊，我就少一塊。',
     suggestedImages: 1,
     imageDescriptions: [
       '一個人站在圓弧光環前，半身被光照亮、半身在暗影中，象徵明暗合一'
@@ -28,6 +30,7 @@ export const yi1ChaptersMeta: ChapterMeta[] = [
     title: '序章',
     subtitle: '訓練場',
     theme: '元壹境介紹、問心登場',
+    keyQuote: '地球是一座學校，每個靈魂都在學同一堂課——完整。',
     suggestedImages: 2,
     imageDescriptions: [
       '虛空中的宇宙教室，星雲環繞，中央有一個發光的座位',
@@ -39,6 +42,7 @@ export const yi1ChaptersMeta: ChapterMeta[] = [
     title: '第一章',
     subtitle: '刪除',
     theme: '現代場景、主角困境',
+    keyQuote: '你確定要丟棄這些嗎？它們還沒完成。',
     suggestedImages: 3,
     imageDescriptions: [
       '凌晨的城市窗景，孤獨的螢幕光映照疲憊的臉',
@@ -51,6 +55,7 @@ export const yi1ChaptersMeta: ChapterMeta[] = [
     title: '第二章',
     subtitle: '渡口',
     theme: '問渡、問心引導',
+    keyQuote: '你正站在懸崖邊上，有人決定在你墜落之前，先把你接過來。',
     suggestedImages: 2,
     imageDescriptions: [
       '金色河流與唐式碼頭，琉璃燈籠漂浮',
@@ -63,6 +68,7 @@ export const yi1ChaptersMeta: ChapterMeta[] = [
     subtitle: '真相',
     theme: '王陽明（心即理）',
     character: '王陽明',
+    keyQuote: '你心裡的真相，才是唯一的真相。',
     suggestedImages: 2,
     imageDescriptions: [
       '竹林深處的書院，陽光透過竹葉灑落',
@@ -75,6 +81,7 @@ export const yi1ChaptersMeta: ChapterMeta[] = [
     subtitle: '命樹',
     theme: '蘇軾、命樹概念',
     character: '蘇軾',
+    keyQuote: '每一個靈魂都有一棵樹，它記錄著你所有的選擇。',
     suggestedImages: 3,
     imageDescriptions: [
       '蘇軾坐在巨大的老樹下，手持書卷，神情自若',
@@ -87,6 +94,7 @@ export const yi1ChaptersMeta: ChapterMeta[] = [
     title: '第五章',
     subtitle: '弧度林',
     theme: '主角的命樹',
+    keyQuote: '我這一生被貶了無數次，但我從未貶低過自己。',
     suggestedImages: 2,
     imageDescriptions: [
       '弧度林全景，無數命樹形成一片發光的森林',
@@ -99,6 +107,7 @@ export const yi1ChaptersMeta: ChapterMeta[] = [
     subtitle: '書匣',
     theme: '司馬遷（隱暗面）',
     character: '司馬遷',
+    keyQuote: '你找遍天下，不如回頭看一眼自己。',
     suggestedImages: 2,
     imageDescriptions: [
       '司馬遷在燭光下奮筆疾書，背影堅毅',
@@ -111,6 +120,7 @@ export const yi1ChaptersMeta: ChapterMeta[] = [
     subtitle: '誰定的規矩',
     theme: '武則天（打破規則）',
     character: '武則天',
+    keyQuote: '規矩是人定的，也可以由人改。',
     suggestedImages: 3,
     imageDescriptions: [
       '長廊上的女子畫像——彈琴、讀書、騎馬、揮劍',
@@ -124,6 +134,7 @@ export const yi1ChaptersMeta: ChapterMeta[] = [
     subtitle: '醉與醒',
     theme: '李白（真實自我）',
     character: '李白',
+    keyQuote: '天生我材必有用，千金散盡還復來。',
     suggestedImages: 2,
     imageDescriptions: [
       '李白月下獨酌，酒杯映照明月',
@@ -136,6 +147,7 @@ export const yi1ChaptersMeta: ChapterMeta[] = [
     subtitle: '困獸與自由',
     theme: '曼德拉（自由與寬恕）',
     character: '曼德拉',
+    keyQuote: '當我走出囚室邁向通往自由的大門時，我已清楚——',
     suggestedImages: 3,
     imageDescriptions: [
       '獄中的小窗，陽光透入照亮一本翻開的書',
@@ -149,6 +161,7 @@ export const yi1ChaptersMeta: ChapterMeta[] = [
     subtitle: '權力與愛',
     theme: '凱薩 & 克麗奧佩特拉',
     character: '凱薩、克麗奧佩特拉',
+    keyQuote: '在關係中失去自己，就等於失去了一切。',
     suggestedImages: 3,
     imageDescriptions: [
       '歐式花園中的噴泉，兩張躺椅',
@@ -161,6 +174,7 @@ export const yi1ChaptersMeta: ChapterMeta[] = [
     title: '第十一章',
     subtitle: '選擇',
     theme: '主角整合所學',
+    keyQuote: '自由，是我不放過那些恨我的人，還是我被怨恨囚禁？',
     suggestedImages: 2,
     imageDescriptions: [
       '主角站在分岔路口，十條道路發出不同顏色的光',
@@ -173,6 +187,7 @@ export const yi1ChaptersMeta: ChapterMeta[] = [
     subtitle: '失敗老師',
     theme: '林肯（失敗學）',
     character: '林肯',
+    keyQuote: '我走得很慢，但我從不後退。',
     suggestedImages: 3,
     imageDescriptions: [
       '簡陋的木屋前，高大的身影正在劈柴',
@@ -186,6 +201,7 @@ export const yi1ChaptersMeta: ChapterMeta[] = [
     subtitle: '最後一課',
     theme: '賈伯斯（死亡與回歸）',
     character: '賈伯斯',
+    keyQuote: '死亡是生命最好的發明。它清除舊的，為新的騰出空間。',
     suggestedImages: 3,
     imageDescriptions: [
       '賈伯斯穿著黑色高領毛衣，站在一片白色空間中',
@@ -198,6 +214,7 @@ export const yi1ChaptersMeta: ChapterMeta[] = [
     title: '第十四章',
     subtitle: '歸零',
     theme: '十色衣袍完成',
+    keyQuote: '你以為你在追求完美，其實你只是在逃避自己。',
     suggestedImages: 2,
     imageDescriptions: [
       '十色衣袍的完整樣貌，光芒四射',
@@ -210,6 +227,7 @@ export const yi1ChaptersMeta: ChapterMeta[] = [
     subtitle: '伊',
     theme: '見到陰影自我「伊」',
     character: '伊',
+    keyQuote: '你把我推開的時候，有沒有想過——我也是你？',
     suggestedImages: 4,
     imageDescriptions: [
       '弧度林中安靜等待的命樹們',
@@ -223,6 +241,7 @@ export const yi1ChaptersMeta: ChapterMeta[] = [
     title: '終章',
     subtitle: '弧度歸零',
     theme: '整合、重生',
+    keyQuote: '壹即全，全即壹。伊即壹，壹即伊。',
     suggestedImages: 3,
     imageDescriptions: [
       '明與暗的擁抱，兩個身影融合',

@@ -25,6 +25,7 @@ import { getNodeById } from '@/data/prologueStory';
 import { getYiPart2NodeById } from '@/data/yiPart2Story';
 import { getYi1NodeById } from '@/data/yi1';
 import { getSceneImage } from '@/data/yi1/sceneImages';
+import { yi1ChaptersMeta } from '@/data/yi1/chapters';
 
 // 序章開場詩句（直排禪意動畫）
 const PROLOGUE_INTRO_LINES = [
@@ -131,6 +132,8 @@ const GameScene = () => {
   // 章節轉場狀態
   const [isChapterTransition, setIsChapterTransition] = useState(false);
   const [transitionChapterTitle, setTransitionChapterTitle] = useState('');
+  const [transitionChapterSubtitle, setTransitionChapterSubtitle] = useState('');
+  const [transitionChapterQuote, setTransitionChapterQuote] = useState('');
   const [transitionChapterKey, setTransitionChapterKey] = useState('');
   const prevChapterRef = useRef<string>('');
 
@@ -270,7 +273,15 @@ const GameScene = () => {
       // 章節變更，觸發轉場
       const newTitle = getChapterTitle(currentNodeId);
       const chapterKey = getChapterKey(currentNodeId);
+      
+      // 從章節資料中獲取副標題和金句
+      const chapterMeta = yi1ChaptersMeta.find(ch => ch.id === chapterKey);
+      const subtitle = chapterMeta?.subtitle || '';
+      const quote = chapterMeta?.keyQuote || '';
+      
       setTransitionChapterTitle(newTitle);
+      setTransitionChapterSubtitle(subtitle);
+      setTransitionChapterQuote(quote);
       setTransitionChapterKey(chapterKey);
       setIsChapterTransition(true);
     }
@@ -714,11 +725,13 @@ const GameScene = () => {
         onClose={() => setIsJourneyOpen(false)} 
       />
 
-      {/* 章節轉場動畫 - 傳遞章節主題色 */}
+      {/* 章節轉場動畫 - 顯示章節標題、副標題與金句 */}
       <SceneTransition
         isTransitioning={isChapterTransition}
         transitionType="chapter"
         chapterTitle={transitionChapterTitle}
+        chapterSubtitle={transitionChapterSubtitle}
+        chapterQuote={transitionChapterQuote}
         chapterKey={transitionChapterKey}
         onTransitionComplete={() => setIsChapterTransition(false)}
       />

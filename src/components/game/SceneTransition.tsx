@@ -7,7 +7,9 @@ interface SceneTransitionProps {
   isTransitioning: boolean;
   transitionType?: 'fade' | 'slide' | 'blur' | 'cinematic' | 'chapter';
   chapterTitle?: string;
-  chapterKey?: string;  // 用於獲取章節主題色
+  chapterSubtitle?: string;  // 章節副標題
+  chapterQuote?: string;     // 章節金句
+  chapterKey?: string;       // 用於獲取章節主題色
   onTransitionComplete?: () => void;
 }
 
@@ -20,6 +22,8 @@ const SceneTransition = ({
   isTransitioning,
   transitionType = 'fade',
   chapterTitle,
+  chapterSubtitle,
+  chapterQuote,
   chapterKey,
   onTransitionComplete,
 }: SceneTransitionProps) => {
@@ -40,7 +44,7 @@ const SceneTransition = ({
     }
   }, [isTransitioning, transitionType, chapterKey, playChapterTransitionSFX]);
 
-  // 優化過場時序：更流暢的三階段動畫
+  // 優化過場時序：更流暢的三階段動畫（加長以顯示金句）
   useEffect(() => {
     if (isTransitioning && transitionType === 'chapter') {
       setPhase('enter');
@@ -49,10 +53,10 @@ const SceneTransition = ({
         setShowContent(true);
         setPhase('display');
       }, 300);
-      // 階段 2：展示（300-1400ms）
+      // 階段 2：展示（300-2200ms）- 延長以顯示金句
       const exitTimer = setTimeout(() => {
         setPhase('exit');
-      }, 1400);
+      }, 2200);
       return () => {
         clearTimeout(showTimer);
         clearTimeout(exitTimer);
@@ -63,10 +67,10 @@ const SceneTransition = ({
     }
   }, [isTransitioning, transitionType]);
 
-  // 過場結束回調 - 縮短總時長至 1.8 秒
+  // 過場結束回調 - 延長至 2.6 秒以顯示完整內容
   useEffect(() => {
     if (isTransitioning && onTransitionComplete) {
-      const duration = transitionType === 'chapter' ? 1800 : 1200;
+      const duration = transitionType === 'chapter' ? 2600 : 1200;
       const timer = setTimeout(onTransitionComplete, duration);
       return () => clearTimeout(timer);
     }
@@ -255,7 +259,7 @@ const SceneTransition = ({
                   />
                 </motion.div>
 
-                {/* 章節標題 - 電影級文字動畫 + 動態主題色 */}
+                {/* 章節標題區 - 電影級文字動畫 + 動態主題色 */}
                 <motion.div
                   className="relative"
                   initial={{ opacity: 0 }}
@@ -277,6 +281,7 @@ const SceneTransition = ({
                     }}
                   />
                   
+                  {/* 章節主標題 */}
                   <motion.h1
                     className="font-serif-tc text-2xl sm:text-3xl md:text-5xl lg:text-6xl tracking-[0.15em] sm:tracking-[0.25em] relative px-4"
                     initial={{ opacity: 0, y: 30, letterSpacing: '0.4em' }}
@@ -302,6 +307,29 @@ const SceneTransition = ({
                     {chapterTitle}
                   </motion.h1>
 
+                  {/* 章節副標題 */}
+                  {chapterSubtitle && (
+                    <motion.h2
+                      className="font-serif-tc text-lg sm:text-xl md:text-2xl lg:text-3xl mt-3 sm:mt-4 tracking-[0.1em] sm:tracking-[0.15em] px-4"
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={showContent ? { opacity: 0.9, y: 0 } : {}}
+                      transition={{ 
+                        duration: 0.8, 
+                        delay: 0.7,
+                        ease: [0.25, 0.46, 0.45, 0.94],
+                      }}
+                      style={{
+                        color: themeToGlow(theme, 0.85),
+                        textShadow: `
+                          0 0 40px ${themeToHSL(theme, 0.4)},
+                          0 2px 20px hsl(0 0% 0% / 0.8)
+                        `,
+                      }}
+                    >
+                      {chapterSubtitle}
+                    </motion.h2>
+                  )}
+
                   {/* 標題下方光線擴散 */}
                   <motion.div
                     className="absolute left-1/2 -translate-x-1/2 top-full mt-4 h-[1px]"
@@ -314,18 +342,44 @@ const SceneTransition = ({
                   />
                 </motion.div>
 
+                {/* 章節金句 */}
+                {chapterQuote && (
+                  <motion.div
+                    className="mt-10 sm:mt-12 md:mt-16 max-w-xl md:max-w-2xl mx-auto px-6"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={showContent ? { opacity: 1, y: 0 } : {}}
+                    transition={{ duration: 0.8, delay: 0.9 }}
+                  >
+                    <motion.p
+                      className="font-serif-tc text-sm sm:text-base md:text-lg lg:text-xl leading-relaxed text-center italic"
+                      initial={{ opacity: 0 }}
+                      animate={showContent ? { opacity: 0.8 } : {}}
+                      transition={{ duration: 1, delay: 1 }}
+                      style={{
+                        color: 'hsl(45 20% 80%)',
+                        textShadow: `
+                          0 0 30px ${themeToHSL(theme, 0.3)},
+                          0 2px 15px hsl(0 0% 0% / 0.7)
+                        `,
+                      }}
+                    >
+                      「{chapterQuote}」
+                    </motion.p>
+                  </motion.div>
+                )}
+
                 {/* 下方裝飾光線 - 動態主題色 */}
                 <motion.div
-                  className="flex items-center justify-center gap-4 mt-12"
+                  className="flex items-center justify-center gap-4 mt-8 sm:mt-10 md:mt-12"
                   initial={{ opacity: 0 }}
                   animate={showContent ? { opacity: 1 } : {}}
-                  transition={{ duration: 0.8, delay: 0.6 }}
+                  transition={{ duration: 0.8, delay: 1.1 }}
                 >
                   <motion.div
                     className="h-[1px] w-12 md:w-20"
                     initial={{ scaleX: 0, opacity: 0 }}
                     animate={showContent ? { scaleX: 1, opacity: 0.6 } : {}}
-                    transition={{ duration: 0.5, delay: 0.7 }}
+                    transition={{ duration: 0.5, delay: 1.2 }}
                     style={{
                       background: `linear-gradient(90deg, transparent, ${themeToHSL(theme, 0.6)})`,
                       transformOrigin: 'right',
@@ -335,7 +389,7 @@ const SceneTransition = ({
                     className="w-1.5 h-1.5 rotate-45"
                     initial={{ scale: 0, opacity: 0 }}
                     animate={showContent ? { scale: 1, opacity: 0.6 } : {}}
-                    transition={{ duration: 0.3, delay: 0.8 }}
+                    transition={{ duration: 0.3, delay: 1.3 }}
                     style={{
                       background: themeToHSL(theme, 0.8),
                       boxShadow: `0 0 10px ${themeToHSL(theme, 0.5)}`,
@@ -345,7 +399,7 @@ const SceneTransition = ({
                     className="h-[1px] w-12 md:w-20"
                     initial={{ scaleX: 0, opacity: 0 }}
                     animate={showContent ? { scaleX: 1, opacity: 0.6 } : {}}
-                    transition={{ duration: 0.5, delay: 0.7 }}
+                    transition={{ duration: 0.5, delay: 1.2 }}
                     style={{
                       background: `linear-gradient(90deg, ${themeToHSL(theme, 0.6)}, transparent)`,
                       transformOrigin: 'left',
