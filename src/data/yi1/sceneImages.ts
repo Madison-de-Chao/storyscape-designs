@@ -206,6 +206,18 @@ import IMG_ch15_新華服_蛻變的確認 from '@/assets/scenes/ch15_新華服_�
 import IMG_ch15_海棠重生_生命的綻放 from '@/assets/scenes/ch15_海棠重生_生命的綻放_粉嫩少女耽美版.png';
 import IMG_ch15_海棠淚光_覺醒的瞬間 from '@/assets/scenes/ch15_海棠淚光_覺醒的瞬間_粉嫩少女耽美版.png';
 import IMG_ch15_海棠告別_問心守護 from '@/assets/scenes/ch15_海棠告別_問心守護_粉嫩少女耽美版.png';
+
+// 新增第十六章（歸一）粉嫩少女耽美版場景圖片
+import IMG_ch16_半圓山_完整的圓 from '@/assets/scenes/ch16_半圓山_完整的圓_粉嫩少女耽美版.png';
+import IMG_ch16_圓心閣_熄滅的燈 from '@/assets/scenes/ch16_圓心閣_熄滅的燈_粉嫩少女耽美版.png';
+import IMG_ch16_決心_遠方的勇氣 from '@/assets/scenes/ch16_決心_遠方的勇氣_粉嫩少女耽美版.png';
+import IMG_ch16_點燈_啟程的光 from '@/assets/scenes/ch16_點燈_啟程的光_粉嫩少女耽美版.png';
+import IMG_ch16_告別_漸行漸遠 from '@/assets/scenes/ch16_告別_漸行漸遠_粉嫩少女耽美版.png';
+import IMG_ch16_日出_新的旅程 from '@/assets/scenes/ch16_日出_新的旅程_粉嫩少女耽美版.png';
+import IMG_ch16_新的開始_空白的頁面 from '@/assets/scenes/ch16_新的開始_空白的頁面_粉嫩少女耽美版.png';
+
+// 新增終章粉嫩少女耽美版場景圖片
+import IMG_epilogue_三個月後_深夜檔案 from '@/assets/scenes/epilogue_三個月後_深夜檔案_粉嫩少女耽美版.png';
 export interface SceneImageConfig {
   image: string;
   alt: string;
@@ -770,53 +782,53 @@ export const sceneImages: SceneImageConfig[] = [
     nodePatterns: ['chapter15-'],
   },
 
-  // === 第十六章：歸一 ===
+  // === 第十六章：歸一（使用粉嫩少女耽美版，7階段視覺敘事）===
   {
-    image: IMG41_回到渡口,
-    alt: '歸元山',
-    nodePatterns: ['chapter16-1', 'chapter16-2', 'chapter16-3', 'chapter16-4', 'chapter16-5', 'chapter16-6', 'chapter16-7', 'chapter16-8', 'chapter16-9', 'chapter16-10', 'chapter16-11', 'chapter16-12', 'chapter16-13', 'chapter16-14', 'chapter16-15', 'chapter16-16', 'chapter16-17', 'chapter16-18', 'chapter16-19', 'chapter16-20', 'chapter16-21'],
+    image: IMG_ch16_半圓山_完整的圓,
+    alt: '半圓山 - 完整的圓',
+    nodePatterns: ['yi1-ch16-intro', 'yi1-ch16-1', 'yi1-ch16-2', 'yi1-ch16-3', 'yi1-ch16-4', 'yi1-ch16-5', 'chapter16-1', 'chapter16-2', 'chapter16-3', 'chapter16-4', 'chapter16-5'],
   },
   {
-    image: IMG45_光之門,
-    alt: '圓心閣',
-    nodePatterns: ['chapter16-22', 'chapter16-23', 'chapter16-24', 'chapter16-25', 'chapter16-26', 'chapter16-27', 'chapter16-28', 'chapter16-29', 'chapter16-30', 'chapter16-31', 'chapter16-32', 'chapter16-33', 'chapter16-34', 'chapter16-35', 'chapter16-36', 'chapter16-37', 'chapter16-38', 'chapter16-39', 'chapter16-40', 'chapter16-41', 'chapter16-42', 'chapter16-43', 'chapter16-44', 'chapter16-45', 'chapter16-46', 'chapter16-47', 'chapter16-48', 'chapter16-49', 'chapter16-50', 'chapter16-51', 'chapter16-52', 'chapter16-53', 'chapter16-54', 'chapter16-55', 'chapter16-56', 'chapter16-57', 'chapter16-58', 'chapter16-59', 'chapter16-60', 'chapter16-61', 'chapter16-62', 'chapter16-63', 'chapter16-64', 'chapter16-65', 'chapter16-66', 'chapter16-67', 'chapter16-68', 'chapter16-69', 'chapter16-70', 'chapter16-71', 'chapter16-72', 'chapter16-73'],
+    image: IMG_ch16_圓心閣_熄滅的燈,
+    alt: '圓心閣 - 熄滅的燈',
+    nodePatterns: ['yi1-ch16-6', 'yi1-ch16-7', 'yi1-ch16-8', 'yi1-ch16-9a', 'yi1-ch16-9b', 'yi1-ch16-10', 'yi1-ch16-11', 'yi1-ch16-12', 'yi1-ch16-13', 'yi1-ch16-14', 'yi1-ch16-15', 'yi1-ch16-choice-1', 'yi1-ch16-choice-2', 'yi1-ch16-16a', 'yi1-ch16-16b', 'chapter16-6', 'chapter16-7', 'chapter16-8', 'chapter16-9', 'chapter16-10', 'chapter16-11', 'chapter16-12', 'chapter16-13', 'chapter16-14', 'chapter16-15'],
   },
   {
-    image: IMG42_問心告別,
-    alt: '問心告別',
-    nodePatterns: ['chapter16-74', 'chapter16-75', 'chapter16-76', 'chapter16-77', 'chapter16-78', 'chapter16-79', 'chapter16-80', 'chapter16-81', 'chapter16-82', 'chapter16-83', 'chapter16-84', 'chapter16-85', 'chapter16-86', 'chapter16-87', 'chapter16-88', 'chapter16-89', 'chapter16-90', 'chapter16-91', 'chapter16-92', 'chapter16-93', 'chapter16-94', 'chapter16-95', 'chapter16-96', 'chapter16-97', 'chapter16-98', 'chapter16-99', 'chapter16-100', 'chapter16-101', 'chapter16-102', 'chapter16-103', 'chapter16-104', 'chapter16-105', 'chapter16-106'],
+    image: IMG_ch16_決心_遠方的勇氣,
+    alt: '決心 - 遠方的勇氣',
+    nodePatterns: ['yi1-ch16-17', 'yi1-ch16-18', 'yi1-ch16-19', 'yi1-ch16-20', 'yi1-ch16-21', 'yi1-ch16-22', 'chapter16-16', 'chapter16-17', 'chapter16-18', 'chapter16-19', 'chapter16-20', 'chapter16-21', 'chapter16-22'],
   },
   {
-    image: IMG46_穿越光門,
-    alt: '回歸',
-    nodePatterns: ['chapter16-107', 'chapter16-108', 'chapter16-109'],
+    image: IMG_ch16_點燈_啟程的光,
+    alt: '點燈 - 啟程的光',
+    nodePatterns: ['yi1-ch16-23', 'yi1-ch16-24', 'yi1-ch16-25', 'yi1-ch16-26', 'yi1-ch16-27', 'yi1-ch16-28', 'yi1-ch16-choice-3', 'yi1-ch16-29a', 'yi1-ch16-29b', 'chapter16-23', 'chapter16-24', 'chapter16-25', 'chapter16-26', 'chapter16-27', 'chapter16-28', 'chapter16-29'],
   },
   {
-    image: IMG47_回到房間,
-    alt: '回到房間',
-    nodePatterns: ['chapter16-110', 'chapter16-111', 'chapter16-112', 'chapter16-113', 'chapter16-114', 'chapter16-115', 'chapter16-116', 'chapter16-117', 'chapter16-118'],
+    image: IMG_ch16_告別_漸行漸遠,
+    alt: '告別 - 漸行漸遠',
+    nodePatterns: ['yi1-ch16-30', 'yi1-ch16-31', 'yi1-ch16-32', 'yi1-ch16-33', 'yi1-ch16-34', 'yi1-ch16-35', 'chapter16-30', 'chapter16-31', 'chapter16-32', 'chapter16-33', 'chapter16-34', 'chapter16-35'],
   },
   {
-    image: IMG49_清晨窗景,
-    alt: '清晨窗景',
-    nodePatterns: ['chapter16-119', 'chapter16-120', 'chapter16-121', 'chapter16-122', 'chapter16-123', 'chapter16-124'],
+    image: IMG_ch16_日出_新的旅程,
+    alt: '日出 - 新的旅程',
+    nodePatterns: ['yi1-ch16-36', 'yi1-ch16-37', 'yi1-ch16-38', 'yi1-ch16-39', 'yi1-ch16-40', 'chapter16-36', 'chapter16-37', 'chapter16-38', 'chapter16-39', 'chapter16-40'],
   },
   {
-    image: IMG48_按取消,
-    alt: '按取消',
-    nodePatterns: ['chapter16-'],
+    image: IMG_ch16_新的開始_空白的頁面,
+    alt: '新的開始 - 空白的頁面',
+    nodePatterns: ['yi1-ch16-41', 'yi1-ch16-42', 'yi1-ch16-43', 'yi1-ch16-44', 'yi1-ch16-coda', 'chapter16-41', 'chapter16-42', 'chapter16-43', 'chapter16-44', 'chapter16-'],
   },
 
-  // === 終章：名字 ===
+  // === 終章：名字（使用粉嫩少女耽美版）===
   {
-    image: IMG_白天書桌_Delete鍵,
-    alt: '房間書桌',
-    nodePatterns: ['epilogue-1', 'epilogue-2', 'epilogue-3', 'epilogue-4', 'epilogue-5', 'epilogue-6', 'epilogue-7', 'epilogue-8', 'epilogue-9', 'epilogue-10', 'epilogue-11', 'epilogue-12', 'epilogue-13', 'epilogue-14', 'epilogue-15', 'epilogue-16', 'epilogue-17', 'epilogue-18', 'epilogue-19', 'epilogue-20', 'epilogue-21', 'epilogue-22', 'epilogue-23', 'epilogue-24', 'epilogue-25', 'epilogue-26', 'epilogue-27', 'epilogue-28'],
+    image: IMG_epilogue_三個月後_深夜檔案,
+    alt: '三個月後 - 深夜檔案',
+    nodePatterns: ['yi1-epilogue-intro', 'yi1-epilogue-1', 'yi1-epilogue-2', 'yi1-epilogue-3', 'yi1-epilogue-4', 'yi1-epilogue-5', 'yi1-epilogue-6', 'yi1-epilogue-7', 'yi1-epilogue-8', 'yi1-epilogue-9', 'yi1-epilogue-10', 'yi1-epilogue-11', 'yi1-epilogue-12', 'yi1-epilogue-13', 'yi1-epilogue-14', 'yi1-epilogue-15', 'epilogue-1', 'epilogue-2', 'epilogue-3', 'epilogue-4', 'epilogue-5', 'epilogue-6', 'epilogue-7', 'epilogue-8', 'epilogue-9', 'epilogue-10', 'epilogue-11', 'epilogue-12', 'epilogue-13', 'epilogue-14', 'epilogue-15'],
   },
   {
     image: IMG_出版社辦公室_簽約,
     alt: '出版社簽約',
-    nodePatterns: ['epilogue-29', 'epilogue-30', 'epilogue-31', 'epilogue-32', 'epilogue-33', 'epilogue-34', 'epilogue-35', 'epilogue-36', 'epilogue-37', 'epilogue-38', 'epilogue-39', 'epilogue-40', 'epilogue-41', 'epilogue-42', 'epilogue-43', 'epilogue-44', 'epilogue-45', 'epilogue-46', 'epilogue-47', 'epilogue-48', 'epilogue-49', 'epilogue-50', 'epilogue-51', 'epilogue-52', 'epilogue-53', 'epilogue-54'],
+    nodePatterns: ['yi1-epilogue-16', 'yi1-epilogue-17', 'yi1-epilogue-18', 'yi1-epilogue-19', 'yi1-epilogue-20', 'yi1-epilogue-21', 'yi1-epilogue-22', 'yi1-epilogue-23', 'yi1-epilogue-24', 'yi1-epilogue-25', 'epilogue-29', 'epilogue-30', 'epilogue-31', 'epilogue-32', 'epilogue-33', 'epilogue-34', 'epilogue-35', 'epilogue-36', 'epilogue-37', 'epilogue-38', 'epilogue-39', 'epilogue-40', 'epilogue-41', 'epilogue-42', 'epilogue-43', 'epilogue-44', 'epilogue-45', 'epilogue-46', 'epilogue-47', 'epilogue-48', 'epilogue-49', 'epilogue-50', 'epilogue-51', 'epilogue-52', 'epilogue-53', 'epilogue-54'],
   },
   {
     image: IMG49_清晨窗景,
@@ -826,12 +838,7 @@ export const sceneImages: SceneImageConfig[] = [
   {
     image: IMG_書店角落_書的相遇,
     alt: '書店相遇',
-    nodePatterns: ['epilogue-58', 'epilogue-59', 'epilogue-60', 'epilogue-61', 'epilogue-62', 'epilogue-63', 'epilogue-64', 'epilogue-65', 'epilogue-66', 'epilogue-end'],
-  },
-  {
-    image: IMG_書店角落_書的相遇,
-    alt: '新的開始',
-    nodePatterns: ['epilogue-'],
+    nodePatterns: ['yi1-epilogue-end', 'epilogue-58', 'epilogue-59', 'epilogue-60', 'epilogue-61', 'epilogue-62', 'epilogue-63', 'epilogue-64', 'epilogue-65', 'epilogue-66', 'epilogue-end', 'epilogue-'],
   },
 ];
 
