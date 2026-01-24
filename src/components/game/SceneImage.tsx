@@ -446,6 +446,8 @@ const SceneImage = ({ nodeId, hideOverlay = false, isLoaded: externalLoaded }: S
               alt={currentImage.alt}
               className="w-full h-full object-cover"
               onLoad={() => setIsLoaded(true)}
+              // 若圖片載入失敗，避免 isLoaded 永遠為 false 導致整個場景黑屏
+              onError={() => setIsLoaded(true)}
               initial={{ scale: 1.08 }}
               animate={{
                 scale: 1,
