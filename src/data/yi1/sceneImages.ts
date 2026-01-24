@@ -128,8 +128,14 @@ import IMG_ch4_虛空混沌_崩潰空間 from '@/assets/scenes/ch4_虛空混沌_
 import IMG_ch5_黑屏_微光脈動 from '@/assets/scenes/ch5_黑屏_微光脈動_粉嫩少女耽美版.png';
 import IMG_ch5_蘇軾雨中_定風波回憶 from '@/assets/scenes/ch5_蘇軾雨中_定風波回憶_粉嫩少女耽美版.png';
 import IMG_ch5_茶的時刻_溫暖接住 from '@/assets/scenes/ch5_茶的時刻_溫暖接住_粉嫩少女耽美版.png';
-import IMG_ch5_雨後庭院_清新重生 from '@/assets/scenes/ch5_雨後庭院_清新重生_粉嫩少女耽美版.png';
-import IMG_ch5_通往山頂之路_希望與目標 from '@/assets/scenes/ch5_通往山頂之路_希望與目標_粉嫩少女耽美版.png';
+import IMG_ch5_雨後庭院_清新重生 from '@/assets/scenes/ch5_雨後庭院_清新重生_粉嫩少女耽美版_重畫-2.png';
+import IMG_ch5_通往山頂之路_希望與目標 from '@/assets/scenes/ch5_通往山頂之路_希望與目標_粉嫩少女耽美版-2.png';
+import IMG_ch5_黑屏_微光脈動_重畫 from '@/assets/scenes/ch5_黑屏_微光脈動_粉嫩少女耽美版_重畫-2.png';
+import IMG_ch6_松林小徑_引導前行 from '@/assets/scenes/ch6_松林小徑_引導前行_粉嫩少女耽美版.png';
+import IMG_ch6_洞口石刻_歷史的呼吸 from '@/assets/scenes/ch6_洞口石刻_歷史的呼吸_粉嫩少女耽美版.png';
+import IMG_ch6_王陽明洞中_專注的光 from '@/assets/scenes/ch6_王陽明洞中_專注的光_粉嫩少女耽美版.png';
+import IMG_ch6_頓悟_星光的點醒 from '@/assets/scenes/ch6_頓悟_星光的點醒_粉嫩少女耽美版.png';
+import IMG_ch6_告別_永恆的守望 from '@/assets/scenes/ch6_告別_永恆的守望_粉嫩少女耽美版.png';
 export interface SceneImageConfig {
   image: string;
   alt: string;
@@ -309,11 +315,31 @@ export const sceneImages: SceneImageConfig[] = [
     nodePatterns: ['chapter-5-'],
   },
 
-  // === 第六章：吾性自足（王陽明龍場）===
+  // === 第六章：吾性自足（王陽明龍場，使用粉嫩少女耽美版）===
   {
-    image: IMG09_王陽明,
-    alt: '王陽明',
-    nodePatterns: ['chapter-6-intro', 'chapter-6-1', 'chapter-6-2', 'chapter-6-3', 'chapter-6-4', 'chapter-6-5', 'chapter-6-6', 'chapter-6-7', 'chapter-6-8', 'chapter-6-9', 'chapter-6-10', 'chapter-6-11', 'chapter-6-12', 'chapter-6-13', 'chapter-6-14', 'chapter-6-15', 'chapter-6-16', 'chapter-6-17', 'chapter-6-18', 'chapter-6-19', 'chapter-6-20'],
+    image: IMG_ch6_松林小徑_引導前行,
+    alt: '松林小徑 - 引導前行',
+    nodePatterns: ['chapter-6-intro', 'chapter-6-1', 'chapter-6-2', 'chapter-6-3', 'chapter-6-4', 'chapter-6-5', 'chapter-6-6', 'chapter-6-7', 'chapter-6-8'],
+  },
+  {
+    image: IMG_ch6_洞口石刻_歷史的呼吸,
+    alt: '洞口石刻 - 歷史的呼吸',
+    nodePatterns: ['chapter-6-9', 'chapter-6-10', 'chapter-6-11', 'chapter-6-12', 'chapter-6-13', 'chapter-6-14', 'chapter-6-15', 'chapter-6-16'],
+  },
+  {
+    image: IMG_ch6_王陽明洞中_專注的光,
+    alt: '王陽明洞中 - 專注的光',
+    nodePatterns: ['chapter-6-17', 'chapter-6-18', 'chapter-6-19', 'chapter-6-20', 'chapter-6-21', 'chapter-6-22', 'chapter-6-23', 'chapter-6-24', 'chapter-6-25', 'chapter-6-choice-1'],
+  },
+  {
+    image: IMG_ch6_頓悟_星光的點醒,
+    alt: '頓悟 - 星光的點醒',
+    nodePatterns: ['chapter-6-26', 'chapter-6-27', 'chapter-6-28', 'chapter-6-29', 'chapter-6-30', 'chapter-6-31', 'chapter-6-32', 'chapter-6-33', 'chapter-6-34', 'chapter-6-35', 'chapter-6-choice-2'],
+  },
+  {
+    image: IMG_ch6_告別_永恆的守望,
+    alt: '告別 - 永恆的守望',
+    nodePatterns: ['chapter-6-36', 'chapter-6-37', 'chapter-6-38', 'chapter-6-39', 'chapter-6-40', 'chapter-6-end'],
   },
   {
     image: IMG10_心即理,
