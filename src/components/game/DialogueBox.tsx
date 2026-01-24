@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useRef, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Eye, EyeOff, FastForward, Play, Pause, History } from 'lucide-react';
+import { Eye, EyeOff, FastForward, Play, Pause, History, Save, Download } from 'lucide-react';
 import { useGameStore } from '@/stores/gameStore';
 import { getNodeById } from '@/data/prologueStory';
 import { getYiPart2NodeById } from '@/data/yiPart2Story';
@@ -10,6 +10,7 @@ import { useSFX } from '@/hooks/useAudio';
 import { getSpeakerEmotionSFX, shouldPlayEmotionSFX, type SpeakerType } from '@/utils/speakerEmotionSFX';
 import ChoiceButton from './ChoiceButton';
 import DialogueHistory from './DialogueHistory';
+import SaveLoadPanel from './SaveLoadPanel';
 
 // 解析文字中的強調標記 **text** 和角色專屬效果
 const parseDialogueText = (text: string, speaker: string) => {
@@ -44,7 +45,7 @@ interface DialogueBoxProps {
 }
 
 const DialogueBox = ({ isHidden = false, onToggleHide, onScoreChange }: DialogueBoxProps) => {
-  const { getCurrentProgress, advanceToNextNode, makeChoice, currentPart, markNodeAsRead, addDialogueHistory, getDialogueHistory } = useGameStore();
+  const { getCurrentProgress, advanceToNextNode, makeChoice, currentPart, markNodeAsRead, addDialogueHistory, getDialogueHistory, saveGame } = useGameStore();
   const progress = getCurrentProgress();
   const currentNodeId = progress.currentNodeId;
   const { playSFX, playEmotionSFX } = useSFX();
@@ -55,8 +56,11 @@ const DialogueBox = ({ isHidden = false, onToggleHide, onScoreChange }: Dialogue
   const [isAutoForward, setIsAutoForward] = useState(false);
   const [isAutoPlay, setIsAutoPlay] = useState(false);
   const [isHistoryOpen, setIsHistoryOpen] = useState(false);
+  const [isSavePanelOpen, setIsSavePanelOpen] = useState(false);
+  const [isLoadPanelOpen, setIsLoadPanelOpen] = useState(false);
   const autoForwardRef = useRef<NodeJS.Timeout | null>(null);
   const autoPlayRef = useRef<NodeJS.Timeout | null>(null);
+  const lastAutoSaveNodeRef = useRef<string | null>(null);
 
   // 獲取說話者名稱（用於歷史記錄）- 必須在 useEffect 之前定義
   const getSpeakerNameForHistory = useCallback((speaker: string): string => {
@@ -173,13 +177,54 @@ const DialogueBox = ({ isHidden = false, onToggleHide, onScoreChange }: Dialogue
     };
   }, [isAutoForward, isTyping, currentNode, advanceToNextNode, playSFX]);
 
-  // 遇到選項時自動停止快轉和自動播放
+  // 獲取當前章節標題（用於存檔顯示）
+  const getCurrentChapterTitle = useCallback((): string => {
+    if (!currentNodeId) return '未知章節';
+    
+    // 根據節點 ID 判斷章節
+    if (currentNodeId.includes('preface')) return '作者序';
+    if (currentNodeId.includes('prologue')) return '序章';
+    
+    const chapterMatch = currentNodeId.match(/chapter-?(\d+)/);
+    if (chapterMatch) {
+      const chapterNum = parseInt(chapterMatch[1], 10);
+      const chapterNames: Record<number, string> = {
+        1: '第一章 蘇軾',
+        2: '第二章 王陽明',
+        3: '第三章 司馬遷',
+        4: '第四章 武則天',
+        5: '第五章 李白',
+        6: '第六章 凱撒與埃及豔后',
+        7: '第七章 曼德拉',
+        8: '第八章 海倫凱勒',
+        9: '第九章 梵谷',
+        10: '第十章 林肯',
+        11: '第十一章 賈伯斯',
+        12: '第十二章 歸零',
+      };
+      return chapterNames[chapterNum] || `第${chapterNum}章`;
+    }
+    
+    if (currentNodeId.includes('epilogue')) return '尾聲';
+    if (currentNodeId.includes('postscript')) return '後記';
+    
+    return '旅程中';
+  }, [currentNodeId]);
+
+  // 遇到選項時自動停止快轉和自動播放，並觸發自動存檔
   useEffect(() => {
     if (currentNode?.choices) {
       setIsAutoForward(false);
       setIsAutoPlay(false);
+      
+      // 避免同一節點重複存檔
+      if (lastAutoSaveNodeRef.current !== currentNodeId) {
+        lastAutoSaveNodeRef.current = currentNodeId;
+        const chapterTitle = getCurrentChapterTitle();
+        saveGame(`選項前自動存檔`, chapterTitle, true);
+      }
     }
-  }, [currentNode?.choices]);
+  }, [currentNode?.choices, currentNodeId, getCurrentChapterTitle, saveGame]);
 
   // 自動播放模式 - 優化：根據文字複雜度動態計算延遲
   useEffect(() => {
@@ -405,8 +450,50 @@ const DialogueBox = ({ isHidden = false, onToggleHide, onScoreChange }: Dialogue
         onClose={() => setIsHistoryOpen(false)}
       />
 
+      {/* 存檔/讀檔面板 */}
+      <SaveLoadPanel
+        isOpen={isSavePanelOpen}
+        onClose={() => setIsSavePanelOpen(false)}
+        mode="save"
+        currentChapterTitle={getCurrentChapterTitle()}
+      />
+      <SaveLoadPanel
+        isOpen={isLoadPanelOpen}
+        onClose={() => setIsLoadPanelOpen(false)}
+        mode="load"
+        currentChapterTitle={getCurrentChapterTitle()}
+      />
+
       {/* 控制按鈕群組 */}
       <div className="fixed bottom-4 right-4 z-50 flex gap-2">
+        {/* 存檔按鈕 */}
+        <motion.button
+          onClick={() => { setIsSavePanelOpen(true); playSFX('click'); }}
+          className="p-3 rounded-full backdrop-blur-md border-2 transition-all duration-300 shadow-lg bg-card/70 border-border/40 text-muted-foreground hover:text-foreground hover:border-amber-500/40 hover:bg-card/90"
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          transition={{ delay: 0.1 }}
+          title="存檔"
+        >
+          <Save className="w-5 h-5" />
+        </motion.button>
+
+        {/* 讀檔按鈕 */}
+        <motion.button
+          onClick={() => { setIsLoadPanelOpen(true); playSFX('click'); }}
+          className="p-3 rounded-full backdrop-blur-md border-2 transition-all duration-300 shadow-lg bg-card/70 border-border/40 text-muted-foreground hover:text-foreground hover:border-emerald-500/40 hover:bg-card/90"
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          transition={{ delay: 0.15 }}
+          title="讀取進度"
+        >
+          <Download className="w-5 h-5" />
+        </motion.button>
+
         {/* 回顧按鈕 */}
         <motion.button
           onClick={toggleHistory}

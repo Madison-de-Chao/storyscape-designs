@@ -114,6 +114,18 @@ export interface DialogueHistoryEntry {
   timestamp: number;
 }
 
+// 存檔槽位
+export interface SaveSlot {
+  id: string;
+  name: string;
+  part: StoryPart;
+  progress: PartProgress;
+  currentChapterTitle: string;
+  nodeId: string;
+  savedAt: number;
+  isAutoSave: boolean;
+}
+
 export interface PartProgress {
   arcValue: number;
   currentChapter: number;
@@ -146,6 +158,9 @@ interface GameState {
   // 第二部「伊」的進度
   yiPart2Progress: PartProgress;
   
+  // 存檔槽位（最多 10 個手動存檔 + 3 個自動存檔）
+  saveSlots: SaveSlot[];
+  
   // 動作
   startGame: (part: StoryPart) => void;
   resetGame: () => void;
@@ -163,6 +178,12 @@ interface GameState {
   unlockAchievement: (achievementId: string) => void;
   addDialogueHistory: (entry: Omit<DialogueHistoryEntry, 'timestamp'>) => void;
   getDialogueHistory: () => DialogueHistoryEntry[];
+  
+  // 存檔/讀檔動作
+  saveGame: (slotName: string, chapterTitle: string, isAutoSave?: boolean) => void;
+  loadGame: (slotId: string) => boolean;
+  deleteSave: (slotId: string) => void;
+  getSaveSlots: () => SaveSlot[];
   
   // 獲取當前進度
   getCurrentProgress: () => PartProgress;
@@ -243,6 +264,7 @@ export const useGameStore = create<GameState>()(
       isPlaying: false,
       yiProgress: { ...defaultProgress },
       yiPart2Progress: { ...defaultPart2Progress },
+      saveSlots: [],
 
       startGame: (part: StoryPart) => {
         const state = get();
@@ -500,6 +522,80 @@ export const useGameStore = create<GameState>()(
         const state = get();
         const progress = state.getCurrentProgress();
         return progress.dialogueHistory || [];
+      },
+
+      // 存檔功能
+      saveGame: (slotName: string, chapterTitle: string, isAutoSave = false) => {
+        const state = get();
+        const progress = state.getCurrentProgress();
+        const slots = state.saveSlots || [];
+        
+        // 生成唯一 ID
+        const slotId = `save-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+        
+        const newSlot: SaveSlot = {
+          id: slotId,
+          name: slotName,
+          part: state.currentPart,
+          progress: JSON.parse(JSON.stringify(progress)), // 深拷貝
+          currentChapterTitle: chapterTitle,
+          nodeId: progress.currentNodeId,
+          savedAt: Date.now(),
+          isAutoSave,
+        };
+        
+        // 自動存檔最多保留 3 個，手動存檔最多保留 10 個
+        const autoSaves = slots.filter(s => s.isAutoSave);
+        const manualSaves = slots.filter(s => !s.isAutoSave);
+        
+        if (isAutoSave) {
+          // 保留最新 2 個自動存檔 + 新存檔
+          const keptAutoSaves = autoSaves.slice(-2);
+          set({ saveSlots: [...manualSaves, ...keptAutoSaves, newSlot] });
+        } else {
+          // 保留最新 9 個手動存檔 + 新存檔
+          const keptManualSaves = manualSaves.slice(-9);
+          set({ saveSlots: [...autoSaves, ...keptManualSaves, newSlot] });
+        }
+      },
+
+      // 讀檔功能
+      loadGame: (slotId: string): boolean => {
+        const state = get();
+        const slots = state.saveSlots || [];
+        const slot = slots.find(s => s.id === slotId);
+        
+        if (!slot) return false;
+        
+        // 恢復進度
+        if (slot.part === 'yi') {
+          set({
+            currentPart: 'yi',
+            isPlaying: true,
+            yiProgress: { ...slot.progress },
+          });
+        } else {
+          set({
+            currentPart: 'yi-part2',
+            isPlaying: true,
+            yiPart2Progress: { ...slot.progress },
+          });
+        }
+        
+        return true;
+      },
+
+      // 刪除存檔
+      deleteSave: (slotId: string) => {
+        const state = get();
+        const slots = state.saveSlots || [];
+        set({ saveSlots: slots.filter(s => s.id !== slotId) });
+      },
+
+      // 獲取存檔列表
+      getSaveSlots: () => {
+        const state = get();
+        return state.saveSlots || [];
       },
 
       getCurrentProgress: () => {
