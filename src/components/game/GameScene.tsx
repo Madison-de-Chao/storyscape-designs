@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, Home, BookOpen, RotateCcw, Image, Trophy, Map } from 'lucide-react';
-import { useGameStore } from '@/stores/gameStore';
+import { useGameStore, type ZenTheme, type RevelationTheme } from '@/stores/gameStore';
 import { useSFX, useBGM, useAmbient, getAmbientTypeForScene, getBGMForNode } from '@/hooks/useAudio';
 import { usePreloadImages } from '@/hooks/usePreloadImages';
 import ParticleBackground from './ParticleBackground';
@@ -109,7 +109,7 @@ const GameScene = () => {
   const [zenConfig, setZenConfig] = useState<{
     text: string;
     subtitle?: string;
-    theme?: 'golden' | 'moonlight' | 'dawn' | 'ink';
+    theme?: ZenTheme;
     duration?: number;
   } | null>(null);
   const zenMomentShownRef = useRef<Set<string>>(new Set());
@@ -119,7 +119,7 @@ const GameScene = () => {
   const [revelationConfig, setRevelationConfig] = useState<{
     text: string;
     subtitle?: string;
-    theme?: 'golden' | 'silver' | 'aurora' | 'celestial';
+    theme?: RevelationTheme;
     duration?: number;
   } | null>(null);
   const revelationShownRef = useRef<Set<string>>(new Set());

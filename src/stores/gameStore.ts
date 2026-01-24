@@ -34,7 +34,9 @@ export type SpecialSceneType =
   | 'revelation'; // 啟示時刻（光芒綻放）
 
 // 禪意時刻主題
-export type ZenTheme = 'golden' | 'moonlight' | 'dawn' | 'ink';
+export type ZenTheme = 
+  | 'golden' | 'moonlight' | 'dawn' | 'ink' 
+  | 'yin-yang' | 'gold' | 'cosmos' | 'earth' | 'wood' | 'white' | 'crimson' | 'silver' | 'rain';
 
 // 啟示時刻主題
 export type RevelationTheme = 'golden' | 'silver' | 'aurora' | 'celestial';
@@ -43,14 +45,14 @@ export type RevelationTheme = 'golden' | 'silver' | 'aurora' | 'celestial';
 export type EffectType = 
   | 'glitch' | 'glow' | 'fade' 
   | 'shake' | 'flash' | 'vertical' | 'ink' | 'mist' | 'rain'
-  | 'fade-in-slow' | 'fade-out' | 'fade-out-white' | 'crt-off';
+  | 'fade-in' | 'fade-in-slow' | 'fade-out' | 'fade-out-white' | 'crt-off';
 
 // 說話者類型
 export type SpeakerType = 
   | 'narrator' | 'protagonist' | 'yi' | 'mentor' | 'wenxin' | 'wendu' 
   | 'sushi' | 'wangyangming' | 'simaqian' | 'wuzetian' | 'libai' 
   | 'mandela' | 'caesar' | 'cleopatra' | 'lincoln' | 'jobs' | 'vangogh' | 'helenkeller'
-  | 'system';
+  | 'system' | 'editor';
 
 export interface DialogueNode {
   id: string;

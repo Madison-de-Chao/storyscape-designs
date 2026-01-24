@@ -1,3 +1,5 @@
+import type { DialogueNode } from '@/stores/gameStore';
+
 export const chapter2Nodes: DialogueNode[] = [
   // 開場
   {

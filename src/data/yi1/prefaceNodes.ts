@@ -1,6 +1,6 @@
 import type { DialogueNode } from '@/stores/gameStore';
 
-export const authorPrefaceNodes: DialogueNode[] = [
+export const prefaceNodes: DialogueNode[] = [
   // ═══════════════════════════════════════════
   // 作者序
   // ═══════════════════════════════════════════
