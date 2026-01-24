@@ -1,3 +1,4 @@
+import type { DialogueNode } from '@/stores/gameStore';
 export const prologueNodes: DialogueNode[] = [
   // ═══════════════════════════════════════════
   // 序章｜訓練場
