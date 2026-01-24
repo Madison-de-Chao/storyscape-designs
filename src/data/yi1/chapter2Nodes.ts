@@ -258,7 +258,7 @@ export const chapter2Nodes: DialogueNode[] = [
     text: '一個被貶了一輩子，卻從未貶低過自己的人。',
     bgImage: 'ch2_courtyard_distant',
     effect: 'fade-out',
-    nextNodeId: 'yi1-chapter-3-intro-1',
+    nextNodeId: 'yi1-ch3-intro',
   },
 ];
 // 總計：23 主線句 + 3 選項（6 分支句）= 29 節點
