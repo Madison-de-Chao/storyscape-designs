@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Eye, EyeOff, FastForward, Play, Pause, History, Save, Download } from 'lucide-react';
 import { useGameStore } from '@/stores/gameStore';
 import { getNodeById } from '@/data/prologueStory';
-import { getYiPart2NodeById } from '@/data/yiPart2Story';
+// TODO: 第二部節點查詢函數待建立
 import { getYi1NodeById } from '@/data/yi1';
 import { DialogueNode } from '@/stores/gameStore';
 import { useSFX } from '@/hooks/useAudio';
@@ -86,9 +86,8 @@ const DialogueBox = ({ isHidden = false, onToggleHide, onScoreChange }: Dialogue
   }, [currentPart]);
 
   useEffect(() => {
-    const node = currentPart === 'yi' 
-      ? (getYi1NodeById(currentNodeId) || getNodeById(currentNodeId))
-      : getYiPart2NodeById(currentNodeId);
+    // TODO: 第二部節點邏輯待實作
+    const node = getYi1NodeById(currentNodeId) || getNodeById(currentNodeId);
     if (node) {
       setCurrentNode(node);
       setDisplayedText('');
