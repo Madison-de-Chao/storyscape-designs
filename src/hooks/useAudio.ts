@@ -361,10 +361,11 @@ const BGM_PATHS: Record<BGMType, string> = {
   mysterious: '/audio/bgm/mysterious.mp3',
 };
 
-// 音效播放 hook
+// 音效播放 hook - 優化音效觸發
 export const useSFX = () => {
   const { masterVolume, sfxVolume, isMuted } = useAudioSettings();
   const audioCache = useRef<Map<string, HTMLAudioElement>>(new Map());
+  const lastPlayedTime = useRef<Map<string, number>>(new Map()); // 防抖動機制
 
   const playSFX = useCallback((type: SFXType) => {
     if (isMuted) return;
@@ -372,54 +373,91 @@ export const useSFX = () => {
     const path = SFX_PATHS[type];
     if (!path) return;
 
+    // 防止短時間內重複播放同一音效（最小間隔 50ms）
+    const now = Date.now();
+    const lastPlayed = lastPlayedTime.current.get(type) || 0;
+    if (now - lastPlayed < 50) return;
+    lastPlayedTime.current.set(type, now);
+
     // 從快取取得或建立新的 Audio 實例
     let audio = audioCache.current.get(path);
     if (!audio) {
       audio = new Audio(path);
+      audio.preload = 'auto'; // 預載入
       audioCache.current.set(path, audio);
     }
 
-    // 重置並播放
-    audio.currentTime = 0;
-    audio.volume = masterVolume * sfxVolume;
-    audio.play().catch(() => {
+    // 使用 cloneNode 確保快速連續播放不會互相干擾
+    const audioClone = audio.cloneNode() as HTMLAudioElement;
+    audioClone.volume = masterVolume * sfxVolume;
+    audioClone.play().catch(() => {
       // 忽略自動播放限制錯誤
     });
+
+    // 播放完成後清理 clone
+    audioClone.onended = () => {
+      audioClone.remove();
+    };
   }, [masterVolume, sfxVolume, isMuted]);
 
-  // 播放情緒音效
+  // 播放情緒音效 - 優化版本
   const playEmotionSFX = useCallback((type: EmotionSFXType) => {
     if (isMuted) return;
 
     const path = EMOTION_SFX_PATHS[type];
     if (!path) return;
 
+    // 情緒音效防抖（200ms）
+    const now = Date.now();
+    const key = `emotion_${type}`;
+    const lastPlayed = lastPlayedTime.current.get(key) || 0;
+    if (now - lastPlayed < 200) return;
+    lastPlayedTime.current.set(key, now);
+
     let audio = audioCache.current.get(path);
     if (!audio) {
       audio = new Audio(path);
+      audio.preload = 'auto';
       audioCache.current.set(path, audio);
     }
 
+    // 淡入效果讓情緒音效更自然
+    const targetVolume = masterVolume * sfxVolume;
+    audio.volume = 0;
     audio.currentTime = 0;
-    audio.volume = masterVolume * sfxVolume;
-    audio.play().catch(() => {});
+    audio.play().then(() => {
+      // 快速淡入（150ms）
+      const fadeSteps = 5;
+      const stepVolume = targetVolume / fadeSteps;
+      let step = 0;
+      const fadeIn = setInterval(() => {
+        step++;
+        if (step <= fadeSteps && audio) {
+          audio.volume = Math.min(stepVolume * step, targetVolume);
+        } else {
+          clearInterval(fadeIn);
+        }
+      }, 30);
+    }).catch(() => {});
   }, [masterVolume, sfxVolume, isMuted]);
 
-  // 播放章節過場音效
+  // 播放章節過場音效 - 優化版本
   const playChapterTransitionSFX = useCallback((type: ChapterTransitionSFXType) => {
     if (isMuted) return;
 
     const path = CHAPTER_TRANSITION_SFX_PATHS[type];
     if (!path) return;
 
-    let audio = audioCache.current.get(path);
-    if (!audio) {
-      audio = new Audio(path);
-      audioCache.current.set(path, audio);
+    // 過場音效不需要防抖，但要確保不會疊加
+    const existingAudio = audioCache.current.get(`transition_current`);
+    if (existingAudio) {
+      existingAudio.pause();
+      existingAudio.currentTime = 0;
     }
 
-    audio.currentTime = 0;
-    audio.volume = masterVolume * sfxVolume;
+    const audio = new Audio(path);
+    audio.volume = masterVolume * sfxVolume * 0.8; // 過場音效稍低一點
+    audioCache.current.set(`transition_current`, audio);
     audio.play().catch(() => {});
   }, [masterVolume, sfxVolume, isMuted]);
 
@@ -448,29 +486,35 @@ class AudioManager {
 
     const audio = new Audio(path);
     audio.loop = true;
+    audio.preload = 'auto';
     audio.volume = fadeIn ? 0 : volume;
     this.bgmAudio = audio;
     this.currentBGM = type;
 
     audio.play().then(() => {
       if (fadeIn && volume > 0) {
-        // 優化淡入：更平滑的漸變（60ms 間隔，每次增加 3%）
+        // 優化淡入：使用 requestAnimationFrame 更流暢（約 1.5 秒淡入）
         let currentVol = 0;
         const targetVol = volume;
-        const step = targetVol * 0.03;
-        const fadeInterval = setInterval(() => {
-          if (!this.bgmAudio || this.bgmAudio !== audio) {
-            clearInterval(fadeInterval);
-            return;
+        const startTime = performance.now();
+        const duration = 1500; // 1.5 秒淡入
+
+        const fadeStep = (timestamp: number) => {
+          if (!this.bgmAudio || this.bgmAudio !== audio) return;
+          
+          const elapsed = timestamp - startTime;
+          const progress = Math.min(elapsed / duration, 1);
+          // 使用 easeOut 曲線讓淡入更自然
+          const easeProgress = 1 - Math.pow(1 - progress, 3);
+          currentVol = targetVol * easeProgress;
+          audio.volume = currentVol;
+
+          if (progress < 1) {
+            requestAnimationFrame(fadeStep);
           }
-          currentVol += step;
-          if (currentVol < targetVol) {
-            audio.volume = Math.min(currentVol, targetVol);
-          } else {
-            audio.volume = targetVol;
-            clearInterval(fadeInterval);
-          }
-        }, 60);
+        };
+        
+        requestAnimationFrame(fadeStep);
       }
     }).catch(() => {});
   }
@@ -483,17 +527,27 @@ class AudioManager {
     this.currentBGM = null;
 
     if (fadeOut && audio.volume > 0) {
-      // 優化淡出：更平滑的漸變（50ms 間隔，更快完成）
-      const step = audio.volume * 0.08;
-      const fadeInterval = setInterval(() => {
-        if (audio.volume > step) {
-          audio.volume = Math.max(audio.volume - step, 0);
+      // 優化淡出：使用 requestAnimationFrame（約 800ms 淡出）
+      const startVolume = audio.volume;
+      const startTime = performance.now();
+      const duration = 800;
+
+      const fadeStep = (timestamp: number) => {
+        const elapsed = timestamp - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        // 使用 easeIn 曲線
+        const easeProgress = Math.pow(progress, 2);
+        audio.volume = startVolume * (1 - easeProgress);
+
+        if (progress < 1) {
+          requestAnimationFrame(fadeStep);
         } else {
           audio.pause();
           audio.volume = 0;
-          clearInterval(fadeInterval);
         }
-      }, 50);
+      };
+      
+      requestAnimationFrame(fadeStep);
     } else {
       audio.pause();
     }

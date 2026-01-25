@@ -32,12 +32,14 @@ const ChoiceButton = ({ choice, index, onClick }: ChoiceButtonProps) => {
   return (
     <motion.button
       className={`
-        relative w-full text-left px-4 py-4 sm:px-6 sm:py-5 overflow-hidden
+        relative w-full text-left px-5 py-5 sm:px-6 sm:py-5 overflow-hidden
         rounded-xl sm:rounded-2xl border sm:border-2
-        font-sans-tc text-sm sm:text-base md:text-lg
+        font-sans-tc text-base sm:text-base md:text-lg
         backdrop-blur-md
-        transition-all duration-300
-        touch-manipulation
+        transition-colors duration-200
+        touch-manipulation select-none
+        will-change-transform
+        min-h-[60px] sm:min-h-[auto]
         ${isPressed 
           ? 'border-primary bg-primary/40 text-primary-foreground' 
           : 'border-border/40 bg-background/60 text-foreground/90 hover:text-foreground hover:border-primary/60 active:bg-primary/20'
@@ -50,30 +52,33 @@ const ChoiceButton = ({ choice, index, onClick }: ChoiceButtonProps) => {
             ? '0 8px 32px rgba(0, 0, 0, 0.4), 0 0 20px rgba(var(--primary-rgb), 0.2)' 
             : '0 4px 16px rgba(0, 0, 0, 0.3)',
         WebkitTapHighlightColor: 'transparent',
+        transform: 'translateZ(0)', // GPU 加速
       }}
-      initial={{ opacity: 0, x: -30, scale: 0.95 }}
+      initial={{ opacity: 0, x: -20 }}
       animate={{ 
         opacity: 1, 
         x: 0, 
         scale: isPressed ? 1.02 : 1,
       }}
       transition={{ 
-        duration: 0.4, 
-        delay: index * 0.12,
-        type: "spring",
-        stiffness: 100,
-        damping: 15,
+        duration: 0.3, 
+        delay: index * 0.08,
+        ease: [0.25, 0.1, 0.25, 1], // 更流暢的緩動
       }}
       whileHover={{ 
-        scale: 1.02,
-        y: -2,
+        scale: 1.015,
+        y: -1,
+        transition: { duration: 0.15 }
       }}
-      whileTap={{ scale: 0.98 }}
+      whileTap={{ 
+        scale: 0.97,
+        transition: { duration: 0.1 }
+      }}
       onClick={handleClick}
       onMouseEnter={handleHover}
       onMouseLeave={() => setIsHovered(false)}
-      onTouchStart={() => setIsHovered(true)}
-      onTouchEnd={() => setIsHovered(false)}
+      onTouchStart={() => { setIsHovered(true); playSFX('hover'); }}
+      onTouchEnd={() => setTimeout(() => setIsHovered(false), 150)}
       disabled={isPressed}
     >
       {/* 頂部發光邊線 */}
@@ -218,34 +223,28 @@ const ChoiceButton = ({ choice, index, onClick }: ChoiceButtonProps) => {
         </motion.span>
       </div>
 
-      {/* 懸停時的粒子效果 */}
+      {/* 懸停時的簡化粒子效果 - 只在桌面顯示 */}
       <AnimatePresence>
         {isHovered && !isPressed && (
-          <>
-            {[...Array(3)].map((_, i) => (
-              <motion.div
-                key={i}
-                className="absolute w-1 h-1 rounded-full"
-                style={{
-                  background: 'hsl(var(--primary))',
-                  left: `${20 + i * 30}%`,
-                  bottom: '10%',
-                }}
-                initial={{ opacity: 0, y: 0 }}
-                animate={{ 
-                  opacity: [0, 1, 0], 
-                  y: -20,
-                }}
-                exit={{ opacity: 0 }}
-                transition={{ 
-                  duration: 1, 
-                  delay: i * 0.2,
-                  repeat: Infinity,
-                  repeatDelay: 0.5,
-                }}
-              />
-            ))}
-          </>
+          <motion.div
+            className="absolute inset-0 pointer-events-none hidden sm:block"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <motion.div
+              className="absolute w-1.5 h-1.5 rounded-full bg-primary/60"
+              style={{ left: '30%', bottom: '15%' }}
+              animate={{ y: [-5, -15], opacity: [0, 0.8, 0] }}
+              transition={{ duration: 0.8, repeat: Infinity, repeatDelay: 0.3 }}
+            />
+            <motion.div
+              className="absolute w-1 h-1 rounded-full bg-primary/50"
+              style={{ left: '60%', bottom: '15%' }}
+              animate={{ y: [-5, -18], opacity: [0, 0.6, 0] }}
+              transition={{ duration: 0.9, delay: 0.2, repeat: Infinity, repeatDelay: 0.4 }}
+            />
+          </motion.div>
         )}
       </AnimatePresence>
     </motion.button>
