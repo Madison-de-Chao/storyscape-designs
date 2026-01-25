@@ -5,7 +5,7 @@ import { useGameStore } from '@/stores/gameStore';
 import { RefreshCcw } from 'lucide-react';
 import { usePreloadNextScene } from '@/hooks/usePreloadNextScene';
 import { useProgressiveImage } from '@/hooks/useProgressiveImage';
-
+import { getChapterTheme, themeToHSL, themeToGlow } from '@/utils/chapterThemes';
 interface SceneImageProps {
   nodeId: string;
   hideOverlay?: boolean;
@@ -64,6 +64,9 @@ const SceneImage = ({ nodeId, hideOverlay = false, isLoaded: externalLoaded }: S
   const sceneEffect = useMemo(() => {
     return currentImage ? getSceneEffect(currentImage.alt) : 'default';
   }, [currentImage]);
+
+  // 章節主題色 - 用於骨架屏色調
+  const chapterTheme = useMemo(() => getChapterTheme(nodeId), [nodeId]);
 
   useEffect(() => {
     const sceneImage = getSceneImage(nodeId);
@@ -170,90 +173,103 @@ const SceneImage = ({ nodeId, hideOverlay = false, isLoaded: externalLoaded }: S
     );
   }
   
-  // 墨水渲染風格載入骨架屏組件
-  const InkLoadingSkeleton = () => (
-    <motion.div
-      className="absolute inset-0 z-40 flex items-center justify-center overflow-hidden"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.5 }}
-    >
-      {/* 深色水墨背景 */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[hsl(220,20%,8%)] via-[hsl(220,15%,12%)] to-[hsl(220,20%,6%)]" />
-      
-      {/* 墨水渲染效果層 */}
-      <div className="absolute inset-0 overflow-hidden">
-        {/* 中央墨水暈開動畫 */}
-        <motion.div
-          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
-          initial={{ scale: 0, opacity: 0 }}
-          animate={{ 
-            scale: [0, 1.5, 2.5, 3.5],
-            opacity: [0, 0.4, 0.2, 0],
+  // 墨水渲染風格載入骨架屏組件 - 整合章節主題色
+  const InkLoadingSkeleton = () => {
+    // 根據章節主題生成動態色彩
+    const themeColor = themeToHSL(chapterTheme);
+    const themeGlow = themeToGlow(chapterTheme, 0.3);
+    const themeDark = `hsl(${chapterTheme.hue} ${Math.max(chapterTheme.saturation - 30, 10)}% 8%)`;
+    const themeMid = `hsl(${chapterTheme.hue} ${Math.max(chapterTheme.saturation - 25, 10)}% 12%)`;
+    
+    return (
+      <motion.div
+        className="absolute inset-0 z-40 flex items-center justify-center overflow-hidden"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.5 }}
+      >
+        {/* 深色水墨背景 - 使用章節主題色調 */}
+        <div 
+          className="absolute inset-0"
+          style={{
+            background: `linear-gradient(to bottom, ${themeDark}, ${themeMid}, ${themeDark})`,
           }}
-          transition={{
-            duration: 3,
-            repeat: Infinity,
-            ease: 'easeOut',
-          }}
-        >
-          <div 
-            className="w-64 h-64 rounded-full"
-            style={{
-              background: 'radial-gradient(circle, hsl(var(--primary) / 0.15) 0%, hsl(var(--primary) / 0.05) 40%, transparent 70%)',
-              filter: 'blur(20px)',
-            }}
-          />
-        </motion.div>
+        />
         
-        {/* 第二層墨水暈開（延遲） */}
-        <motion.div
-          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
-          initial={{ scale: 0, opacity: 0 }}
-          animate={{ 
-            scale: [0, 1.2, 2, 3],
-            opacity: [0, 0.3, 0.15, 0],
-          }}
-          transition={{
-            duration: 3,
-            repeat: Infinity,
-            delay: 1,
-            ease: 'easeOut',
-          }}
-        >
-          <div 
-            className="w-48 h-48 rounded-full"
-            style={{
-              background: 'radial-gradient(circle, hsl(38 70% 50% / 0.2) 0%, hsl(38 60% 40% / 0.08) 50%, transparent 70%)',
-              filter: 'blur(15px)',
-            }}
-          />
-        </motion.div>
-        
-        {/* 墨滴飄落效果 */}
-        {[...Array(6)].map((_, i) => (
+        {/* 墨水渲染效果層 */}
+        <div className="absolute inset-0 overflow-hidden">
+          {/* 中央墨水暈開動畫 - 章節主題色 */}
           <motion.div
-            key={i}
-            className="absolute w-1 rounded-full bg-primary/20"
-            style={{
-              left: `${15 + i * 14}%`,
-              height: `${30 + Math.random() * 40}px`,
-            }}
-            initial={{ y: '-20%', opacity: 0, scaleY: 0.5 }}
+            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+            initial={{ scale: 0, opacity: 0 }}
             animate={{ 
-              y: '120%', 
-              opacity: [0, 0.6, 0.4, 0],
-              scaleY: [0.5, 1.5, 2, 1],
+              scale: [0, 1.5, 2.5, 3.5],
+              opacity: [0, 0.4, 0.2, 0],
             }}
             transition={{
-              duration: 2.5 + Math.random(),
+              duration: 3,
               repeat: Infinity,
-              delay: i * 0.4,
-              ease: 'easeIn',
+              ease: 'easeOut',
             }}
-          />
-        ))}
+          >
+            <div 
+              className="w-64 h-64 rounded-full"
+              style={{
+                background: `radial-gradient(circle, ${themeToHSL(chapterTheme, 0.2)} 0%, ${themeToHSL(chapterTheme, 0.08)} 40%, transparent 70%)`,
+                filter: 'blur(20px)',
+              }}
+            />
+          </motion.div>
+          
+          {/* 第二層墨水暈開（延遲）- 章節主題輝光 */}
+          <motion.div
+            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+            initial={{ scale: 0, opacity: 0 }}
+            animate={{ 
+              scale: [0, 1.2, 2, 3],
+              opacity: [0, 0.3, 0.15, 0],
+            }}
+            transition={{
+              duration: 3,
+              repeat: Infinity,
+              delay: 1,
+              ease: 'easeOut',
+            }}
+          >
+            <div 
+              className="w-48 h-48 rounded-full"
+              style={{
+                background: `radial-gradient(circle, ${themeGlow} 0%, ${themeToHSL(chapterTheme, 0.1)} 50%, transparent 70%)`,
+                filter: 'blur(15px)',
+              }}
+            />
+          </motion.div>
+        
+          {/* 墨滴飄落效果 - 章節主題色 */}
+          {[...Array(6)].map((_, i) => (
+            <motion.div
+              key={i}
+              className="absolute w-1 rounded-full"
+              style={{
+                left: `${15 + i * 14}%`,
+                height: `${30 + Math.random() * 40}px`,
+                backgroundColor: themeToHSL(chapterTheme, 0.25),
+              }}
+              initial={{ y: '-20%', opacity: 0, scaleY: 0.5 }}
+              animate={{ 
+                y: '120%', 
+                opacity: [0, 0.6, 0.4, 0],
+                scaleY: [0.5, 1.5, 2, 1],
+              }}
+              transition={{
+                duration: 2.5 + Math.random(),
+                repeat: Infinity,
+                delay: i * 0.4,
+                ease: 'easeIn',
+              }}
+            />
+          ))}
         
         {/* 水墨紋理覆蓋 */}
         <motion.div
@@ -266,147 +282,162 @@ const SceneImage = ({ nodeId, hideOverlay = false, isLoaded: externalLoaded }: S
           }}
         />
         
-        {/* 古風裝飾邊框 */}
-        <svg className="absolute inset-0 w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
-          {/* 左上角裝飾 */}
-          <motion.path
-            d="M 5 20 L 5 5 L 20 5"
-            fill="none"
-            stroke="hsl(var(--primary) / 0.3)"
-            strokeWidth="0.3"
-            strokeLinecap="round"
-            initial={{ pathLength: 0, opacity: 0 }}
-            animate={{ pathLength: 1, opacity: 1 }}
-            transition={{ duration: 1, delay: 0.2 }}
-          />
-          {/* 右上角裝飾 */}
-          <motion.path
-            d="M 80 5 L 95 5 L 95 20"
-            fill="none"
-            stroke="hsl(var(--primary) / 0.3)"
-            strokeWidth="0.3"
-            strokeLinecap="round"
-            initial={{ pathLength: 0, opacity: 0 }}
-            animate={{ pathLength: 1, opacity: 1 }}
-            transition={{ duration: 1, delay: 0.4 }}
-          />
-          {/* 左下角裝飾 */}
-          <motion.path
-            d="M 5 80 L 5 95 L 20 95"
-            fill="none"
-            stroke="hsl(var(--primary) / 0.3)"
-            strokeWidth="0.3"
-            strokeLinecap="round"
-            initial={{ pathLength: 0, opacity: 0 }}
-            animate={{ pathLength: 1, opacity: 1 }}
-            transition={{ duration: 1, delay: 0.6 }}
-          />
-          {/* 右下角裝飾 */}
-          <motion.path
-            d="M 80 95 L 95 95 L 95 80"
-            fill="none"
-            stroke="hsl(var(--primary) / 0.3)"
-            strokeWidth="0.3"
-            strokeLinecap="round"
-            initial={{ pathLength: 0, opacity: 0 }}
-            animate={{ pathLength: 1, opacity: 1 }}
-            transition={{ duration: 1, delay: 0.8 }}
-          />
-        </svg>
-      </div>
-      
-      {/* 中央載入指示器 - 道家風格 */}
-      <motion.div
-        className="relative z-10 flex flex-col items-center gap-4"
-        initial={{ opacity: 0, y: 15 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.3, duration: 0.6 }}
-      >
-        {/* 陰陽旋轉圖示 */}
-        <motion.div
-          className="relative w-12 h-12"
-          animate={{ rotate: 360 }}
-          transition={{ duration: 4, repeat: Infinity, ease: 'linear' }}
-        >
-          <svg viewBox="0 0 100 100" className="w-full h-full">
-            {/* 外圈 */}
-            <circle
-              cx="50"
-              cy="50"
-              r="45"
-              fill="none"
-              stroke="hsl(var(--primary) / 0.2)"
-              strokeWidth="1"
-            />
-            {/* 陰陽符號簡化版 */}
+          {/* 古風裝飾邊框 - 章節主題色 */}
+          <svg className="absolute inset-0 w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+            {/* 左上角裝飾 */}
             <motion.path
-              d="M 50 5 A 45 45 0 0 1 50 95 A 22.5 22.5 0 0 1 50 50 A 22.5 22.5 0 0 0 50 5"
-              fill="hsl(var(--primary) / 0.15)"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: [0.15, 0.3, 0.15] }}
-              transition={{ duration: 2, repeat: Infinity }}
+              d="M 5 20 L 5 5 L 20 5"
+              fill="none"
+              stroke={themeToHSL(chapterTheme, 0.35)}
+              strokeWidth="0.3"
+              strokeLinecap="round"
+              initial={{ pathLength: 0, opacity: 0 }}
+              animate={{ pathLength: 1, opacity: 1 }}
+              transition={{ duration: 1, delay: 0.2 }}
             />
-            <circle cx="50" cy="27.5" r="5" fill="hsl(var(--primary) / 0.3)" />
-            <circle cx="50" cy="72.5" r="5" fill="hsl(var(--background))" stroke="hsl(var(--primary) / 0.2)" strokeWidth="1" />
+            {/* 右上角裝飾 */}
+            <motion.path
+              d="M 80 5 L 95 5 L 95 20"
+              fill="none"
+              stroke={themeToHSL(chapterTheme, 0.35)}
+              strokeWidth="0.3"
+              strokeLinecap="round"
+              initial={{ pathLength: 0, opacity: 0 }}
+              animate={{ pathLength: 1, opacity: 1 }}
+              transition={{ duration: 1, delay: 0.4 }}
+            />
+            {/* 左下角裝飾 */}
+            <motion.path
+              d="M 5 80 L 5 95 L 20 95"
+              fill="none"
+              stroke={themeToHSL(chapterTheme, 0.35)}
+              strokeWidth="0.3"
+              strokeLinecap="round"
+              initial={{ pathLength: 0, opacity: 0 }}
+              animate={{ pathLength: 1, opacity: 1 }}
+              transition={{ duration: 1, delay: 0.6 }}
+            />
+            {/* 右下角裝飾 */}
+            <motion.path
+              d="M 80 95 L 95 95 L 95 80"
+              fill="none"
+              stroke={themeToHSL(chapterTheme, 0.35)}
+              strokeWidth="0.3"
+              strokeLinecap="round"
+              initial={{ pathLength: 0, opacity: 0 }}
+              animate={{ pathLength: 1, opacity: 1 }}
+              transition={{ duration: 1, delay: 0.8 }}
+            />
           </svg>
-        </motion.div>
-        
-        {/* 載入文字 - 書法風格 */}
-        <motion.span
-          className="text-sm text-primary/60 font-serif-tc tracking-widest"
-          animate={{ opacity: [0.5, 1, 0.5] }}
-          transition={{ duration: 2, repeat: Infinity }}
-        >
-          意境載入中
-        </motion.span>
-        
-        {/* 墨點進度指示 */}
-        <div className="flex gap-2">
-          {[0, 1, 2, 3].map((i) => (
-            <motion.div
-              key={i}
-              className="w-1.5 h-1.5 rounded-full bg-primary/30"
-              animate={{
-                scale: [1, 1.8, 1],
-                opacity: [0.3, 0.8, 0.3],
-              }}
-              transition={{
-                duration: 1.2,
-                repeat: Infinity,
-                delay: i * 0.2,
-                ease: 'easeInOut',
-              }}
-            />
-          ))}
         </div>
-      </motion.div>
       
-      {/* 超時提示 */}
-      <AnimatePresence>
-        {showTimeoutPrompt && (
+        {/* 中央載入指示器 - 道家風格 + 章節主題色 */}
+        <motion.div
+          className="relative z-10 flex flex-col items-center gap-4"
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3, duration: 0.6 }}
+        >
+          {/* 陰陽旋轉圖示 - 章節主題色 */}
           <motion.div
-            className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 10 }}
+            className="relative w-12 h-12"
+            animate={{ rotate: 360 }}
+            transition={{ duration: 4, repeat: Infinity, ease: 'linear' }}
           >
-            <div className="bg-background/95 backdrop-blur-sm border border-primary/20 rounded-lg px-5 py-3 shadow-lg">
-              <p className="text-sm text-muted-foreground mb-2 text-center font-serif-tc">
-                畫卷展開較慢，或許網路正在醞釀...
-              </p>
-              <button
-                onClick={handleRetryLoad}
-                className="flex items-center justify-center gap-2 w-full px-3 py-1.5 bg-primary/10 hover:bg-primary/20 text-primary text-sm rounded-md transition-colors font-serif-tc"
-              >
-                <RefreshCcw className="w-4 h-4" />
-                重新繪製
-              </button>
-            </div>
+            <svg viewBox="0 0 100 100" className="w-full h-full">
+              {/* 外圈 */}
+              <circle
+                cx="50"
+                cy="50"
+                r="45"
+                fill="none"
+                stroke={themeToHSL(chapterTheme, 0.25)}
+                strokeWidth="1"
+              />
+              {/* 陰陽符號簡化版 */}
+              <motion.path
+                d="M 50 5 A 45 45 0 0 1 50 95 A 22.5 22.5 0 0 1 50 50 A 22.5 22.5 0 0 0 50 5"
+                fill={themeToHSL(chapterTheme, 0.18)}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: [0.15, 0.35, 0.15] }}
+                transition={{ duration: 2, repeat: Infinity }}
+              />
+              <circle cx="50" cy="27.5" r="5" fill={themeToHSL(chapterTheme, 0.35)} />
+              <circle cx="50" cy="72.5" r="5" fill="hsl(var(--background))" stroke={themeToHSL(chapterTheme, 0.25)} strokeWidth="1" />
+            </svg>
           </motion.div>
-        )}
-      </AnimatePresence>
-    </motion.div>
-  );
+          
+          {/* 載入文字 - 書法風格 + 章節主題色 */}
+          <motion.span
+            className="text-sm font-serif-tc tracking-widest"
+            style={{ color: themeToHSL(chapterTheme, 0.7) }}
+            animate={{ opacity: [0.5, 1, 0.5] }}
+            transition={{ duration: 2, repeat: Infinity }}
+          >
+            意境載入中
+          </motion.span>
+          
+          {/* 墨點進度指示 - 章節主題色 */}
+          <div className="flex gap-2">
+            {[0, 1, 2, 3].map((i) => (
+              <motion.div
+                key={i}
+                className="w-1.5 h-1.5 rounded-full"
+                style={{ backgroundColor: themeToHSL(chapterTheme, 0.4) }}
+                animate={{
+                  scale: [1, 1.8, 1],
+                  opacity: [0.3, 0.8, 0.3],
+                }}
+                transition={{
+                  duration: 1.2,
+                  repeat: Infinity,
+                  delay: i * 0.2,
+                  ease: 'easeInOut',
+                }}
+              />
+            ))}
+          </div>
+        </motion.div>
+      
+        {/* 超時提示 - 章節主題色 */}
+        <AnimatePresence>
+          {showTimeoutPrompt && (
+            <motion.div
+              className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 10 }}
+            >
+              <div 
+                className="backdrop-blur-sm rounded-lg px-5 py-3 shadow-lg"
+                style={{
+                  backgroundColor: 'hsl(var(--background) / 0.95)',
+                  borderWidth: '1px',
+                  borderStyle: 'solid',
+                  borderColor: themeToHSL(chapterTheme, 0.25),
+                }}
+              >
+                <p className="text-sm text-muted-foreground mb-2 text-center font-serif-tc">
+                  畫卷展開較慢，或許網路正在醞釀...
+                </p>
+                <button
+                  onClick={handleRetryLoad}
+                  className="flex items-center justify-center gap-2 w-full px-3 py-1.5 text-sm rounded-md transition-colors font-serif-tc"
+                  style={{
+                    backgroundColor: themeToHSL(chapterTheme, 0.12),
+                    color: themeToHSL(chapterTheme, 0.9),
+                  }}
+                >
+                  <RefreshCcw className="w-4 h-4" />
+                  重新繪製
+                </button>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </motion.div>
+    );
+  };
 
   // 根據特效類型獲取進場動畫
   const getEntryAnimation = () => {
