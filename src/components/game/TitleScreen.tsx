@@ -11,6 +11,7 @@ import AudioControls from './AudioControls';
 import SFXGenerator from './SFXGenerator';
 import MusicGenerator from './MusicGenerator';
 import AchievementsOverview from './AchievementsOverview';
+import MemberStatusBadge from '@/components/member/MemberStatusBadge';
 import yi1Cover from '@/assets/covers/yi1-cover.png';
 import yi2Cover from '@/assets/covers/yi2-cover.png';
 
@@ -38,6 +39,9 @@ const TitleScreen = () => {
   return (
     <div className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
       <ParticleBackground arcValue={180} />
+      
+      {/* 會員狀態徽章 */}
+      <MemberStatusBadge />
       
       {/* 音量控制 */}
       <AudioControls />
