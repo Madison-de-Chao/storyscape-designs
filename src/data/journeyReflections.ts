@@ -2,16 +2,16 @@
 // 基於完整旅程回顧整理
 
 // 畢業圖片 imports
-import lesson01Sushi from '@/assets/scenes/graduation/lesson01_sushi_止血.jpg';
-import lesson02Wang from '@/assets/scenes/graduation/lesson02_wangyangming_內求.jpg';
-import lesson03Wu from '@/assets/scenes/graduation/lesson03_wuzetian_定義.jpg';
-import lesson04Sima from '@/assets/scenes/graduation/lesson04_simaqian_使命.jpg';
-import lesson05Libai from '@/assets/scenes/graduation/lesson05_libai_自由.jpg';
-import lesson06Caesar from '@/assets/scenes/graduation/lesson06_caesar_關係.jpg';
-import lesson07Mandela from '@/assets/scenes/graduation/lesson07_mandela_寬恕.jpg';
-import lesson08Lincoln from '@/assets/scenes/graduation/lesson08_lincoln_幽默.jpg';
-import lesson09Jobs from '@/assets/scenes/graduation/lesson09_jobs_破框.jpg';
-import journeyComplete from '@/assets/scenes/graduation/journey_complete_歸零.jpg';
+import lesson01Sushi from '@/assets/scenes/graduation/lesson01_sushi_止血.webp';
+import lesson02Wang from '@/assets/scenes/graduation/lesson02_wangyangming_內求.webp';
+import lesson03Wu from '@/assets/scenes/graduation/lesson03_wuzetian_定義.webp';
+import lesson04Sima from '@/assets/scenes/graduation/lesson04_simaqian_使命.webp';
+import lesson05Libai from '@/assets/scenes/graduation/lesson05_libai_自由.webp';
+import lesson06Caesar from '@/assets/scenes/graduation/lesson06_caesar_關係.webp';
+import lesson07Mandela from '@/assets/scenes/graduation/lesson07_mandela_寬恕.webp';
+import lesson08Lincoln from '@/assets/scenes/graduation/lesson08_lincoln_幽默.webp';
+import lesson09Jobs from '@/assets/scenes/graduation/lesson09_jobs_破框.webp';
+import journeyComplete from '@/assets/scenes/graduation/journey_complete_歸零.webp';
 
 export interface ChapterReflection {
   id: string;
