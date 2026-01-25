@@ -2,8 +2,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect, useRef, useMemo } from 'react';
 import { getSceneImage, type SceneImageConfig } from '@/data/yi1/sceneImages';
 import { useGameStore } from '@/stores/gameStore';
-import { Skeleton } from '@/components/ui/skeleton';
-import { Loader2, RefreshCcw } from 'lucide-react';
+import { RefreshCcw } from 'lucide-react';
+import { usePreloadNextScene } from '@/hooks/usePreloadNextScene';
 
 interface SceneImageProps {
   nodeId: string;
@@ -163,86 +163,218 @@ const SceneImage = ({ nodeId, hideOverlay = false, isLoaded: externalLoaded }: S
     );
   }
 
-  // 載入中骨架屏組件
-  const LoadingSkeleton = () => (
+  // 預載下一場景圖片
+  usePreloadNextScene(nodeId);
+  
+  // 墨水渲染風格載入骨架屏組件
+  const InkLoadingSkeleton = () => (
     <motion.div
-      className="absolute inset-0 z-40 flex items-center justify-center"
+      className="absolute inset-0 z-40 flex items-center justify-center overflow-hidden"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      transition={{ duration: 0.3 }}
+      transition={{ duration: 0.5 }}
     >
-      {/* 背景漸層 */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background/90 via-background/70 to-background/90" />
+      {/* 深色水墨背景 */}
+      <div className="absolute inset-0 bg-gradient-to-b from-[hsl(220,20%,8%)] via-[hsl(220,15%,12%)] to-[hsl(220,20%,6%)]" />
       
-      {/* 動態骨架效果 */}
+      {/* 墨水渲染效果層 */}
       <div className="absolute inset-0 overflow-hidden">
-        {/* 模擬圖片輪廓的骨架 */}
-        <div className="absolute inset-4 rounded-lg overflow-hidden">
-          <Skeleton className="w-full h-full bg-muted/40" />
-          
-          {/* 掃描線動畫 */}
-          <motion.div
-            className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/10 to-transparent"
-            initial={{ y: '-100%' }}
-            animate={{ y: '100%' }}
-            transition={{
-              duration: 1.5,
-              repeat: Infinity,
-              ease: 'linear',
+        {/* 中央墨水暈開動畫 */}
+        <motion.div
+          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+          initial={{ scale: 0, opacity: 0 }}
+          animate={{ 
+            scale: [0, 1.5, 2.5, 3.5],
+            opacity: [0, 0.4, 0.2, 0],
+          }}
+          transition={{
+            duration: 3,
+            repeat: Infinity,
+            ease: 'easeOut',
+          }}
+        >
+          <div 
+            className="w-64 h-64 rounded-full"
+            style={{
+              background: 'radial-gradient(circle, hsl(var(--primary) / 0.15) 0%, hsl(var(--primary) / 0.05) 40%, transparent 70%)',
+              filter: 'blur(20px)',
             }}
           />
-        </div>
+        </motion.div>
         
-        {/* 四角裝飾 */}
-        <div className="absolute top-4 left-4 w-8 h-8 border-l-2 border-t-2 border-primary/30 rounded-tl-lg" />
-        <div className="absolute top-4 right-4 w-8 h-8 border-r-2 border-t-2 border-primary/30 rounded-tr-lg" />
-        <div className="absolute bottom-4 left-4 w-8 h-8 border-l-2 border-b-2 border-primary/30 rounded-bl-lg" />
-        <div className="absolute bottom-4 right-4 w-8 h-8 border-r-2 border-b-2 border-primary/30 rounded-br-lg" />
+        {/* 第二層墨水暈開（延遲） */}
+        <motion.div
+          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+          initial={{ scale: 0, opacity: 0 }}
+          animate={{ 
+            scale: [0, 1.2, 2, 3],
+            opacity: [0, 0.3, 0.15, 0],
+          }}
+          transition={{
+            duration: 3,
+            repeat: Infinity,
+            delay: 1,
+            ease: 'easeOut',
+          }}
+        >
+          <div 
+            className="w-48 h-48 rounded-full"
+            style={{
+              background: 'radial-gradient(circle, hsl(38 70% 50% / 0.2) 0%, hsl(38 60% 40% / 0.08) 50%, transparent 70%)',
+              filter: 'blur(15px)',
+            }}
+          />
+        </motion.div>
+        
+        {/* 墨滴飄落效果 */}
+        {[...Array(6)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute w-1 rounded-full bg-primary/20"
+            style={{
+              left: `${15 + i * 14}%`,
+              height: `${30 + Math.random() * 40}px`,
+            }}
+            initial={{ y: '-20%', opacity: 0, scaleY: 0.5 }}
+            animate={{ 
+              y: '120%', 
+              opacity: [0, 0.6, 0.4, 0],
+              scaleY: [0.5, 1.5, 2, 1],
+            }}
+            transition={{
+              duration: 2.5 + Math.random(),
+              repeat: Infinity,
+              delay: i * 0.4,
+              ease: 'easeIn',
+            }}
+          />
+        ))}
+        
+        {/* 水墨紋理覆蓋 */}
+        <motion.div
+          className="absolute inset-0 pointer-events-none"
+          animate={{ opacity: [0.03, 0.06, 0.03] }}
+          transition={{ duration: 4, repeat: Infinity }}
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
+            mixBlendMode: 'overlay',
+          }}
+        />
+        
+        {/* 古風裝飾邊框 */}
+        <svg className="absolute inset-0 w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+          {/* 左上角裝飾 */}
+          <motion.path
+            d="M 5 20 L 5 5 L 20 5"
+            fill="none"
+            stroke="hsl(var(--primary) / 0.3)"
+            strokeWidth="0.3"
+            strokeLinecap="round"
+            initial={{ pathLength: 0, opacity: 0 }}
+            animate={{ pathLength: 1, opacity: 1 }}
+            transition={{ duration: 1, delay: 0.2 }}
+          />
+          {/* 右上角裝飾 */}
+          <motion.path
+            d="M 80 5 L 95 5 L 95 20"
+            fill="none"
+            stroke="hsl(var(--primary) / 0.3)"
+            strokeWidth="0.3"
+            strokeLinecap="round"
+            initial={{ pathLength: 0, opacity: 0 }}
+            animate={{ pathLength: 1, opacity: 1 }}
+            transition={{ duration: 1, delay: 0.4 }}
+          />
+          {/* 左下角裝飾 */}
+          <motion.path
+            d="M 5 80 L 5 95 L 20 95"
+            fill="none"
+            stroke="hsl(var(--primary) / 0.3)"
+            strokeWidth="0.3"
+            strokeLinecap="round"
+            initial={{ pathLength: 0, opacity: 0 }}
+            animate={{ pathLength: 1, opacity: 1 }}
+            transition={{ duration: 1, delay: 0.6 }}
+          />
+          {/* 右下角裝飾 */}
+          <motion.path
+            d="M 80 95 L 95 95 L 95 80"
+            fill="none"
+            stroke="hsl(var(--primary) / 0.3)"
+            strokeWidth="0.3"
+            strokeLinecap="round"
+            initial={{ pathLength: 0, opacity: 0 }}
+            animate={{ pathLength: 1, opacity: 1 }}
+            transition={{ duration: 1, delay: 0.8 }}
+          />
+        </svg>
       </div>
       
-      {/* 載入指示器 */}
+      {/* 中央載入指示器 - 道家風格 */}
       <motion.div
-        className="relative z-10 flex flex-col items-center gap-3"
-        initial={{ opacity: 0, y: 10 }}
+        className="relative z-10 flex flex-col items-center gap-4"
+        initial={{ opacity: 0, y: 15 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.2 }}
+        transition={{ delay: 0.3, duration: 0.6 }}
       >
+        {/* 陰陽旋轉圖示 */}
         <motion.div
+          className="relative w-12 h-12"
           animate={{ rotate: 360 }}
-          transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
+          transition={{ duration: 4, repeat: Infinity, ease: 'linear' }}
         >
-          <Loader2 className="w-8 h-8 text-primary/60" />
+          <svg viewBox="0 0 100 100" className="w-full h-full">
+            {/* 外圈 */}
+            <circle
+              cx="50"
+              cy="50"
+              r="45"
+              fill="none"
+              stroke="hsl(var(--primary) / 0.2)"
+              strokeWidth="1"
+            />
+            {/* 陰陽符號簡化版 */}
+            <motion.path
+              d="M 50 5 A 45 45 0 0 1 50 95 A 22.5 22.5 0 0 1 50 50 A 22.5 22.5 0 0 0 50 5"
+              fill="hsl(var(--primary) / 0.15)"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: [0.15, 0.3, 0.15] }}
+              transition={{ duration: 2, repeat: Infinity }}
+            />
+            <circle cx="50" cy="27.5" r="5" fill="hsl(var(--primary) / 0.3)" />
+            <circle cx="50" cy="72.5" r="5" fill="hsl(var(--background))" stroke="hsl(var(--primary) / 0.2)" strokeWidth="1" />
+          </svg>
         </motion.div>
-        <span className="text-sm text-muted-foreground font-medium">
-          場景載入中...
-        </span>
         
-        {/* 載入進度提示 */}
-        {loadStartTime && (
-          <motion.div
-            className="flex gap-1 mt-1"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.5 }}
-          >
-            {[0, 1, 2].map((i) => (
-              <motion.div
-                key={i}
-                className="w-1.5 h-1.5 rounded-full bg-primary/40"
-                animate={{
-                  scale: [1, 1.4, 1],
-                  opacity: [0.4, 1, 0.4],
-                }}
-                transition={{
-                  duration: 0.8,
-                  repeat: Infinity,
-                  delay: i * 0.15,
-                }}
-              />
-            ))}
-          </motion.div>
-        )}
+        {/* 載入文字 - 書法風格 */}
+        <motion.span
+          className="text-sm text-primary/60 font-serif-tc tracking-widest"
+          animate={{ opacity: [0.5, 1, 0.5] }}
+          transition={{ duration: 2, repeat: Infinity }}
+        >
+          意境載入中
+        </motion.span>
+        
+        {/* 墨點進度指示 */}
+        <div className="flex gap-2">
+          {[0, 1, 2, 3].map((i) => (
+            <motion.div
+              key={i}
+              className="w-1.5 h-1.5 rounded-full bg-primary/30"
+              animate={{
+                scale: [1, 1.8, 1],
+                opacity: [0.3, 0.8, 0.3],
+              }}
+              transition={{
+                duration: 1.2,
+                repeat: Infinity,
+                delay: i * 0.2,
+                ease: 'easeInOut',
+              }}
+            />
+          ))}
+        </div>
       </motion.div>
       
       {/* 超時提示 */}
@@ -254,16 +386,16 @@ const SceneImage = ({ nodeId, hideOverlay = false, isLoaded: externalLoaded }: S
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 10 }}
           >
-            <div className="bg-background/95 backdrop-blur-sm border border-border/50 rounded-lg px-4 py-3 shadow-lg">
-              <p className="text-sm text-muted-foreground mb-2 text-center">
-                載入時間較長，可能網路較慢
+            <div className="bg-background/95 backdrop-blur-sm border border-primary/20 rounded-lg px-5 py-3 shadow-lg">
+              <p className="text-sm text-muted-foreground mb-2 text-center font-serif-tc">
+                畫卷展開較慢，或許網路正在醞釀...
               </p>
               <button
                 onClick={handleRetryLoad}
-                className="flex items-center justify-center gap-2 w-full px-3 py-1.5 bg-primary/10 hover:bg-primary/20 text-primary text-sm rounded-md transition-colors"
+                className="flex items-center justify-center gap-2 w-full px-3 py-1.5 bg-primary/10 hover:bg-primary/20 text-primary text-sm rounded-md transition-colors font-serif-tc"
               >
                 <RefreshCcw className="w-4 h-4" />
-                重新載入
+                重新繪製
               </button>
             </div>
           </motion.div>
@@ -370,9 +502,9 @@ const SceneImage = ({ nodeId, hideOverlay = false, isLoaded: externalLoaded }: S
 
   return (
     <div className="absolute inset-0 z-0 overflow-hidden">
-      {/* 載入中骨架屏 */}
+      {/* 載入中骨架屏 - 墨水渲染風格 */}
       <AnimatePresence>
-        {!isLoaded && <LoadingSkeleton />}
+        {!isLoaded && <InkLoadingSkeleton />}
       </AnimatePresence>
       
       {/* 過場效果 */}
