@@ -1054,8 +1054,13 @@ export const sceneImages: SceneImageConfig[] = [
 function normalizeNodeId(nodeId: string): string {
   // 移除 yi1- 前綴
   let normalized = nodeId.replace(/^yi1-/, '');
-  // 將 chapterX- 格式轉換為 chapter-X- 格式
+  
+  // 將 chX- 格式轉換為 chapter-X- 格式（ch1- -> chapter-1-）
+  normalized = normalized.replace(/^ch(\d+)-/, 'chapter-$1-');
+  
+  // 將 chapterX- 格式轉換為 chapter-X- 格式（chapter1- -> chapter-1-）
   normalized = normalized.replace(/^chapter(\d+)-/, 'chapter-$1-');
+  
   return normalized;
 }
 
