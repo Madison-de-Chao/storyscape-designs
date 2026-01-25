@@ -1051,7 +1051,7 @@ export const sceneImages: SceneImageConfig[] = [
 ];
 
 // 正規化節點 ID（處理多種格式）
-function normalizeNodeId(nodeId: string): string {
+export function normalizeNodeId(nodeId: string): string {
   // 移除 yi1- 前綴
   let normalized = nodeId.replace(/^yi1-/, '');
   

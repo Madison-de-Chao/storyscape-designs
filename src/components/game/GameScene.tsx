@@ -30,7 +30,7 @@ import { useAchievements } from '@/hooks/useAchievements';
 import { getNodeById } from '@/data/prologueStory';
 // TODO: 第二部節點查詢函數待建立
 import { getYi1NodeById } from '@/data/yi1';
-import { getSceneImage } from '@/data/yi1/sceneImages';
+import { getSceneImage, normalizeNodeId } from '@/data/yi1/sceneImages';
 import { yi1ChaptersMeta } from '@/data/yi1/chapters';
 import { getGraduationImageForNode, type GraduationImageData } from '@/data/yi1/graduationImages';
 
@@ -45,9 +45,8 @@ const PROLOGUE_INTRO_LINES = [
 ];
 
 const normalizeChapterId = (nodeId: string): string => {
-  return nodeId
-    .replace(/^yi1-/, '')
-    .replace(/^(?:ch|chapter)(\d+)-?/, 'chapter-$1-');
+  // 與場景圖片共用正規化邏輯，避免格式分歧
+  return normalizeNodeId(nodeId);
 };
 
 // 根據節點 ID 獲取當前章節標題
