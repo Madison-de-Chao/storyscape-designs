@@ -31,7 +31,7 @@ const MemberStatusBadge: React.FC = () => {
       initial={{ opacity: 0, y: -10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.5 }}
-      className="fixed top-4 right-4 z-30 flex items-center gap-1.5 sm:gap-2"
+      className="fixed top-4 left-4 z-30 flex items-center gap-1.5 sm:gap-2"
     >
       {/* Member badge */}
       <div className="
