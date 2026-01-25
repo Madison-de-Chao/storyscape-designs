@@ -325,11 +325,24 @@ export const useGameStore = create<GameState>()(
         const newArcValue = Math.max(0, Math.min(180, progress.arcValue + choice.arcChange));
         const newShadowLevel = Math.max(-100, Math.min(100, progress.shadowLevel + choice.shadowChange));
         
+        // 更新弧度歷史記錄
+        const arcHistory = progress.arcHistory || [];
+        const newArcHistory = [
+          ...arcHistory.slice(-19),
+          {
+            value: newArcValue,
+            timestamp: Date.now(),
+            nodeId: choice.nextNodeId,
+            change: choice.arcChange,
+          },
+        ];
+        
         const updatedProgress = {
           ...progress,
           arcValue: newArcValue,
           shadowLevel: newShadowLevel,
           currentNodeId: choice.nextNodeId,
+          arcHistory: newArcHistory,
           choicesHistory: {
             ...progress.choicesHistory,
             [choice.id]: choice.text,
