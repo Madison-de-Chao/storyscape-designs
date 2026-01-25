@@ -12,6 +12,8 @@ describe("getSceneLoadingTimeout", () => {
   });
 
   it("caps the timeout for extreme values", () => {
-    expect(getSceneLoadingTimeout("mystical")).toBeLessThanOrEqual(14000);
+    // Use an intentionally invalid effect value to simulate an extreme case
+    const extremeTimeout = getSceneLoadingTimeout("extreme-overload" as any);
+    expect(extremeTimeout).toBeLessThanOrEqual(14000);
   });
 });
