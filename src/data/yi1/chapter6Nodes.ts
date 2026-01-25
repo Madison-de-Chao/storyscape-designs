@@ -52,7 +52,7 @@ export const chapter6Nodes: DialogueNode[] = [
     id: 'yi1-ch6-6',
     speaker: 'wangyangming',
     speakerName: '王陽明',
-    text: '來了？問心跟我說，有一個「做什麼都不對」的人要來見我。',
+    text: '妳又來了。上次在庭院，我看見妳眼裡的迷惘；這次來到龍場，妳準備好向內尋找答案了嗎？',
     nextNodeId: 'yi1-ch6-choice-1',
   },
 

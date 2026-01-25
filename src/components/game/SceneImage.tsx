@@ -1067,32 +1067,32 @@ const SceneImage = ({ nodeId, hideOverlay = false, isLoaded: externalLoaded }: S
             transition={{ duration: 0.5 }}
             className="absolute inset-0 z-20"
           >
-            {/* 頂部漸變 - 更輕薄 */}
+            {/* 頂部漸變 - 極輕薄 */}
             <div 
-              className="absolute inset-x-0 top-0 h-32 z-10"
+              className="absolute inset-x-0 top-0 h-24 z-10"
               style={{
-                background: 'linear-gradient(to bottom, hsl(var(--background) / 0.6) 0%, hsl(var(--background) / 0.2) 50%, transparent 100%)',
+                background: 'linear-gradient(to bottom, hsl(var(--background) / 0.35) 0%, hsl(var(--background) / 0.1) 50%, transparent 100%)',
               }}
             />
-            {/* 底部漸變 - 更輕薄，讓圖片更清晰 */}
+            {/* 底部漸變 - 更輕薄，讓圖片更清晰可見 */}
             <div 
-              className="absolute inset-x-0 bottom-0 h-[40%] z-10"
+              className="absolute inset-x-0 bottom-0 h-[35%] z-10"
               style={{
-                background: 'linear-gradient(to top, hsl(var(--background) / 0.9) 0%, hsl(var(--background) / 0.6) 30%, hsl(var(--background) / 0.2) 60%, transparent 100%)',
+                background: 'linear-gradient(to top, hsl(var(--background) / 0.75) 0%, hsl(var(--background) / 0.4) 30%, hsl(var(--background) / 0.1) 60%, transparent 100%)',
               }}
             />
-            {/* 邊角暗化 - 更輕 */}
+            {/* 邊角暗化 - 極輕 */}
             <div 
               className="absolute inset-0 z-10 pointer-events-none"
               style={{
-                background: 'radial-gradient(ellipse 90% 90% at center, transparent 50%, hsl(var(--background) / 0.25) 100%)',
+                background: 'radial-gradient(ellipse 95% 95% at center, transparent 60%, hsl(var(--background) / 0.15) 100%)',
               }}
             />
-            {/* 左右邊緣 - 更輕 */}
+            {/* 左右邊緣 - 極輕 */}
             <div 
               className="absolute inset-0 z-10 pointer-events-none"
               style={{
-                background: 'linear-gradient(90deg, hsl(var(--background) / 0.15) 0%, transparent 10%, transparent 90%, hsl(var(--background) / 0.15) 100%)',
+                background: 'linear-gradient(90deg, hsl(var(--background) / 0.08) 0%, transparent 8%, transparent 92%, hsl(var(--background) / 0.08) 100%)',
               }}
             />
           </motion.div>

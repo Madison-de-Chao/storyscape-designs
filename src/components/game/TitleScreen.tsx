@@ -11,6 +11,8 @@ import AudioControls from './AudioControls';
 import SFXGenerator from './SFXGenerator';
 import MusicGenerator from './MusicGenerator';
 import AchievementsOverview from './AchievementsOverview';
+import yi1Cover from '@/assets/covers/yi1-cover.png';
+import yi2Cover from '@/assets/covers/yi2-cover.png';
 
 const TitleScreen = () => {
   const { startGame, resetGame, yiProgress, yiPart2Progress } = useGameStore();
@@ -146,125 +148,129 @@ const TitleScreen = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 1.8 }}
         >
-          {/* 第一部：壹 - 手機尺寸優化 */}
+          {/* 第一部：壹 - 封面圖片版 */}
           <button
             onClick={() => {
               playSFX('select');
               startGame('yi');
             }}
             className="
-              group relative w-56 sm:w-64 md:w-72 py-6 sm:py-8 px-4 sm:px-6
-              bg-card/30 backdrop-blur-sm
-              border border-primary/30 hover:border-primary/60
+              group relative w-40 sm:w-48 md:w-56
               rounded-xl sm:rounded-2xl
               transition-all duration-500
               overflow-hidden
               touch-manipulation
+              shadow-lg hover:shadow-xl hover:shadow-primary/20
+              border border-primary/20 hover:border-primary/50
             "
           >
-            {/* 背景光暈 */}
-            <div className="
-              absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent
-              opacity-0 group-hover:opacity-100
-              transition-opacity duration-500
-            " />
-            
-            {/* 內容 - 手機字體優化 */}
-            <div className="relative z-10">
-              <div className="text-[10px] sm:text-xs text-muted-foreground tracking-widest mb-1 sm:mb-2">第一部</div>
-              <h2 className="text-xl sm:text-2xl md:text-3xl font-serif-tc font-bold text-foreground mb-1">
-                弧度歸零
-              </h2>
-              <div className="text-2xl sm:text-3xl md:text-4xl font-serif-tc font-bold text-primary text-glow">
-                壹
-              </div>
+            {/* 封面圖片 */}
+            <div className="relative aspect-[2/3] w-full">
+              <img 
+                src={yi1Cover} 
+                alt="弧度歸零：壹 封面"
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+              />
+              {/* 懸浮時的光暈效果 */}
+              <div className="
+                absolute inset-0 bg-gradient-to-t from-primary/20 via-transparent to-transparent
+                opacity-0 group-hover:opacity-100
+                transition-opacity duration-500
+              " />
+              {/* 進度標籤 */}
               {yiProgress.hasStarted && (
-                <div className="mt-2 sm:mt-3 text-[10px] sm:text-xs text-primary/70">
+                <div className="
+                  absolute bottom-2 left-2 right-2
+                  px-2 py-1 rounded-lg
+                  bg-background/80 backdrop-blur-sm
+                  text-[10px] sm:text-xs text-primary text-center
+                  border border-primary/30
+                ">
                   進度：{yiProgress.arcValue}°
                 </div>
               )}
             </div>
 
-            {/* 章節選擇按鈕 - 手機上始終可見 */}
+            {/* 章節選擇按鈕 */}
             <button
               onClick={(e) => {
                 e.stopPropagation();
                 setIsChapterSelectOpen(true);
               }}
               className="
-                absolute top-2 right-2 sm:top-3 sm:right-3 p-1.5 sm:p-2 
-                rounded-lg bg-primary/10 hover:bg-primary/20
+                absolute top-2 right-2 p-1.5 sm:p-2 
+                rounded-lg bg-background/60 backdrop-blur-sm hover:bg-background/80
                 text-primary/70 hover:text-primary
                 transition-all duration-300
-                sm:opacity-0 sm:group-hover:opacity-100
+                border border-primary/20
                 touch-manipulation
               "
               title="章節選擇"
             >
               <BookOpen className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
             </button>
-
-            {/* 底部裝飾線 */}
-            <div className="
-              absolute bottom-0 left-1/2 -translate-x-1/2 
-              w-0 group-hover:w-3/4 h-0.5 
-              bg-gradient-to-r from-transparent via-primary to-transparent
-              transition-all duration-500
-            " />
           </button>
 
           {/* 分隔線 - 手機上更小 */}
           <div className="hidden md:block w-px h-24 bg-border/50" />
           <div className="md:hidden w-16 sm:w-24 h-px bg-border/50" />
 
-          {/* 第二部：伊 (製作中) - 手機尺寸優化 */}
+          {/* 第二部：伊 (製作中) - 封面圖片版 */}
           <div
             className="
-              group relative w-56 sm:w-64 md:w-72 py-6 sm:py-8 px-4 sm:px-6
-              bg-card/20 backdrop-blur-sm
-              border border-muted/30
+              group relative w-40 sm:w-48 md:w-56
               rounded-xl sm:rounded-2xl
               overflow-hidden
-              opacity-60 cursor-not-allowed
+              cursor-not-allowed
+              border border-muted/30
             "
           >
-            {/* 製作中標籤 */}
-            <div className="
-              absolute top-2 right-2 sm:top-3 sm:right-3 
-              px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-full
-              bg-muted/30 backdrop-blur-sm
-              border border-muted/40
-              text-[8px] sm:text-[10px] text-muted-foreground tracking-wider
-            ">
-              製作中
-            </div>
-            
-            {/* 內容 - 手機字體優化 */}
-            <div className="relative z-10">
-              <div className="text-[10px] sm:text-xs text-muted-foreground/60 tracking-widest mb-1 sm:mb-2">第二部</div>
-              <h2 className="text-xl sm:text-2xl md:text-3xl font-serif-tc font-bold text-muted-foreground/70 mb-1">
-                弧度歸零
-              </h2>
-              <div className="text-2xl sm:text-3xl md:text-4xl font-serif-tc font-bold text-muted-foreground/50">
-                伊
-              </div>
-              <div className="mt-2 sm:mt-3 text-[10px] sm:text-xs text-muted-foreground/40">
-                敬請期待
-              </div>
-            </div>
-
-            {/* 裝飾性掃描線動畫 */}
-            <div className="
-              absolute inset-0 pointer-events-none overflow-hidden
-            ">
+            {/* 封面圖片 - 灰度處理 */}
+            <div className="relative aspect-[2/3] w-full">
+              <img 
+                src={yi2Cover} 
+                alt="弧度歸零：伊 封面"
+                className="w-full h-full object-cover grayscale opacity-60"
+              />
+              {/* 製作中遮罩 */}
+              <div className="absolute inset-0 bg-background/40 backdrop-blur-[1px]" />
+              
+              {/* 製作中標籤 */}
               <div className="
-                absolute w-full h-px bg-gradient-to-r from-transparent via-muted-foreground/20 to-transparent
-                animate-pulse
-              " style={{ top: '30%' }} />
+                absolute top-2 right-2
+                px-2 py-1 rounded-full
+                bg-background/70 backdrop-blur-sm
+                border border-muted/40
+                text-[10px] sm:text-xs text-muted-foreground tracking-wider
+              ">
+                製作中
+              </div>
+              
+              {/* 敬請期待文字 */}
               <div className="
-                absolute w-full h-px bg-gradient-to-r from-transparent via-muted-foreground/10 to-transparent
-                animate-pulse
-              " style={{ top: '70%', animationDelay: '1s' }} />
+                absolute inset-0 flex items-center justify-center
+              ">
+                <div className="
+                  px-4 py-2 rounded-lg
+                  bg-background/60 backdrop-blur-sm
+                  border border-muted/30
+                  text-sm text-muted-foreground font-serif-tc
+                ">
+                  敬請期待
+                </div>
+              </div>
+              
+              {/* 裝飾性掃描線動畫 */}
+              <div className="absolute inset-0 pointer-events-none overflow-hidden">
+                <div 
+                  className="absolute w-full h-px bg-gradient-to-r from-transparent via-muted-foreground/20 to-transparent animate-pulse"
+                  style={{ top: '30%' }} 
+                />
+                <div 
+                  className="absolute w-full h-px bg-gradient-to-r from-transparent via-muted-foreground/10 to-transparent animate-pulse"
+                  style={{ top: '70%', animationDelay: '1s' }} 
+                />
+              </div>
             </div>
           </div>
         </motion.div>
