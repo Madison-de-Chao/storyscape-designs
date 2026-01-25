@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { SkipForward } from 'lucide-react';
+import { SkipForward, Volume2, VolumeX } from 'lucide-react';
+import { useBGM } from '@/hooks/useAudio';
 
 interface IntroVideoProps {
   onComplete: () => void;
@@ -11,15 +12,22 @@ const IntroVideo = ({ onComplete }: IntroVideoProps) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [showSkip, setShowSkip] = useState(false);
   const [isFadingOut, setIsFadingOut] = useState(false);
+  const [isMuted, setIsMuted] = useState(false);
+  const { stopBGM } = useBGM();
 
+  // 開始播放時停止背景音樂
   useEffect(() => {
+    // 立即停止任何正在播放的 BGM
+    stopBGM(true);
+    
     // 顯示跳過按鈕延遲（讓玩家先體驗一下）
     const skipTimer = setTimeout(() => setShowSkip(true), 2000);
     return () => clearTimeout(skipTimer);
-  }, []);
+  }, [stopBGM]);
 
   const handleVideoEnd = () => {
     setIsFadingOut(true);
+    // 淡出後通知完成，讓遊戲場景處理後續 BGM
     setTimeout(onComplete, 800);
   };
 
@@ -35,9 +43,32 @@ const IntroVideo = ({ onComplete }: IntroVideoProps) => {
     setIsLoaded(true);
     if (videoRef.current) {
       videoRef.current.play().catch(() => {
-        // 自動播放被阻止時，仍然顯示影片
-        console.log('Autoplay blocked, waiting for user interaction');
+        // 自動播放被阻止時，設為靜音後重試
+        console.log('Autoplay blocked, trying muted playback');
+        if (videoRef.current) {
+          videoRef.current.muted = true;
+          setIsMuted(true);
+          videoRef.current.play().catch(() => {
+            console.log('Even muted autoplay blocked');
+          });
+        }
       });
+    }
+  };
+
+  const toggleMute = () => {
+    if (videoRef.current) {
+      videoRef.current.muted = !videoRef.current.muted;
+      setIsMuted(videoRef.current.muted);
+    }
+  };
+
+  const handlePlayClick = () => {
+    if (videoRef.current?.paused) {
+      // 用戶互動後可以取消靜音
+      videoRef.current.muted = false;
+      setIsMuted(false);
+      videoRef.current.play();
     }
   };
 
@@ -75,41 +106,63 @@ const IntroVideo = ({ onComplete }: IntroVideoProps) => {
           className="w-full h-full object-contain"
           src="/videos/intro.mp4"
           playsInline
-          muted={false}
           onLoadedData={handleVideoLoaded}
           onEnded={handleVideoEnd}
-          onClick={() => {
-            // 點擊可以播放（處理自動播放被阻止的情況）
-            if (videoRef.current?.paused) {
-              videoRef.current.play();
-            }
-          }}
+          onClick={handlePlayClick}
         />
 
-        {/* 跳過按鈕 */}
+        {/* 控制按鈕區 */}
         <AnimatePresence>
           {showSkip && !isFadingOut && (
-            <motion.button
-              className="
-                absolute bottom-8 right-8
-                flex items-center gap-2
-                px-4 py-2 rounded-full
-                bg-background/30 backdrop-blur-sm
-                border border-white/20
-                text-white/80 hover:text-white
-                text-sm font-serif-tc
-                transition-all duration-300
-                hover:bg-background/50
-              "
+            <motion.div
+              className="absolute bottom-8 right-8 flex items-center gap-3"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 20 }}
               transition={{ duration: 0.3 }}
-              onClick={handleSkip}
             >
-              <span>跳過</span>
-              <SkipForward className="w-4 h-4" />
-            </motion.button>
+              {/* 靜音切換按鈕 */}
+              <motion.button
+                className="
+                  flex items-center justify-center
+                  w-10 h-10 rounded-full
+                  bg-background/30 backdrop-blur-sm
+                  border border-white/20
+                  text-white/80 hover:text-white
+                  transition-all duration-300
+                  hover:bg-background/50
+                "
+                onClick={toggleMute}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                {isMuted ? (
+                  <VolumeX className="w-4 h-4" />
+                ) : (
+                  <Volume2 className="w-4 h-4" />
+                )}
+              </motion.button>
+
+              {/* 跳過按鈕 */}
+              <motion.button
+                className="
+                  flex items-center gap-2
+                  px-4 py-2 rounded-full
+                  bg-background/30 backdrop-blur-sm
+                  border border-white/20
+                  text-white/80 hover:text-white
+                  text-sm font-serif-tc
+                  transition-all duration-300
+                  hover:bg-background/50
+                "
+                onClick={handleSkip}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <span>跳過</span>
+                <SkipForward className="w-4 h-4" />
+              </motion.button>
+            </motion.div>
           )}
         </AnimatePresence>
 
@@ -119,7 +172,7 @@ const IntroVideo = ({ onComplete }: IntroVideoProps) => {
             className="absolute inset-0 flex items-center justify-center cursor-pointer"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            onClick={() => videoRef.current?.play()}
+            onClick={handlePlayClick}
           >
             <div className="text-center">
               <motion.div
@@ -135,6 +188,29 @@ const IntroVideo = ({ onComplete }: IntroVideoProps) => {
             </div>
           </motion.div>
         )}
+
+        {/* 靜音提示 */}
+        <AnimatePresence>
+          {isLoaded && isMuted && !videoRef.current?.paused && (
+            <motion.div
+              className="absolute top-8 left-1/2 -translate-x-1/2"
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+            >
+              <div className="
+                flex items-center gap-2
+                px-4 py-2 rounded-full
+                bg-background/50 backdrop-blur-sm
+                border border-white/10
+                text-white/60 text-xs font-serif-tc
+              ">
+                <VolumeX className="w-3 h-3" />
+                <span>點擊右下角按鈕開啟聲音</span>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </motion.div>
     </AnimatePresence>
   );
