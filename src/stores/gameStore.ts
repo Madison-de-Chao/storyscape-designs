@@ -71,6 +71,8 @@ export interface DialogueNode {
   bgImage?: string;
   // 是否為結局節點
   isEnd?: boolean;
+  // 畢業圖片路徑（課程總結時顯示的特殊圖片）
+  graduationImage?: string;
   // 禪意時刻的配置（僅當 specialScene === 'zen' 時使用）
   zenConfig?: {
     text: string;          // 顯示的主文字

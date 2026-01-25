@@ -16,6 +16,7 @@ import EndingStats from './EndingStats';
 import IntroSequence from './IntroSequence';
 import ZenMoment from './ZenMoment';
 import RevelationMoment from './RevelationMoment';
+import GraduationMoment from './GraduationMoment';
 import JourneyReflection from './JourneyReflection';
 import ScoreChange from './ScoreChange';
 import ProgressHUD from './ProgressHUD';
@@ -26,6 +27,7 @@ import { getNodeById } from '@/data/prologueStory';
 import { getYi1NodeById } from '@/data/yi1';
 import { getSceneImage } from '@/data/yi1/sceneImages';
 import { yi1ChaptersMeta } from '@/data/yi1/chapters';
+import { getGraduationImageForNode, type GraduationImageData } from '@/data/yi1/graduationImages';
 
 // 序章開場詩句（直排禪意動畫）
 const PROLOGUE_INTRO_LINES = [
@@ -129,6 +131,11 @@ const GameScene = () => {
   } | null>(null);
   const revelationShownRef = useRef<Set<string>>(new Set());
   
+  // 畢業時刻狀態
+  const [showGraduation, setShowGraduation] = useState(false);
+  const [graduationData, setGraduationData] = useState<GraduationImageData | null>(null);
+  const graduationShownRef = useRef<Set<string>>(new Set());
+  
   // 章節轉場狀態
   const [isChapterTransition, setIsChapterTransition] = useState(false);
   const [transitionChapterTitle, setTransitionChapterTitle] = useState('');
@@ -222,6 +229,27 @@ const GameScene = () => {
   const handleRevelationComplete = useCallback(() => {
     setShowRevelation(false);
     setRevelationConfig(null);
+    // 恢復播放背景音樂
+    const bgmType = getBGMForNode(currentNodeId);
+    playBGM(bgmType);
+  }, [currentNodeId, playBGM]);
+
+  // 檢測畢業時刻（章節結尾的畢業圖）
+  useEffect(() => {
+    const gradData = getGraduationImageForNode(currentNodeId);
+    if (gradData && !graduationShownRef.current.has(currentNodeId)) {
+      graduationShownRef.current.add(currentNodeId);
+      // 淡出 BGM，進入畢業時刻
+      stopBGM(true);
+      setGraduationData(gradData);
+      setShowGraduation(true);
+    }
+  }, [currentNodeId, stopBGM]);
+
+  // 畢業時刻結束後恢復 BGM
+  const handleGraduationComplete = useCallback(() => {
+    setShowGraduation(false);
+    setGraduationData(null);
     // 恢復播放背景音樂
     const bgmType = getBGMForNode(currentNodeId);
     playBGM(bgmType);
@@ -352,6 +380,15 @@ const GameScene = () => {
           onComplete={handleRevelationComplete}
           duration={revelationConfig.duration || 5000}
           theme={revelationConfig.theme || 'golden'}
+        />
+      )}
+
+      {/* 畢業時刻（章節結尾的畢業圖展示） */}
+      {showGraduation && graduationData && (
+        <GraduationMoment
+          data={graduationData}
+          onComplete={handleGraduationComplete}
+          duration={7000}
         />
       )}
 
