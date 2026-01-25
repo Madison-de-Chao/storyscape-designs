@@ -2,6 +2,17 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { LogOut, User } from 'lucide-react';
 import { useMemberStore } from '@/stores/memberStore';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from '@/components/ui/alert-dialog';
 
 const MemberStatusBadge: React.FC = () => {
   const { member, logout, isAuthenticated } = useMemberStore();
@@ -41,24 +52,46 @@ const MemberStatusBadge: React.FC = () => {
         </span>
       </div>
 
-      {/* Logout button */}
-      <motion.button
-        onClick={logout}
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
-        className="
-          p-2 rounded-full
-          bg-stone-900/80 backdrop-blur-sm
-          border border-stone-700/50
-          text-stone-400 hover:text-red-400
-          hover:border-red-500/50
-          transition-colors
-          touch-manipulation
-        "
-        title="登出"
-      >
-        <LogOut className="w-4 h-4" />
-      </motion.button>
+      {/* Logout button with confirmation */}
+      <AlertDialog>
+        <AlertDialogTrigger asChild>
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="
+              p-2 rounded-full
+              bg-stone-900/80 backdrop-blur-sm
+              border border-stone-700/50
+              text-stone-400 hover:text-red-400
+              hover:border-red-500/50
+              transition-colors
+              touch-manipulation
+            "
+            title="登出"
+          >
+            <LogOut className="w-4 h-4" />
+          </motion.button>
+        </AlertDialogTrigger>
+        <AlertDialogContent className="bg-stone-900 border-stone-700">
+          <AlertDialogHeader>
+            <AlertDialogTitle className="text-stone-100">確認登出</AlertDialogTitle>
+            <AlertDialogDescription className="text-stone-400">
+              登出後需要重新驗證會員身份才能繼續遊玩，確定要登出嗎？
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel className="bg-stone-800 border-stone-700 text-stone-300 hover:bg-stone-700 hover:text-stone-100">
+              取消
+            </AlertDialogCancel>
+            <AlertDialogAction
+              onClick={logout}
+              className="bg-red-600 hover:bg-red-500 text-white"
+            >
+              確認登出
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </motion.div>
   );
 };
