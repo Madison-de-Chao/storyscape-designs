@@ -6,14 +6,12 @@ import { RefreshCcw } from 'lucide-react';
 import { usePreloadNextScene } from '@/hooks/usePreloadNextScene';
 import { useProgressiveImage } from '@/hooks/useProgressiveImage';
 import { getChapterTheme, themeToHSL, themeToGlow } from '@/utils/chapterThemes';
+import { getSceneLoadingTimeout, type SceneEffectType } from '@/utils/sceneImageLoading';
 interface SceneImageProps {
   nodeId: string;
   hideOverlay?: boolean;
   isLoaded?: boolean;
 }
-
-// 場景特效類型
-type SceneEffectType = 'default' | 'glitch' | 'ethereal' | 'dramatic' | 'mystical' | 'warm' | 'dark' | 'poetic';
 
 // 根據場景名稱獲取特效類型
 const getSceneEffect = (alt: string): SceneEffectType => {
@@ -44,16 +42,12 @@ const getSceneEffect = (alt: string): SceneEffectType => {
   return 'default';
 };
 
-// 超時時間常量 (毫秒)
-const LOADING_TIMEOUT = 8000;
-
 const SceneImage = ({ nodeId, hideOverlay = false, isLoaded: externalLoaded }: SceneImageProps) => {
   const [currentImage, setCurrentImage] = useState<SceneImageConfig | null>(null);
   const [prevImage, setPrevImage] = useState<SceneImageConfig | null>(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [showTransitionEffect, setShowTransitionEffect] = useState(false);
   const [showTimeoutPrompt, setShowTimeoutPrompt] = useState(false);
-  const [loadStartTime, setLoadStartTime] = useState<number | null>(null);
   const { unlockImage } = useGameStore();
   const transitionTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const loadingTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -92,7 +86,6 @@ const SceneImage = ({ nodeId, hideOverlay = false, isLoaded: externalLoaded }: S
       
       setIsLoaded(false);
       setShowTimeoutPrompt(false);
-      setLoadStartTime(Date.now());
       setCurrentImage(sceneImage);
       
       // 清除之前的超時計時器
@@ -100,10 +93,11 @@ const SceneImage = ({ nodeId, hideOverlay = false, isLoaded: externalLoaded }: S
         clearTimeout(loadingTimeoutRef.current);
       }
       
-      // 設置新的超時計時器
+      // 設置新的超時計時器（場景類型調整）
+      const timeoutDuration = getSceneLoadingTimeout(sceneEffect);
       loadingTimeoutRef.current = setTimeout(() => {
         setShowTimeoutPrompt(true);
-      }, LOADING_TIMEOUT);
+      }, timeoutDuration);
       
       if (sceneImage) {
         unlockImage(sceneImage.image);
@@ -135,7 +129,6 @@ const SceneImage = ({ nodeId, hideOverlay = false, isLoaded: externalLoaded }: S
     if (currentImage) {
       setIsLoaded(false);
       setShowTimeoutPrompt(false);
-      setLoadStartTime(Date.now());
       
       // 強制重新載入圖片 (加上時間戳避免快取)
       const img = new Image();
@@ -150,9 +143,10 @@ const SceneImage = ({ nodeId, hideOverlay = false, isLoaded: externalLoaded }: S
       if (loadingTimeoutRef.current) {
         clearTimeout(loadingTimeoutRef.current);
       }
+      const timeoutDuration = getSceneLoadingTimeout(sceneEffect);
       loadingTimeoutRef.current = setTimeout(() => {
         setShowTimeoutPrompt(true);
-      }, LOADING_TIMEOUT);
+      }, timeoutDuration);
     }
   };
 
@@ -536,7 +530,7 @@ const SceneImage = ({ nodeId, hideOverlay = false, isLoaded: externalLoaded }: S
   const entryAnimation = getEntryAnimation();
 
   return (
-    <div className="absolute inset-0 z-0 overflow-hidden">
+    <div className="absolute inset-0 z-0 overflow-hidden" style={{ contain: 'layout paint' }}>
       {/* 載入中骨架屏 - 墨水渲染風格 */}
       <AnimatePresence>
         {!isLoaded && <InkLoadingSkeleton />}

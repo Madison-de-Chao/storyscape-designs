@@ -584,7 +584,8 @@ const DialogueBox = ({ isHidden = false, onToggleHide, onScoreChange }: Dialogue
       <AnimatePresence mode="wait">
         {!isHidden && (
           <motion.div
-            className="fixed bottom-0 left-0 right-0 z-40 p-2 pb-4 sm:p-4 md:p-6 lg:p-8"
+            className="fixed bottom-0 left-0 right-0 z-40 max-h-[55vh] overflow-y-auto p-2 pb-4 sm:max-h-none sm:overflow-visible sm:p-4 md:p-6 lg:p-8"
+            style={{ overscrollBehavior: 'contain', contain: 'layout paint' }}
             initial={{ opacity: 0, y: 60, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 40, scale: 0.98 }}
