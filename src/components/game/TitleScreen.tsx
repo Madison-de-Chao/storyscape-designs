@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { BookOpen, Image, Music, Volume2, Trophy } from 'lucide-react';
+import { BookOpen, Image, Music, Volume2, Trophy, Play } from 'lucide-react';
 import { useGameStore } from '@/stores/gameStore';
 import { useSFX, useBGM } from '@/hooks/useAudio';
 import { useAchievements } from '@/hooks/useAchievements';
@@ -16,7 +16,7 @@ import yi1Cover from '@/assets/covers/yi1-cover.png';
 import yi2Cover from '@/assets/covers/yi2-cover.png';
 
 const TitleScreen = () => {
-  const { startGame, resetGame, yiProgress, yiPart2Progress } = useGameStore();
+  const { startGame, resetGame, yiProgress, yiPart2Progress, getSaveSlots, loadGame } = useGameStore();
   const hasAnyProgress = yiProgress.hasStarted || yiPart2Progress.hasStarted;
   const [isChapterSelectOpen, setIsChapterSelectOpen] = useState(false);
   const [isGalleryOpen, setIsGalleryOpen] = useState(false);
@@ -29,6 +29,20 @@ const TitleScreen = () => {
   
   // 計算已解鎖的圖片數量
   const galleryCount = (yiProgress.unlockedImages || []).length;
+
+  // 取得最新存檔
+  const allSaves = getSaveSlots();
+  const latestSave = allSaves.length > 0 
+    ? allSaves.sort((a, b) => b.savedAt - a.savedAt)[0] 
+    : null;
+
+  // 處理繼續遊戲
+  const handleContinue = () => {
+    if (latestSave) {
+      playSFX('select');
+      loadGame(latestSave.id);
+    }
+  };
 
   // 播放標題畫面背景音樂
   useEffect(() => {
@@ -144,6 +158,59 @@ const TitleScreen = () => {
         >
           完整不是沒有缺口，完整是不再害怕缺口
         </motion.p>
+
+        {/* 繼續遊戲按鈕 - 當有存檔時顯示 */}
+        {latestSave && (
+          <motion.button
+            onClick={handleContinue}
+            className="
+              group relative mb-6 sm:mb-8 px-8 sm:px-12 py-3 sm:py-4
+              rounded-xl sm:rounded-2xl
+              overflow-hidden
+              touch-manipulation
+              shadow-lg hover:shadow-xl hover:shadow-primary/30
+              border border-primary/40 hover:border-primary/70
+              bg-gradient-to-r from-primary/20 to-amber-600/20
+              transition-all duration-300
+            "
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 1.6 }}
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+          >
+            {/* 背景光暈 */}
+            <motion.div
+              className="absolute inset-0 bg-gradient-to-r from-primary/30 via-amber-500/20 to-primary/30 opacity-0 group-hover:opacity-100"
+              animate={{
+                backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
+              }}
+              transition={{
+                duration: 3,
+                repeat: Infinity,
+                ease: "linear",
+              }}
+            />
+            
+            {/* 按鈕內容 */}
+            <div className="relative flex items-center gap-3">
+              <motion.div
+                animate={{ x: [0, 3, 0] }}
+                transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+              >
+                <Play className="w-5 h-5 sm:w-6 sm:h-6 text-primary fill-primary/30" />
+              </motion.div>
+              <div className="text-left">
+                <span className="block text-base sm:text-lg font-medium text-stone-100">
+                  繼續遊戲
+                </span>
+                <span className="block text-[10px] sm:text-xs text-stone-400">
+                  {latestSave.currentChapterTitle}
+                </span>
+              </div>
+            </div>
+          </motion.button>
+        )}
 
         {/* 兩個入口 - 手機優化佈局 */}
         <motion.div
