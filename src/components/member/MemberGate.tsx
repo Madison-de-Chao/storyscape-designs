@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Mail, Loader2, AlertCircle, LogOut, CheckCircle2 } from 'lucide-react';
 import { useMemberStore } from '@/stores/memberStore';
+import { useGameStore } from '@/stores/gameStore';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 
@@ -26,14 +27,20 @@ const MemberGate: React.FC<MemberGateProps> = ({ children }) => {
   // Check if already authenticated
   const authenticated = isAuthenticated();
 
+  const returnToTitle = useGameStore((state) => state.returnToTitle);
+
   // Show welcome animation when first authenticated
   useEffect(() => {
     if (authenticated && member) {
       setShowWelcome(true);
-      const timer = setTimeout(() => setShowWelcome(false), 2000);
+      const timer = setTimeout(() => {
+        setShowWelcome(false);
+        // 確保登入後回到標題畫面，而非直接開始遊戲
+        returnToTitle();
+      }, 2000);
       return () => clearTimeout(timer);
     }
-  }, [authenticated, member]);
+  }, [authenticated, member, returnToTitle]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
