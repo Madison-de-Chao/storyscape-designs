@@ -15,7 +15,7 @@ interface ChapterInfo {
 const implementedChapters: ChapterInfo[] = [
   {
     id: 'preface',
-    startNodeId: 'preface-1',
+    startNodeId: 'yi1-preface-1',
     title: '作者序',
     subtitle: '致那個等待被擁抱的你',
     unlocked: true,
@@ -29,21 +29,21 @@ const implementedChapters: ChapterInfo[] = [
   },
   {
     id: 'chapter-1',
-    startNodeId: 'yi1-chapter-1-intro-1',
+    startNodeId: 'yi1-ch1-intro',
     title: '第一章',
     subtitle: '刪除',
     unlocked: true,
   },
   {
     id: 'chapter-2',
-    startNodeId: 'yi1-chapter-2-intro-1',
+    startNodeId: 'yi1-ch2-intro',
     title: '第二章',
     subtitle: '渡口',
     unlocked: true,
   },
   {
     id: 'chapter-3',
-    startNodeId: 'yi1-chapter-3-intro-1',
+    startNodeId: 'yi1-ch3-intro',
     title: '第三章',
     subtitle: '真相',
     character: '王陽明',
@@ -51,7 +51,7 @@ const implementedChapters: ChapterInfo[] = [
   },
   {
     id: 'chapter-4',
-    startNodeId: 'yi1-chapter-4-intro-1',
+    startNodeId: 'yi1-ch4-intro',
     title: '第四章',
     subtitle: '命樹',
     character: '蘇軾',
@@ -59,7 +59,7 @@ const implementedChapters: ChapterInfo[] = [
   },
   {
     id: 'chapter-5',
-    startNodeId: 'yi1-chapter-5-intro-1',
+    startNodeId: 'yi1-ch5-intro',
     title: '第五章',
     subtitle: '也無風雨',
     character: '蘇軾',
@@ -67,7 +67,7 @@ const implementedChapters: ChapterInfo[] = [
   },
   {
     id: 'chapter-6',
-    startNodeId: 'yi1-chapter-6-intro-1',
+    startNodeId: 'yi1-ch6-intro',
     title: '第六章',
     subtitle: '吾性自足',
     character: '王陽明',
@@ -75,7 +75,7 @@ const implementedChapters: ChapterInfo[] = [
   },
   {
     id: 'chapter-7',
-    startNodeId: 'chapter7-1',
+    startNodeId: 'yi1-ch7-intro',
     title: '第七章',
     subtitle: '誰定的規矩',
     character: '武則天',
@@ -83,7 +83,7 @@ const implementedChapters: ChapterInfo[] = [
   },
   {
     id: 'chapter-8',
-    startNodeId: 'chapter8-1',
+    startNodeId: 'yi1-ch8-intro',
     title: '第八章',
     subtitle: '筆比命長',
     character: '司馬遷',
@@ -91,7 +91,7 @@ const implementedChapters: ChapterInfo[] = [
   },
   {
     id: 'chapter-9',
-    startNodeId: 'chapter9-1',
+    startNodeId: 'yi1-ch9-intro',
     title: '第九章',
     subtitle: '天生我材',
     character: '李白',
@@ -99,7 +99,7 @@ const implementedChapters: ChapterInfo[] = [
   },
   {
     id: 'chapter-10',
-    startNodeId: 'chapter10-1',
+    startNodeId: 'yi1-ch10-intro',
     title: '第十章',
     subtitle: '心靈之眼',
     character: '海倫凱勒',
@@ -107,7 +107,7 @@ const implementedChapters: ChapterInfo[] = [
   },
   {
     id: 'chapter-11',
-    startNodeId: 'chapter11-1',
+    startNodeId: 'yi1-ch11-intro',
     title: '第十一章',
     subtitle: '毒藥',
     character: '曼德拉',
@@ -115,7 +115,7 @@ const implementedChapters: ChapterInfo[] = [
   },
   {
     id: 'chapter-12',
-    startNodeId: 'chapter12-1',
+    startNodeId: 'yi1-ch12-intro',
     title: '第十二章',
     subtitle: '星夜',
     character: '梵谷',
@@ -123,7 +123,7 @@ const implementedChapters: ChapterInfo[] = [
   },
   {
     id: 'chapter-13',
-    startNodeId: 'chapter13-1',
+    startNodeId: 'yi1-ch13-intro',
     title: '第十三章',
     subtitle: '連結點',
     character: '賈伯斯',
@@ -131,14 +131,14 @@ const implementedChapters: ChapterInfo[] = [
   },
   {
     id: 'chapter-14',
-    startNodeId: 'chapter14-1',
+    startNodeId: 'yi1-ch14-intro',
     title: '第十四章',
     subtitle: '未歸者畫廊',
     unlocked: true,
   },
   {
     id: 'chapter-15',
-    startNodeId: 'chapter15-1',
+    startNodeId: 'yi1-ch15-intro',
     title: '第十五章',
     subtitle: '伊',
     character: '伊',
@@ -146,14 +146,14 @@ const implementedChapters: ChapterInfo[] = [
   },
   {
     id: 'chapter-16',
-    startNodeId: 'chapter16-1',
+    startNodeId: 'yi1-ch16-intro',
     title: '第十六章',
     subtitle: '一歸一',
     unlocked: true,
   },
   {
     id: 'epilogue',
-    startNodeId: 'epilogue-1',
+    startNodeId: 'yi1-epilogue-intro',
     title: '終章',
     subtitle: '名字',
     unlocked: true,

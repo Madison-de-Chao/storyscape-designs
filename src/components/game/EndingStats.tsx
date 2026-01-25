@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useGameStore } from '@/stores/gameStore';
-import { X, Sparkles, Palette, GitBranch, BookOpen, Clock, Trophy, Star, AlertCircle, Map, Award, Lock, Compass, Eye, Book, Zap, Flame, Heart, Shield } from 'lucide-react';
+import { X, Sparkles, Palette, GitBranch, BookOpen, Clock, Trophy, Star, Map, Award, Lock, Compass, Eye, Book, Zap, Flame, Heart, Shield, Gem } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useShareImage } from '@/hooks/useShareImage';
 import ShareButtons from './ShareButtons';
@@ -110,6 +110,43 @@ const getCompletenessData = (choicesMade: number, totalAvailable: number) => {
   return { percentage, level, teasingMessages };
 };
 
+const getGameExperienceSuggestions = (arcValue: number, choicesMade: number, totalAvailable: number) => {
+  const completion = totalAvailable > 0 ? (choicesMade / totalAvailable) * 100 : 0;
+
+  if (arcValue >= 360 && completion >= 90) {
+    return {
+      title: '弧度歸零的圓滿建議',
+      description: '你已經走完完整弧度，不妨換個節奏再進一次：刻意選擇與直覺相反的選項，觀察「伊」與問心帶來的新視角。',
+    };
+  }
+
+  if (arcValue >= 270) {
+    return {
+      title: '深化體驗的下一步',
+      description: '你已經跨過多數章節，建議回到最早的章節，挑戰那些你當時沒選的分支，讓命樹長出新的枝條。',
+    };
+  }
+
+  if (arcValue >= 180) {
+    return {
+      title: '讓旅程更完整',
+      description: '你已走過半程，試著在每章停留久一點，反覆閱讀金句並開啟不同選項，會出現更深層的共鳴。',
+    };
+  }
+
+  if (completion >= 60) {
+    return {
+      title: '加深故事的連結',
+      description: '你已經做了不少選擇，下一次可以專注於每位歷史角色的指引，留意他們的隱藏提問。',
+    };
+  }
+
+  return {
+    title: '重新進入故事的建議',
+    description: '若你想更完整體驗，建議放慢節奏、盡量不跳過敘事，並在每章做出至少一個關鍵選擇。',
+  };
+};
+
 // 收集顏色的展示配置
 const colorConfig: Record<string, { name: string; bg: string; glow: string }> = {
   amber: { name: '琥珀', bg: 'bg-amber-500', glow: 'shadow-amber-500/50' },
@@ -180,6 +217,7 @@ const EndingStats = ({ isOpen, onClose, fromGameEnd = false, onReturnToTitle }: 
   const chaptersVisited = Object.keys(readNodes || {}).length;
   const totalChoices = Object.keys(choicesHistory || {}).length;
   const ending = getEndingType(arcValue);
+  const suggestions = getGameExperienceSuggestions(arcValue, totalChoices, TOTAL_CHOICES_AVAILABLE);
   
   // 計算完整度
   const completeness = getCompletenessData(totalChoices, TOTAL_CHOICES_AVAILABLE);
@@ -437,6 +475,20 @@ const EndingStats = ({ isOpen, onClose, fromGameEnd = false, onReturnToTitle }: 
               </div>
             )}
           </motion.div>
+        </motion.div>
+
+        {/* 遊戲體驗建議 */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.47 }}
+          className="mx-6 mt-4 p-4 rounded-xl bg-gradient-to-r from-primary/10 via-accent/10 to-primary/10 border border-primary/20"
+        >
+          <div className="flex items-center gap-2 mb-2 text-primary">
+            <Gem className="w-4 h-4" />
+            <span className="text-sm font-medium">{suggestions.title}</span>
+          </div>
+          <p className="text-sm text-muted-foreground leading-relaxed">{suggestions.description}</p>
         </motion.div>
 
         {/* 旅程回顧按鈕 */}

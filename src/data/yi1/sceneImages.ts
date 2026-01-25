@@ -968,7 +968,7 @@ export const sceneImages: SceneImageConfig[] = [
   {
     image: IMG_epilogue_三個月後_深夜檔案,
     alt: '三個月後 - 深夜檔案',
-    nodePatterns: ['yi1-epilogue-intro', 'yi1-epilogue-1', 'yi1-epilogue-2', 'yi1-epilogue-3', 'yi1-epilogue-4', 'yi1-epilogue-5', 'epilogue-1', 'epilogue-2', 'epilogue-3', 'epilogue-4', 'epilogue-5'],
+    nodePatterns: ['epilogue-intro', 'yi1-epilogue-intro', 'yi1-epilogue-1', 'yi1-epilogue-2', 'yi1-epilogue-3', 'yi1-epilogue-4', 'yi1-epilogue-5', 'epilogue-1', 'epilogue-2', 'epilogue-3', 'epilogue-4', 'epilogue-5'],
   },
   // 階段2：舊檔案 - 重新發現過去
   {
@@ -1051,15 +1051,12 @@ export const sceneImages: SceneImageConfig[] = [
 ];
 
 // 正規化節點 ID（處理多種格式）
-function normalizeNodeId(nodeId: string): string {
+export function normalizeNodeId(nodeId: string): string {
   // 移除 yi1- 前綴
   let normalized = nodeId.replace(/^yi1-/, '');
   
-  // 將 chX- 格式轉換為 chapter-X- 格式（ch1- -> chapter-1-）
-  normalized = normalized.replace(/^ch(\d+)-/, 'chapter-$1-');
-  
-  // 將 chapterX- 格式轉換為 chapter-X- 格式（chapter1- -> chapter-1-）
-  normalized = normalized.replace(/^chapter(\d+)-/, 'chapter-$1-');
+  // 將 chX/chapterX 格式轉換為 chapter-X- 格式（支援可選破折號）
+  normalized = normalized.replace(/^(?:ch-?|chapter-?)(\d+)-?/, 'chapter-$1-');
   
   return normalized;
 }

@@ -30,7 +30,7 @@ import { useAchievements } from '@/hooks/useAchievements';
 import { getNodeById } from '@/data/prologueStory';
 // TODO: 第二部節點查詢函數待建立
 import { getYi1NodeById } from '@/data/yi1';
-import { getSceneImage } from '@/data/yi1/sceneImages';
+import { getSceneImage, normalizeNodeId } from '@/data/yi1/sceneImages';
 import { yi1ChaptersMeta } from '@/data/yi1/chapters';
 import { getGraduationImageForNode, type GraduationImageData } from '@/data/yi1/graduationImages';
 
@@ -44,10 +44,15 @@ const PROLOGUE_INTRO_LINES = [
   '教室',
 ];
 
+const normalizeChapterId = (nodeId: string): string => {
+  // 與場景圖片共用正規化邏輯，避免格式分歧
+  return normalizeNodeId(nodeId);
+};
+
 // 根據節點 ID 獲取當前章節標題
 const getChapterTitle = (nodeId: string): string => {
-  // 統一處理：移除 yi1- 前綴
-  const normalizedId = nodeId.replace(/^yi1-/, '');
+  // 統一處理：章節 ID 正規化（移除 yi1- 前綴、標準化 chX/chapterX 等格式）
+  const normalizedId = normalizeChapterId(nodeId);
 
   if (normalizedId.startsWith('preface')) return '作者序';
   if (normalizedId.startsWith('prologue')) return '序章・未完成的檔案';
@@ -76,7 +81,7 @@ const getChapterTitle = (nodeId: string): string => {
 
 // 從節點 ID 提取章節編號（同時返回用於主題色的 key）
 const getChapterNumber = (nodeId: string): string => {
-  const normalizedId = nodeId.replace(/^yi1-/, '');
+  const normalizedId = normalizeChapterId(nodeId);
   if (normalizedId.startsWith('preface')) return 'preface';
   if (normalizedId.startsWith('prologue')) return 'prologue';
   if (normalizedId.startsWith('epilogue')) return 'epilogue';

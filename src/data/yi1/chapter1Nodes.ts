@@ -3,6 +3,14 @@ import type { DialogueNode } from '@/stores/gameStore';
 export const chapter1Nodes: DialogueNode[] = [
   // 一、崩潰
   {
+    id: 'yi1-ch1-intro',
+    speaker: 'narrator',
+    text: '「你確定要丟棄這些嗎？它們還沒完成。」',
+    effect: 'glow',
+    bgImage: 'ch1_desk_night',
+    nextNodeId: 'yi1-ch1-1',
+  },
+  {
     id: 'yi1-ch1-1',
     speaker: 'narrator',
     text: '凌晨兩點十七分。',
