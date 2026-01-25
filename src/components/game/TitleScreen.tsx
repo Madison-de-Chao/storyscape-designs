@@ -215,52 +215,56 @@ const TitleScreen = () => {
           <div className="hidden md:block w-px h-24 bg-border/50" />
           <div className="md:hidden w-24 h-px bg-border/50" />
 
-          {/* 第二部：伊 */}
-          <button
-            onClick={() => {
-              playSFX('select');
-              startGame('yi-part2');
-            }}
+          {/* 第二部：伊 (製作中) */}
+          <div
             className="
               group relative w-64 md:w-72 py-8 px-6
-              bg-card/30 backdrop-blur-sm
-              border border-accent/30 hover:border-accent/60
+              bg-card/20 backdrop-blur-sm
+              border border-muted/30
               rounded-2xl
-              transition-all duration-500
               overflow-hidden
+              opacity-60 cursor-not-allowed
             "
           >
-            {/* 背景光暈 */}
+            {/* 製作中標籤 */}
             <div className="
-              absolute inset-0 bg-gradient-to-br from-accent/5 to-transparent
-              opacity-0 group-hover:opacity-100
-              transition-opacity duration-500
-            " />
+              absolute top-3 right-3 
+              px-2 py-1 rounded-full
+              bg-muted/30 backdrop-blur-sm
+              border border-muted/40
+              text-[10px] text-muted-foreground tracking-wider
+            ">
+              製作中
+            </div>
             
             {/* 內容 */}
             <div className="relative z-10">
-              <div className="text-xs text-muted-foreground tracking-widest mb-2">第二部</div>
-              <h2 className="text-2xl md:text-3xl font-serif-tc font-bold text-foreground mb-1">
+              <div className="text-xs text-muted-foreground/60 tracking-widest mb-2">第二部</div>
+              <h2 className="text-2xl md:text-3xl font-serif-tc font-bold text-muted-foreground/70 mb-1">
                 弧度歸零
               </h2>
-              <div className="text-3xl md:text-4xl font-serif-tc font-bold text-accent text-glow-accent">
+              <div className="text-3xl md:text-4xl font-serif-tc font-bold text-muted-foreground/50">
                 伊
               </div>
-              {yiPart2Progress.hasStarted && (
-                <div className="mt-3 text-xs text-accent/70">
-                  進度：{yiPart2Progress.arcValue}°
-                </div>
-              )}
+              <div className="mt-3 text-xs text-muted-foreground/40">
+                敬請期待
+              </div>
             </div>
 
-            {/* 底部裝飾線 */}
+            {/* 裝飾性掃描線動畫 */}
             <div className="
-              absolute bottom-0 left-1/2 -translate-x-1/2 
-              w-0 group-hover:w-3/4 h-0.5 
-              bg-gradient-to-r from-transparent via-accent to-transparent
-              transition-all duration-500
-            " />
-          </button>
+              absolute inset-0 pointer-events-none overflow-hidden
+            ">
+              <div className="
+                absolute w-full h-px bg-gradient-to-r from-transparent via-muted-foreground/20 to-transparent
+                animate-pulse
+              " style={{ top: '30%' }} />
+              <div className="
+                absolute w-full h-px bg-gradient-to-r from-transparent via-muted-foreground/10 to-transparent
+                animate-pulse
+              " style={{ top: '70%', animationDelay: '1s' }} />
+            </div>
+          </div>
         </motion.div>
 
         {/* 功能按鈕區 */}
