@@ -420,7 +420,7 @@ export const sceneImages: SceneImageConfig[] = [
 
   // === 第二章：渡口（使用粉嫩少女耽美版）===
   {
-    image: IMG_ch2_金色河流_���來的寧靜,
+    image: IMG_ch2_金色河流_醒來的寧靜,
     alt: '金色河流 - 醒來的寧靜',
     nodePatterns: ['chapter-2-intro', 'chapter-2-1', 'chapter-2-2', 'chapter-2-3', 'chapter-2-4', 'chapter-2-5', 'chapter-2-6', 'chapter-2-7', 'chapter-2-8'],
   },
