@@ -34,26 +34,35 @@ const Landing = () => {
     navigate('/game');
   };
 
+  // Mask email for privacy display (e.g., momo****@gmail.com)
+  const maskEmail = (email: string) => {
+    const [localPart, domain] = email.split('@');
+    if (!domain) return email;
+    const visibleChars = Math.min(4, localPart.length);
+    const masked = localPart.slice(0, visibleChars) + '****';
+    return `${masked}@${domain}`;
+  };
+
   const features = [
     {
       icon: <BookOpen className="w-6 h-6" />,
       title: '互動式敘事',
-      description: '透過選擇改變故事走向，體驗專屬於你的心靈旅程'
+      description: '用選擇推進故事，也用選擇照見自己。每一次回應，都會留下痕跡。'
     },
     {
       icon: <Heart className="w-6 h-6" />,
       title: '療癒主題',
-      description: '探索完美主義、自我接納等議題，找到內心的平靜'
+      description: '聚焦完美主義、自我否定、受害者濾鏡、自我接納等核心議題，讓你能「看見 → 理解 → 轉向」。'
     },
     {
       icon: <Star className="w-6 h-6" />,
       title: '精美視覺',
-      description: '每個場景都經過精心繪製，營造沉浸式體驗'
+      description: '每個場景皆以沉浸式體驗設計，強化情緒與意象的臨場感。'
     },
     {
       icon: <Sparkles className="w-6 h-6" />,
       title: '多結局設計',
-      description: '你的每個選擇都會影響結局，發現隱藏的故事線'
+      description: '你的每一個選擇都會影響走向；重玩能解鎖隱藏線索與不同視角。'
     }
   ];
 
@@ -61,7 +70,7 @@ const Landing = () => {
     {
       date: '2025-01-25',
       title: '公開測試開始',
-      content: '弧度歸零第一章正式開放公測，歡迎所有會員免費體驗！'
+      content: '《弧度歸零》第一章正式開放公測，歡迎所有會員免費體驗。'
     },
     {
       date: '2025-01-20',
@@ -106,10 +115,18 @@ const Landing = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.3, duration: 0.8 }}
-              className="text-xl sm:text-2xl text-stone-300 mb-8 font-light"
+              className="text-lg sm:text-xl text-stone-300 mb-2 font-light"
               style={{ fontFamily: "'Noto Serif TC', serif" }}
             >
-              完整不是沒有缺口，完整是不再害怕缺口
+              完整不是沒有缺口，完整是不再害怕缺口。
+            </motion.p>
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.4, duration: 0.8 }}
+              className="text-sm sm:text-base text-stone-400 mb-8 max-w-2xl mx-auto leading-relaxed"
+            >
+              這是一段互動式的自我探索旅程：你會看見自己的模式，學會與不完美共處，並把選擇權拿回來。
             </motion.p>
 
             {/* CTA Buttons */}
@@ -167,7 +184,7 @@ const Landing = () => {
                 transition={{ delay: 0.7 }}
                 className="mt-4 text-sm text-stone-500"
               >
-                已登入：{member.email}
+                已登入：{maskEmail(member.email)}
               </motion.p>
             )}
           </motion.div>
@@ -218,8 +235,9 @@ const Landing = () => {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-stone-950/90 via-transparent to-transparent" />
                 <div className="absolute bottom-0 left-0 right-0 p-6">
-                  <h3 className="text-xl font-bold mb-2">第一章：破碎與重生</h3>
-                  <p className="text-sm text-stone-400">探索內心的缺口，學習與不完美共處</p>
+                  <p className="text-xs text-stone-500 mb-1">弧度歸零｜第一章</p>
+                  <h3 className="text-xl font-bold mb-2">破碎與重生</h3>
+                  <p className="text-sm text-stone-400 leading-relaxed">探索內心的缺口，學習與不完美共處，建立「看見自己」的第一條路徑。</p>
                   <span className="inline-block mt-3 px-3 py-1 text-xs bg-emerald-500/20 text-emerald-400 rounded-full border border-emerald-500/30">
                     開放遊玩
                   </span>
@@ -242,8 +260,9 @@ const Landing = () => {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-stone-950/90 via-stone-950/30 to-transparent" />
                 <div className="absolute bottom-0 left-0 right-0 p-6">
-                  <h3 className="text-xl font-bold mb-2">第二章：療癒之路</h3>
-                  <p className="text-sm text-stone-400">延續第一章的旅程，深入自我探索</p>
+                  <p className="text-xs text-stone-500 mb-1">弧度歸零｜第二章</p>
+                  <h3 className="text-xl font-bold mb-2">療癒之路</h3>
+                  <p className="text-sm text-stone-400 leading-relaxed">延續第一章的旅程，深化自我理解與修復，開始練習新的選擇方式。</p>
                   <span className="inline-block mt-3 px-3 py-1 text-xs bg-stone-500/20 text-stone-400 rounded-full border border-stone-500/30">
                     製作中
                   </span>
@@ -341,7 +360,7 @@ const Landing = () => {
               準備好開始你的旅程了嗎？
             </h2>
             <p className="text-stone-400 mb-8">
-              免費註冊即可體驗完整遊戲內容
+              免費註冊即可體驗完整遊戲內容。
             </p>
             <Button
               onClick={handleEnterGame}
