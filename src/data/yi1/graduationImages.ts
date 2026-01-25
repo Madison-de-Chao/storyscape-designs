@@ -117,28 +117,30 @@ export function getGraduationImage(lessonId: string): GraduationImageData | unde
 
 // 根據章節節點 ID 獲取對應的畢業圖
 // 對應關係（根據 journeyReflections.ts 的課程安排）：
-// - Chapter 5 結尾 (蘇軾篇完成) → lesson-01 止血
-// - Chapter 6 結尾 (王陽明篇完成) → lesson-02 內求
-// - Chapter 7 結尾 (武則天篇完成) → lesson-03 定義
-// - Chapter 8 結尾 (司馬遷篇完成) → lesson-04 使命
-// - Chapter 9 結尾 (李白篇完成) → lesson-05 自由
-// - Chapter 10 結尾 (凱薩篇完成) → lesson-06 關係
-// - Chapter 11 結尾 (曼德拉篇完成) → lesson-07 寬恕
-// - Chapter 12 結尾 (林肯篇完成) → lesson-08 幽默
-// - Chapter 13 結尾 (賈伯斯篇完成) → lesson-09 破框
-// - Epilogue 結尾 (終章結束) → journey-complete
+// 使用各章節的最後一個節點或 foreshadow 節點作為觸發點
+// - Chapter 5 foreshadow (蘇軾篇完成) → lesson-01 止血
+// - Chapter 6 foreshadow (王陽明篇完成) → lesson-02 內求
+// - Chapter 7 foreshadow (武則天篇完成) → lesson-03 定義
+// - Chapter 8 foreshadow (司馬遷篇完成) → lesson-04 使命
+// - Chapter 9 foreshadow (李白篇完成) → lesson-05 自由
+// - Chapter 10 foreshadow (凱薩篇完成) → lesson-06 關係
+// - Chapter 11 foreshadow (曼德拉篇完成) → lesson-07 寬恕
+// - Chapter 12 最後節點 (林肯篇完成) → lesson-08 幽默
+// - Chapter 13 foreshadow (賈伯斯篇完成) → lesson-09 破框
+// - Chapter 15 coda (伊的整合完成) → journey-complete
 export function getGraduationImageForNode(nodeId: string): GraduationImageData | undefined {
   const mapping: Record<string, string> = {
-    'yi1-ch5-end': 'lesson-01',       // 蘇軾：止血
-    'yi1-ch6-end': 'lesson-02',       // 王陽明：內求
-    'yi1-ch7-end': 'lesson-03',       // 武則天：定義
-    'yi1-ch8-end': 'lesson-04',       // 司馬遷：使命
-    'yi1-ch9-end': 'lesson-05',       // 李白：自由
-    'yi1-ch10-end': 'lesson-06',      // 凱薩：關係
-    'yi1-ch11-end': 'lesson-07',      // 曼德拉：寬恕
-    'yi1-ch12-end': 'lesson-08',      // 林肯：幽默
-    'yi1-ch13-end': 'lesson-09',      // 賈伯斯：破框
-    'yi1-epilogue-end': 'journey-complete', // 終章：歸零
+    // 使用各章節實際的結束節點
+    'yi1-ch5-foreshadow': 'lesson-01',       // 蘇軾：止血
+    'yi1-ch6-foreshadow': 'lesson-02',       // 王陽明：內求
+    'yi1-ch7-foreshadow': 'lesson-03',       // 武則天：定義
+    'yi1-ch8-foreshadow': 'lesson-04',       // 司馬遷：使命
+    'yi1-ch9-foreshadow': 'lesson-05',       // 李白：自由
+    'yi1-ch10-foreshadow': 'lesson-06',      // 凱薩：關係
+    'yi1-ch11-foreshadow': 'lesson-07',      // 曼德拉：寬恕
+    'yi1-ch12-28': 'lesson-08',              // 林肯：幽默（章節最後節點）
+    'yi1-ch13-foreshadow': 'lesson-09',      // 賈伯斯：破框
+    'yi1-ch15-coda': 'journey-complete',     // 伊：歸零（整合完成）
   };
   
   const lessonId = mapping[nodeId];

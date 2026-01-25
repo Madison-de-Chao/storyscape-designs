@@ -18,6 +18,7 @@ import ZenMoment from './ZenMoment';
 import RevelationMoment from './RevelationMoment';
 import GraduationMoment from './GraduationMoment';
 import JourneyReflection from './JourneyReflection';
+import GameEndOverlay from './GameEndOverlay';
 // ScoreChange 已移除 - 月明值系統對玩家隱藏
 import ProgressHUD from './ProgressHUD';
 import AchievementToast from './AchievementToast';
@@ -105,6 +106,7 @@ const GameScene = () => {
   const [isGalleryOpen, setIsGalleryOpen] = useState(false);
   const [isDialogueHidden, setIsDialogueHidden] = useState(false);
   const [isEndingStatsOpen, setIsEndingStatsOpen] = useState(false);
+  const [isEndingStatsFromGameEnd, setIsEndingStatsFromGameEnd] = useState(false);
   const [isJourneyOpen, setIsJourneyOpen] = useState(false);
   
   // 序章開場動畫狀態
@@ -150,8 +152,12 @@ const GameScene = () => {
   // 進度 HUD 顯示狀態
   const [isProgressHUDVisible, setIsProgressHUDVisible] = useState(false);
 
+  // 遊戲結束覆蓋層狀態
+  const [showGameEndOverlay, setShowGameEndOverlay] = useState(false);
+  const gameEndShownRef = useRef(false);
+
   // 成就系統
-  const { pendingAchievement, dismissAchievement } = useAchievements();
+  const { pendingAchievement, dismissAchievement, unlockAchievement } = useAchievements();
 
   // TODO: 第二部節點邏輯待實作
   const currentNode = getYi1NodeById(currentNodeId) || getNodeById(currentNodeId);
@@ -257,6 +263,30 @@ const GameScene = () => {
   }, [currentNodeId, playBGM]);
 
   // 月明值系統：選項的影響對玩家隱藏，不需要顯示反饋
+
+  // 檢測遊戲結束節點（postscript-end）
+  useEffect(() => {
+    const normalizedId = currentNodeId.replace(/^yi1-/, '');
+    if (normalizedId === 'postscript-end' && !gameEndShownRef.current) {
+      gameEndShownRef.current = true;
+      // 延遲顯示遊戲結束覆蓋層，讓玩家看完最後一段文字
+      const timer = setTimeout(() => {
+        stopBGM(true);
+        setShowGameEndOverlay(true);
+        // 解鎖完成遊戲成就
+        unlockAchievement('complete_journey');
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [currentNodeId, stopBGM, unlockAchievement]);
+
+  // 處理遊戲結束覆蓋層點擊
+  const handleGameEndComplete = useCallback(() => {
+    setShowGameEndOverlay(false);
+    // 顯示成就統計頁面，標記為從遊戲結束打開
+    setIsEndingStatsFromGameEnd(true);
+    setIsEndingStatsOpen(true);
+  }, []);
 
   // 檢測序章開始節點，觸發直排禪意開場動畫
   useEffect(() => {
@@ -744,7 +774,11 @@ const GameScene = () => {
       {/* 結局統計彈窗 */}
       <EndingStats 
         isOpen={isEndingStatsOpen} 
-        onClose={() => setIsEndingStatsOpen(false)} 
+        onClose={() => {
+          setIsEndingStatsOpen(false);
+          setIsEndingStatsFromGameEnd(false);
+        }}
+        fromGameEnd={isEndingStatsFromGameEnd}
       />
 
       {/* 心路歷程彈窗 */}
@@ -762,6 +796,12 @@ const GameScene = () => {
         chapterQuote={transitionChapterQuote}
         chapterKey={transitionChapterKey}
         onTransitionComplete={() => setIsChapterTransition(false)}
+      />
+
+      {/* 遊戲結束覆蓋層 */}
+      <GameEndOverlay
+        isVisible={showGameEndOverlay}
+        onComplete={handleGameEndComplete}
       />
     </div>
   );

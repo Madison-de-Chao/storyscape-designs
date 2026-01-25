@@ -15,6 +15,8 @@ import ArcCompleteCelebration from './ArcCompleteCelebration';
 interface EndingStatsProps {
   isOpen: boolean;
   onClose: () => void;
+  fromGameEnd?: boolean; // 是否從遊戲結束畫面打開
+  onReturnToTitle?: () => void; // 返回首頁的回調
 }
 
 // 全篇總選項數（根據實際章節選項統計）
@@ -142,10 +144,10 @@ const rarityConfig: Record<string, { bg: string; border: string; text: string; g
   legendary: { bg: 'bg-amber-600/50', border: 'border-amber-500/50', text: 'text-amber-300', glow: 'shadow-amber-500/50' },
 };
 
-const EndingStats = ({ isOpen, onClose }: EndingStatsProps) => {
+const EndingStats = ({ isOpen, onClose, fromGameEnd = false, onReturnToTitle }: EndingStatsProps) => {
   const statsRef = useRef<HTMLDivElement>(null);
   const shareCardRef = useRef<HTMLDivElement>(null);
-  const { getCurrentProgress, currentPart } = useGameStore();
+  const { getCurrentProgress, currentPart, returnToTitle } = useGameStore();
   const progress = getCurrentProgress();
   const {
     isGenerating,
@@ -273,7 +275,14 @@ const EndingStats = ({ isOpen, onClose }: EndingStatsProps) => {
         <Button
           variant="ghost"
           size="icon"
-          onClick={onClose}
+          onClick={() => {
+            if (fromGameEnd) {
+              onClose();
+              returnToTitle();
+            } else {
+              onClose();
+            }
+          }}
           className="absolute top-4 right-4 z-10 text-muted-foreground hover:text-foreground"
         >
           <X className="w-5 h-5" />
