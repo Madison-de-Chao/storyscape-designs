@@ -155,6 +155,9 @@ const SceneImage = ({ nodeId, hideOverlay = false, isLoaded: externalLoaded }: S
     }
   }, [externalLoaded]);
 
+  // 預載下一場景圖片 (必須在任何 early return 之前調用)
+  usePreloadNextScene(nodeId);
+
   // 即使沒有匹配的圖片，也會使用預設圖片（由 getSceneImage 提供）
   // 這裡只在極端情況下返回 null
   if (!currentImage) {
@@ -162,9 +165,6 @@ const SceneImage = ({ nodeId, hideOverlay = false, isLoaded: externalLoaded }: S
       <div className="absolute inset-0 z-0 bg-gradient-to-b from-background/80 to-background" />
     );
   }
-
-  // 預載下一場景圖片
-  usePreloadNextScene(nodeId);
   
   // 墨水渲染風格載入骨架屏組件
   const InkLoadingSkeleton = () => (
