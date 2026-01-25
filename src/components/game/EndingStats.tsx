@@ -9,6 +9,9 @@ import ShareCard from './ShareCard';
 import JourneyReflection from './JourneyReflection';
 import { useAchievements } from '@/hooks/useAchievements';
 import MoonPhaseIndicator from './MoonPhaseIndicator';
+import MoonEndingRemarks from './MoonEndingRemarks';
+import ArcCompleteCelebration from './ArcCompleteCelebration';
+
 interface EndingStatsProps {
   isOpen: boolean;
   onClose: () => void;
@@ -18,25 +21,31 @@ interface EndingStatsProps {
 // ch1:1, ch4:1, ch7:3, ch8:3, ch9:2, ch10:2, ch11:2, ch12:2 = 16個
 const TOTAL_CHOICES_AVAILABLE = 24;
 
-// 根據弧度值計算結局類型
+// Calculate ending type based on arc value (0-360 system)
 const getEndingType = (arcValue: number): { title: string; description: string; color: string } => {
-  if (arcValue >= 150) {
+  if (arcValue >= 360) {
     return {
       title: '圓滿弧度',
-      description: '你選擇了完整接納自己，弧度趨近圓滿。問心的聲音已成為你內心的一部分。',
+      description: '你完成了完整的旅程，從0°走到360°，弧度圓滿。你已認識了完整的自己。',
       color: 'text-amber-400',
     };
-  } else if (arcValue >= 100) {
+  } else if (arcValue >= 270) {
     return {
       title: '和解弧度',
       description: '你在光與影之間找到了平衡，學會了與自己和解。',
       color: 'text-emerald-400',
     };
-  } else if (arcValue >= 50) {
+  } else if (arcValue >= 180) {
     return {
       title: '探索弧度',
-      description: '你開始認識自己，但旅程仍在繼續。弧度等待被補完。',
+      description: '你已走過一半的旅程，繼續前進，完整就在不遠處。',
       color: 'text-blue-400',
+    };
+  } else if (arcValue >= 90) {
+    return {
+      title: '啟程弧度',
+      description: '你開始認識自己，旅程仍在繼續。弧度等待被補完。',
+      color: 'text-cyan-400',
     };
   } else {
     return {
@@ -151,8 +160,16 @@ const EndingStats = ({ isOpen, onClose }: EndingStatsProps) => {
   // 旅程回顧頁面狀態
   const [showJourneyReflection, setShowJourneyReflection] = useState(false);
   
+  // 360 celebration animation state
+  const [showArcCelebration, setShowArcCelebration] = useState(false);
+  const [hasShownCelebration, setHasShownCelebration] = useState(false);
+  
   // 成就系統
-  const { achievements, unlockedIds, unlockedCount, totalCount } = useAchievements();
+  const { achievements, unlockedIds, unlockedCount, totalCount, unlockAchievement } = useAchievements();
+  
+  // 獲取月明值
+  const { getMoonClarity } = useGameStore();
+  const moonClarity = getMoonClarity();
   
   const { arcValue, colorsCollected, choicesHistory, readNodes, lastReadAt } = progress;
   
@@ -167,6 +184,16 @@ const EndingStats = ({ isOpen, onClose }: EndingStatsProps) => {
   
   // 跑馬燈狀態
   const [currentMessageIndex, setCurrentMessageIndex] = useState(0);
+  
+  // 360 celebration animation trigger
+  useEffect(() => {
+    if (isOpen && arcValue >= 360 && !hasShownCelebration) {
+      setShowArcCelebration(true);
+      setHasShownCelebration(true);
+      // Unlock arc complete achievement
+      unlockAchievement('arc_complete');
+    }
+  }, [isOpen, arcValue, hasShownCelebration, unlockAchievement]);
   
   // 跑馬燈輪播
   useEffect(() => {
@@ -319,6 +346,9 @@ const EndingStats = ({ isOpen, onClose }: EndingStatsProps) => {
           </h4>
           <MoonPhaseIndicator size="md" showLabel={true} />
         </motion.div>
+
+        {/* Moon Ending Remarks - Personalized commentary */}
+        <MoonEndingRemarks clarity={moonClarity} className="mx-6 mt-4" />
 
         {/* 完整度區塊 */}
         <motion.div
@@ -640,7 +670,7 @@ const EndingStats = ({ isOpen, onClose }: EndingStatsProps) => {
         </motion.div>
       </motion.div>
 
-      {/* 隱藏的分享卡片模板（用於生成圖片） */}
+      {/* Hidden share card template for image generation */}
       <div
         style={{
           position: 'absolute',
@@ -661,10 +691,16 @@ const EndingStats = ({ isOpen, onClose }: EndingStatsProps) => {
         />
       </div>
 
-      {/* 旅程回顧頁面 */}
+      {/* Journey Reflection Page */}
       <JourneyReflection
         isOpen={showJourneyReflection}
         onClose={() => setShowJourneyReflection(false)}
+      />
+
+      {/* 360 Degree Celebration Animation */}
+      <ArcCompleteCelebration
+        isVisible={showArcCelebration}
+        onComplete={() => setShowArcCelebration(false)}
       />
     </motion.div>
   );

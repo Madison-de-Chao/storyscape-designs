@@ -11,11 +11,11 @@ const ACHIEVEMENTS: Achievement[] = [
   { id: 'twenty_choices', title: '旅者', description: '做出20個選擇', icon: 'star', rarity: 'rare' },
   { id: 'all_choices', title: '完美主義者', description: '發現所有選擇點', icon: 'trophy', rarity: 'legendary' },
   
-  // 弧度類
-  { id: 'arc_rising', title: '曙光乍現', description: '弧度值首次提升', icon: 'sparkles', rarity: 'common' },
-  { id: 'arc_100', title: '半途而歸', description: '弧度值降至100以下', icon: 'zap', rarity: 'rare' },
-  { id: 'arc_50', title: '歸途可期', description: '弧度值降至50以下', icon: 'flame', rarity: 'epic' },
-  { id: 'arc_zero', title: '弧度歸零', description: '完成弧度歸零', icon: 'trophy', rarity: 'legendary' },
+  // 弧度類 (0→360 system)
+  { id: 'arc_first_lesson', title: '啟程', description: '完成第一堂課', icon: 'sparkles', rarity: 'common' },
+  { id: 'arc_halfway', title: '中途風景', description: '弧度達到180°', icon: 'zap', rarity: 'rare' },
+  { id: 'arc_almost', title: '圓滿在望', description: '弧度達到300°', icon: 'flame', rarity: 'epic' },
+  { id: 'arc_complete', title: '弧度圓滿', description: '弧度達到360°完整圓', icon: 'trophy', rarity: 'legendary' },
   
   // 陰影類
   { id: 'shadow_embrace', title: '擁抱陰影', description: '陰影值首次增加', icon: 'heart', rarity: 'common' },
@@ -92,13 +92,13 @@ export const useAchievements = () => {
     if (choicesCount >= 20) unlockAchievement('twenty_choices');
     if (choicesCount >= 44) unlockAchievement('all_choices');
 
-    // 弧度類成就
-    if (arcValue < prevArcValue && prevArcValue === 180) {
-      unlockAchievement('arc_rising');
+    // 弧度類成就 (0→360 system)
+    if (arcValue > 0 && prevArcValue === 0) {
+      unlockAchievement('arc_first_lesson');
     }
-    if (arcValue < 100) unlockAchievement('arc_100');
-    if (arcValue < 50) unlockAchievement('arc_50');
-    if (arcValue === 0) unlockAchievement('arc_zero');
+    if (arcValue >= 180) unlockAchievement('arc_halfway');
+    if (arcValue >= 300) unlockAchievement('arc_almost');
+    if (arcValue >= 360) unlockAchievement('arc_complete');
 
     // 陰影類成就
     if (shadowLevel > prevShadowLevel && prevShadowLevel === 0) {
