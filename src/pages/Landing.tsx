@@ -47,22 +47,22 @@ const Landing = () => {
     {
       icon: <BookOpen className="w-6 h-6" />,
       title: '互動式敘事',
-      description: '用選擇推進故事，也用選擇照見自己。每一次回應，都會留下痕跡。'
+      description: '你會做出選擇，但我們不賣「分歧結局」；我們賣的是「分歧視角」。同一段旅程，因為你的回應不同，你看見的自己也不同。'
+    },
+    {
+      icon: <Sparkles className="w-6 h-6" />,
+      title: '完整性哲學體驗',
+      description: '完整不是沒有缺口，而是能不再害怕缺口。遊戲用故事與互動，讓你在安全的情境裡練習：看見、承認、整合、再選一次。'
     },
     {
       icon: <Heart className="w-6 h-6" />,
       title: '療癒主題',
-      description: '聚焦完美主義、自我否定、受害者濾鏡、自我接納等核心議題，讓你能「看見 → 理解 → 轉向」。'
+      description: '聚焦完美主義、自我否定、自我接納等議題。你不是來被評分的，你是來把選擇權拿回來的。'
     },
     {
       icon: <Star className="w-6 h-6" />,
       title: '精美視覺',
-      description: '每個場景皆以沉浸式體驗設計，強化情緒與意象的臨場感。'
-    },
-    {
-      icon: <Sparkles className="w-6 h-6" />,
-      title: '多結局設計',
-      description: '你的每一個選擇都會影響走向；重玩能解鎖隱藏線索與不同視角。'
+      description: '每個場景皆以沉浸式氛圍設計，讓情緒與意象更具體、更可感。'
     }
   ];
 
@@ -286,7 +286,7 @@ const Landing = () => {
             遊戲特色
           </motion.h2>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid sm:grid-cols-2 gap-6">
             {features.map((feature, index) => (
               <motion.div
                 key={feature.title}
@@ -300,10 +300,74 @@ const Landing = () => {
                   {feature.icon}
                 </div>
                 <h3 className="text-lg font-semibold mb-2">{feature.title}</h3>
-                <p className="text-sm text-stone-400">{feature.description}</p>
+                <p className="text-sm text-stone-400 leading-relaxed">{feature.description}</p>
               </motion.div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* Philosophy Section */}
+      <section className="py-20 px-4">
+        <div className="max-w-4xl mx-auto">
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-2xl sm:text-3xl font-bold text-center mb-8"
+            style={{ fontFamily: "'Noto Serif TC', serif" }}
+          >
+            為什麼這是體驗完整性哲學最有趣的方法？
+          </motion.h2>
+
+          <div className="space-y-4 mb-12">
+            {[
+              '因為你不是在「看故事」，你是在「用回應照見自己」。',
+              '因為你不需要完美選擇；你只需要誠實面對當下的反應。',
+              '因為每次重玩不是為了刷分，而是為了練習：不逃避缺口，也不被缺口吞沒。'
+            ].map((reason, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+                className="flex items-start gap-3 p-4 rounded-lg bg-stone-800/30 border border-stone-700/30"
+              >
+                <span className="text-amber-400 font-bold shrink-0">•</span>
+                <p className="text-stone-300 leading-relaxed">{reason}</p>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Suggested Gameplay */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="p-6 rounded-xl bg-gradient-to-br from-amber-900/20 to-stone-900/50 border border-amber-500/20"
+          >
+            <h3 
+              className="text-xl font-semibold mb-4 text-amber-400"
+              style={{ fontFamily: "'Noto Serif TC', serif" }}
+            >
+              建議玩法
+            </h3>
+            <div className="space-y-3">
+              {[
+                { round: '第一次', tip: '照直覺玩，不求正確。' },
+                { round: '第二次', tip: '挑一個你最常逃避的瞬間，改成「不一樣的回應」。' },
+                { round: '第三次', tip: '比較兩次的差別——你害怕的是什麼？你想守住的是什麼？' }
+              ].map((item, index) => (
+                <div key={index} className="flex items-start gap-3">
+                  <span className="text-xs font-medium text-amber-500 bg-amber-500/10 px-2 py-1 rounded shrink-0">
+                    {item.round}
+                  </span>
+                  <p className="text-sm text-stone-300">{item.tip}</p>
+                </div>
+              ))}
+            </div>
+          </motion.div>
         </div>
       </section>
 
