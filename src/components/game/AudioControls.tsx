@@ -19,7 +19,7 @@ const AudioControls = () => {
   } = useAudioSettings();
 
   return (
-    <div className="fixed top-4 right-20 sm:right-32 z-50">
+    <div className="fixed top-4 right-32 sm:right-52 z-50">
       {/* 靜音按鈕 */}
       <div className="flex gap-1.5 sm:gap-2">
         <motion.button
