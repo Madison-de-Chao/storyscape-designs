@@ -1064,6 +1064,13 @@ function normalizeNodeId(nodeId: string): string {
   return normalized;
 }
 
+// 獲取節點的基礎編號（去除選項字母後綴，用於映射到同一背景）
+function getBaseNodeNumber(nodeId: string): string | null {
+  // 匹配如 chapter-3-4a -> chapter-3-4, chapter-3-8b -> chapter-3-8
+  const match = nodeId.match(/^(.*-\d+)[ab]$/);
+  return match ? match[1] : null;
+}
+
 // 根據節點 ID 獲取對應的場景圖片
 export function getSceneImage(nodeId: string): SceneImageConfig | null {
   const normalizedId = normalizeNodeId(nodeId);
@@ -1073,6 +1080,29 @@ export function getSceneImage(nodeId: string): SceneImageConfig | null {
     for (const pattern of config.nodePatterns) {
       if (normalizedId === pattern) {
         return config;
+      }
+    }
+  }
+  
+  // 嘗試匹配帶字母後綴的節點（如 chapter-3-4a）到基礎編號（chapter-3-4）
+  const baseNumber = getBaseNodeNumber(normalizedId);
+  if (baseNumber) {
+    for (const config of sceneImages) {
+      for (const pattern of config.nodePatterns) {
+        // 精確匹配基礎編號
+        if (baseNumber === pattern) {
+          return config;
+        }
+        // 檢查基礎編號是否在該配置的範圍內
+        const patternMatch = pattern.match(/^(.*-)(\d+)$/);
+        const baseMatch = baseNumber.match(/^(.*-)(\d+)$/);
+        if (patternMatch && baseMatch && patternMatch[1] === baseMatch[1]) {
+          const patternNum = parseInt(patternMatch[2]);
+          const baseNum = parseInt(baseMatch[2]);
+          if (baseNum === patternNum) {
+            return config;
+          }
+        }
       }
     }
   }
