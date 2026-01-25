@@ -5,9 +5,9 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { AnimatePresence } from "framer-motion";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import Index from "./pages/Index";
+import Game from "./pages/Game";
 import NotFound from "./pages/NotFound";
-// src/App.tsx
-import './App.css'; // 👈 只要有這一行，特效就會生效！
+import './App.css';
 const queryClient = new QueryClient();
 
 const AnimatedRoutes = () => {
@@ -17,6 +17,7 @@ const AnimatedRoutes = () => {
     <AnimatePresence mode="wait">
       <Routes location={location} key={location.pathname}>
         <Route path="/" element={<Index />} />
+        <Route path="/game" element={<Game />} />
         {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
         <Route path="*" element={<NotFound />} />
       </Routes>
