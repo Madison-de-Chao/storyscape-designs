@@ -94,7 +94,9 @@ const SceneImage = ({ nodeId, hideOverlay = false, isLoaded: externalLoaded }: S
       }
       
       // 設置新的超時計時器（場景類型調整）
-      const timeoutDuration = getSceneLoadingTimeout(sceneEffect);
+      // Use the new scene's effect type, not the current scene's stale effect
+      const newSceneEffect = sceneImage ? getSceneEffect(sceneImage.alt) : 'default';
+      const timeoutDuration = getSceneLoadingTimeout(newSceneEffect);
       loadingTimeoutRef.current = setTimeout(() => {
         setShowTimeoutPrompt(true);
       }, timeoutDuration);
