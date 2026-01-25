@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { 
   Play, 
   ExternalLink, 
@@ -385,6 +385,18 @@ const Landing = () => {
         <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-stone-500">
           <p>© 2025 弧度歸零 Arc to Zero. All rights reserved.</p>
           <div className="flex items-center gap-6">
+            <Link
+              to="/privacy"
+              className="hover:text-stone-300 transition-colors"
+            >
+              隱私政策
+            </Link>
+            <Link
+              to="/terms"
+              className="hover:text-stone-300 transition-colors"
+            >
+              使用條款
+            </Link>
             <a
               href="https://member.momo-chao.com"
               target="_blank"
