@@ -192,7 +192,7 @@ interface GameState {
 }
 
 const defaultProgress: PartProgress = {
-  arcValue: 180,
+  arcValue: 0,
   currentChapter: 0,
   currentNodeId: 'preface-1', // 從作者序開始（與 prefaceNodes 的 ID 對應）
   colorsCollected: [],
@@ -202,13 +202,13 @@ const defaultProgress: PartProgress = {
   readNodes: {},
   lastReadAt: null,
   unlockedImages: [],
-  arcHistory: [{ value: 180, timestamp: Date.now(), nodeId: 'start', change: 0 }],
+  arcHistory: [{ value: 0, timestamp: Date.now(), nodeId: 'start', change: 0 }],
   unlockedAchievements: [],
   dialogueHistory: [],
 };
 
 const defaultPart2Progress: PartProgress = {
-  arcValue: 180,
+  arcValue: 0,
   currentChapter: 0,
   currentNodeId: 'yi-prologue-1',
   colorsCollected: [],
@@ -218,7 +218,7 @@ const defaultPart2Progress: PartProgress = {
   readNodes: {},
   lastReadAt: null,
   unlockedImages: [],
-  arcHistory: [{ value: 180, timestamp: Date.now(), nodeId: 'start', change: 0 }],
+  arcHistory: [{ value: 0, timestamp: Date.now(), nodeId: 'start', change: 0 }],
   unlockedAchievements: [],
   dialogueHistory: [],
 };
@@ -324,7 +324,7 @@ export const useGameStore = create<GameState>()(
       makeChoice: (choice: Choice) => {
         const state = get();
         const progress = state.getCurrentProgress();
-        const newArcValue = Math.max(0, Math.min(180, progress.arcValue + choice.arcChange));
+        const newArcValue = Math.max(0, Math.min(360, progress.arcValue + choice.arcChange));
         const newShadowLevel = Math.max(-100, Math.min(100, progress.shadowLevel + choice.shadowChange));
         
         // 更新弧度歷史記錄

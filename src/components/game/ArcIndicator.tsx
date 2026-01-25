@@ -8,15 +8,15 @@ const ArcIndicator = () => {
   const arcValue = progress.arcValue;
   const arcHistory = progress.arcHistory || [];
   
-  // 計算弧度的角度（從180度開始，歸零時完成圓）
-  const arcAngle = (arcValue / 180) * 180;
+  // 計算弧度的角度（從0度開始，360度時完成圓）
+  const arcAngle = (arcValue / 360) * 360;
   const arcRadius = 40;
   const strokeWidth = 3;
   const center = 50;
 
-  // 計算弧的路徑
-  const startAngle = 180;
-  const endAngle = 180 + arcAngle;
+  // 計算弧的路徑（從頂部開始順時針繪製）
+  const startAngle = -90; // 從12點鐘方向開始
+  const endAngle = -90 + arcAngle;
   
   const startX = center + arcRadius * Math.cos((startAngle * Math.PI) / 180);
   const startY = center + arcRadius * Math.sin((startAngle * Math.PI) / 180);
@@ -25,9 +25,12 @@ const ArcIndicator = () => {
   
   const largeArcFlag = arcAngle > 180 ? 1 : 0;
   
-  const arcPath = arcAngle > 0 
-    ? `M ${startX} ${startY} A ${arcRadius} ${arcRadius} 0 ${largeArcFlag} 1 ${endX} ${endY}`
-    : '';
+  // 處理完整圓的特殊情況
+  const arcPath = arcAngle >= 360 
+    ? `M ${center} ${center - arcRadius} A ${arcRadius} ${arcRadius} 0 1 1 ${center - 0.001} ${center - arcRadius} A ${arcRadius} ${arcRadius} 0 1 1 ${center} ${center - arcRadius}`
+    : arcAngle > 0 
+      ? `M ${startX} ${startY} A ${arcRadius} ${arcRadius} 0 ${largeArcFlag} 1 ${endX} ${endY}`
+      : '';
 
   // 顏色根據弧度和當前部分變化
   const baseHue = currentPart === 'yi' ? 38 : 350; // 金色 or 紅色
