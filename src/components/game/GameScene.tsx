@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback, useMemo, startTransition } from 'react';
+import { useState, useEffect, useRef, useCallback, useMemo, lazy, Suspense } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, Home, BookOpen, RotateCcw, Image, Trophy, Map } from 'lucide-react';
 import { useGameStore, type ZenTheme, type RevelationTheme } from '@/stores/gameStore';
@@ -9,19 +9,23 @@ import DialogueBox from './DialogueBox';
 import ArcIndicator from './ArcIndicator';
 import ChapterSelect from './ChapterSelect';
 import SceneImage from './SceneImage';
-import Gallery from './Gallery';
 import AudioControls from './AudioControls';
 import SceneTransition from './SceneTransition';
-import EndingStats from './EndingStats';
-import IntroSequence from './IntroSequence';
-import ZenMoment from './ZenMoment';
-import RevelationMoment from './RevelationMoment';
-import GraduationMoment from './GraduationMoment';
-import JourneyReflection from './JourneyReflection';
-import GameEndOverlay from './GameEndOverlay';
+import MenuButton from './MenuButton';
+import LazyLoadingFallback from './LazyLoadingFallback';
 // ScoreChange 已移除 - 月明值系統對玩家隱藏
 import ProgressHUD from './ProgressHUD';
 import AchievementToast from './AchievementToast';
+
+// 懶加載大型組件 - 僅在需要時載入
+const Gallery = lazy(() => import('./Gallery'));
+const EndingStats = lazy(() => import('./EndingStats'));
+const IntroSequence = lazy(() => import('./IntroSequence'));
+const ZenMoment = lazy(() => import('./ZenMoment'));
+const RevelationMoment = lazy(() => import('./RevelationMoment'));
+const GraduationMoment = lazy(() => import('./GraduationMoment'));
+const JourneyReflection = lazy(() => import('./JourneyReflection'));
+const GameEndOverlay = lazy(() => import('./GameEndOverlay'));
 import { useAchievements } from '@/hooks/useAchievements';
 import { getNodeById } from '@/data/prologueStory';
 // TODO: 第二部節點查詢函數待建立
@@ -383,42 +387,50 @@ const GameScene = () => {
     <div className="relative min-h-screen overflow-hidden">
       {/* 序章開場禪意動畫 */}
       {showIntroSequence && (
-        <IntroSequence 
-          lines={PROLOGUE_INTRO_LINES} 
-          onComplete={handleIntroComplete}
-          lineDelay={2800}
-        />
+        <Suspense fallback={<LazyLoadingFallback fullScreen />}>
+          <IntroSequence 
+            lines={PROLOGUE_INTRO_LINES} 
+            onComplete={handleIntroComplete}
+            lineDelay={2800}
+          />
+        </Suspense>
       )}
 
       {/* 禪意時刻（由節點 specialScene: 'zen' 觸發） */}
       {showZenMoment && zenConfig && (
-        <ZenMoment
-          text={zenConfig.text}
-          subtitle={zenConfig.subtitle}
-          onComplete={handleZenMomentComplete}
-          duration={zenConfig.duration || 6000}
-          theme={zenConfig.theme || 'golden'}
-        />
+        <Suspense fallback={<LazyLoadingFallback fullScreen />}>
+          <ZenMoment
+            text={zenConfig.text}
+            subtitle={zenConfig.subtitle}
+            onComplete={handleZenMomentComplete}
+            duration={zenConfig.duration || 6000}
+            theme={zenConfig.theme || 'golden'}
+          />
+        </Suspense>
       )}
 
       {/* 啟示時刻（由節點 specialScene: 'revelation' 觸發） */}
       {showRevelation && revelationConfig && (
-        <RevelationMoment
-          text={revelationConfig.text}
-          subtitle={revelationConfig.subtitle}
-          onComplete={handleRevelationComplete}
-          duration={revelationConfig.duration || 5000}
-          theme={revelationConfig.theme || 'golden'}
-        />
+        <Suspense fallback={<LazyLoadingFallback fullScreen />}>
+          <RevelationMoment
+            text={revelationConfig.text}
+            subtitle={revelationConfig.subtitle}
+            onComplete={handleRevelationComplete}
+            duration={revelationConfig.duration || 5000}
+            theme={revelationConfig.theme || 'golden'}
+          />
+        </Suspense>
       )}
 
       {/* 畢業時刻（章節結尾的畢業圖展示） */}
       {showGraduation && graduationData && (
-        <GraduationMoment
-          data={graduationData}
-          onComplete={handleGraduationComplete}
-          duration={7000}
-        />
+        <Suspense fallback={<LazyLoadingFallback fullScreen />}>
+          <GraduationMoment
+            data={graduationData}
+            onComplete={handleGraduationComplete}
+            duration={7000}
+          />
+        </Suspense>
       )}
 
       {/* 場景圖片（如果有） */}
@@ -680,78 +692,59 @@ const GameScene = () => {
 
           {/* 藝廊 */}
           {isYiPart && (
-            <button
+            <MenuButton
               onClick={() => {
                 setIsMenuOpen(false);
-                startTransition(() => {
-                  setIsGalleryOpen(true);
-                });
+                setIsGalleryOpen(true);
               }}
-              className="w-full flex items-center gap-3 px-4 py-3 text-sm text-foreground hover:bg-muted/50 transition-colors border-t border-border/50"
-            >
-              <Image className="w-4 h-4 text-primary" />
-              藝廊
-            </button>
+              icon={<Image className="w-4 h-4 text-primary" />}
+              label="藝廊"
+            />
           )}
 
           {/* 心路歷程（僅第一部） */}
           {currentPart === 'yi' && (
-            <button
+            <MenuButton
               onClick={() => {
                 setIsMenuOpen(false);
-                startTransition(() => {
-                  setIsJourneyOpen(true);
-                });
+                setIsJourneyOpen(true);
               }}
-              className="w-full flex items-center gap-3 px-4 py-3 text-sm text-foreground hover:bg-muted/50 transition-colors border-t border-border/50"
-            >
-              <Map className="w-4 h-4 text-emerald-400" />
-              心路歷程
-            </button>
+              icon={<Map className="w-4 h-4 text-emerald-400" />}
+              label="心路歷程"
+            />
           )}
 
           {/* 結局統計 */}
-          <button
+          <MenuButton
             onClick={() => {
               setIsMenuOpen(false);
-              startTransition(() => {
-                setIsEndingStatsOpen(true);
-              });
+              setIsEndingStatsOpen(true);
             }}
-            className="w-full flex items-center gap-3 px-4 py-3 text-sm text-foreground hover:bg-muted/50 transition-colors border-t border-border/50"
-          >
-            <Trophy className="w-4 h-4 text-amber-400" />
-            結局統計
-          </button>
+            icon={<Trophy className="w-4 h-4 text-amber-400" />}
+            label="結局統計"
+          />
 
           {/* 返回標題 */}
-          <button
+          <MenuButton
             onClick={() => {
               setIsMenuOpen(false);
-              startTransition(() => {
-                returnToTitle();
-              });
+              returnToTitle();
             }}
-            className="w-full flex items-center gap-3 px-4 py-3 text-sm text-foreground hover:bg-muted/50 transition-colors border-t border-border/50"
-          >
-            <Home className="w-4 h-4 text-muted-foreground" />
-            返回標題
-          </button>
+            icon={<Home className="w-4 h-4 text-muted-foreground" />}
+            label="返回標題"
+          />
 
           {/* 重新開始 */}
-          <button
+          <MenuButton
             onClick={() => {
               setIsMenuOpen(false);
-              startTransition(() => {
-                resetPart(currentPart);
-                returnToTitle();
-              });
+              resetPart(currentPart);
+              returnToTitle();
             }}
-            className="w-full flex items-center gap-3 px-4 py-3 text-sm text-destructive hover:bg-destructive/10 transition-colors border-t border-border/50"
-          >
-            <RotateCcw className="w-4 h-4" />
-            重新開始本部
-          </button>
+            icon={<RotateCcw className="w-4 h-4" />}
+            label="重新開始本部"
+            variant="destructive"
+          />
         </motion.div>
       </motion.div>
 
@@ -776,26 +769,38 @@ const GameScene = () => {
       />
 
       {/* 藝廊彈窗 */}
-      <Gallery 
-        isOpen={isGalleryOpen} 
-        onClose={() => setIsGalleryOpen(false)} 
-      />
+      {isGalleryOpen && (
+        <Suspense fallback={<LazyLoadingFallback fullScreen />}>
+          <Gallery 
+            isOpen={isGalleryOpen} 
+            onClose={() => setIsGalleryOpen(false)} 
+          />
+        </Suspense>
+      )}
 
       {/* 結局統計彈窗 */}
-      <EndingStats 
-        isOpen={isEndingStatsOpen} 
-        onClose={() => {
-          setIsEndingStatsOpen(false);
-          setIsEndingStatsFromGameEnd(false);
-        }}
-        fromGameEnd={isEndingStatsFromGameEnd}
-      />
+      {isEndingStatsOpen && (
+        <Suspense fallback={<LazyLoadingFallback fullScreen />}>
+          <EndingStats 
+            isOpen={isEndingStatsOpen} 
+            onClose={() => {
+              setIsEndingStatsOpen(false);
+              setIsEndingStatsFromGameEnd(false);
+            }}
+            fromGameEnd={isEndingStatsFromGameEnd}
+          />
+        </Suspense>
+      )}
 
       {/* 心路歷程彈窗 */}
-      <JourneyReflection 
-        isOpen={isJourneyOpen} 
-        onClose={() => setIsJourneyOpen(false)} 
-      />
+      {isJourneyOpen && (
+        <Suspense fallback={<LazyLoadingFallback fullScreen />}>
+          <JourneyReflection 
+            isOpen={isJourneyOpen} 
+            onClose={() => setIsJourneyOpen(false)} 
+          />
+        </Suspense>
+      )}
 
       {/* 章節轉場動畫 - 顯示章節標題、副標題與金句 */}
       <SceneTransition
@@ -809,10 +814,14 @@ const GameScene = () => {
       />
 
       {/* 遊戲結束覆蓋層 */}
-      <GameEndOverlay
-        isVisible={showGameEndOverlay}
-        onComplete={handleGameEndComplete}
-      />
+      {showGameEndOverlay && (
+        <Suspense fallback={<LazyLoadingFallback fullScreen />}>
+          <GameEndOverlay
+            isVisible={showGameEndOverlay}
+            onComplete={handleGameEndComplete}
+          />
+        </Suspense>
+      )}
     </div>
   );
 };
