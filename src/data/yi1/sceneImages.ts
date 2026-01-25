@@ -1056,7 +1056,7 @@ export function normalizeNodeId(nodeId: string): string {
   let normalized = nodeId.replace(/^yi1-/, '');
   
   // 將 chX/chapterX 格式轉換為 chapter-X- 格式（支援可選破折號）
-  normalized = normalized.replace(/^(?:ch|chapter)-?(\d+)-?/, 'chapter-$1-');
+  normalized = normalized.replace(/^(?:ch-?|chapter-?)(\d+)-?/, 'chapter-$1-');
   
   return normalized;
 }
