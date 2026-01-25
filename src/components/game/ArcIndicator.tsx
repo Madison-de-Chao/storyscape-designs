@@ -71,14 +71,14 @@ const ArcIndicator = () => {
 
   return (
     <motion.div
-      className="fixed top-6 right-6 z-50"
+      className="fixed top-4 right-4 sm:top-6 sm:right-6 z-50"
       initial={{ opacity: 0, scale: 0.8 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.5, delay: 0.5 }}
     >
       <div className="relative">
-        {/* 主要弧度指示器 */}
-        <div className="relative w-24 h-24">
+        {/* 主要弧度指示器 - 手機上較小 */}
+        <div className="relative w-16 h-16 sm:w-24 sm:h-24">
           {/* 背景圓 */}
           <svg 
             viewBox="0 0 100 100" 
@@ -124,7 +124,7 @@ const ArcIndicator = () => {
           {/* 弧度數值 */}
           <div className="absolute inset-0 flex items-center justify-center">
             <motion.span
-              className="text-sm font-serif-tc font-semibold"
+              className="text-xs sm:text-sm font-serif-tc font-semibold"
               style={{ color: `hsl(${hue}, 70%, 55%)` }}
               key={arcValue}
               initial={{ scale: 1.2, opacity: 0 }}
@@ -135,9 +135,9 @@ const ArcIndicator = () => {
             </motion.span>
           </div>
           
-          {/* 標籤 */}
-          <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 whitespace-nowrap">
-            <span className="text-xs text-muted-foreground">弧度</span>
+          {/* 標籤 - 手機上較小 */}
+          <div className="absolute -bottom-4 sm:-bottom-6 left-1/2 -translate-x-1/2 whitespace-nowrap">
+            <span className="text-[10px] sm:text-xs text-muted-foreground">弧度</span>
           </div>
         </div>
 
@@ -163,12 +163,12 @@ const ArcIndicator = () => {
           )}
         </AnimatePresence>
 
-        {/* 迷你趨勢圖 */}
+        {/* 迷你趨勢圖 - 手機上隱藏 */}
         {arcHistory.length >= 2 && (
           <motion.div
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
-            className="mt-8 bg-surface/50 rounded-lg p-2 border border-border/30 backdrop-blur-sm"
+            className="hidden sm:block mt-8 bg-surface/50 rounded-lg p-2 border border-border/30 backdrop-blur-sm"
           >
             <div className="text-[10px] text-muted-foreground mb-1 text-center">歷史趨勢</div>
             <svg 
