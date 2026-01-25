@@ -9,6 +9,7 @@ import Game from "./pages/Game";
 import Privacy from "./pages/Privacy";
 import Terms from "./pages/Terms";
 import NotFound from "./pages/NotFound";
+import CookieConsent from "./components/CookieConsent";
 import './App.css';
 const queryClient = new QueryClient();
 
@@ -36,6 +37,7 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <AnimatedRoutes />
+        <CookieConsent />
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
