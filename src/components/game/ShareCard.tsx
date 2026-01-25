@@ -1,5 +1,5 @@
 import { forwardRef } from 'react';
-import { Sparkles, Palette, GitBranch, BookOpen } from 'lucide-react';
+import { Sparkles, Palette, GitBranch, BookOpen, Moon } from 'lucide-react';
 
 interface ShareCardProps {
   gameName: string;
@@ -9,6 +9,8 @@ interface ShareCardProps {
   colorsCollected: string[];
   totalNodesRead: number;
   totalChoices: number;
+  moonBrightValue?: number;
+  moonDarkValue?: number;
 }
 
 // 收集顏色的展示配置
@@ -23,6 +25,77 @@ const colorConfig: Record<string, { name: string; bg: string }> = {
   azure: { name: '蔚藍', bg: '#3b82f6' },
 };
 
+// 根據月明程度獲取主題配置
+const getMoonTheme = (moonBrightValue: number, moonDarkValue: number) => {
+  const total = moonBrightValue + moonDarkValue;
+  const clarity = total > 0 ? moonBrightValue / total : 0.5;
+
+  if (clarity >= 0.85) {
+    return {
+      name: '皓月當空',
+      bgGradient: 'linear-gradient(180deg, #0a1628 0%, #1a3a5c 30%, #0d2847 70%, #061222 100%)',
+      accentColor: '#f4f4f5',
+      glowColor: 'rgba(244, 244, 245, 0.3)',
+      moonPhase: 1,
+      starOpacity: 0.9,
+    };
+  } else if (clarity >= 0.7) {
+    return {
+      name: '盈凸之月',
+      bgGradient: 'linear-gradient(180deg, #0c1a2e 0%, #1e3a5f 30%, #142d4c 70%, #081524 100%)',
+      accentColor: '#e2e8f0',
+      glowColor: 'rgba(226, 232, 240, 0.25)',
+      moonPhase: 0.85,
+      starOpacity: 0.75,
+    };
+  } else if (clarity >= 0.55) {
+    return {
+      name: '上弦之月',
+      bgGradient: 'linear-gradient(180deg, #0f1729 0%, #1a2744 30%, #141e33 70%, #0a0f1a 100%)',
+      accentColor: '#cbd5e1',
+      glowColor: 'rgba(203, 213, 225, 0.2)',
+      moonPhase: 0.5,
+      starOpacity: 0.6,
+    };
+  } else if (clarity >= 0.4) {
+    return {
+      name: '朦朧弦月',
+      bgGradient: 'linear-gradient(180deg, #0d1117 0%, #151d2b 30%, #111827 70%, #0a0a0f 100%)',
+      accentColor: '#94a3b8',
+      glowColor: 'rgba(148, 163, 184, 0.15)',
+      moonPhase: 0.35,
+      starOpacity: 0.45,
+    };
+  } else if (clarity >= 0.25) {
+    return {
+      name: '眉月微光',
+      bgGradient: 'linear-gradient(180deg, #0a0a0f 0%, #111318 30%, #0d0f14 70%, #050507 100%)',
+      accentColor: '#64748b',
+      glowColor: 'rgba(100, 116, 139, 0.1)',
+      moonPhase: 0.2,
+      starOpacity: 0.3,
+    };
+  } else if (clarity >= 0.1) {
+    return {
+      name: '殘月如鉤',
+      bgGradient: 'linear-gradient(180deg, #050507 0%, #0a0b0e 30%, #070809 70%, #020203 100%)',
+      accentColor: '#475569',
+      glowColor: 'rgba(71, 85, 105, 0.08)',
+      moonPhase: 0.1,
+      starOpacity: 0.2,
+    };
+  } else {
+    return {
+      name: '晦暗新月',
+      bgGradient: 'linear-gradient(180deg, #020203 0%, #050507 30%, #030304 70%, #000000 100%)',
+      accentColor: '#334155',
+      glowColor: 'rgba(51, 65, 85, 0.05)',
+      moonPhase: 0,
+      starOpacity: 0.1,
+    };
+  }
+};
+
 // 根據結局類型獲取顏色
 const getEndingGradient = (title: string) => {
   switch (title) {
@@ -32,14 +105,34 @@ const getEndingGradient = (title: string) => {
       return 'linear-gradient(135deg, #34d399 0%, #10b981 50%, #059669 100%)';
     case '探索弧度':
       return 'linear-gradient(135deg, #60a5fa 0%, #3b82f6 50%, #2563eb 100%)';
+    case '啟程弧度':
+      return 'linear-gradient(135deg, #22d3ee 0%, #06b6d4 50%, #0891b2 100%)';
     default:
       return 'linear-gradient(135deg, #9ca3af 0%, #6b7280 50%, #4b5563 100%)';
   }
 };
 
+// Generate stars based on opacity
+const generateStars = (count: number, opacity: number) => {
+  const stars = [];
+  for (let i = 0; i < count; i++) {
+    const size = 1 + Math.random() * 2;
+    stars.push({
+      left: `${5 + Math.random() * 90}%`,
+      top: `${5 + Math.random() * 40}%`,
+      size,
+      opacity: opacity * (0.3 + Math.random() * 0.7),
+      delay: Math.random() * 2,
+    });
+  }
+  return stars;
+};
+
 const ShareCard = forwardRef<HTMLDivElement, ShareCardProps>(
-  ({ gameName, endingTitle, endingColor, arcValue, colorsCollected, totalNodesRead, totalChoices }, ref) => {
+  ({ gameName, endingTitle, endingColor, arcValue, colorsCollected, totalNodesRead, totalChoices, moonBrightValue = 0, moonDarkValue = 0 }, ref) => {
     const endingGradient = getEndingGradient(endingTitle);
+    const moonTheme = getMoonTheme(moonBrightValue, moonDarkValue);
+    const stars = generateStars(30, moonTheme.starOpacity);
     
     return (
       <div
@@ -47,12 +140,77 @@ const ShareCard = forwardRef<HTMLDivElement, ShareCardProps>(
         style={{
           width: '600px',
           height: '800px',
-          background: 'linear-gradient(180deg, #0a0a0f 0%, #1a1a2e 50%, #0a0a0f 100%)',
+          background: moonTheme.bgGradient,
           fontFamily: '"Noto Serif TC", serif',
           position: 'relative',
           overflow: 'hidden',
         }}
       >
+        {/* 星空背景 */}
+        {stars.map((star, i) => (
+          <div
+            key={i}
+            style={{
+              position: 'absolute',
+              width: `${star.size}px`,
+              height: `${star.size}px`,
+              background: moonTheme.accentColor,
+              borderRadius: '50%',
+              left: star.left,
+              top: star.top,
+              opacity: star.opacity,
+              boxShadow: `0 0 ${star.size * 2}px ${moonTheme.accentColor}`,
+            }}
+          />
+        ))}
+
+        {/* 月亮視覺化 - 右上角 */}
+        <div
+          style={{
+            position: 'absolute',
+            top: '40px',
+            right: '40px',
+            width: '100px',
+            height: '100px',
+          }}
+        >
+          {/* 月暈光環 */}
+          <div
+            style={{
+              position: 'absolute',
+              inset: '-20px',
+              background: `radial-gradient(circle, ${moonTheme.glowColor} 0%, transparent 70%)`,
+              borderRadius: '50%',
+            }}
+          />
+          {/* 月球基底 */}
+          <svg width="100" height="100" viewBox="0 0 100 100">
+            <defs>
+              <radialGradient id="moonSurface" cx="40%" cy="40%">
+                <stop offset="0%" stopColor="#f8fafc" />
+                <stop offset="100%" stopColor="#cbd5e1" />
+              </radialGradient>
+              <clipPath id="moonClip">
+                <circle cx="50" cy="50" r="45" />
+              </clipPath>
+            </defs>
+            {/* 月球本體 */}
+            <circle cx="50" cy="50" r="45" fill="url(#moonSurface)" opacity={moonTheme.moonPhase > 0 ? 1 : 0.2} />
+            {/* 陰影遮罩 - 根據月相調整 */}
+            {moonTheme.moonPhase < 1 && (
+              <ellipse
+                cx={50 + (1 - moonTheme.moonPhase) * 50}
+                cy="50"
+                rx={45 * (1 - moonTheme.moonPhase * 0.8)}
+                ry="45"
+                fill="#0a0a0f"
+                clipPath="url(#moonClip)"
+                opacity={0.95}
+              />
+            )}
+          </svg>
+        </div>
+
         {/* 背景裝飾 - 弧形光暈 */}
         <div
           style={{
@@ -62,7 +220,7 @@ const ShareCard = forwardRef<HTMLDivElement, ShareCardProps>(
             transform: 'translateX(-50%)',
             width: '500px',
             height: '500px',
-            background: `radial-gradient(circle, ${endingColor === 'text-amber-400' ? 'rgba(251, 191, 36, 0.15)' : endingColor === 'text-emerald-400' ? 'rgba(16, 185, 129, 0.15)' : endingColor === 'text-blue-400' ? 'rgba(59, 130, 246, 0.15)' : 'rgba(156, 163, 175, 0.15)'} 0%, transparent 70%)`,
+            background: `radial-gradient(circle, ${moonTheme.glowColor} 0%, transparent 70%)`,
             borderRadius: '50%',
           }}
         />
@@ -83,35 +241,18 @@ const ShareCard = forwardRef<HTMLDivElement, ShareCardProps>(
           <path
             d="M 50 250 Q 250 50 450 250"
             fill="none"
-            stroke="url(#arcGradient)"
+            stroke={`url(#arcGradient-${moonTheme.name})`}
             strokeWidth="2"
             strokeLinecap="round"
           />
           <defs>
-            <linearGradient id="arcGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stopColor="rgba(255,255,255,0.1)" />
-              <stop offset="50%" stopColor="rgba(255,255,255,0.5)" />
-              <stop offset="100%" stopColor="rgba(255,255,255,0.1)" />
+            <linearGradient id={`arcGradient-${moonTheme.name}`} x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor={moonTheme.glowColor.replace('0.', '0.1')} />
+              <stop offset="50%" stopColor={moonTheme.accentColor} />
+              <stop offset="100%" stopColor={moonTheme.glowColor.replace('0.', '0.1')} />
             </linearGradient>
           </defs>
         </svg>
-
-        {/* 浮動粒子裝飾 */}
-        {[...Array(12)].map((_, i) => (
-          <div
-            key={i}
-            style={{
-              position: 'absolute',
-              width: `${3 + (i % 3) * 2}px`,
-              height: `${3 + (i % 3) * 2}px`,
-              background: 'rgba(255, 255, 255, 0.4)',
-              borderRadius: '50%',
-              left: `${10 + (i * 7)}%`,
-              top: `${15 + (i % 5) * 15}%`,
-              boxShadow: '0 0 6px rgba(255, 255, 255, 0.3)',
-            }}
-          />
-        ))}
 
         {/* 遊戲標題 */}
         <div
@@ -126,7 +267,8 @@ const ShareCard = forwardRef<HTMLDivElement, ShareCardProps>(
             style={{
               fontSize: '14px',
               letterSpacing: '8px',
-              color: 'rgba(255, 255, 255, 0.5)',
+              color: moonTheme.accentColor,
+              opacity: 0.6,
               marginBottom: '8px',
             }}
           >
@@ -136,7 +278,7 @@ const ShareCard = forwardRef<HTMLDivElement, ShareCardProps>(
             style={{
               fontSize: '36px',
               fontWeight: 700,
-              background: 'linear-gradient(180deg, #ffffff 0%, #a0a0a0 100%)',
+              background: `linear-gradient(180deg, ${moonTheme.accentColor} 0%, ${moonTheme.glowColor.replace(/[\d.]+\)$/, '0.7)')} 100%)`,
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
               margin: 0,
@@ -147,10 +289,44 @@ const ShareCard = forwardRef<HTMLDivElement, ShareCardProps>(
           </h1>
         </div>
 
+        {/* 月明程度標籤 */}
+        <div
+          style={{
+            marginTop: '20px',
+            display: 'flex',
+            justifyContent: 'center',
+            position: 'relative',
+            zIndex: 1,
+          }}
+        >
+          <div
+            style={{
+              background: 'rgba(255, 255, 255, 0.08)',
+              border: `1px solid ${moonTheme.accentColor}40`,
+              padding: '8px 20px',
+              borderRadius: '20px',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+            }}
+          >
+            <Moon style={{ width: '16px', height: '16px', color: moonTheme.accentColor }} />
+            <span
+              style={{
+                fontSize: '14px',
+                color: moonTheme.accentColor,
+                letterSpacing: '2px',
+              }}
+            >
+              {moonTheme.name}
+            </span>
+          </div>
+        </div>
+
         {/* 結局類型標籤 */}
         <div
           style={{
-            marginTop: '40px',
+            marginTop: '24px',
             display: 'flex',
             justifyContent: 'center',
             position: 'relative',
@@ -185,7 +361,7 @@ const ShareCard = forwardRef<HTMLDivElement, ShareCardProps>(
         {/* 弧度值展示 */}
         <div
           style={{
-            marginTop: '50px',
+            marginTop: '40px',
             textAlign: 'center',
             position: 'relative',
             zIndex: 1,
@@ -194,7 +370,8 @@ const ShareCard = forwardRef<HTMLDivElement, ShareCardProps>(
           <div
             style={{
               fontSize: '14px',
-              color: 'rgba(255, 255, 255, 0.6)',
+              color: moonTheme.accentColor,
+              opacity: 0.6,
               marginBottom: '12px',
               letterSpacing: '4px',
             }}
@@ -227,7 +404,7 @@ const ShareCard = forwardRef<HTMLDivElement, ShareCardProps>(
           >
             <div
               style={{
-                width: `${(arcValue / 180) * 100}%`,
+                width: `${(arcValue / 360) * 100}%`,
                 height: '100%',
                 background: endingGradient,
                 borderRadius: '4px',
@@ -241,11 +418,12 @@ const ShareCard = forwardRef<HTMLDivElement, ShareCardProps>(
               width: '300px',
               margin: '8px auto 0',
               fontSize: '12px',
-              color: 'rgba(255, 255, 255, 0.4)',
+              color: moonTheme.accentColor,
+              opacity: 0.5,
             }}
           >
             <span>0°</span>
-            <span>180°</span>
+            <span>360°</span>
           </div>
         </div>
 
@@ -263,43 +441,43 @@ const ShareCard = forwardRef<HTMLDivElement, ShareCardProps>(
           <div
             style={{
               background: 'rgba(255, 255, 255, 0.05)',
-              border: '1px solid rgba(255, 255, 255, 0.1)',
+              border: `1px solid ${moonTheme.accentColor}20`,
               borderRadius: '16px',
               padding: '20px',
               textAlign: 'center',
             }}
           >
             <BookOpen style={{ width: '24px', height: '24px', color: '#60a5fa', margin: '0 auto 8px' }} />
-            <div style={{ fontSize: '28px', fontWeight: 700, color: 'white' }}>{totalNodesRead}</div>
-            <div style={{ fontSize: '12px', color: 'rgba(255, 255, 255, 0.5)' }}>閱讀節點</div>
+            <div style={{ fontSize: '28px', fontWeight: 700, color: moonTheme.accentColor }}>{totalNodesRead}</div>
+            <div style={{ fontSize: '12px', color: moonTheme.accentColor, opacity: 0.5 }}>閱讀節點</div>
           </div>
 
           <div
             style={{
               background: 'rgba(255, 255, 255, 0.05)',
-              border: '1px solid rgba(255, 255, 255, 0.1)',
+              border: `1px solid ${moonTheme.accentColor}20`,
               borderRadius: '16px',
               padding: '20px',
               textAlign: 'center',
             }}
           >
             <GitBranch style={{ width: '24px', height: '24px', color: '#34d399', margin: '0 auto 8px' }} />
-            <div style={{ fontSize: '28px', fontWeight: 700, color: 'white' }}>{totalChoices}</div>
-            <div style={{ fontSize: '12px', color: 'rgba(255, 255, 255, 0.5)' }}>關鍵抉擇</div>
+            <div style={{ fontSize: '28px', fontWeight: 700, color: moonTheme.accentColor }}>{totalChoices}</div>
+            <div style={{ fontSize: '12px', color: moonTheme.accentColor, opacity: 0.5 }}>關鍵抉擇</div>
           </div>
 
           <div
             style={{
               background: 'rgba(255, 255, 255, 0.05)',
-              border: '1px solid rgba(255, 255, 255, 0.1)',
+              border: `1px solid ${moonTheme.accentColor}20`,
               borderRadius: '16px',
               padding: '20px',
               textAlign: 'center',
             }}
           >
             <Palette style={{ width: '24px', height: '24px', color: '#a78bfa', margin: '0 auto 8px' }} />
-            <div style={{ fontSize: '28px', fontWeight: 700, color: 'white' }}>{colorsCollected.length}</div>
-            <div style={{ fontSize: '12px', color: 'rgba(255, 255, 255, 0.5)' }}>收集顏色</div>
+            <div style={{ fontSize: '28px', fontWeight: 700, color: moonTheme.accentColor }}>{colorsCollected.length}</div>
+            <div style={{ fontSize: '12px', color: moonTheme.accentColor, opacity: 0.5 }}>收集顏色</div>
           </div>
         </div>
 
@@ -363,7 +541,8 @@ const ShareCard = forwardRef<HTMLDivElement, ShareCardProps>(
           <div
             style={{
               fontSize: '12px',
-              color: 'rgba(255, 255, 255, 0.4)',
+              color: moonTheme.accentColor,
+              opacity: 0.4,
               letterSpacing: '2px',
             }}
           >
@@ -379,19 +558,8 @@ const ShareCard = forwardRef<HTMLDivElement, ShareCardProps>(
             left: '20px',
             width: '40px',
             height: '40px',
-            borderLeft: '2px solid rgba(255, 255, 255, 0.2)',
-            borderTop: '2px solid rgba(255, 255, 255, 0.2)',
-          }}
-        />
-        <div
-          style={{
-            position: 'absolute',
-            top: '20px',
-            right: '20px',
-            width: '40px',
-            height: '40px',
-            borderRight: '2px solid rgba(255, 255, 255, 0.2)',
-            borderTop: '2px solid rgba(255, 255, 255, 0.2)',
+            borderLeft: `2px solid ${moonTheme.accentColor}30`,
+            borderTop: `2px solid ${moonTheme.accentColor}30`,
           }}
         />
         <div
@@ -401,8 +569,8 @@ const ShareCard = forwardRef<HTMLDivElement, ShareCardProps>(
             left: '20px',
             width: '40px',
             height: '40px',
-            borderLeft: '2px solid rgba(255, 255, 255, 0.2)',
-            borderBottom: '2px solid rgba(255, 255, 255, 0.2)',
+            borderLeft: `2px solid ${moonTheme.accentColor}30`,
+            borderBottom: `2px solid ${moonTheme.accentColor}30`,
           }}
         />
         <div
@@ -412,8 +580,8 @@ const ShareCard = forwardRef<HTMLDivElement, ShareCardProps>(
             right: '20px',
             width: '40px',
             height: '40px',
-            borderRight: '2px solid rgba(255, 255, 255, 0.2)',
-            borderBottom: '2px solid rgba(255, 255, 255, 0.2)',
+            borderRight: `2px solid ${moonTheme.accentColor}30`,
+            borderBottom: `2px solid ${moonTheme.accentColor}30`,
           }}
         />
       </div>

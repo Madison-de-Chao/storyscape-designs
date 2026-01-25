@@ -171,7 +171,7 @@ const EndingStats = ({ isOpen, onClose }: EndingStatsProps) => {
   const { getMoonClarity } = useGameStore();
   const moonClarity = getMoonClarity();
   
-  const { arcValue, colorsCollected, choicesHistory, readNodes, lastReadAt } = progress;
+  const { arcValue, colorsCollected, choicesHistory, readNodes, lastReadAt, moonBrightValue, moonDarkValue } = progress;
   
   // 計算統計數據
   const totalNodesRead = Object.values(readNodes || {}).reduce((sum, nodes) => sum + nodes.length, 0);
@@ -688,6 +688,8 @@ const EndingStats = ({ isOpen, onClose }: EndingStatsProps) => {
           colorsCollected={colorsCollected || []}
           totalNodesRead={totalNodesRead}
           totalChoices={totalChoices}
+          moonBrightValue={moonBrightValue || 0}
+          moonDarkValue={moonDarkValue || 0}
         />
       </div>
 
