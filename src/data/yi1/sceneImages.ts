@@ -420,7 +420,7 @@ export const sceneImages: SceneImageConfig[] = [
 
   // === 第二章：渡口（使用粉嫩少女耽美版）===
   {
-    image: IMG_ch2_金色河流_醒來的寧靜,
+    image: IMG_ch2_金色河流_���來的寧靜,
     alt: '金色河流 - 醒來的寧靜',
     nodePatterns: ['chapter-2-intro', 'chapter-2-1', 'chapter-2-2', 'chapter-2-3', 'chapter-2-4', 'chapter-2-5', 'chapter-2-6', 'chapter-2-7', 'chapter-2-8'],
   },
@@ -968,7 +968,7 @@ export const sceneImages: SceneImageConfig[] = [
   {
     image: IMG_epilogue_三個月後_深夜檔案,
     alt: '三個月後 - 深夜檔案',
-    nodePatterns: ['yi1-epilogue-intro', 'yi1-epilogue-1', 'yi1-epilogue-2', 'yi1-epilogue-3', 'yi1-epilogue-4', 'yi1-epilogue-5', 'epilogue-1', 'epilogue-2', 'epilogue-3', 'epilogue-4', 'epilogue-5'],
+    nodePatterns: ['epilogue-intro', 'yi1-epilogue-intro', 'yi1-epilogue-1', 'yi1-epilogue-2', 'yi1-epilogue-3', 'yi1-epilogue-4', 'yi1-epilogue-5', 'epilogue-1', 'epilogue-2', 'epilogue-3', 'epilogue-4', 'epilogue-5'],
   },
   // 階段2：舊檔案 - 重新發現過去
   {
