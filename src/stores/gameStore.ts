@@ -560,7 +560,7 @@ export const useGameStore = create<GameState>()(
         return progress.dialogueHistory || [];
       },
 
-      // 完成課程：固定加弧度（每課 40°，共 9 課 = 360°）
+      // 完成課程：固定加弧度（每課約 32.7°，共 11 課 ≈ 360°）
       completeLesson: (lessonId: string) => {
         const state = get();
         const progress = state.getCurrentProgress();
@@ -569,10 +569,11 @@ export const useGameStore = create<GameState>()(
         // 避免重複完成同一課
         if (completedLessons.includes(lessonId)) return;
         
-        // 每課固定加 40°（9 課 × 40° = 360°）
-        const ARC_PER_LESSON = 40;
+        // 每課固定加約 32.7°（11 課 × 32.7° ≈ 360°）
+        // 使用 Math.round 確保最後一課能達到 360°
+        const TOTAL_LESSONS = 11;
+        const ARC_PER_LESSON = Math.round(360 / TOTAL_LESSONS); // ≈ 33°
         const newArcValue = Math.min(360, progress.arcValue + ARC_PER_LESSON);
-        
         // 更新弧度歷史記錄
         const arcHistory = progress.arcHistory || [];
         const newArcHistory = [
