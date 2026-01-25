@@ -74,9 +74,10 @@ export const GlitchText = ({
         ]
       } : {}}
       transition={{
-        duration: 0.1,
+        duration: 0.25,
         repeat: isGlitching ? Infinity : 0,
-        repeatType: "reverse"
+        repeatType: "reverse",
+        ease: "easeInOut"
       }}
     >
       {/* RGB 分離效果 */}
@@ -110,7 +111,7 @@ export const GlitchText = ({
             background: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,255,255,0.03) 2px, rgba(255,255,255,0.03) 4px)'
           }}
           animate={{ y: [0, 10] }}
-          transition={{ duration: 0.5, repeat: Infinity }}
+          transition={{ duration: 0.8, repeat: Infinity, ease: "linear" }}
         />
       )}
     </motion.span>

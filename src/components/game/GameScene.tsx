@@ -393,14 +393,14 @@ const GameScene = () => {
         <motion.div
           className="absolute inset-0 pointer-events-none z-30"
           initial={{ opacity: 0 }}
-          animate={{ opacity: [0, 0.1, 0, 0.05, 0] }}
-          transition={{ duration: 0.3, repeat: 3 }}
+          animate={{ opacity: [0, 0.08, 0, 0.04, 0] }}
+          transition={{ duration: 0.6, repeat: 2, ease: 'easeInOut' }}
         >
-          <div className="absolute inset-0 bg-accent/10" />
+          <div className="absolute inset-0 bg-accent/8" />
           <div 
             className="absolute inset-0"
             style={{
-              background: 'repeating-linear-gradient(0deg, transparent, transparent 2px, hsl(var(--accent) / 0.03) 2px, hsl(var(--accent) / 0.03) 4px)',
+              background: 'repeating-linear-gradient(0deg, transparent, transparent 2px, hsl(var(--accent) / 0.02) 2px, hsl(var(--accent) / 0.02) 4px)',
             }}
           />
         </motion.div>
@@ -421,36 +421,38 @@ const GameScene = () => {
               animate={{
                 backgroundColor: [
                   'transparent',
-                  'hsl(0 70% 50% / 0.08)',
+                  'hsl(0 70% 50% / 0.06)',
                   'transparent',
-                  'hsl(0 70% 50% / 0.05)',
+                  'hsl(0 70% 50% / 0.04)',
                   'transparent',
                 ],
               }}
               transition={{
-                duration: 0.4,
+                duration: 0.8,
                 repeat: Infinity,
                 repeatType: 'loop',
+                ease: 'easeInOut',
               }}
             />
             
             {/* 掃描線效果 */}
             <motion.div
               className="absolute inset-0 glitch-scanlines"
-              animate={{ opacity: [0.3, 0.6, 0.3] }}
-              transition={{ duration: 0.2, repeat: Infinity }}
+              animate={{ opacity: [0.2, 0.4, 0.2] }}
+              transition={{ duration: 0.6, repeat: Infinity, ease: 'easeInOut' }}
             />
             
             {/* 隨機位移抖動 */}
             <motion.div
               className="absolute inset-0 border-2 border-destructive/20"
               animate={{
-                x: [0, -3, 2, -1, 3, 0],
-                y: [0, 2, -2, 1, -1, 0],
+                x: [0, -2, 1, -1, 2, 0],
+                y: [0, 1, -1, 1, -1, 0],
               }}
               transition={{
-                duration: 0.15,
+                duration: 0.4,
                 repeat: Infinity,
+                ease: 'easeInOut',
               }}
             />
             
@@ -458,18 +460,19 @@ const GameScene = () => {
             <motion.div
               className="absolute inset-0 mix-blend-screen"
               style={{
-                boxShadow: 'inset -3px 0 0 hsl(0 100% 50% / 0.1), inset 3px 0 0 hsl(180 100% 50% / 0.1)',
+                boxShadow: 'inset -2px 0 0 hsl(0 100% 50% / 0.08), inset 2px 0 0 hsl(180 100% 50% / 0.08)',
               }}
               animate={{
                 boxShadow: [
-                  'inset -3px 0 0 hsl(0 100% 50% / 0.1), inset 3px 0 0 hsl(180 100% 50% / 0.1)',
-                  'inset -5px 0 0 hsl(0 100% 50% / 0.15), inset 5px 0 0 hsl(180 100% 50% / 0.15)',
                   'inset -2px 0 0 hsl(0 100% 50% / 0.08), inset 2px 0 0 hsl(180 100% 50% / 0.08)',
+                  'inset -4px 0 0 hsl(0 100% 50% / 0.12), inset 4px 0 0 hsl(180 100% 50% / 0.12)',
+                  'inset -2px 0 0 hsl(0 100% 50% / 0.06), inset 2px 0 0 hsl(180 100% 50% / 0.06)',
                 ],
               }}
               transition={{
-                duration: 0.1,
+                duration: 0.5,
                 repeat: Infinity,
+                ease: 'easeInOut',
               }}
             />
           </motion.div>

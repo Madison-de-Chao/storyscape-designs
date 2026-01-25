@@ -837,11 +837,12 @@ const SceneImage = ({ nodeId, hideOverlay = false, isLoaded: externalLoaded }: S
               <motion.div
                 className="absolute inset-0 pointer-events-none mix-blend-overlay"
                 animate={{
-                  opacity: [0.02, 0.05, 0.02],
+                  opacity: [0.02, 0.04, 0.02],
                 }}
                 transition={{
-                  duration: 0.5,
+                  duration: 1.5,
                   repeat: Infinity,
+                  ease: 'easeInOut',
                 }}
                 style={{
                   backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
@@ -1020,13 +1021,39 @@ const SceneImage = ({ nodeId, hideOverlay = false, isLoaded: externalLoaded }: S
           <motion.div
             className="absolute inset-0 pointer-events-none"
             animate={{ opacity: [0.3, 0.5, 0.3] }}
-            transition={{ duration: 4, repeat: Infinity, repeatType: 'reverse' }}
+            transition={{ duration: 4, repeat: Infinity, repeatType: 'reverse', ease: 'easeInOut' }}
             style={{
               boxShadow: sceneEffect === 'dark' 
                 ? 'inset 0 0 150px 50px hsl(0 0% 0% / 0.3)'
                 : 'inset 0 0 100px 20px hsl(var(--primary) / 0.08)',
             }}
           />
+
+          {/* 優雅光澤掃過效果 - 增添視覺亮點 */}
+          {isLoaded && sceneEffect !== 'glitch' && sceneEffect !== 'dark' && (
+            <motion.div
+              className="absolute inset-0 pointer-events-none overflow-hidden"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 1 }}
+            >
+              <motion.div
+                className="absolute w-[200%] h-full -left-full"
+                animate={{
+                  x: ['0%', '150%'],
+                }}
+                transition={{
+                  duration: 8,
+                  repeat: Infinity,
+                  repeatDelay: 12,
+                  ease: [0.4, 0, 0.2, 1],
+                }}
+                style={{
+                  background: 'linear-gradient(90deg, transparent 0%, transparent 40%, hsl(var(--primary) / 0.04) 45%, hsl(var(--primary) / 0.08) 50%, hsl(var(--primary) / 0.04) 55%, transparent 60%, transparent 100%)',
+                }}
+              />
+            </motion.div>
+          )}
         </motion.div>
       </AnimatePresence>
 
