@@ -149,7 +149,7 @@ const TitleScreen = () => {
           transition={{ duration: 0.8, delay: 1.8 }}
         >
           {/* 第一部：壹 - 封面圖片版 */}
-          <button
+          <motion.button
             onClick={() => {
               playSFX('select');
               startGame('yi');
@@ -157,26 +157,57 @@ const TitleScreen = () => {
             className="
               group relative w-40 sm:w-48 md:w-56
               rounded-xl sm:rounded-2xl
-              transition-all duration-500
               overflow-hidden
               touch-manipulation
-              shadow-lg hover:shadow-xl hover:shadow-primary/20
+              shadow-lg hover:shadow-xl hover:shadow-primary/30
               border border-primary/20 hover:border-primary/50
             "
+            whileHover={{ scale: 1.02 }}
+            transition={{ duration: 0.3 }}
           >
+            {/* 呼吸光暈效果 */}
+            <motion.div
+              className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-primary/30 via-accent/20 to-primary/30 blur-lg opacity-0 group-hover:opacity-100 -z-10"
+              animate={{
+                scale: [1, 1.05, 1],
+                opacity: [0.3, 0.5, 0.3],
+              }}
+              transition={{
+                duration: 3,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+            />
+            
             {/* 封面圖片 */}
-            <div className="relative aspect-[2/3] w-full">
-              <img 
+            <div className="relative aspect-[2/3] w-full overflow-hidden">
+              <motion.img 
                 src={yi1Cover} 
                 alt="弧度歸零：壹 封面"
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                className="w-full h-full object-cover"
+                animate={{
+                  scale: [1, 1.02, 1],
+                }}
+                transition={{
+                  duration: 4,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
               />
-              {/* 懸浮時的光暈效果 */}
-              <div className="
-                absolute inset-0 bg-gradient-to-t from-primary/20 via-transparent to-transparent
-                opacity-0 group-hover:opacity-100
-                transition-opacity duration-500
-              " />
+              
+              {/* 流動光暈遮罩 */}
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-t from-primary/30 via-transparent to-accent/10 opacity-0 group-hover:opacity-100"
+                initial={{ y: "100%" }}
+                whileHover={{ y: "0%" }}
+                transition={{ duration: 0.6 }}
+              />
+              
+              {/* 掃光效果 */}
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"
+              />
+              
               {/* 進度標籤 */}
               {yiProgress.hasStarted && (
                 <div className="
@@ -209,14 +240,14 @@ const TitleScreen = () => {
             >
               <BookOpen className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
             </button>
-          </button>
+          </motion.button>
 
           {/* 分隔線 - 手機上更小 */}
           <div className="hidden md:block w-px h-24 bg-border/50" />
           <div className="md:hidden w-16 sm:w-24 h-px bg-border/50" />
 
           {/* 第二部：伊 (製作中) - 封面圖片版 */}
-          <div
+          <motion.div
             className="
               group relative w-40 sm:w-48 md:w-56
               rounded-xl sm:rounded-2xl
@@ -224,55 +255,87 @@ const TitleScreen = () => {
               cursor-not-allowed
               border border-muted/30
             "
+            whileHover={{ scale: 1.01 }}
+            transition={{ duration: 0.3 }}
           >
-            {/* 封面圖片 - 灰度處理 */}
-            <div className="relative aspect-[2/3] w-full">
-              <img 
+            {/* 封面圖片 - 灰度處理 + 微呼吸 */}
+            <div className="relative aspect-[2/3] w-full overflow-hidden">
+              <motion.img 
                 src={yi2Cover} 
                 alt="弧度歸零：伊 封面"
                 className="w-full h-full object-cover grayscale opacity-60"
+                animate={{
+                  scale: [1, 1.015, 1],
+                }}
+                transition={{
+                  duration: 5,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
               />
               {/* 製作中遮罩 */}
               <div className="absolute inset-0 bg-background/40 backdrop-blur-[1px]" />
               
               {/* 製作中標籤 */}
-              <div className="
-                absolute top-2 right-2
-                px-2 py-1 rounded-full
-                bg-background/70 backdrop-blur-sm
-                border border-muted/40
-                text-[10px] sm:text-xs text-muted-foreground tracking-wider
-              ">
+              <motion.div 
+                className="
+                  absolute top-2 right-2
+                  px-2 py-1 rounded-full
+                  bg-background/70 backdrop-blur-sm
+                  border border-muted/40
+                  text-[10px] sm:text-xs text-muted-foreground tracking-wider
+                "
+                animate={{
+                  opacity: [0.7, 1, 0.7],
+                }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+              >
                 製作中
-              </div>
+              </motion.div>
               
               {/* 敬請期待文字 */}
-              <div className="
-                absolute inset-0 flex items-center justify-center
-              ">
-                <div className="
-                  px-4 py-2 rounded-lg
-                  bg-background/60 backdrop-blur-sm
-                  border border-muted/30
-                  text-sm text-muted-foreground font-serif-tc
-                ">
+              <div className="absolute inset-0 flex items-center justify-center">
+                <motion.div 
+                  className="
+                    px-4 py-2 rounded-lg
+                    bg-background/60 backdrop-blur-sm
+                    border border-muted/30
+                    text-sm text-muted-foreground font-serif-tc
+                  "
+                  animate={{
+                    y: [0, -3, 0],
+                  }}
+                  transition={{
+                    duration: 3,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                >
                   敬請期待
-                </div>
+                </motion.div>
               </div>
               
               {/* 裝飾性掃描線動畫 */}
               <div className="absolute inset-0 pointer-events-none overflow-hidden">
-                <div 
-                  className="absolute w-full h-px bg-gradient-to-r from-transparent via-muted-foreground/20 to-transparent animate-pulse"
-                  style={{ top: '30%' }} 
+                <motion.div 
+                  className="absolute w-full h-px bg-gradient-to-r from-transparent via-muted-foreground/30 to-transparent"
+                  style={{ top: '30%' }}
+                  animate={{ opacity: [0.3, 0.6, 0.3] }}
+                  transition={{ duration: 2, repeat: Infinity }}
                 />
-                <div 
-                  className="absolute w-full h-px bg-gradient-to-r from-transparent via-muted-foreground/10 to-transparent animate-pulse"
-                  style={{ top: '70%', animationDelay: '1s' }} 
+                <motion.div 
+                  className="absolute w-full h-px bg-gradient-to-r from-transparent via-muted-foreground/20 to-transparent"
+                  style={{ top: '70%' }}
+                  animate={{ opacity: [0.2, 0.5, 0.2] }}
+                  transition={{ duration: 2, repeat: Infinity, delay: 1 }}
                 />
               </div>
             </div>
-          </div>
+          </motion.div>
         </motion.div>
 
         {/* 功能按鈕區 - 手機優化 */}
