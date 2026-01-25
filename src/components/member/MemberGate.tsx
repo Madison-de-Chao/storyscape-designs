@@ -210,7 +210,7 @@ const MemberGate: React.FC<MemberGateProps> = ({ children }) => {
                 免費註冊即可遊玩完整遊戲
               </p>
               <a
-                href="https://arctozero.com/register"
+                href="https://member.momo-chao.com"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1.5 text-sm text-amber-400 hover:text-amber-300 transition-colors font-medium"
