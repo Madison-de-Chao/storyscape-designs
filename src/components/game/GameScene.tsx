@@ -22,7 +22,7 @@ import ProgressHUD from './ProgressHUD';
 import AchievementToast from './AchievementToast';
 import { useAchievements } from '@/hooks/useAchievements';
 import { getNodeById } from '@/data/prologueStory';
-import { getYiPart2NodeById } from '@/data/yiPart2Story';
+// TODO: 第二部節點查詢函數待建立
 import { getYi1NodeById } from '@/data/yi1';
 import { getSceneImage } from '@/data/yi1/sceneImages';
 import { yi1ChaptersMeta } from '@/data/yi1/chapters';
@@ -148,9 +148,8 @@ const GameScene = () => {
   // 成就系統
   const { pendingAchievement, dismissAchievement } = useAchievements();
 
-  const currentNode = currentPart === 'yi' 
-    ? (getYi1NodeById(currentNodeId) || getNodeById(currentNodeId))
-    : getYiPart2NodeById(currentNodeId);
+  // TODO: 第二部節點邏輯待實作
+  const currentNode = getYi1NodeById(currentNodeId) || getNodeById(currentNodeId);
 
   const visualProgress = 1 - arcValue / 180;
   const isYiPart = currentPart === 'yi';
