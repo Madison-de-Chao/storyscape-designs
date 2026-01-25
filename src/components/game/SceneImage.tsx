@@ -4,6 +4,7 @@ import { getSceneImage, type SceneImageConfig } from '@/data/yi1/sceneImages';
 import { useGameStore } from '@/stores/gameStore';
 import { RefreshCcw } from 'lucide-react';
 import { usePreloadNextScene } from '@/hooks/usePreloadNextScene';
+import { useProgressiveImage } from '@/hooks/useProgressiveImage';
 
 interface SceneImageProps {
   nodeId: string;
@@ -56,6 +57,9 @@ const SceneImage = ({ nodeId, hideOverlay = false, isLoaded: externalLoaded }: S
   const { unlockImage } = useGameStore();
   const transitionTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const loadingTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // 漸進式載入：先顯示模糊縮圖，再過渡到完整圖片
+  const { loaded: progressiveLoaded, thumbLoaded, blurLevel } = useProgressiveImage(currentImage?.image);
 
   const sceneEffect = useMemo(() => {
     return currentImage ? getSceneEffect(currentImage.alt) : 'default';
@@ -728,7 +732,7 @@ const SceneImage = ({ nodeId, hideOverlay = false, isLoaded: externalLoaded }: S
             }}
           />
 
-          {/* 圖片容器 - 緩慢呼吸動畫 */}
+          {/* 圖片容器 - 緩慢呼吸動畫 + 漸進式載入 blur-up 效果 */}
           <motion.div
             className="absolute inset-0 overflow-hidden"
             initial={{ scale: 1.05 }}
@@ -756,11 +760,22 @@ const SceneImage = ({ nodeId, hideOverlay = false, isLoaded: externalLoaded }: S
                 scale: 1,
                 y: sceneEffect === 'mystical' ? [0, -15, 0] : [0, -8, 0],
                 x: sceneEffect === 'poetic' ? [0, 5, 0] : [0, 3, 0],
+                // 漸進式載入：從模糊過渡到清晰
+                filter: progressiveLoaded 
+                  ? 'blur(0px)' 
+                  : thumbLoaded 
+                    ? `blur(${blurLevel}px)` 
+                    : 'blur(20px)',
               }}
               transition={{
                 scale: { duration: 1.5, ease: [0.43, 0.13, 0.23, 0.96] },
                 y: { duration: 20, repeat: Infinity, repeatType: 'reverse', ease: 'easeInOut' },
                 x: { duration: 20, repeat: Infinity, repeatType: 'reverse', ease: 'easeInOut' },
+                filter: { duration: 0.6, ease: 'easeOut' },
+              }}
+              style={{
+                // 確保初始狀態也有模糊效果
+                willChange: 'filter, transform',
               }}
             />
           </motion.div>
