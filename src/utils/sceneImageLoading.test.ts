@@ -11,9 +11,9 @@ describe("getSceneLoadingTimeout", () => {
     expect(getSceneLoadingTimeout("dramatic")).toBeGreaterThan(getSceneLoadingTimeout("default"));
   });
 
-  it("caps the timeout for extreme values", () => {
-    // Use an intentionally invalid effect value to simulate an extreme case
-    const extremeTimeout = getSceneLoadingTimeout("extreme-overload" as any);
-    expect(extremeTimeout).toBeLessThanOrEqual(14000);
+  it("uses the default timeout for unknown effects", () => {
+    const defaultTimeout = getSceneLoadingTimeout("default");
+    const unknownTimeout = getSceneLoadingTimeout("unknown-effect" as any);
+    expect(unknownTimeout).toBe(defaultTimeout);
   });
 });
