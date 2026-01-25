@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
+import { useState, useEffect, useRef, useCallback, useMemo, startTransition } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, Home, BookOpen, RotateCcw, Image, Trophy, Map } from 'lucide-react';
 import { useGameStore, type ZenTheme, type RevelationTheme } from '@/stores/gameStore';
@@ -683,7 +683,9 @@ const GameScene = () => {
             <button
               onClick={() => {
                 setIsMenuOpen(false);
-                setIsGalleryOpen(true);
+                startTransition(() => {
+                  setIsGalleryOpen(true);
+                });
               }}
               className="w-full flex items-center gap-3 px-4 py-3 text-sm text-foreground hover:bg-muted/50 transition-colors border-t border-border/50"
             >
@@ -697,7 +699,9 @@ const GameScene = () => {
             <button
               onClick={() => {
                 setIsMenuOpen(false);
-                setIsJourneyOpen(true);
+                startTransition(() => {
+                  setIsJourneyOpen(true);
+                });
               }}
               className="w-full flex items-center gap-3 px-4 py-3 text-sm text-foreground hover:bg-muted/50 transition-colors border-t border-border/50"
             >
@@ -710,7 +714,9 @@ const GameScene = () => {
           <button
             onClick={() => {
               setIsMenuOpen(false);
-              setIsEndingStatsOpen(true);
+              startTransition(() => {
+                setIsEndingStatsOpen(true);
+              });
             }}
             className="w-full flex items-center gap-3 px-4 py-3 text-sm text-foreground hover:bg-muted/50 transition-colors border-t border-border/50"
           >
@@ -722,7 +728,9 @@ const GameScene = () => {
           <button
             onClick={() => {
               setIsMenuOpen(false);
-              returnToTitle();
+              startTransition(() => {
+                returnToTitle();
+              });
             }}
             className="w-full flex items-center gap-3 px-4 py-3 text-sm text-foreground hover:bg-muted/50 transition-colors border-t border-border/50"
           >
@@ -734,8 +742,10 @@ const GameScene = () => {
           <button
             onClick={() => {
               setIsMenuOpen(false);
-              resetPart(currentPart);
-              returnToTitle();
+              startTransition(() => {
+                resetPart(currentPart);
+                returnToTitle();
+              });
             }}
             className="w-full flex items-center gap-3 px-4 py-3 text-sm text-destructive hover:bg-destructive/10 transition-colors border-t border-border/50"
           >
