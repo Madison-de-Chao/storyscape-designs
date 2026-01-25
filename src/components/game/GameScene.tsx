@@ -524,17 +524,17 @@ const GameScene = () => {
         )}
       </AnimatePresence>
 
-      {/* 章節標題 */}
+      {/* 章節標題 - 手機優化佈局 */}
       <motion.div
-        className="absolute top-6 left-6 z-40"
+        className="absolute top-12 left-4 sm:top-6 sm:left-6 z-40 max-w-[50%] sm:max-w-none"
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <h2 className="text-sm text-muted-foreground font-serif-tc">
+        <h2 className="text-xs sm:text-sm text-muted-foreground font-serif-tc truncate">
           {isYiPart ? '弧度歸零：壹' : '弧度歸零：伊'}
         </h2>
-        <h3 className="text-lg text-foreground/80 font-serif-tc">
+        <h3 className="text-sm sm:text-lg text-foreground/80 font-serif-tc truncate">
           {isYiPart ? getChapterTitle(currentNodeId) : '序章・另一個我們'}
         </h3>
       </motion.div>
@@ -572,9 +572,9 @@ const GameScene = () => {
       {/* 音量控制 */}
       <AudioControls />
 
-      {/* 選單按鈕 */}
+      {/* 選單按鈕 - 手機優化位置 */}
       <motion.div
-        className="fixed top-6 right-32 z-50"
+        className="fixed top-4 right-24 sm:top-6 sm:right-32 z-50"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.5 }}
@@ -585,14 +585,15 @@ const GameScene = () => {
             setIsMenuOpen(!isMenuOpen);
           }}
           className={`
-            p-3 rounded-full backdrop-blur-sm border transition-all duration-300
+            p-2.5 sm:p-3 rounded-full backdrop-blur-sm border transition-all duration-300 touch-manipulation
             ${isMenuOpen 
               ? 'bg-primary/20 border-primary/50 text-primary' 
               : 'bg-card/50 border-border/50 text-muted-foreground hover:text-foreground hover:border-border'
             }
           `}
+          style={{ WebkitTapHighlightColor: 'transparent' }}
         >
-          <Menu className="w-5 h-5" />
+          <Menu className="w-4 h-4 sm:w-5 sm:h-5" />
         </button>
 
         {/* 下拉選單 */}
