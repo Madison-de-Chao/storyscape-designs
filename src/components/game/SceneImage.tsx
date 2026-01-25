@@ -179,11 +179,12 @@ const SceneImage = ({ nodeId, hideOverlay = false, isLoaded: externalLoaded }: S
     
     return (
       <motion.div
-        className="absolute inset-0 z-40 flex items-center justify-center overflow-hidden"
+        className="absolute inset-0 z-40 flex items-center justify-center overflow-hidden will-change-transform"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        transition={{ duration: 0.5 }}
+        transition={{ duration: 0.4 }}
+        style={{ contain: 'layout paint' }}
       >
         {/* 深色水墨背景 - 使用章節主題色調 */}
         <div 
@@ -193,18 +194,18 @@ const SceneImage = ({ nodeId, hideOverlay = false, isLoaded: externalLoaded }: S
           }}
         />
         
-        {/* 墨水渲染效果層 */}
+        {/* 墨水渲染效果層 - 簡化動畫減少重繪 */}
         <div className="absolute inset-0 overflow-hidden">
           {/* 中央墨水暈開動畫 - 章節主題色 */}
           <motion.div
-            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 will-change-transform"
             initial={{ scale: 0, opacity: 0 }}
             animate={{ 
-              scale: [0, 1.5, 2.5, 3.5],
-              opacity: [0, 0.4, 0.2, 0],
+              scale: [0, 2, 3.5],
+              opacity: [0, 0.35, 0],
             }}
             transition={{
-              duration: 3,
+              duration: 2.5,
               repeat: Infinity,
               ease: 'easeOut',
             }}
@@ -242,26 +243,25 @@ const SceneImage = ({ nodeId, hideOverlay = false, isLoaded: externalLoaded }: S
             />
           </motion.div>
         
-          {/* 墨滴飄落效果 - 章節主題色 */}
-          {[...Array(6)].map((_, i) => (
+          {/* 墨滴飄落效果 - 減少數量提升效能 */}
+          {[...Array(4)].map((_, i) => (
             <motion.div
               key={i}
-              className="absolute w-1 rounded-full"
+              className="absolute w-1 rounded-full will-change-transform"
               style={{
-                left: `${15 + i * 14}%`,
-                height: `${30 + Math.random() * 40}px`,
+                left: `${20 + i * 18}%`,
+                height: `${35 + (i % 2) * 15}px`,
                 backgroundColor: themeToHSL(chapterTheme, 0.25),
               }}
-              initial={{ y: '-20%', opacity: 0, scaleY: 0.5 }}
+              initial={{ y: '-20%', opacity: 0 }}
               animate={{ 
                 y: '120%', 
-                opacity: [0, 0.6, 0.4, 0],
-                scaleY: [0.5, 1.5, 2, 1],
+                opacity: [0, 0.5, 0],
               }}
               transition={{
-                duration: 2.5 + Math.random(),
+                duration: 2 + (i % 2) * 0.5,
                 repeat: Infinity,
-                delay: i * 0.4,
+                delay: i * 0.5,
                 ease: 'easeIn',
               }}
             />
@@ -373,21 +373,21 @@ const SceneImage = ({ nodeId, hideOverlay = false, isLoaded: externalLoaded }: S
             意境載入中
           </motion.span>
           
-          {/* 墨點進度指示 - 章節主題色 */}
-          <div className="flex gap-2">
-            {[0, 1, 2, 3].map((i) => (
+          {/* 墨點進度指示 - 減少數量 */}
+          <div className="flex gap-2.5">
+            {[0, 1, 2].map((i) => (
               <motion.div
                 key={i}
-                className="w-1.5 h-1.5 rounded-full"
+                className="w-1.5 h-1.5 rounded-full will-change-transform"
                 style={{ backgroundColor: themeToHSL(chapterTheme, 0.4) }}
                 animate={{
-                  scale: [1, 1.8, 1],
-                  opacity: [0.3, 0.8, 0.3],
+                  scale: [1, 1.6, 1],
+                  opacity: [0.3, 0.7, 0.3],
                 }}
                 transition={{
-                  duration: 1.2,
+                  duration: 1,
                   repeat: Infinity,
-                  delay: i * 0.2,
+                  delay: i * 0.25,
                   ease: 'easeInOut',
                 }}
               />

@@ -463,119 +463,119 @@ const DialogueBox = ({ isHidden = false, onToggleHide, onScoreChange }: Dialogue
         currentChapterTitle={getCurrentChapterTitle()}
       />
 
-      {/* 控制按鈕群組 - 手機優化佈局 */}
-      <div className="fixed bottom-20 sm:bottom-4 right-2 sm:right-4 z-50 flex flex-col sm:flex-row gap-1.5 sm:gap-2">
-        {/* 存檔按鈕 */}
+      {/* 控制按鈕群組 - 手機優化佈局：增大觸控區域 */}
+      <div className="fixed bottom-20 sm:bottom-4 right-2 sm:right-4 z-50 flex flex-col sm:flex-row gap-2 sm:gap-2">
+        {/* 存檔按鈕 - 增大手機觸控區域 */}
         <motion.button
           onClick={() => { setIsSavePanelOpen(true); playSFX('click'); }}
-          className="p-2.5 sm:p-3 rounded-full backdrop-blur-md border-2 transition-all duration-300 shadow-lg bg-card/80 border-border/40 text-muted-foreground hover:text-foreground hover:border-amber-500/40 hover:bg-card/90 active:scale-95"
-          initial={{ opacity: 0, scale: 0.8 }}
+          className="p-3.5 sm:p-3 rounded-full backdrop-blur-md border-2 transition-colors duration-200 shadow-lg bg-card/80 border-border/40 text-muted-foreground hover:text-foreground hover:border-amber-500/40 hover:bg-card/90 active:scale-95 will-change-transform touch-manipulation min-w-[48px] min-h-[48px] flex items-center justify-center"
+          initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.9 }}
-          transition={{ delay: 0.1 }}
+          transition={{ duration: 0.15, delay: 0.05 }}
           title="存檔"
         >
-          <Save className="w-4 h-4 sm:w-5 sm:h-5" />
+          <Save className="w-5 h-5 sm:w-5 sm:h-5" />
         </motion.button>
 
-        {/* 讀檔按鈕 */}
+        {/* 讀檔按鈕 - 增大手機觸控區域 */}
         <motion.button
           onClick={() => { setIsLoadPanelOpen(true); playSFX('click'); }}
-          className="p-2.5 sm:p-3 rounded-full backdrop-blur-md border-2 transition-all duration-300 shadow-lg bg-card/80 border-border/40 text-muted-foreground hover:text-foreground hover:border-emerald-500/40 hover:bg-card/90 active:scale-95"
-          initial={{ opacity: 0, scale: 0.8 }}
+          className="p-3.5 sm:p-3 rounded-full backdrop-blur-md border-2 transition-colors duration-200 shadow-lg bg-card/80 border-border/40 text-muted-foreground hover:text-foreground hover:border-emerald-500/40 hover:bg-card/90 active:scale-95 will-change-transform touch-manipulation min-w-[48px] min-h-[48px] flex items-center justify-center"
+          initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.9 }}
-          transition={{ delay: 0.15 }}
+          transition={{ duration: 0.15, delay: 0.08 }}
           title="讀取進度"
         >
-          <Download className="w-4 h-4 sm:w-5 sm:h-5" />
+          <Download className="w-5 h-5 sm:w-5 sm:h-5" />
         </motion.button>
 
-        {/* 回顧按鈕 */}
+        {/* 回顧按鈕 - 增大手機觸控區域 */}
         <motion.button
           onClick={toggleHistory}
           className={`
-            p-2.5 sm:p-3 rounded-full backdrop-blur-md border-2 transition-all duration-300 shadow-lg active:scale-95
+            p-3.5 sm:p-3 rounded-full backdrop-blur-md border-2 transition-colors duration-200 shadow-lg active:scale-95 will-change-transform touch-manipulation min-w-[48px] min-h-[48px] flex items-center justify-center
             ${isHistoryOpen 
               ? 'bg-primary/25 border-primary/60 text-primary shadow-primary/20' 
               : 'bg-card/80 border-border/40 text-muted-foreground hover:text-foreground hover:border-primary/30 hover:bg-card/90'
             }
           `}
-          initial={{ opacity: 0, scale: 0.8 }}
+          initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.9 }}
-          transition={{ delay: 0.2 }}
+          transition={{ duration: 0.15, delay: 0.11 }}
           title="對話回顧"
         >
-          <History className="w-4 h-4 sm:w-5 sm:h-5" />
+          <History className="w-5 h-5 sm:w-5 sm:h-5" />
         </motion.button>
 
-        {/* 自動播放按鈕 */}
+        {/* 自動播放按鈕 - 增大手機觸控區域 */}
         <motion.button
           onClick={toggleAutoPlay}
           className={`
-            p-2.5 sm:p-3 rounded-full backdrop-blur-md border-2 transition-all duration-300 shadow-lg active:scale-95
+            p-3.5 sm:p-3 rounded-full backdrop-blur-md border-2 transition-colors duration-200 shadow-lg active:scale-95 will-change-transform touch-manipulation min-w-[48px] min-h-[48px] flex items-center justify-center
             ${isAutoPlay 
               ? 'bg-primary/25 border-primary/60 text-primary shadow-primary/20' 
               : 'bg-card/80 border-border/40 text-muted-foreground hover:text-foreground hover:border-primary/30 hover:bg-card/90'
             }
           `}
-          initial={{ opacity: 0, scale: 0.8 }}
+          initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.9 }}
-          transition={{ delay: 0.3 }}
+          transition={{ duration: 0.15, delay: 0.14 }}
           title={isAutoPlay ? '停止自動播放' : '自動播放'}
         >
           {isAutoPlay ? (
-            <Pause className="w-4 h-4 sm:w-5 sm:h-5" />
+            <Pause className="w-5 h-5 sm:w-5 sm:h-5" />
           ) : (
-            <Play className="w-4 h-4 sm:w-5 sm:h-5" />
+            <Play className="w-5 h-5 sm:w-5 sm:h-5" />
           )}
         </motion.button>
 
-        {/* 快轉按鈕 */}
+        {/* 快轉按鈕 - 增大手機觸控區域 */}
         <motion.button
           onClick={toggleAutoForward}
           className={`
-            p-2.5 sm:p-3 rounded-full backdrop-blur-md border-2 transition-all duration-300 shadow-lg active:scale-95
+            p-3.5 sm:p-3 rounded-full backdrop-blur-md border-2 transition-colors duration-200 shadow-lg active:scale-95 will-change-transform touch-manipulation min-w-[48px] min-h-[48px] flex items-center justify-center
             ${isAutoForward 
               ? 'bg-accent/25 border-accent/60 text-accent shadow-accent/20' 
               : 'bg-card/80 border-border/40 text-muted-foreground hover:text-foreground hover:border-accent/30 hover:bg-card/90'
             }
           `}
-          initial={{ opacity: 0, scale: 0.8 }}
+          initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.9 }}
-          transition={{ delay: 0.4 }}
+          transition={{ duration: 0.15, delay: 0.17 }}
           title={isAutoForward ? '停止快轉' : '快轉'}
         >
-          <FastForward className={`w-4 h-4 sm:w-5 sm:h-5 ${isAutoForward ? 'animate-pulse' : ''}`} />
+          <FastForward className={`w-5 h-5 sm:w-5 sm:h-5 ${isAutoForward ? 'animate-pulse' : ''}`} />
         </motion.button>
 
-        {/* 隱藏/顯示按鈕 */}
+        {/* 隱藏/顯示按鈕 - 增大手機觸控區域 */}
         {onToggleHide && (
           <motion.button
             onClick={onToggleHide}
             className={`
-              p-2.5 sm:p-3 rounded-full backdrop-blur-md border-2 transition-all duration-300 shadow-lg active:scale-95
+              p-3.5 sm:p-3 rounded-full backdrop-blur-md border-2 transition-colors duration-200 shadow-lg active:scale-95 will-change-transform touch-manipulation min-w-[48px] min-h-[48px] flex items-center justify-center
               ${isHidden 
                 ? 'bg-primary/25 border-primary/60 text-primary shadow-primary/20' 
                 : 'bg-card/80 border-border/40 text-muted-foreground hover:text-foreground hover:border-primary/30 hover:bg-card/90'
               }
             `}
-            initial={{ opacity: 0, scale: 0.8 }}
+            initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.9 }}
-            transition={{ delay: 0.5 }}
+            transition={{ duration: 0.15, delay: 0.2 }}
             title={isHidden ? '顯示對話框' : '隱藏對話框'}
           >
-            {isHidden ? <Eye className="w-4 h-4 sm:w-5 sm:h-5" /> : <EyeOff className="w-4 h-4 sm:w-5 sm:h-5" />}
+            {isHidden ? <Eye className="w-5 h-5 sm:w-5 sm:h-5" /> : <EyeOff className="w-5 h-5 sm:w-5 sm:h-5" />}
           </motion.button>
         )}
       </div>
