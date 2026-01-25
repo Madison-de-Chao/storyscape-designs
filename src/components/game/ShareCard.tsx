@@ -128,11 +128,53 @@ const generateStars = (count: number, opacity: number) => {
   return stars;
 };
 
+// Generate meteors for brighter themes
+const generateMeteors = (count: number, brightness: number) => {
+  const meteors = [];
+  for (let i = 0; i < count; i++) {
+    meteors.push({
+      startX: 10 + Math.random() * 60,
+      startY: 5 + Math.random() * 20,
+      length: 40 + Math.random() * 60,
+      delay: i * 0.8,
+      duration: 0.6 + Math.random() * 0.4,
+      opacity: brightness * (0.4 + Math.random() * 0.6),
+    });
+  }
+  return meteors;
+};
+
+// Generate cloud layers for atmospheric effect
+const generateClouds = (count: number, darkness: number) => {
+  const clouds = [];
+  for (let i = 0; i < count; i++) {
+    clouds.push({
+      left: -20 + Math.random() * 120,
+      top: 60 + Math.random() * 30,
+      width: 150 + Math.random() * 200,
+      height: 40 + Math.random() * 60,
+      opacity: darkness * (0.05 + Math.random() * 0.1),
+      blur: 30 + Math.random() * 20,
+    });
+  }
+  return clouds;
+};
+
 const ShareCard = forwardRef<HTMLDivElement, ShareCardProps>(
   ({ gameName, endingTitle, endingColor, arcValue, colorsCollected, totalNodesRead, totalChoices, moonBrightValue = 0, moonDarkValue = 0 }, ref) => {
     const endingGradient = getEndingGradient(endingTitle);
     const moonTheme = getMoonTheme(moonBrightValue, moonDarkValue);
     const stars = generateStars(30, moonTheme.starOpacity);
+    
+    // Calculate brightness ratio for dynamic effects
+    const total = moonBrightValue + moonDarkValue;
+    const brightness = total > 0 ? moonBrightValue / total : 0.5;
+    const darkness = 1 - brightness;
+    
+    // Generate dynamic elements based on moon phase
+    const meteors = generateMeteors(brightness > 0.5 ? 3 : 1, brightness);
+    const clouds = generateClouds(darkness > 0.4 ? 4 : 2, darkness);
+    
     
     return (
       <div
@@ -164,6 +206,68 @@ const ShareCard = forwardRef<HTMLDivElement, ShareCardProps>(
           />
         ))}
 
+        {/* 流星效果 - 較亮的月相會有更多流星 */}
+        {meteors.map((meteor, i) => (
+          <svg
+            key={`meteor-${i}`}
+            style={{
+              position: 'absolute',
+              left: `${meteor.startX}%`,
+              top: `${meteor.startY}%`,
+              width: `${meteor.length}px`,
+              height: '2px',
+              opacity: meteor.opacity,
+              transform: 'rotate(35deg)',
+              overflow: 'visible',
+            }}
+          >
+            <defs>
+              <linearGradient id={`meteorGrad-${i}`} x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stopColor={moonTheme.accentColor} stopOpacity="0" />
+                <stop offset="30%" stopColor={moonTheme.accentColor} stopOpacity="0.5" />
+                <stop offset="100%" stopColor={moonTheme.accentColor} stopOpacity="1" />
+              </linearGradient>
+            </defs>
+            <line
+              x1="0"
+              y1="1"
+              x2={meteor.length}
+              y2="1"
+              stroke={`url(#meteorGrad-${i})`}
+              strokeWidth="2"
+              strokeLinecap="round"
+            />
+            {/* 流星頭部光點 */}
+            <circle
+              cx={meteor.length}
+              cy="1"
+              r="3"
+              fill={moonTheme.accentColor}
+              style={{
+                filter: `drop-shadow(0 0 6px ${moonTheme.accentColor})`,
+              }}
+            />
+          </svg>
+        ))}
+
+        {/* 雲霧效果 - 較暗的月相會有更多雲霧 */}
+        {clouds.map((cloud, i) => (
+          <div
+            key={`cloud-${i}`}
+            style={{
+              position: 'absolute',
+              left: `${cloud.left}%`,
+              top: `${cloud.top}%`,
+              width: `${cloud.width}px`,
+              height: `${cloud.height}px`,
+              background: `radial-gradient(ellipse, ${moonTheme.accentColor} 0%, transparent 70%)`,
+              opacity: cloud.opacity,
+              filter: `blur(${cloud.blur}px)`,
+              borderRadius: '50%',
+            }}
+          />
+        ))}
+
         {/* 月亮視覺化 - 右上角 */}
         <div
           style={{
@@ -174,11 +278,27 @@ const ShareCard = forwardRef<HTMLDivElement, ShareCardProps>(
             height: '100px',
           }}
         >
-          {/* 月暈光環 */}
+          {/* 多層月暈光環 - 根據亮度增強 */}
           <div
             style={{
               position: 'absolute',
-              inset: '-20px',
+              inset: '-40px',
+              background: `radial-gradient(circle, ${moonTheme.glowColor.replace(/[\d.]+\)$/, `${0.1 * brightness}`)} 0%, transparent 60%)`,
+              borderRadius: '50%',
+            }}
+          />
+          <div
+            style={{
+              position: 'absolute',
+              inset: '-25px',
+              background: `radial-gradient(circle, ${moonTheme.glowColor.replace(/[\d.]+\)$/, `${0.2 * brightness}`)} 0%, transparent 70%)`,
+              borderRadius: '50%',
+            }}
+          />
+          <div
+            style={{
+              position: 'absolute',
+              inset: '-12px',
               background: `radial-gradient(circle, ${moonTheme.glowColor} 0%, transparent 70%)`,
               borderRadius: '50%',
             }}
