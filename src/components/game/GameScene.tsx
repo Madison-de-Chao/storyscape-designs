@@ -47,7 +47,7 @@ const PROLOGUE_INTRO_LINES = [
 const normalizeChapterId = (nodeId: string): string => {
   return nodeId
     .replace(/^yi1-/, '')
-    .replace(/^(?:ch|chapter)(\d+)-/, 'chapter-$1-');
+    .replace(/^(?:ch|chapter)(\d+)-?/, 'chapter-$1-');
 };
 
 // 根據節點 ID 獲取當前章節標題

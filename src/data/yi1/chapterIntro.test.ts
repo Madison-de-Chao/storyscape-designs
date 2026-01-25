@@ -45,4 +45,9 @@ describe("chapter intro nodes", () => {
   it("links chapter one intro to the first scene", () => {
     expect(chapter1Nodes[0]?.nextNodeId).toBe("yi1-ch1-1");
   });
+
+  it("normalizes intro node ids for chapter detection", async () => {
+    const { getSceneImage } = await import("@/data/yi1/sceneImages");
+    expect(getSceneImage("yi1-ch1-intro")).not.toBeNull();
+  });
 });

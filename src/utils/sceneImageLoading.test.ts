@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { getSceneLoadingTimeout } from "@/utils/sceneImageLoading";
+import { getSceneLoadingTimeout, type SceneEffectType } from "@/utils/sceneImageLoading";
 
 describe("getSceneLoadingTimeout", () => {
   it("returns base timeout for default scenes", () => {
@@ -13,7 +13,7 @@ describe("getSceneLoadingTimeout", () => {
 
   it("uses the default timeout for unknown effects", () => {
     const defaultTimeout = getSceneLoadingTimeout("default");
-    const unknownTimeout = getSceneLoadingTimeout("unknown-effect" as "default");
+    const unknownTimeout = getSceneLoadingTimeout("unknown-effect" as SceneEffectType);
     expect(unknownTimeout).toBe(defaultTimeout);
   });
 });
