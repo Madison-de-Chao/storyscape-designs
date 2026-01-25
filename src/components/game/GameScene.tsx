@@ -18,7 +18,7 @@ import ZenMoment from './ZenMoment';
 import RevelationMoment from './RevelationMoment';
 import GraduationMoment from './GraduationMoment';
 import JourneyReflection from './JourneyReflection';
-import ScoreChange from './ScoreChange';
+// ScoreChange 已移除 - 月明值系統對玩家隱藏
 import ProgressHUD from './ProgressHUD';
 import AchievementToast from './AchievementToast';
 import { useAchievements } from '@/hooks/useAchievements';
@@ -92,7 +92,7 @@ const getChapterKey = (nodeId: string): string => {
 };
 
 const GameScene = () => {
-  const { getCurrentProgress, returnToTitle, resetPart, currentPart } = useGameStore();
+  const { getCurrentProgress, returnToTitle, resetPart, currentPart, completeLesson } = useGameStore();
   const progress = getCurrentProgress();
   const arcValue = progress.arcValue;
   const currentNodeId = progress.currentNodeId;
@@ -143,11 +143,9 @@ const GameScene = () => {
   const [transitionChapterQuote, setTransitionChapterQuote] = useState('');
   const [transitionChapterKey, setTransitionChapterKey] = useState('');
   const prevChapterRef = useRef<string>('');
+  const chapterTransitionShownRef = useRef<Set<string>>(new Set());
 
-  // 分數變化即時反饋
-  const [scoreChangeVisible, setScoreChangeVisible] = useState(false);
-  const [lastArcChange, setLastArcChange] = useState(0);
-  const [lastShadowChange, setLastShadowChange] = useState(0);
+  // 月明值系統對玩家隱藏，不再顯示即時反饋
   
   // 進度 HUD 顯示狀態
   const [isProgressHUDVisible, setIsProgressHUDVisible] = useState(false);
@@ -243,8 +241,11 @@ const GameScene = () => {
       stopBGM(true);
       setGraduationData(gradData);
       setShowGraduation(true);
+      
+      // 完成課程，固定加弧度（每課 40°）
+      completeLesson(gradData.id);
     }
-  }, [currentNodeId, stopBGM]);
+  }, [currentNodeId, stopBGM, completeLesson]);
 
   // 畢業時刻結束後恢復 BGM
   const handleGraduationComplete = useCallback(() => {
@@ -255,19 +256,7 @@ const GameScene = () => {
     playBGM(bgmType);
   }, [currentNodeId, playBGM]);
 
-  // 處理選擇時的分數變化反饋
-  const handleScoreChange = useCallback((arcChange: number, shadowChange: number) => {
-    if (arcChange !== 0 || shadowChange !== 0) {
-      setLastArcChange(arcChange);
-      setLastShadowChange(shadowChange);
-      setScoreChangeVisible(true);
-      
-      // 2秒後隱藏
-      setTimeout(() => {
-        setScoreChangeVisible(false);
-      }, 2000);
-    }
-  }, []);
+  // 月明值系統：選項的影響對玩家隱藏，不需要顯示反饋
 
   // 檢測序章開始節點，觸發直排禪意開場動畫
   useEffect(() => {
@@ -296,8 +285,18 @@ const GameScene = () => {
   useEffect(() => {
     const currentChapter = getChapterNumber(currentNodeId);
     
-    if (prevChapterRef.current && prevChapterRef.current !== currentChapter && currentChapter) {
-      // 章節變更，觸發轉場
+    // 檢查是否為章節起始節點（節點 ID 以 -1 結尾或包含 -intro）
+    const normalizedId = currentNodeId.replace(/^yi1-/, '');
+    const isChapterStartNode = 
+      normalizedId.endsWith('-1') || 
+      normalizedId.includes('-intro') ||
+      normalizedId === 'preface-1' ||
+      normalizedId === 'prologue-1';
+    
+    // 如果是新章節的起始節點，且尚未顯示過該章節的轉場
+    if (currentChapter && isChapterStartNode && !chapterTransitionShownRef.current.has(currentChapter)) {
+      chapterTransitionShownRef.current.add(currentChapter);
+      
       const newTitle = getChapterTitle(currentNodeId);
       const chapterKey = getChapterKey(currentNodeId);
       
@@ -587,17 +586,7 @@ const GameScene = () => {
         onToggle={() => setIsProgressHUDVisible(!isProgressHUDVisible)}
       />
 
-      {/* 分數變化反饋 */}
-      <ScoreChange
-        change={lastArcChange}
-        type="arc"
-        isVisible={scoreChangeVisible && lastArcChange !== 0}
-      />
-      <ScoreChange
-        change={lastShadowChange}
-        type="shadow"
-        isVisible={scoreChangeVisible && lastShadowChange !== 0 && lastArcChange === 0}
-      />
+      {/* 月明值系統：選項影響隱藏的內心明暗值，不再顯示分數變化 */}
 
       {/* 成就通知 */}
       <AchievementToast
@@ -738,7 +727,6 @@ const GameScene = () => {
       <DialogueBox 
         isHidden={isDialogueHidden}
         onToggleHide={() => setIsDialogueHidden(!isDialogueHidden)}
-        onScoreChange={handleScoreChange}
       />
 
       {/* 章節選擇彈窗 */}
