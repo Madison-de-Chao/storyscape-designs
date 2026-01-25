@@ -2,6 +2,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect, useRef, useMemo } from 'react';
 import { getSceneImage, type SceneImageConfig } from '@/data/yi1/sceneImages';
 import { useGameStore } from '@/stores/gameStore';
+import { Skeleton } from '@/components/ui/skeleton';
+import { Loader2, RefreshCcw } from 'lucide-react';
 
 interface SceneImageProps {
   nodeId: string;
@@ -41,13 +43,19 @@ const getSceneEffect = (alt: string): SceneEffectType => {
   return 'default';
 };
 
+// 超時時間常量 (毫秒)
+const LOADING_TIMEOUT = 8000;
+
 const SceneImage = ({ nodeId, hideOverlay = false, isLoaded: externalLoaded }: SceneImageProps) => {
   const [currentImage, setCurrentImage] = useState<SceneImageConfig | null>(null);
   const [prevImage, setPrevImage] = useState<SceneImageConfig | null>(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [showTransitionEffect, setShowTransitionEffect] = useState(false);
+  const [showTimeoutPrompt, setShowTimeoutPrompt] = useState(false);
+  const [loadStartTime, setLoadStartTime] = useState<number | null>(null);
   const { unlockImage } = useGameStore();
   const transitionTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const loadingTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const sceneEffect = useMemo(() => {
     return currentImage ? getSceneEffect(currentImage.alt) : 'default';
@@ -76,21 +84,70 @@ const SceneImage = ({ nodeId, hideOverlay = false, isLoaded: externalLoaded }: S
       }
       
       setIsLoaded(false);
+      setShowTimeoutPrompt(false);
+      setLoadStartTime(Date.now());
       setCurrentImage(sceneImage);
+      
+      // 清除之前的超時計時器
+      if (loadingTimeoutRef.current) {
+        clearTimeout(loadingTimeoutRef.current);
+      }
+      
+      // 設置新的超時計時器
+      loadingTimeoutRef.current = setTimeout(() => {
+        setShowTimeoutPrompt(true);
+      }, LOADING_TIMEOUT);
       
       if (sceneImage) {
         unlockImage(sceneImage.image);
       }
     }
   }, [nodeId, currentImage?.image, unlockImage, sceneEffect]);
+  
+  // 圖片載入完成時清除超時計時器
+  useEffect(() => {
+    if (isLoaded && loadingTimeoutRef.current) {
+      clearTimeout(loadingTimeoutRef.current);
+      setShowTimeoutPrompt(false);
+    }
+  }, [isLoaded]);
 
   useEffect(() => {
     return () => {
       if (transitionTimeoutRef.current) {
         clearTimeout(transitionTimeoutRef.current);
       }
+      if (loadingTimeoutRef.current) {
+        clearTimeout(loadingTimeoutRef.current);
+      }
     };
   }, []);
+  
+  // 重新載入圖片
+  const handleRetryLoad = () => {
+    if (currentImage) {
+      setIsLoaded(false);
+      setShowTimeoutPrompt(false);
+      setLoadStartTime(Date.now());
+      
+      // 強制重新載入圖片 (加上時間戳避免快取)
+      const img = new Image();
+      img.src = `${currentImage.image}?t=${Date.now()}`;
+      img.onload = () => setIsLoaded(true);
+      img.onerror = () => {
+        setIsLoaded(true); // 失敗時也標記為完成，避免永久載入
+        setShowTimeoutPrompt(true);
+      };
+      
+      // 重設超時計時器
+      if (loadingTimeoutRef.current) {
+        clearTimeout(loadingTimeoutRef.current);
+      }
+      loadingTimeoutRef.current = setTimeout(() => {
+        setShowTimeoutPrompt(true);
+      }, LOADING_TIMEOUT);
+    }
+  };
 
   useEffect(() => {
     if (externalLoaded) {
@@ -105,6 +162,115 @@ const SceneImage = ({ nodeId, hideOverlay = false, isLoaded: externalLoaded }: S
       <div className="absolute inset-0 z-0 bg-gradient-to-b from-background/80 to-background" />
     );
   }
+
+  // 載入中骨架屏組件
+  const LoadingSkeleton = () => (
+    <motion.div
+      className="absolute inset-0 z-40 flex items-center justify-center"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.3 }}
+    >
+      {/* 背景漸層 */}
+      <div className="absolute inset-0 bg-gradient-to-b from-background/90 via-background/70 to-background/90" />
+      
+      {/* 動態骨架效果 */}
+      <div className="absolute inset-0 overflow-hidden">
+        {/* 模擬圖片輪廓的骨架 */}
+        <div className="absolute inset-4 rounded-lg overflow-hidden">
+          <Skeleton className="w-full h-full bg-muted/40" />
+          
+          {/* 掃描線動畫 */}
+          <motion.div
+            className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/10 to-transparent"
+            initial={{ y: '-100%' }}
+            animate={{ y: '100%' }}
+            transition={{
+              duration: 1.5,
+              repeat: Infinity,
+              ease: 'linear',
+            }}
+          />
+        </div>
+        
+        {/* 四角裝飾 */}
+        <div className="absolute top-4 left-4 w-8 h-8 border-l-2 border-t-2 border-primary/30 rounded-tl-lg" />
+        <div className="absolute top-4 right-4 w-8 h-8 border-r-2 border-t-2 border-primary/30 rounded-tr-lg" />
+        <div className="absolute bottom-4 left-4 w-8 h-8 border-l-2 border-b-2 border-primary/30 rounded-bl-lg" />
+        <div className="absolute bottom-4 right-4 w-8 h-8 border-r-2 border-b-2 border-primary/30 rounded-br-lg" />
+      </div>
+      
+      {/* 載入指示器 */}
+      <motion.div
+        className="relative z-10 flex flex-col items-center gap-3"
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.2 }}
+      >
+        <motion.div
+          animate={{ rotate: 360 }}
+          transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
+        >
+          <Loader2 className="w-8 h-8 text-primary/60" />
+        </motion.div>
+        <span className="text-sm text-muted-foreground font-medium">
+          場景載入中...
+        </span>
+        
+        {/* 載入進度提示 */}
+        {loadStartTime && (
+          <motion.div
+            className="flex gap-1 mt-1"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.5 }}
+          >
+            {[0, 1, 2].map((i) => (
+              <motion.div
+                key={i}
+                className="w-1.5 h-1.5 rounded-full bg-primary/40"
+                animate={{
+                  scale: [1, 1.4, 1],
+                  opacity: [0.4, 1, 0.4],
+                }}
+                transition={{
+                  duration: 0.8,
+                  repeat: Infinity,
+                  delay: i * 0.15,
+                }}
+              />
+            ))}
+          </motion.div>
+        )}
+      </motion.div>
+      
+      {/* 超時提示 */}
+      <AnimatePresence>
+        {showTimeoutPrompt && (
+          <motion.div
+            className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 10 }}
+          >
+            <div className="bg-background/95 backdrop-blur-sm border border-border/50 rounded-lg px-4 py-3 shadow-lg">
+              <p className="text-sm text-muted-foreground mb-2 text-center">
+                載入時間較長，可能網路較慢
+              </p>
+              <button
+                onClick={handleRetryLoad}
+                className="flex items-center justify-center gap-2 w-full px-3 py-1.5 bg-primary/10 hover:bg-primary/20 text-primary text-sm rounded-md transition-colors"
+              >
+                <RefreshCcw className="w-4 h-4" />
+                重新載入
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.div>
+  );
 
   // 根據特效類型獲取進場動畫
   const getEntryAnimation = () => {
@@ -204,6 +370,11 @@ const SceneImage = ({ nodeId, hideOverlay = false, isLoaded: externalLoaded }: S
 
   return (
     <div className="absolute inset-0 z-0 overflow-hidden">
+      {/* 載入中骨架屏 */}
+      <AnimatePresence>
+        {!isLoaded && <LoadingSkeleton />}
+      </AnimatePresence>
+      
       {/* 過場效果 */}
       <AnimatePresence>
         {showTransitionEffect && (
