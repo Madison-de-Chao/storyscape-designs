@@ -5,17 +5,14 @@ import { Cookie, X, Settings, ChevronDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
-
-const COOKIE_CONSENT_KEY = 'cookie-consent';
-
-interface CookiePreferences {
-  necessary: boolean;
-  analytics: boolean;
-  marketing: boolean;
-}
+import { 
+  COOKIE_CONSENT_KEY, 
+  CookiePreferences, 
+  dispatchConsentUpdate 
+} from '@/hooks/useCookieConsent';
 
 const defaultPreferences: CookiePreferences = {
-  necessary: true, // Always required
+  necessary: true,
   analytics: false,
   marketing: false,
 };
@@ -35,6 +32,7 @@ const CookieConsent = () => {
 
   const savePreferences = (prefs: CookiePreferences) => {
     localStorage.setItem(COOKIE_CONSENT_KEY, JSON.stringify(prefs));
+    dispatchConsentUpdate(); // Notify other components
     setIsVisible(false);
   };
 
