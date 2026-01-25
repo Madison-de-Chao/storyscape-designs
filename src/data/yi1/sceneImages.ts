@@ -789,27 +789,27 @@ export const sceneImages: SceneImageConfig[] = [
   {
     image: IMG_ch13_白色建築_秩序的刺醒,
     alt: '白色建築 - 秩序的刺醒',
-    nodePatterns: ['yi1-ch13-intro', 'yi1-ch13-1', 'yi1-ch13-2', 'yi1-ch13-3', 'yi1-ch13-4', 'yi1-ch13-5'],
+    nodePatterns: ['chapter-13-intro', 'chapter-13-1', 'chapter-13-2', 'chapter-13-3', 'chapter-13-4', 'chapter-13-5'],
   },
   {
     image: IMG_ch13_賈伯斯_挑戰的氣場,
     alt: '賈伯斯 - 挑戰的氣場',
-    nodePatterns: ['yi1-ch13-6', 'yi1-ch13-7', 'yi1-ch13-8', 'yi1-ch13-9', 'yi1-ch13-10', 'yi1-ch13-11', 'yi1-ch13-12'],
+    nodePatterns: ['chapter-13-6', 'chapter-13-7', 'chapter-13-8', 'chapter-13-9', 'chapter-13-10', 'chapter-13-11', 'chapter-13-12'],
   },
   {
     image: IMG_ch13_賈伯斯沉思_轉折的覺醒,
     alt: '賈伯斯沉思 - 轉折的覺醒',
-    nodePatterns: ['yi1-ch13-13', 'yi1-ch13-14', 'yi1-ch13-15', 'yi1-ch13-16', 'yi1-ch13-17', 'yi1-ch13-18', 'yi1-ch13-choice-1', 'yi1-ch13-choice-2'],
+    nodePatterns: ['chapter-13-13', 'chapter-13-14', 'chapter-13-15', 'chapter-13-16', 'chapter-13-17', 'chapter-13-18', 'chapter-13-choice-1', 'chapter-13-choice-2'],
   },
   {
     image: IMG_ch13_蘋果物件_點亮的傳承,
     alt: '蘋果物件 - 點亮的傳承',
-    nodePatterns: ['yi1-ch13-19', 'yi1-ch13-20', 'yi1-ch13-21', 'yi1-ch13-22', 'yi1-ch13-23', 'yi1-ch13-24'],
+    nodePatterns: ['chapter-13-19', 'chapter-13-20', 'chapter-13-21', 'chapter-13-22', 'chapter-13-23', 'chapter-13-24'],
   },
   {
     image: IMG_ch13_賈伯斯告別_溫暖的傳承,
     alt: '賈伯斯告別 - 溫暖的傳承',
-    nodePatterns: ['yi1-ch13-25', 'yi1-ch13-choice-3', 'yi1-ch13-foreshadow'],
+    nodePatterns: ['chapter-13-25', 'chapter-13-choice-3', 'chapter-13-foreshadow'],
   },
   {
     image: IMG_賈伯斯與主角_蘋果之光,
@@ -821,47 +821,47 @@ export const sceneImages: SceneImageConfig[] = [
   {
     image: IMG_ch14_廊入口_未歸者的啟程,
     alt: '未歸者廊入口 - 啟程',
-    nodePatterns: ['yi1-ch14-intro', 'yi1-ch14-1', 'yi1-ch14-2', 'yi1-ch14-3'],
+    nodePatterns: ['chapter-14-intro', 'chapter-14-1', 'chapter-14-2', 'chapter-14-3'],
   },
   {
     image: IMG_ch14_壁龕走廊_記憶的深處,
     alt: '壁龕走廊 - 記憶的深處',
-    nodePatterns: ['yi1-ch14-4', 'yi1-ch14-5', 'yi1-ch14-6', 'yi1-ch14-7'],
+    nodePatterns: ['chapter-14-4', 'chapter-14-5', 'chapter-14-6', 'chapter-14-7'],
   },
   {
     image: IMG_ch14_項羽_悲壯的終結,
     alt: '項羽 - 悲壯的終結',
-    nodePatterns: ['yi1-ch14-8', 'yi1-ch14-9', 'yi1-ch14-10', 'yi1-ch14-choice-1'],
+    nodePatterns: ['chapter-14-8', 'chapter-14-9', 'chapter-14-10', 'chapter-14-choice-1'],
   },
   {
     image: IMG_ch14_屈原_悲劇的守護,
     alt: '屈原 - 悲劇的守護',
-    nodePatterns: ['yi1-ch14-11', 'yi1-ch14-12', 'yi1-ch14-13', 'yi1-ch14-14'],
+    nodePatterns: ['chapter-14-11', 'chapter-14-12', 'chapter-14-13', 'chapter-14-14'],
   },
   {
     image: IMG_ch14_梵谷_瘋狂的藝術,
     alt: '梵谷 - 瘋狂的藝術',
-    nodePatterns: ['yi1-ch14-15', 'yi1-ch14-16', 'yi1-ch14-17', 'yi1-ch14-18'],
+    nodePatterns: ['chapter-14-15', 'chapter-14-16', 'chapter-14-17', 'chapter-14-18'],
   },
   {
     image: IMG_ch14_夢露_分裂的自我,
     alt: '夢露 - 分裂的自我',
-    nodePatterns: ['yi1-ch14-19', 'yi1-ch14-20', 'yi1-ch14-21', 'yi1-ch14-22', 'yi1-ch14-choice-2'],
+    nodePatterns: ['chapter-14-19', 'chapter-14-20', 'chapter-14-21', 'chapter-14-22', 'chapter-14-choice-2'],
   },
   {
     image: IMG_ch14_空壁龕_恐懼的空白,
     alt: '空壁龕 - 恐懼的空白',
-    nodePatterns: ['yi1-ch14-23', 'yi1-ch14-24', 'yi1-ch14-25'],
+    nodePatterns: ['chapter-14-23', 'chapter-14-24', 'chapter-14-25'],
   },
   {
     image: IMG_ch14_壁龕深處_記憶的重複,
     alt: '壁龕深處 - 記憶的重複',
-    nodePatterns: ['yi1-ch14-26', 'yi1-ch14-27', 'yi1-ch14-28', 'yi1-ch14-29'],
+    nodePatterns: ['chapter-14-26', 'chapter-14-27', 'chapter-14-28', 'chapter-14-29'],
   },
   {
     image: IMG_ch14_告別廊_走出的覺醒,
     alt: '告別廊 - 走出的覺醒',
-    nodePatterns: ['yi1-ch14-30', 'yi1-ch14-31', 'yi1-ch14-32', 'yi1-ch14-foreshadow'],
+    nodePatterns: ['chapter-14-30', 'chapter-14-31', 'chapter-14-32', 'chapter-14-foreshadow'],
   },
   {
     image: IMG_未歸者廊_命運壁龕,
@@ -873,94 +873,94 @@ export const sceneImages: SceneImageConfig[] = [
   {
     image: IMG_ch15_洞穴入口_深淵的召喚,
     alt: '洞穴入口 - 深淵的召喚',
-    nodePatterns: ['yi1-ch15-intro', 'yi1-ch15-1', 'yi1-ch15-2', 'yi1-ch15-3', 'yi1-ch15-4', 'chapter15-1', 'chapter15-2', 'chapter15-3', 'chapter-15-1', 'chapter-15-2', 'chapter-15-3'],
+    nodePatterns: ['chapter-15-intro', 'chapter-15-1', 'chapter-15-2', 'chapter-15-3', 'chapter-15-4'],
   },
   {
     image: IMG_ch15_洞穴內部_琉璃的引導,
     alt: '洞穴內部 - 琉璃的引導',
-    nodePatterns: ['yi1-ch15-5', 'yi1-ch15-6', 'yi1-ch15-7', 'yi1-ch15-8', 'chapter15-4', 'chapter15-5', 'chapter15-6', 'chapter-15-4', 'chapter-15-5', 'chapter-15-6'],
+    nodePatterns: ['chapter-15-5', 'chapter-15-6', 'chapter-15-7', 'chapter-15-8'],
   },
   {
     image: IMG_ch15_伊登場_鏡像的震撼,
     alt: '伊登場 - 鏡像的震撼',
-    nodePatterns: ['yi1-ch15-9', 'yi1-ch15-10', 'yi1-ch15-11', 'yi1-ch15-12', 'yi1-ch15-choice-1', 'chapter15-7', 'chapter15-8', 'chapter15-9', 'chapter-15-7', 'chapter-15-8', 'chapter-15-9'],
+    nodePatterns: ['chapter-15-9', 'chapter-15-10', 'chapter-15-11', 'chapter-15-12', 'chapter-15-choice-1'],
   },
   {
     image: IMG_ch15_伊痛苦_遺棄的淚光,
     alt: '伊痛苦 - 遺棄的淚光',
-    nodePatterns: ['yi1-ch15-13', 'yi1-ch15-14', 'yi1-ch15-15', 'yi1-ch15-16', 'yi1-ch15-choice-2', 'chapter15-10', 'chapter15-11', 'chapter15-12', 'chapter-15-10', 'chapter-15-11', 'chapter-15-12'],
+    nodePatterns: ['chapter-15-13', 'chapter-15-14', 'chapter-15-15', 'chapter-15-16', 'chapter-15-choice-2'],
   },
   {
     image: IMG_ch15_伊柔化_連結的開始_v2,
     alt: '伊柔化 - 連結的開始',
-    nodePatterns: ['yi1-ch15-17', 'yi1-ch15-18', 'yi1-ch15-19', 'yi1-ch15-20', 'chapter15-13', 'chapter15-14', 'chapter15-15', 'chapter-15-13', 'chapter-15-14', 'chapter-15-15'],
+    nodePatterns: ['chapter-15-17', 'chapter-15-18', 'chapter-15-19', 'chapter-15-20'],
   },
   {
     image: IMG_ch15_擁抱_和解的光芒_v3,
     alt: '擁抱 - 和解的光芒',
-    nodePatterns: ['yi1-ch15-21', 'yi1-ch15-22', 'yi1-ch15-23', 'yi1-ch15-choice-3', 'chapter15-16', 'chapter15-17', 'chapter15-18', 'chapter-15-16', 'chapter-15-17', 'chapter-15-18'],
+    nodePatterns: ['chapter-15-21', 'chapter-15-22', 'chapter-15-23', 'chapter-15-choice-3'],
   },
   {
     image: IMG_ch15_光之交融_神聖的融合,
     alt: '光之交融 - 神聖的融合',
-    nodePatterns: ['yi1-ch15-24', 'yi1-ch15-25', 'yi1-ch15-26', 'chapter15-19', 'chapter15-20', 'chapter15-21', 'chapter-15-19', 'chapter-15-20'],
+    nodePatterns: ['chapter-15-24', 'chapter-15-25', 'chapter-15-26'],
   },
   {
     image: IMG_ch15_新華服_蛻變的確認,
     alt: '新華服 - 蛻變的確認',
-    nodePatterns: ['yi1-ch15-27', 'yi1-ch15-28', 'yi1-ch15-29', 'chapter15-22', 'chapter15-23', 'chapter15-24'],
+    nodePatterns: ['chapter-15-27', 'chapter-15-28', 'chapter-15-29'],
   },
   {
     image: IMG_ch15_海棠淚光_覺醒的瞬間,
     alt: '海棠淚光 - 覺醒的瞬間',
-    nodePatterns: ['yi1-ch15-30', 'yi1-ch15-31', 'yi1-ch15-32', 'chapter15-25', 'chapter15-26', 'chapter15-27'],
+    nodePatterns: ['chapter-15-30', 'chapter-15-31', 'chapter-15-32'],
   },
   {
     image: IMG_ch15_海棠告別_問心守護,
     alt: '海棠告別 - 問心守護',
-    nodePatterns: ['yi1-ch15-33', 'yi1-ch15-34', 'yi1-ch15-35', 'yi1-ch15-foreshadow', 'chapter15-28', 'chapter15-29', 'chapter15-30'],
+    nodePatterns: ['chapter-15-33', 'chapter-15-34', 'chapter-15-35', 'chapter-15-foreshadow'],
   },
   {
     image: IMG_ch15_海棠重生_生命的綻放,
     alt: '海棠重生 - 生命的綻放',
-    nodePatterns: ['chapter15-'],
+    nodePatterns: ['chapter15-', 'chapter-15-'],
   },
 
   // === 第十六章：歸一（使用粉嫩少女耽美版，7階段視覺敘事）===
   {
     image: IMG_ch16_半圓山_完整的圓,
     alt: '半圓山 - 完整的圓',
-    nodePatterns: ['yi1-ch16-intro', 'yi1-ch16-1', 'yi1-ch16-2', 'yi1-ch16-3', 'yi1-ch16-4', 'yi1-ch16-5', 'chapter16-1', 'chapter16-2', 'chapter16-3', 'chapter16-4', 'chapter16-5'],
+    nodePatterns: ['chapter-16-intro', 'chapter-16-1', 'chapter-16-2', 'chapter-16-3', 'chapter-16-4', 'chapter-16-5'],
   },
   {
     image: IMG_ch16_圓心閣_熄滅的燈,
     alt: '圓心閣 - 熄滅的燈',
-    nodePatterns: ['yi1-ch16-6', 'yi1-ch16-7', 'yi1-ch16-8', 'yi1-ch16-9a', 'yi1-ch16-9b', 'yi1-ch16-10', 'yi1-ch16-11', 'yi1-ch16-12', 'yi1-ch16-13', 'yi1-ch16-14', 'yi1-ch16-15', 'yi1-ch16-choice-1', 'yi1-ch16-choice-2', 'yi1-ch16-16a', 'yi1-ch16-16b', 'chapter16-6', 'chapter16-7', 'chapter16-8', 'chapter16-9', 'chapter16-10', 'chapter16-11', 'chapter16-12', 'chapter16-13', 'chapter16-14', 'chapter16-15'],
+    nodePatterns: ['chapter-16-6', 'chapter-16-7', 'chapter-16-8', 'chapter-16-9a', 'chapter-16-9b', 'chapter-16-10', 'chapter-16-11', 'chapter-16-12', 'chapter-16-13', 'chapter-16-14', 'chapter-16-15', 'chapter-16-choice-1', 'chapter-16-choice-2', 'chapter-16-16a', 'chapter-16-16b'],
   },
   {
     image: IMG_ch16_決心_遠方的勇氣,
     alt: '決心 - 遠方的勇氣',
-    nodePatterns: ['yi1-ch16-17', 'yi1-ch16-18', 'yi1-ch16-19', 'yi1-ch16-20', 'yi1-ch16-21', 'yi1-ch16-22', 'chapter16-16', 'chapter16-17', 'chapter16-18', 'chapter16-19', 'chapter16-20', 'chapter16-21', 'chapter16-22'],
+    nodePatterns: ['chapter-16-17', 'chapter-16-18', 'chapter-16-19', 'chapter-16-20', 'chapter-16-21', 'chapter-16-22'],
   },
   {
     image: IMG_ch16_點燈_啟程的光,
     alt: '點燈 - 啟程的光',
-    nodePatterns: ['yi1-ch16-23', 'yi1-ch16-24', 'yi1-ch16-25', 'yi1-ch16-26', 'yi1-ch16-27', 'yi1-ch16-28', 'yi1-ch16-choice-3', 'yi1-ch16-29a', 'yi1-ch16-29b', 'chapter16-23', 'chapter16-24', 'chapter16-25', 'chapter16-26', 'chapter16-27', 'chapter16-28', 'chapter16-29'],
+    nodePatterns: ['chapter-16-23', 'chapter-16-24', 'chapter-16-25', 'chapter-16-26', 'chapter-16-27', 'chapter-16-28', 'chapter-16-choice-3', 'chapter-16-29a', 'chapter-16-29b'],
   },
   {
     image: IMG_ch16_告別_漸行漸遠,
     alt: '告別 - 漸行漸遠',
-    nodePatterns: ['yi1-ch16-30', 'yi1-ch16-31', 'yi1-ch16-32', 'yi1-ch16-33', 'yi1-ch16-34', 'yi1-ch16-35', 'chapter16-30', 'chapter16-31', 'chapter16-32', 'chapter16-33', 'chapter16-34', 'chapter16-35'],
+    nodePatterns: ['chapter-16-30', 'chapter-16-31', 'chapter-16-32', 'chapter-16-33', 'chapter-16-34', 'chapter-16-35'],
   },
   {
     image: IMG_ch16_日出_新的旅程,
     alt: '日出 - 新的旅程',
-    nodePatterns: ['yi1-ch16-36', 'yi1-ch16-37', 'yi1-ch16-38', 'yi1-ch16-39', 'yi1-ch16-40', 'chapter16-36', 'chapter16-37', 'chapter16-38', 'chapter16-39', 'chapter16-40'],
+    nodePatterns: ['chapter-16-36', 'chapter-16-37', 'chapter-16-38', 'chapter-16-39', 'chapter-16-40'],
   },
   {
     image: IMG_ch16_新的開始_空白的頁面,
     alt: '新的開始 - 空白的頁面',
-    nodePatterns: ['yi1-ch16-41', 'yi1-ch16-42', 'yi1-ch16-43', 'yi1-ch16-44', 'yi1-ch16-coda', 'chapter16-41', 'chapter16-42', 'chapter16-43', 'chapter16-44', 'chapter16-'],
+    nodePatterns: ['chapter-16-41', 'chapter-16-42', 'chapter-16-43', 'chapter-16-44', 'chapter-16-coda', 'chapter16-', 'chapter-16-'],
   },
 
   // === 終章：名字（使用粉嫩少女耽美版完整版，9階段視覺敘事）===
