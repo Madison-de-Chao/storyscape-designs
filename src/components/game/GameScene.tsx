@@ -52,7 +52,7 @@ const normalizeChapterId = (nodeId: string): string => {
 
 // 根據節點 ID 獲取當前章節標題
 const getChapterTitle = (nodeId: string): string => {
-  // 統一處理：移除 yi1- 前綴
+  // 統一處理：章節 ID 正規化（移除 yi1- 前綴、標準化 chX/chapterX 等格式）
   const normalizedId = normalizeChapterId(nodeId);
 
   if (normalizedId.startsWith('preface')) return '作者序';
