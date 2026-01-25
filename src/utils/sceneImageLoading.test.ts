@@ -13,7 +13,7 @@ describe("getSceneLoadingTimeout", () => {
 
   it("uses the default timeout for unknown effects", () => {
     const defaultTimeout = getSceneLoadingTimeout("default");
-    const unknownTimeout = getSceneLoadingTimeout("unknown-effect" as any);
+    const unknownTimeout = getSceneLoadingTimeout("unknown-effect" as "default");
     expect(unknownTimeout).toBe(defaultTimeout);
   });
 });

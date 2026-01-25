@@ -144,6 +144,6 @@ export const prologueNodes: DialogueNode[] = [
     text: '故事，從這裡開始。',
     effect: 'fade-out',
     bgImage: 'prologue_delete_button',
-    nextNodeId: 'yi1-ch1-1',
+    nextNodeId: 'yi1-ch1-intro',
   },
 ];
