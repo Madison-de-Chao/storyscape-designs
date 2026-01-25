@@ -8,6 +8,7 @@ import ShareButtons from './ShareButtons';
 import ShareCard from './ShareCard';
 import JourneyReflection from './JourneyReflection';
 import { useAchievements } from '@/hooks/useAchievements';
+import MoonPhaseIndicator from './MoonPhaseIndicator';
 interface EndingStatsProps {
   isOpen: boolean;
   onClose: () => void;
@@ -295,15 +296,28 @@ const EndingStats = ({ isOpen, onClose }: EndingStatsProps) => {
           <div className="h-3 rounded-full bg-muted/30 overflow-hidden">
             <motion.div
               initial={{ width: 0 }}
-              animate={{ width: `${(arcValue / 180) * 100}%` }}
+              animate={{ width: `${(arcValue / 360) * 100}%` }}
               transition={{ delay: 0.6, duration: 1, ease: 'easeOut' }}
               className="h-full rounded-full bg-gradient-to-r from-primary via-accent to-primary"
             />
           </div>
           <div className="flex justify-between mt-1 text-xs text-muted-foreground">
             <span>0°</span>
-            <span>180°</span>
+            <span>360°</span>
           </div>
+        </motion.div>
+
+        {/* 月明程度視覺化 */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.42 }}
+          className="mx-6 mt-4 p-6 rounded-xl bg-gradient-to-b from-surface/60 to-surface/30 border border-border/30"
+        >
+          <h4 className="text-sm font-medium text-muted-foreground mb-4 text-center">
+            內心月相
+          </h4>
+          <MoonPhaseIndicator size="md" showLabel={true} />
         </motion.div>
 
         {/* 完整度區塊 */}
