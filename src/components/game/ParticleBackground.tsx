@@ -18,6 +18,7 @@ const ParticleBackground = ({ arcValue = 180 }: ParticleBackgroundProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const particlesRef = useRef<Particle[]>([]);
   const animationRef = useRef<number>();
+  const lastFrameTimeRef = useRef(0);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -47,7 +48,14 @@ const ParticleBackground = ({ arcValue = 180 }: ParticleBackgroundProps) => {
       opacity: Math.random() * 0.5 + 0.2,
     }));
 
+    const frameInterval = 1000 / 30;
     const animate = () => {
+      const now = performance.now();
+      if (now - lastFrameTimeRef.current < frameInterval) {
+        animationRef.current = requestAnimationFrame(animate);
+        return;
+      }
+      lastFrameTimeRef.current = now;
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       // 計算顏色：弧度大時偏藍灰，弧度小時偏金色
@@ -101,6 +109,7 @@ const ParticleBackground = ({ arcValue = 180 }: ParticleBackgroundProps) => {
     <motion.canvas
       ref={canvasRef}
       className="fixed inset-0 pointer-events-none z-0"
+      style={{ contain: 'layout paint' }}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 2 }}
