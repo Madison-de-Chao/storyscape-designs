@@ -157,7 +157,7 @@ async function main() {
         if (result.newSize > TARGET_MAX_SIZE) {
           console.log(`    ⚠️  File size ${formatSize(result.newSize)} exceeds target ${formatSize(TARGET_MAX_SIZE)}`);
         } else if (result.newSize < TARGET_MIN_SIZE) {
-          console.log(`    ℹ️  File size ${formatSize(result.newSize)} is under target (good quality!)`);
+          console.log(`    ℹ️  File size ${formatSize(result.newSize)} is under target (better compression than expected)`);
         } else {
           console.log(`    ✅ File size within target range`);
         }
