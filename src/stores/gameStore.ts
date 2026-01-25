@@ -147,6 +147,11 @@ export interface PartProgress {
   unlockedAchievements: string[];
   // 對話歷史（回顧模式）
   dialogueHistory: DialogueHistoryEntry[];
+  // 月明值系統：選項影響內心的明暗程度
+  moonBrightValue: number;  // 明亮值（清澈、正向選擇）
+  moonDarkValue: number;    // 陰暗值（迴避、晦澀選擇）
+  // 已完成的課程（用於固定加弧度）
+  completedLessons: string[];
 }
 
 interface GameState {
@@ -180,6 +185,8 @@ interface GameState {
   unlockAchievement: (achievementId: string) => void;
   addDialogueHistory: (entry: Omit<DialogueHistoryEntry, 'timestamp'>) => void;
   getDialogueHistory: () => DialogueHistoryEntry[];
+  completeLesson: (lessonId: string) => void;  // 完成課程，固定加弧度
+  getMoonClarity: () => number;  // 計算月明程度（-100 到 100）
   
   // 存檔/讀檔動作
   saveGame: (slotName: string, chapterTitle: string, isAutoSave?: boolean) => void;
@@ -205,6 +212,9 @@ const defaultProgress: PartProgress = {
   arcHistory: [{ value: 0, timestamp: Date.now(), nodeId: 'start', change: 0 }],
   unlockedAchievements: [],
   dialogueHistory: [],
+  moonBrightValue: 0,
+  moonDarkValue: 0,
+  completedLessons: [],
 };
 
 const defaultPart2Progress: PartProgress = {
@@ -221,6 +231,9 @@ const defaultPart2Progress: PartProgress = {
   arcHistory: [{ value: 0, timestamp: Date.now(), nodeId: 'start', change: 0 }],
   unlockedAchievements: [],
   dialogueHistory: [],
+  moonBrightValue: 0,
+  moonDarkValue: 0,
+  completedLessons: [],
 };
 
 // 每個章節的總節點數（用於計算閱讀百分比）
@@ -324,27 +337,35 @@ export const useGameStore = create<GameState>()(
       makeChoice: (choice: Choice) => {
         const state = get();
         const progress = state.getCurrentProgress();
-        const newArcValue = Math.max(0, Math.min(360, progress.arcValue + choice.arcChange));
-        const newShadowLevel = Math.max(-100, Math.min(100, progress.shadowLevel + choice.shadowChange));
         
-        // 更新弧度歷史記錄
-        const arcHistory = progress.arcHistory || [];
-        const newArcHistory = [
-          ...arcHistory.slice(-19),
-          {
-            value: newArcValue,
-            timestamp: Date.now(),
-            nodeId: choice.nextNodeId,
-            change: choice.arcChange,
-          },
-        ];
+        // 選項不再影響弧度，改為影響月明值
+        // arcChange > 0 表示明亮選擇，< 0 表示陰暗選擇
+        const moonBrightValue = progress.moonBrightValue || 0;
+        const moonDarkValue = progress.moonDarkValue || 0;
+        
+        let newMoonBright = moonBrightValue;
+        let newMoonDark = moonDarkValue;
+        
+        // 正向選擇增加明亮值，負向選擇增加陰暗值
+        if (choice.arcChange > 0) {
+          newMoonBright = moonBrightValue + Math.abs(choice.arcChange);
+        } else if (choice.arcChange < 0) {
+          newMoonDark = moonDarkValue + Math.abs(choice.arcChange);
+        }
+        
+        // shadowChange 也影響月明值（負 shadow = 更清澈）
+        if (choice.shadowChange < 0) {
+          newMoonBright = newMoonBright + Math.abs(choice.shadowChange);
+        } else if (choice.shadowChange > 0) {
+          newMoonDark = newMoonDark + Math.abs(choice.shadowChange);
+        }
         
         const updatedProgress = {
           ...progress,
-          arcValue: newArcValue,
-          shadowLevel: newShadowLevel,
+          // 弧度不再由選項改變
           currentNodeId: choice.nextNodeId,
-          arcHistory: newArcHistory,
+          moonBrightValue: newMoonBright,
+          moonDarkValue: newMoonDark,
           choicesHistory: {
             ...progress.choicesHistory,
             [choice.id]: choice.text,
@@ -537,6 +558,61 @@ export const useGameStore = create<GameState>()(
         const state = get();
         const progress = state.getCurrentProgress();
         return progress.dialogueHistory || [];
+      },
+
+      // 完成課程：固定加弧度（每課 40°，共 9 課 = 360°）
+      completeLesson: (lessonId: string) => {
+        const state = get();
+        const progress = state.getCurrentProgress();
+        const completedLessons = progress.completedLessons || [];
+        
+        // 避免重複完成同一課
+        if (completedLessons.includes(lessonId)) return;
+        
+        // 每課固定加 40°（9 課 × 40° = 360°）
+        const ARC_PER_LESSON = 40;
+        const newArcValue = Math.min(360, progress.arcValue + ARC_PER_LESSON);
+        
+        // 更新弧度歷史記錄
+        const arcHistory = progress.arcHistory || [];
+        const newArcHistory = [
+          ...arcHistory.slice(-19),
+          {
+            value: newArcValue,
+            timestamp: Date.now(),
+            nodeId: lessonId,
+            change: ARC_PER_LESSON,
+          },
+        ];
+        
+        const updatedProgress = {
+          ...progress,
+          arcValue: newArcValue,
+          completedLessons: [...completedLessons, lessonId],
+          arcHistory: newArcHistory,
+        };
+        
+        if (state.currentPart === 'yi') {
+          set({ yiProgress: updatedProgress });
+        } else {
+          set({ yiPart2Progress: updatedProgress });
+        }
+      },
+
+      // 計算月明程度（-100 到 100）
+      // 正值代表內心清澈，負值代表內心晦澀
+      getMoonClarity: () => {
+        const state = get();
+        const progress = state.getCurrentProgress();
+        const bright = progress.moonBrightValue || 0;
+        const dark = progress.moonDarkValue || 0;
+        const total = bright + dark;
+        
+        if (total === 0) return 0;
+        
+        // 計算明暗比例，映射到 -100 ~ 100
+        const clarity = Math.round(((bright - dark) / total) * 100);
+        return Math.max(-100, Math.min(100, clarity));
       },
 
       // 存檔功能
