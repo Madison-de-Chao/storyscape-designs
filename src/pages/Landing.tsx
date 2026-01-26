@@ -87,7 +87,7 @@ const Landing = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-stone-950 via-stone-900 to-stone-950 text-stone-100">
       {/* Navigation Header */}
-      <header className="fixed top-0 left-0 right-0 z-40 px-4 py-3">
+      <header className="fixed top-0 left-0 right-0 z-40 px-4 py-3 bg-stone-950/80 backdrop-blur-md border-b border-stone-800/50">
         <div className="max-w-6xl mx-auto flex items-center justify-between">
           <Link to="/" className="flex items-center gap-2">
             <img 
@@ -96,8 +96,21 @@ const Landing = () => {
               className="h-10 sm:h-12 w-auto"
             />
           </Link>
-          <div className="flex items-center gap-3">
-            {!isAuthenticated() && (
+          
+          <nav className="flex items-center gap-4 sm:gap-6">
+            {isAuthenticated() && member ? (
+              <>
+                <span className="text-xs sm:text-sm text-stone-400">
+                  {maskEmail(member.email)}
+                </span>
+                <Link
+                  to="/game"
+                  className="text-xs sm:text-sm text-amber-400 hover:text-amber-300 transition-colors font-medium"
+                >
+                  進入遊戲
+                </Link>
+              </>
+            ) : (
               <>
                 <a
                   href="https://member.momo-chao.com"
@@ -117,7 +130,7 @@ const Landing = () => {
                 </a>
               </>
             )}
-          </div>
+          </nav>
         </div>
       </header>
 
