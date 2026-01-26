@@ -3,7 +3,6 @@ import { motion } from 'framer-motion';
 import { useNavigate, Link } from 'react-router-dom';
 import { 
   Play, 
-  ExternalLink, 
   UserPlus, 
   LogIn, 
   Sparkles,
@@ -14,6 +13,7 @@ import {
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useMemberStore } from '@/stores/memberStore';
+import PublicFooter from '@/components/PublicFooter';
 
 // Import cover images
 import yi1Cover from '@/assets/covers/yi1-cover.png';
@@ -22,7 +22,6 @@ import yi2Cover from '@/assets/covers/yi2-cover.png';
 // Import logos
 import yuanyiLogo from '@/assets/logos/yuanyi-universe.png';
 import rainbowLogo from '@/assets/logos/rainbow-sanctuary.png';
-import maisonLogo from '@/assets/logos/maison-de-chao.png';
 
 const Landing = () => {
   const navigate = useNavigate();
@@ -508,54 +507,7 @@ const Landing = () => {
       </section>
 
       {/* Footer */}
-      <footer className="py-12 px-4 border-t border-stone-800">
-        <div className="max-w-6xl mx-auto">
-          {/* Partner Section */}
-          <div className="flex flex-col items-center mb-8">
-            <p className="text-xs text-stone-500 mb-3">合作夥伴</p>
-            <a 
-              href="https://member.momo-chao.com" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="opacity-60 hover:opacity-100 transition-opacity"
-            >
-              <img 
-                src={maisonLogo} 
-                alt="MAISON DE CHAO 超烜創意" 
-                className="h-16 sm:h-20 w-auto"
-              />
-            </a>
-          </div>
-
-          {/* Footer Links */}
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-stone-500 pt-6 border-t border-stone-800/50">
-            <p>© 2025 弧度歸零 Arc to Zero. All rights reserved.</p>
-            <div className="flex items-center gap-6">
-              <Link
-                to="/privacy"
-                className="hover:text-stone-300 transition-colors"
-              >
-                隱私政策
-              </Link>
-              <Link
-                to="/terms"
-                className="hover:text-stone-300 transition-colors"
-              >
-                使用條款
-              </Link>
-              <a
-                href="https://member.momo-chao.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-stone-300 transition-colors flex items-center gap-1"
-              >
-                主站
-                <ExternalLink className="w-3 h-3" />
-              </a>
-            </div>
-          </div>
-        </div>
-      </footer>
+      <PublicFooter />
     </div>
   );
 };
