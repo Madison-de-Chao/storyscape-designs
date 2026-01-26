@@ -5,6 +5,7 @@ import {
   Play, 
   UserPlus, 
   LogIn, 
+  LogOut,
   Sparkles,
   BookOpen,
   Heart,
@@ -25,7 +26,7 @@ import rainbowLogo from '@/assets/logos/rainbow-sanctuary.png';
 
 const Landing = () => {
   const navigate = useNavigate();
-  const { isAuthenticated, member } = useMemberStore();
+  const { isAuthenticated, member, logout } = useMemberStore();
   const [scrollY, setScrollY] = useState(0);
 
   useEffect(() => {
@@ -108,6 +109,14 @@ const Landing = () => {
                 >
                   進入遊戲
                 </Link>
+                <button
+                  onClick={logout}
+                  className="flex items-center gap-1 text-xs sm:text-sm text-stone-500 hover:text-red-400 transition-colors"
+                  title="登出"
+                >
+                  <LogOut className="w-3.5 h-3.5" />
+                  <span className="hidden sm:inline">登出</span>
+                </button>
               </>
             ) : (
               <>
