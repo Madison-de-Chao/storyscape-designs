@@ -111,22 +111,18 @@ const Landing = () => {
               </>
             ) : (
               <>
-                <a
-                  href="https://member.momo-chao.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <Link
+                  to="/game"
                   className="text-xs sm:text-sm text-stone-400 hover:text-amber-400 transition-colors"
                 >
                   登入
-                </a>
-                <a
-                  href="https://member.momo-chao.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                </Link>
+                <Link
+                  to="/game"
                   className="text-xs sm:text-sm px-3 py-1.5 rounded-lg bg-amber-600/20 text-amber-400 hover:bg-amber-600/30 transition-colors"
                 >
                   註冊
-                </a>
+                </Link>
               </>
             )}
           </nav>
@@ -216,24 +212,20 @@ const Landing = () => {
 
               {!isAuthenticated() && (
                 <div className="flex gap-3">
-                  <a
-                    href="https://member.momo-chao.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
+                  <Link
+                    to="/game"
                     className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-stone-600 hover:border-amber-500/50 text-stone-300 hover:text-amber-400 transition-colors"
                   >
                     <UserPlus className="w-4 h-4" />
                     註冊帳號
-                  </a>
-                  <a
-                    href="https://member.momo-chao.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
+                  </Link>
+                  <Link
+                    to="/game"
                     className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-stone-600 hover:border-amber-500/50 text-stone-300 hover:text-amber-400 transition-colors"
                   >
                     <LogIn className="w-4 h-4" />
                     會員登入
-                  </a>
+                  </Link>
                 </div>
               )}
             </motion.div>
