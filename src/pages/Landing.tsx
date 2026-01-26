@@ -24,6 +24,9 @@ import yi2Cover from '@/assets/covers/yi2-cover.png';
 import yuanyiLogo from '@/assets/logos/yuanyi-universe.png';
 import rainbowLogo from '@/assets/logos/rainbow-sanctuary.png';
 
+// Import hero video
+import heroVideo from '@/assets/landing-hero-video.mp4';
+
 const Landing = () => {
   const navigate = useNavigate();
   const { isAuthenticated, member, logout } = useMemberStore();
@@ -140,9 +143,24 @@ const Landing = () => {
 
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16">
-        {/* Parallax Background */}
+        {/* Video Background */}
+        <div className="absolute inset-0 z-0">
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover"
+          >
+            <source src={heroVideo} type="video/mp4" />
+          </video>
+          {/* Dark overlay for text readability */}
+          <div className="absolute inset-0 bg-gradient-to-b from-stone-950/70 via-stone-950/50 to-stone-950/90" />
+        </div>
+
+        {/* Parallax Glow Effects */}
         <div 
-          className="absolute inset-0 opacity-20"
+          className="absolute inset-0 opacity-20 z-[1] pointer-events-none"
           style={{ transform: `translateY(${scrollY * 0.3}px)` }}
         >
           <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-amber-900/30 rounded-full blur-3xl" />
