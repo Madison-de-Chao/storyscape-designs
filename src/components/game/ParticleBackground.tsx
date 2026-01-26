@@ -1,5 +1,6 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
+import { usePerformanceStore } from '@/stores/performanceStore';
 
 interface Particle {
   x: number;
@@ -14,23 +15,12 @@ interface ParticleBackgroundProps {
   arcValue?: number; // 0-180，影響粒子顏色和密度
 }
 
-// 檢測是否為低性能設備（Android 或觸控設備）
-const isLowPerformanceDevice = () => {
-  if (typeof window === 'undefined') return false;
-  const ua = navigator.userAgent.toLowerCase();
-  const isAndroid = ua.includes('android');
-  const isMobile = /mobile|tablet|ip(ad|hone|od)|android/i.test(ua);
-  // 檢測是否偏好減少動畫
-  const prefersReducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches;
-  return isAndroid || isMobile || prefersReducedMotion;
-};
-
 const ParticleBackground = ({ arcValue = 180 }: ParticleBackgroundProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const particlesRef = useRef<Particle[]>([]);
   const animationRef = useRef<number>();
   const lastFrameTimeRef = useRef(0);
-  const [isLowPerf] = useState(isLowPerformanceDevice);
+  const isLowPerf = usePerformanceStore((state) => state.shouldSimplifyAnimations());
 
   useEffect(() => {
     const canvas = canvasRef.current;

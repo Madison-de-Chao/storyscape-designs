@@ -7,7 +7,7 @@ import { usePreloadNextScene } from '@/hooks/usePreloadNextScene';
 import { useProgressiveImage } from '@/hooks/useProgressiveImage';
 import { getChapterTheme, themeToHSL, themeToGlow } from '@/utils/chapterThemes';
 import { getSceneLoadingTimeout, type SceneEffectType } from '@/utils/sceneImageLoading';
-import { isLowPerformanceDevice } from '@/utils/devicePerformance';
+import { usePerformanceStore } from '@/stores/performanceStore';
 
 interface SceneImageProps {
   nodeId: string;
@@ -51,6 +51,7 @@ const SceneImage = ({ nodeId, hideOverlay = false, isLoaded: externalLoaded }: S
   const [showTransitionEffect, setShowTransitionEffect] = useState(false);
   const [showTimeoutPrompt, setShowTimeoutPrompt] = useState(false);
   const { unlockImage } = useGameStore();
+  const shouldSimplify = usePerformanceStore((state) => state.shouldSimplifyAnimations());
   const transitionTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const loadingTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -179,11 +180,8 @@ const SceneImage = ({ nodeId, hideOverlay = false, isLoaded: externalLoaded }: S
     const themeDark = `hsl(${chapterTheme.hue} ${Math.max(chapterTheme.saturation - 30, 10)}% 8%)`;
     const themeMid = `hsl(${chapterTheme.hue} ${Math.max(chapterTheme.saturation - 25, 10)}% 12%)`;
     
-    // 檢測低性能設備
-    const isLowPerf = isLowPerformanceDevice();
-    
     // 低性能設備：使用簡化版骨架屏
-    if (isLowPerf) {
+    if (shouldSimplify) {
       return (
         <motion.div
           className="absolute inset-0 z-40 flex items-center justify-center"
@@ -493,10 +491,8 @@ const SceneImage = ({ nodeId, hideOverlay = false, isLoaded: externalLoaded }: S
 
   // 根據特效類型獲取進場動畫 - 低性能設備使用簡化版
   const getEntryAnimation = () => {
-    const isLowPerf = isLowPerformanceDevice();
-    
     // 低性能設備：統一使用簡單淡入效果
-    if (isLowPerf) {
+    if (shouldSimplify) {
       return {
         initial: { opacity: 0 },
         animate: { opacity: isLoaded ? 1 : 0 },

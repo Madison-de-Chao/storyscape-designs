@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Volume2, VolumeX, Settings, Music, Sparkles, Wind } from 'lucide-react';
+import { Volume2, VolumeX, Settings, Music, Sparkles, Wind, Zap, Gauge } from 'lucide-react';
 import { useAudioSettings } from '@/hooks/useAudio';
+import { usePerformanceStore } from '@/stores/performanceStore';
 
 const AudioControls = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -17,6 +18,8 @@ const AudioControls = () => {
     setAmbientVolume,
     toggleMute,
   } = useAudioSettings();
+  
+  const { performanceMode, setPerformanceMode } = usePerformanceStore();
 
   return (
     <div className="fixed top-4 right-32 sm:right-52 z-50">
@@ -75,10 +78,11 @@ const AudioControls = () => {
             transition={{ duration: 0.2 }}
             className="
               absolute top-full right-0 mt-2
-              w-56 sm:w-64 p-3 sm:p-4
+              w-64 sm:w-72 p-3 sm:p-4
               bg-background/95 backdrop-blur-md
               border border-border/50 rounded-lg
               shadow-lg
+              max-h-[70vh] overflow-y-auto
             "
           >
             <h3 className="text-sm font-medium text-foreground mb-4">音量設定</h3>
@@ -115,6 +119,38 @@ const AudioControls = () => {
                 value={ambientVolume}
                 onChange={setAmbientVolume}
                 disabled={isMuted}
+              />
+            </div>
+
+            {/* 分隔線 */}
+            <div className="my-4 border-t border-border/30" />
+
+            {/* 效能模式 */}
+            <h3 className="text-sm font-medium text-foreground mb-3 flex items-center gap-2">
+              <Gauge className="w-4 h-4" />
+              效能模式
+            </h3>
+            <p className="text-xs text-muted-foreground mb-3">
+              如果遊戲畫面閃爍或卡頓，請嘗試切換至「省電模式」
+            </p>
+            <div className="flex gap-1.5">
+              <PerformanceButton
+                mode="auto"
+                currentMode={performanceMode}
+                onClick={() => setPerformanceMode('auto')}
+                label="自動"
+              />
+              <PerformanceButton
+                mode="high"
+                currentMode={performanceMode}
+                onClick={() => setPerformanceMode('high')}
+                label="高效能"
+              />
+              <PerformanceButton
+                mode="low"
+                currentMode={performanceMode}
+                onClick={() => setPerformanceMode('low')}
+                label="省電"
               />
             </div>
           </motion.div>
@@ -169,6 +205,34 @@ const VolumeSlider = ({ icon, label, value, onChange, disabled }: VolumeSliderPr
         "
       />
     </div>
+  );
+};
+
+interface PerformanceButtonProps {
+  mode: 'auto' | 'high' | 'low';
+  currentMode: 'auto' | 'high' | 'low';
+  onClick: () => void;
+  label: string;
+}
+
+const PerformanceButton = ({ mode, currentMode, onClick, label }: PerformanceButtonProps) => {
+  const isActive = mode === currentMode;
+  
+  return (
+    <button
+      onClick={onClick}
+      className={`
+        flex-1 px-2 py-1.5 text-xs rounded-md
+        transition-colors duration-150
+        touch-manipulation
+        ${isActive 
+          ? 'bg-primary/20 text-primary border border-primary/50' 
+          : 'bg-background/50 text-muted-foreground border border-border/30 hover:border-border/50 hover:text-foreground'
+        }
+      `}
+    >
+      {label}
+    </button>
   );
 };
 
