@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback, useRef, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Eye, EyeOff, FastForward, Play, Pause, History, Save, Download } from 'lucide-react';
 import { useGameStore } from '@/stores/gameStore';
+import { usePerformanceStore } from '@/stores/performanceStore';
 import { getNodeById } from '@/data/prologueStory';
 // TODO: 第二部節點查詢函數待建立
 import { getYi1NodeById } from '@/data/yi1';
@@ -46,6 +47,7 @@ interface DialogueBoxProps {
 
 const DialogueBox = ({ isHidden = false, onToggleHide, onScoreChange }: DialogueBoxProps) => {
   const { getCurrentProgress, advanceToNextNode, makeChoice, currentPart, markNodeAsRead, addDialogueHistory, getDialogueHistory, saveGame } = useGameStore();
+  const shouldSimplify = usePerformanceStore((state) => state.shouldSimplifyAnimations());
   const progress = getCurrentProgress();
   const currentNodeId = progress.currentNodeId;
   const { playSFX, playEmotionSFX } = useSFX();
@@ -120,21 +122,35 @@ const DialogueBox = ({ isHidden = false, onToggleHide, onScoreChange }: Dialogue
     }
   }, [currentNodeId, currentPart, markNodeAsRead, playEmotionSFX, addDialogueHistory, getSpeakerNameForHistory]);
 
-  // 打字機效果 - 優化版本：更自然的節奏感
+  // 打字機效果 - 優化版本：低性能模式使用批量更新減少重繪
   useEffect(() => {
     if (!currentNode) return;
 
     const text = currentNode.text;
-    let index = 0;
     setDisplayedText('');
     setIsTyping(true);
 
+    // 低性能模式：直接顯示完整文字，避免逐字渲染
+    if (shouldSimplify && !isAutoForward) {
+      const timer = setTimeout(() => {
+        setDisplayedText(text);
+        setIsTyping(false);
+      }, 100);
+      return () => clearTimeout(timer);
+    }
+
+    let index = 0;
+    let animationFrameId: number | null = null;
+    let timeoutId: NodeJS.Timeout | null = null;
+    
     // 基礎打字速度：快轉模式 8ms，正常模式 35ms
     const baseSpeed = isAutoForward ? 8 : 35;
     
     const typeNextChar = () => {
       if (index < text.length) {
         const char = text[index];
+        
+        // 使用 functional update 避免閉包問題，減少重新創建字串
         setDisplayedText(text.slice(0, index + 1));
         index++;
         
@@ -150,15 +166,25 @@ const DialogueBox = ({ isHidden = false, onToggleHide, onScoreChange }: Dialogue
           }
         }
         
-        setTimeout(typeNextChar, delay);
+        timeoutId = setTimeout(() => {
+          // 使用 requestAnimationFrame 確保在繪製幀前更新
+          animationFrameId = requestAnimationFrame(typeNextChar);
+        }, delay);
       } else {
         setIsTyping(false);
       }
     };
 
-    const typingTimer = setTimeout(typeNextChar, 50); // 初始延遲
-    return () => clearTimeout(typingTimer);
-  }, [currentNode, isAutoForward]);
+    // 初始延遲後開始
+    timeoutId = setTimeout(() => {
+      animationFrameId = requestAnimationFrame(typeNextChar);
+    }, 50);
+    
+    return () => {
+      if (timeoutId) clearTimeout(timeoutId);
+      if (animationFrameId) cancelAnimationFrame(animationFrameId);
+    };
+  }, [currentNode, isAutoForward, shouldSimplify]);
 
   // 快轉自動前進
   useEffect(() => {

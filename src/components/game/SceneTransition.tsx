@@ -2,7 +2,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useEffect, useState, useMemo } from 'react';
 import { getChapterTheme, themeToHSL, themeToGlow, type ChapterTheme } from '@/utils/chapterThemes';
 import { useSFX, getChapterTransitionSFX } from '@/hooks/useAudio';
-import { isLowPerformanceDevice } from '@/utils/devicePerformance';
+import { usePerformanceStore } from '@/stores/performanceStore';
 
 interface SceneTransitionProps {
   isTransitioning: boolean;
@@ -29,6 +29,7 @@ const SceneTransition = ({
   onTransitionComplete,
 }: SceneTransitionProps) => {
   const { playChapterTransitionSFX } = useSFX();
+  const shouldSimplify = usePerformanceStore((state) => state.shouldSimplifyAnimations());
   const [showContent, setShowContent] = useState(false);
   const [phase, setPhase] = useState<'enter' | 'display' | 'exit'>('enter');
 
@@ -410,7 +411,7 @@ const SceneTransition = ({
               </div>
 
               {/* 浮動粒子效果 - 使用動態主題色，低性能設備禁用 */}
-              {showContent && !isLowPerformanceDevice() && (
+              {showContent && !shouldSimplify && (
                 <div className="absolute inset-0 overflow-hidden pointer-events-none">
                   {/* 主要上升粒子 - 減少數量 */}
                   {[...Array(10)].map((_, i) => (
