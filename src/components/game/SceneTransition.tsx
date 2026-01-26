@@ -2,6 +2,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useEffect, useState, useMemo } from 'react';
 import { getChapterTheme, themeToHSL, themeToGlow, type ChapterTheme } from '@/utils/chapterThemes';
 import { useSFX, getChapterTransitionSFX } from '@/hooks/useAudio';
+import { isLowPerformanceDevice } from '@/utils/devicePerformance';
 
 interface SceneTransitionProps {
   isTransitioning: boolean;
@@ -408,11 +409,11 @@ const SceneTransition = ({
                 </motion.div>
               </div>
 
-              {/* 浮動粒子效果 - 使用動態主題色 */}
-              {showContent && (
+              {/* 浮動粒子效果 - 使用動態主題色，低性能設備禁用 */}
+              {showContent && !isLowPerformanceDevice() && (
                 <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                  {/* 主要上升粒子 */}
-                  {[...Array(20)].map((_, i) => (
+                  {/* 主要上升粒子 - 減少數量 */}
+                  {[...Array(10)].map((_, i) => (
                     <motion.div
                       key={`particle-${i}`}
                       className="absolute rounded-full"
@@ -429,7 +430,7 @@ const SceneTransition = ({
                       }}
                       transition={{
                         duration: 3 + Math.random() * 2,
-                        delay: i * 0.1,
+                        delay: i * 0.2,
                         ease: 'linear',
                       }}
                       style={{
@@ -441,9 +442,9 @@ const SceneTransition = ({
                     />
                   ))}
 
-                  {/* 環繞光點 */}
-                  {[...Array(8)].map((_, i) => {
-                    const angle = (i / 8) * Math.PI * 2;
+                  {/* 環繞光點 - 減少數量 */}
+                  {[...Array(4)].map((_, i) => {
+                    const angle = (i / 4) * Math.PI * 2;
                     const radius = 180 + Math.random() * 60;
                     return (
                       <motion.div
@@ -461,7 +462,7 @@ const SceneTransition = ({
                         }}
                         transition={{
                           duration: 2.5,
-                          delay: 0.5 + i * 0.15,
+                          delay: 0.5 + i * 0.3,
                           ease: 'easeOut',
                         }}
                         style={{
