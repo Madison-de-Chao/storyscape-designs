@@ -7,6 +7,8 @@ import { usePreloadNextScene } from '@/hooks/usePreloadNextScene';
 import { useProgressiveImage } from '@/hooks/useProgressiveImage';
 import { getChapterTheme, themeToHSL, themeToGlow } from '@/utils/chapterThemes';
 import { getSceneLoadingTimeout, type SceneEffectType } from '@/utils/sceneImageLoading';
+import { isLowPerformanceDevice } from '@/utils/devicePerformance';
+
 interface SceneImageProps {
   nodeId: string;
   hideOverlay?: boolean;
@@ -170,16 +172,76 @@ const SceneImage = ({ nodeId, hideOverlay = false, isLoaded: externalLoaded }: S
   }
   
   // 墨水渲染風格載入骨架屏組件 - 整合章節主題色
+  // 針對低性能設備（Android）優化：減少動畫元素
   const InkLoadingSkeleton = () => {
     // 根據章節主題生成動態色彩
-    const themeColor = themeToHSL(chapterTheme);
     const themeGlow = themeToGlow(chapterTheme, 0.3);
     const themeDark = `hsl(${chapterTheme.hue} ${Math.max(chapterTheme.saturation - 30, 10)}% 8%)`;
     const themeMid = `hsl(${chapterTheme.hue} ${Math.max(chapterTheme.saturation - 25, 10)}% 12%)`;
     
+    // 檢測低性能設備
+    const isLowPerf = isLowPerformanceDevice();
+    
+    // 低性能設備：使用簡化版骨架屏
+    if (isLowPerf) {
+      return (
+        <motion.div
+          className="absolute inset-0 z-40 flex items-center justify-center"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.3 }}
+          style={{ 
+            background: `linear-gradient(to bottom, ${themeDark}, ${themeMid}, ${themeDark})`,
+            contain: 'strict',
+          }}
+        >
+          {/* 簡化的載入指示器 */}
+          <div className="flex flex-col items-center gap-3">
+            {/* 簡單的旋轉圓圈 */}
+            <div 
+              className="w-8 h-8 border-2 rounded-full animate-spin"
+              style={{ 
+                borderColor: `${themeToHSL(chapterTheme, 0.2)} transparent ${themeToHSL(chapterTheme, 0.4)} transparent`,
+              }}
+            />
+            <span 
+              className="text-sm font-serif-tc tracking-widest opacity-70"
+              style={{ color: themeToHSL(chapterTheme, 0.7) }}
+            >
+              載入中
+            </span>
+          </div>
+          
+          {/* 超時提示 */}
+          {showTimeoutPrompt && (
+            <div className="absolute bottom-8 left-1/2 -translate-x-1/2">
+              <div 
+                className="rounded-lg px-4 py-2 shadow-lg"
+                style={{
+                  backgroundColor: 'hsl(var(--background) / 0.95)',
+                  border: `1px solid ${themeToHSL(chapterTheme, 0.25)}`,
+                }}
+              >
+                <button
+                  onClick={handleRetryLoad}
+                  className="flex items-center gap-2 text-sm font-serif-tc"
+                  style={{ color: themeToHSL(chapterTheme, 0.9) }}
+                >
+                  <RefreshCcw className="w-4 h-4" />
+                  重新載入
+                </button>
+              </div>
+            </div>
+          )}
+        </motion.div>
+      );
+    }
+    
+    // 正常設備：完整動畫版本
     return (
       <motion.div
-        className="absolute inset-0 z-40 flex items-center justify-center overflow-hidden will-change-transform"
+        className="absolute inset-0 z-40 flex items-center justify-center overflow-hidden"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
@@ -194,11 +256,11 @@ const SceneImage = ({ nodeId, hideOverlay = false, isLoaded: externalLoaded }: S
           }}
         />
         
-        {/* 墨水渲染效果層 - 簡化動畫減少重繪 */}
+        {/* 墨水渲染效果層 */}
         <div className="absolute inset-0 overflow-hidden">
           {/* 中央墨水暈開動畫 - 章節主題色 */}
           <motion.div
-            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 will-change-transform"
+            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
             initial={{ scale: 0, opacity: 0 }}
             animate={{ 
               scale: [0, 2, 3.5],
@@ -247,7 +309,7 @@ const SceneImage = ({ nodeId, hideOverlay = false, isLoaded: externalLoaded }: S
           {[...Array(4)].map((_, i) => (
             <motion.div
               key={i}
-              className="absolute w-1 rounded-full will-change-transform"
+              className="absolute w-1 rounded-full"
               style={{
                 left: `${20 + i * 18}%`,
                 height: `${35 + (i % 2) * 15}px`,
@@ -267,20 +329,19 @@ const SceneImage = ({ nodeId, hideOverlay = false, isLoaded: externalLoaded }: S
             />
           ))}
         
-        {/* 水墨紋理覆蓋 */}
-        <motion.div
-          className="absolute inset-0 pointer-events-none"
-          animate={{ opacity: [0.03, 0.06, 0.03] }}
-          transition={{ duration: 4, repeat: Infinity }}
-          style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
-            mixBlendMode: 'overlay',
-          }}
-        />
+          {/* 水墨紋理覆蓋 */}
+          <motion.div
+            className="absolute inset-0 pointer-events-none"
+            animate={{ opacity: [0.03, 0.06, 0.03] }}
+            transition={{ duration: 4, repeat: Infinity }}
+            style={{
+              backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
+              mixBlendMode: 'overlay',
+            }}
+          />
         
           {/* 古風裝飾邊框 - 章節主題色 */}
           <svg className="absolute inset-0 w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
-            {/* 左上角裝飾 */}
             <motion.path
               d="M 5 20 L 5 5 L 20 5"
               fill="none"
@@ -291,7 +352,6 @@ const SceneImage = ({ nodeId, hideOverlay = false, isLoaded: externalLoaded }: S
               animate={{ pathLength: 1, opacity: 1 }}
               transition={{ duration: 1, delay: 0.2 }}
             />
-            {/* 右上角裝飾 */}
             <motion.path
               d="M 80 5 L 95 5 L 95 20"
               fill="none"
@@ -302,7 +362,6 @@ const SceneImage = ({ nodeId, hideOverlay = false, isLoaded: externalLoaded }: S
               animate={{ pathLength: 1, opacity: 1 }}
               transition={{ duration: 1, delay: 0.4 }}
             />
-            {/* 左下角裝飾 */}
             <motion.path
               d="M 5 80 L 5 95 L 20 95"
               fill="none"
@@ -313,7 +372,6 @@ const SceneImage = ({ nodeId, hideOverlay = false, isLoaded: externalLoaded }: S
               animate={{ pathLength: 1, opacity: 1 }}
               transition={{ duration: 1, delay: 0.6 }}
             />
-            {/* 右下角裝飾 */}
             <motion.path
               d="M 80 95 L 95 95 L 95 80"
               fill="none"
@@ -341,7 +399,6 @@ const SceneImage = ({ nodeId, hideOverlay = false, isLoaded: externalLoaded }: S
             transition={{ duration: 4, repeat: Infinity, ease: 'linear' }}
           >
             <svg viewBox="0 0 100 100" className="w-full h-full">
-              {/* 外圈 */}
               <circle
                 cx="50"
                 cy="50"
@@ -350,7 +407,6 @@ const SceneImage = ({ nodeId, hideOverlay = false, isLoaded: externalLoaded }: S
                 stroke={themeToHSL(chapterTheme, 0.25)}
                 strokeWidth="1"
               />
-              {/* 陰陽符號簡化版 */}
               <motion.path
                 d="M 50 5 A 45 45 0 0 1 50 95 A 22.5 22.5 0 0 1 50 50 A 22.5 22.5 0 0 0 50 5"
                 fill={themeToHSL(chapterTheme, 0.18)}
@@ -378,7 +434,7 @@ const SceneImage = ({ nodeId, hideOverlay = false, isLoaded: externalLoaded }: S
             {[0, 1, 2].map((i) => (
               <motion.div
                 key={i}
-                className="w-1.5 h-1.5 rounded-full will-change-transform"
+                className="w-1.5 h-1.5 rounded-full"
                 style={{ backgroundColor: themeToHSL(chapterTheme, 0.4) }}
                 animate={{
                   scale: [1, 1.6, 1],
@@ -435,8 +491,20 @@ const SceneImage = ({ nodeId, hideOverlay = false, isLoaded: externalLoaded }: S
     );
   };
 
-  // 根據特效類型獲取進場動畫
+  // 根據特效類型獲取進場動畫 - 低性能設備使用簡化版
   const getEntryAnimation = () => {
+    const isLowPerf = isLowPerformanceDevice();
+    
+    // 低性能設備：統一使用簡單淡入效果
+    if (isLowPerf) {
+      return {
+        initial: { opacity: 0 },
+        animate: { opacity: isLoaded ? 1 : 0 },
+        transition: { duration: 0.5, ease: 'easeOut' as const },
+      };
+    }
+    
+    // 正常設備：完整特效
     switch (sceneEffect) {
       case 'glitch':
         return {
