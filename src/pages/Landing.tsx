@@ -19,6 +19,11 @@ import { useMemberStore } from '@/stores/memberStore';
 import yi1Cover from '@/assets/covers/yi1-cover.png';
 import yi2Cover from '@/assets/covers/yi2-cover.png';
 
+// Import logos
+import yuanyiLogo from '@/assets/logos/yuanyi-universe.png';
+import rainbowLogo from '@/assets/logos/rainbow-sanctuary.png';
+import maisonLogo from '@/assets/logos/maison-de-chao.png';
+
 const Landing = () => {
   const navigate = useNavigate();
   const { isAuthenticated, member } = useMemberStore();
@@ -81,8 +86,43 @@ const Landing = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-stone-950 via-stone-900 to-stone-950 text-stone-100">
+      {/* Navigation Header */}
+      <header className="fixed top-0 left-0 right-0 z-40 px-4 py-3">
+        <div className="max-w-6xl mx-auto flex items-center justify-between">
+          <Link to="/" className="flex items-center gap-2">
+            <img 
+              src={rainbowLogo} 
+              alt="虹靈御所" 
+              className="h-10 sm:h-12 w-auto"
+            />
+          </Link>
+          <div className="flex items-center gap-3">
+            {!isAuthenticated() && (
+              <>
+                <a
+                  href="https://member.momo-chao.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-xs sm:text-sm text-stone-400 hover:text-amber-400 transition-colors"
+                >
+                  登入
+                </a>
+                <a
+                  href="https://member.momo-chao.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-xs sm:text-sm px-3 py-1.5 rounded-lg bg-amber-600/20 text-amber-400 hover:bg-amber-600/30 transition-colors"
+                >
+                  註冊
+                </a>
+              </>
+            )}
+          </div>
+        </div>
+      </header>
+
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16">
         {/* Parallax Background */}
         <div 
           className="absolute inset-0 opacity-20"
@@ -99,6 +139,16 @@ const Landing = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
+            {/* Yuanyi Universe Logo */}
+            <motion.img
+              src={yuanyiLogo}
+              alt="元壹宇宙 Yuanyi Universe"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6 }}
+              className="h-16 sm:h-20 w-auto mx-auto mb-6"
+            />
+
             {/* Logo / Title */}
             <h1 
               className="text-5xl sm:text-7xl font-bold mb-4 tracking-wider"
@@ -445,31 +495,51 @@ const Landing = () => {
       </section>
 
       {/* Footer */}
-      <footer className="py-8 px-4 border-t border-stone-800">
-        <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-stone-500">
-          <p>© 2025 弧度歸零 Arc to Zero. All rights reserved.</p>
-          <div className="flex items-center gap-6">
-            <Link
-              to="/privacy"
-              className="hover:text-stone-300 transition-colors"
-            >
-              隱私政策
-            </Link>
-            <Link
-              to="/terms"
-              className="hover:text-stone-300 transition-colors"
-            >
-              使用條款
-            </Link>
-            <a
-              href="https://member.momo-chao.com"
-              target="_blank"
+      <footer className="py-12 px-4 border-t border-stone-800">
+        <div className="max-w-6xl mx-auto">
+          {/* Partner Section */}
+          <div className="flex flex-col items-center mb-8">
+            <p className="text-xs text-stone-500 mb-3">合作夥伴</p>
+            <a 
+              href="https://member.momo-chao.com" 
+              target="_blank" 
               rel="noopener noreferrer"
-              className="hover:text-stone-300 transition-colors flex items-center gap-1"
+              className="opacity-60 hover:opacity-100 transition-opacity"
             >
-              主站
-              <ExternalLink className="w-3 h-3" />
+              <img 
+                src={maisonLogo} 
+                alt="MAISON DE CHAO 超烜創意" 
+                className="h-16 sm:h-20 w-auto"
+              />
             </a>
+          </div>
+
+          {/* Footer Links */}
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-stone-500 pt-6 border-t border-stone-800/50">
+            <p>© 2025 弧度歸零 Arc to Zero. All rights reserved.</p>
+            <div className="flex items-center gap-6">
+              <Link
+                to="/privacy"
+                className="hover:text-stone-300 transition-colors"
+              >
+                隱私政策
+              </Link>
+              <Link
+                to="/terms"
+                className="hover:text-stone-300 transition-colors"
+              >
+                使用條款
+              </Link>
+              <a
+                href="https://member.momo-chao.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-stone-300 transition-colors flex items-center gap-1"
+              >
+                主站
+                <ExternalLink className="w-3 h-3" />
+              </a>
+            </div>
           </div>
         </div>
       </footer>
