@@ -45,12 +45,41 @@ const PublicFooter = () => {
       toast.error("請輸入電子郵件地址");
       return;
     }
+
+    // Basic email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      toast.error("請輸入有效的電子郵件地址");
+      return;
+    }
     
     setIsSubscribing(true);
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    toast.success("訂閱成功！感謝您的支持");
-    setEmail("");
-    setIsSubscribing(false);
+    
+    try {
+      const response = await fetch('https://yrdtgwoxxjksesynrjss.supabase.co/functions/v1/newsletter-subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: email.trim().toLowerCase(),
+          source: 'arctozero',
+          metadata: { campaign: 'footer' }
+        })
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || '訂閱失敗');
+      }
+
+      toast.success("訂閱成功！感謝您的支持");
+      setEmail("");
+    } catch (error) {
+      console.error('Newsletter subscription error:', error);
+      toast.error(error instanceof Error ? error.message : "訂閱失敗，請稍後再試");
+    } finally {
+      setIsSubscribing(false);
+    }
   };
 
   return (
