@@ -1,6 +1,7 @@
 import { useState, ReactNode, startTransition } from 'react';
 import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
+import { useHapticFeedback } from '@/hooks/useHapticFeedback';
 
 interface MenuButtonProps {
   onClick: () => void;
@@ -12,9 +13,11 @@ interface MenuButtonProps {
 
 const MenuButton = ({ onClick, icon, label, variant = 'default', className }: MenuButtonProps) => {
   const [isPressed, setIsPressed] = useState(false);
+  const { triggerHaptic } = useHapticFeedback();
 
   const handleClick = () => {
     setIsPressed(true);
+    triggerHaptic(variant === 'destructive' ? 'warning' : 'selection');
     // 讓動畫完成後再執行操作
     setTimeout(() => {
       startTransition(() => {
