@@ -1,6 +1,7 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { Choice } from '@/stores/gameStore';
 import { useSFX } from '@/hooks/useAudio';
+import { useHapticFeedback } from '@/hooks/useHapticFeedback';
 import { useState } from 'react';
 
 interface ChoiceButtonProps {
@@ -11,11 +12,13 @@ interface ChoiceButtonProps {
 
 const ChoiceButton = ({ choice, index, onClick }: ChoiceButtonProps) => {
   const { playSFX } = useSFX();
+  const { triggerHaptic } = useHapticFeedback();
   const [isPressed, setIsPressed] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
 
   const handleClick = () => {
     playSFX('choice');
+    triggerHaptic('medium'); // 選擇選項時觸發中等振動
     setIsPressed(true);
     setTimeout(() => {
       onClick(choice.arcChange, choice.shadowChange);
@@ -24,6 +27,7 @@ const ChoiceButton = ({ choice, index, onClick }: ChoiceButtonProps) => {
 
   const handleHover = () => {
     playSFX('hover');
+    triggerHaptic('light'); // 懸停時輕微振動
     setIsHovered(true);
   };
 

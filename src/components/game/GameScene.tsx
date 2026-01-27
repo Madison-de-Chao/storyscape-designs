@@ -4,6 +4,7 @@ import { Menu, Home, BookOpen, RotateCcw, Image, Trophy, Map } from 'lucide-reac
 import { useGameStore, type ZenTheme, type RevelationTheme } from '@/stores/gameStore';
 import { useSFX, useBGM, useAmbient, getAmbientTypeForScene, getBGMForNode } from '@/hooks/useAudio';
 import { usePreloadImages } from '@/hooks/usePreloadImages';
+import { usePreloadNextScene } from '@/hooks/usePreloadNextScene';
 import ParticleBackground from './ParticleBackground';
 import DialogueBox from './DialogueBox';
 import ArcIndicator from './ArcIndicator';
@@ -178,6 +179,9 @@ const GameScene = () => {
     ? [getSceneImage(currentNodeId)?.image].filter(Boolean) as string[]
     : [];
   const isImagesLoaded = usePreloadImages(preloadImages);
+  
+  // 智慧預載下一場景圖片（在玩家閱讀時預先載入）
+  usePreloadNextScene(currentNodeId);
 
   // 檢測是否在「崩潰」場景（通過 specialScene 欄位或節點 ID）
   const isCollapseScene = useMemo(() => {
