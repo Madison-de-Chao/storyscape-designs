@@ -56,7 +56,7 @@ const SceneImage = ({ nodeId, hideOverlay = false, isLoaded: externalLoaded }: S
   const loadingTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // 漸進式載入：先顯示模糊縮圖，再過渡到完整圖片
-  const { loaded: progressiveLoaded, thumbLoaded, blurLevel } = useProgressiveImage(currentImage?.image);
+  const { loaded: progressiveLoaded, thumbLoaded, blurLevel, thumbnailUrl, showThumbnail } = useProgressiveImage(currentImage?.image);
 
   const sceneEffect = useMemo(() => {
     return currentImage ? getSceneEffect(currentImage.alt) : 'default';
@@ -839,6 +839,25 @@ const SceneImage = ({ nodeId, hideOverlay = false, isLoaded: externalLoaded }: S
               },
             }}
           >
+            {/* 低解析度縮圖佔位符（Blur-Up 效果） */}
+            {showThumbnail && thumbnailUrl && (
+              <motion.img
+                src={thumbnailUrl}
+                alt=""
+                aria-hidden="true"
+                className="absolute inset-0 w-full h-full object-cover"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3 }}
+                style={{
+                  filter: 'blur(20px)',
+                  transform: 'scale(1.1)', // 稍微放大以避免模糊邊緣
+                }}
+              />
+            )}
+            
+            {/* 完整解析度圖片 */}
             <motion.img
               src={currentImage.image}
               alt={currentImage.alt}
@@ -846,27 +865,21 @@ const SceneImage = ({ nodeId, hideOverlay = false, isLoaded: externalLoaded }: S
               onLoad={() => setIsLoaded(true)}
               // 若圖片載入失敗，避免 isLoaded 永遠為 false 導致整個場景黑屏
               onError={() => setIsLoaded(true)}
-              initial={{ scale: 1.08 }}
+              initial={{ scale: 1.08, opacity: 0 }}
               animate={{
                 scale: 1,
+                opacity: progressiveLoaded ? 1 : 0,
                 y: sceneEffect === 'mystical' ? [0, -15, 0] : [0, -8, 0],
                 x: sceneEffect === 'poetic' ? [0, 5, 0] : [0, 3, 0],
-                // 漸進式載入：從模糊過渡到清晰
-                filter: progressiveLoaded 
-                  ? 'blur(0px)' 
-                  : thumbLoaded 
-                    ? `blur(${blurLevel}px)` 
-                    : 'blur(20px)',
               }}
               transition={{
                 scale: { duration: 1.5, ease: [0.43, 0.13, 0.23, 0.96] },
+                opacity: { duration: 0.6, ease: 'easeOut' },
                 y: { duration: 20, repeat: Infinity, repeatType: 'reverse', ease: 'easeInOut' },
                 x: { duration: 20, repeat: Infinity, repeatType: 'reverse', ease: 'easeInOut' },
-                filter: { duration: 0.6, ease: 'easeOut' },
               }}
               style={{
-                // 確保初始狀態也有模糊效果
-                willChange: 'filter, transform',
+                willChange: 'transform, opacity',
               }}
             />
           </motion.div>

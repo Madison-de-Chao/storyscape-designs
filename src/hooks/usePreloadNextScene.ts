@@ -2,6 +2,7 @@ import { useEffect, useRef, useCallback } from 'react';
 import { useGameStore } from '@/stores/gameStore';
 import { getSceneImage } from '@/data/yi1/sceneImages';
 import { getYi1NodeById } from '@/data/yi1';
+import { prewarmThumbnailCache } from '@/hooks/useProgressiveImage';
 
 // 全域預載快取（跨組件共享）
 const globalPreloadedUrls = new Set<string>();
@@ -113,7 +114,13 @@ export const usePreloadNextScene = (currentNodeId: string) => {
         });
       }
       
-      // 依序預載（高優先級先執行）
+      // 預熱縮圖快取（用於 blur-up 效果）
+      const allUrls = preloadTasks.map(t => t.url);
+      if (allUrls.length > 0) {
+        prewarmThumbnailCache(allUrls);
+      }
+      
+      // 依序預載完整圖片（高優先級先執行）
       for (const task of preloadTasks) {
         if (signal.aborted) break;
         await preloadImage(task.url, task.priority);
