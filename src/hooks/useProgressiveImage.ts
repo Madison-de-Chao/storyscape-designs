@@ -77,7 +77,7 @@ async function generateThumbnail(src: string): Promise<string> {
 }
 
 /**
- * 漸進式圖片載入 Hook（Blur-Up 效果）
+ * 漸進式圖片載入 Hook（Blur-Up 效果 + 進度追蹤）
  * 
  * 載入流程：
  * 1. 立即顯示強烈模糊效果（佔位）
@@ -85,12 +85,13 @@ async function generateThumbnail(src: string): Promise<string> {
  * 3. 載入完整圖片 → 平滑過渡到清晰
  * 
  * @param src 圖片 URL
- * @returns 載入狀態和模糊程度
+ * @returns 載入狀態、模糊程度和載入進度
  */
 export function useProgressiveImage(src: string | undefined) {
   const [loaded, setLoaded] = useState(false);
   const [thumbLoaded, setThumbLoaded] = useState(false);
   const [thumbnailUrl, setThumbnailUrl] = useState<string | null>(null);
+  const [progress, setProgress] = useState(0);
   const abortController = useRef<AbortController | null>(null);
   
   // 計算模糊程度
@@ -105,6 +106,7 @@ export function useProgressiveImage(src: string | undefined) {
       setLoaded(false);
       setThumbLoaded(false);
       setThumbnailUrl(null);
+      setProgress(0);
       return;
     }
 
@@ -119,17 +121,20 @@ export function useProgressiveImage(src: string | undefined) {
     if (loadedImagesCache.has(src)) {
       setLoaded(true);
       setThumbLoaded(true);
+      setProgress(100);
       return;
     }
 
     // 重置狀態
     setLoaded(false);
     setThumbLoaded(false);
+    setProgress(0);
     
     // 立即檢查縮圖快取
     if (thumbnailCache.has(src)) {
       setThumbnailUrl(thumbnailCache.get(src)!);
       setThumbLoaded(true);
+      setProgress(15); // 縮圖完成 = 15%
     } else {
       setThumbnailUrl(null);
     }
@@ -143,33 +148,82 @@ export function useProgressiveImage(src: string | undefined) {
           if (!signal.aborted) {
             setThumbnailUrl(thumbUrl);
             setThumbLoaded(true);
+            setProgress(15); // 縮圖完成 = 15%
           }
         } catch {
           // 縮圖生成失敗，繼續載入完整圖片
           if (!signal.aborted) {
             setThumbLoaded(true);
+            setProgress(10);
           }
         }
       }
 
-      // 載入完整圖片
-      const fullImg = new Image();
-      fullImg.decoding = 'async';
+      // 使用 XMLHttpRequest 載入完整圖片以追蹤進度
+      const xhr = new XMLHttpRequest();
+      xhr.open('GET', src, true);
+      xhr.responseType = 'blob';
       
-      fullImg.onload = () => {
-        if (!signal.aborted) {
-          setLoaded(true);
-          loadedImagesCache.add(src);
+      xhr.onprogress = (event) => {
+        if (signal.aborted) return;
+        if (event.lengthComputable) {
+          // 進度範圍：15% - 100%（前 15% 給縮圖）
+          const percentComplete = Math.round(15 + (event.loaded / event.total) * 85);
+          setProgress(percentComplete);
+        } else {
+          // 無法計算進度時，使用模擬進度
+          setProgress((prev) => Math.min(prev + 5, 90));
         }
       };
       
-      fullImg.onerror = () => {
+      xhr.onload = () => {
+        if (signal.aborted) return;
+        if (xhr.status === 200) {
+          // 創建 blob URL 並預載入 Image 以確保解碼完成
+          const blob = xhr.response;
+          const objectUrl = URL.createObjectURL(blob);
+          const img = new Image();
+          img.decoding = 'async';
+          
+          img.onload = () => {
+            if (!signal.aborted) {
+              setProgress(100);
+              setLoaded(true);
+              loadedImagesCache.add(src);
+            }
+            URL.revokeObjectURL(objectUrl);
+          };
+          
+          img.onerror = () => {
+            if (!signal.aborted) {
+              setProgress(100);
+              setLoaded(true);
+            }
+            URL.revokeObjectURL(objectUrl);
+          };
+          
+          img.src = objectUrl;
+        } else {
+          if (!signal.aborted) {
+            setProgress(100);
+            setLoaded(true);
+          }
+        }
+      };
+      
+      xhr.onerror = () => {
         if (!signal.aborted) {
+          setProgress(100);
           setLoaded(true); // 即使失敗也標記完成
         }
       };
       
-      fullImg.src = src;
+      xhr.send();
+      
+      // 返回清理函數
+      return () => {
+        xhr.abort();
+      };
     };
 
     loadImage();
@@ -185,6 +239,7 @@ export function useProgressiveImage(src: string | undefined) {
     loaded,
     thumbLoaded,
     thumbnailUrl,
+    progress,
     blurLevel: getBlurLevel(),
     // 是否應該顯示縮圖（縮圖已載入但完整圖片未載入）
     showThumbnail: thumbLoaded && !loaded && !!thumbnailUrl,

@@ -55,8 +55,8 @@ const SceneImage = ({ nodeId, hideOverlay = false, isLoaded: externalLoaded }: S
   const transitionTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const loadingTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // 漸進式載入：先顯示模糊縮圖，再過渡到完整圖片
-  const { loaded: progressiveLoaded, thumbLoaded, blurLevel, thumbnailUrl, showThumbnail } = useProgressiveImage(currentImage?.image);
+  // 漸進式載入：先顯示模糊縮圖，再過渡到完整圖片（含進度追蹤）
+  const { loaded: progressiveLoaded, thumbLoaded, blurLevel, thumbnailUrl, showThumbnail, progress } = useProgressiveImage(currentImage?.image);
 
   const sceneEffect = useMemo(() => {
     return currentImage ? getSceneEffect(currentImage.alt) : 'default';
@@ -194,15 +194,41 @@ const SceneImage = ({ nodeId, hideOverlay = false, isLoaded: externalLoaded }: S
             contain: 'strict',
           }}
         >
-          {/* 簡化的載入指示器 */}
+          {/* 簡化的載入指示器 + 進度百分比 */}
           <div className="flex flex-col items-center gap-3">
-            {/* 簡單的旋轉圓圈 */}
-            <div 
-              className="w-8 h-8 border-2 rounded-full animate-spin"
-              style={{ 
-                borderColor: `${themeToHSL(chapterTheme, 0.2)} transparent ${themeToHSL(chapterTheme, 0.4)} transparent`,
-              }}
-            />
+            {/* 簡單的環形進度 */}
+            <div className="relative w-12 h-12">
+              <svg className="w-full h-full -rotate-90" viewBox="0 0 36 36">
+                {/* 背景圓環 */}
+                <circle
+                  cx="18"
+                  cy="18"
+                  r="15"
+                  fill="none"
+                  stroke={themeToHSL(chapterTheme, 0.15)}
+                  strokeWidth="2"
+                />
+                {/* 進度圓環 */}
+                <circle
+                  cx="18"
+                  cy="18"
+                  r="15"
+                  fill="none"
+                  stroke={themeToHSL(chapterTheme, 0.6)}
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeDasharray={`${progress * 0.94} 100`}
+                  className="transition-all duration-300 ease-out"
+                />
+              </svg>
+              {/* 中央百分比 */}
+              <span 
+                className="absolute inset-0 flex items-center justify-center text-xs font-medium"
+                style={{ color: themeToHSL(chapterTheme, 0.8) }}
+              >
+                {progress}%
+              </span>
+            </div>
             <span 
               className="text-sm font-serif-tc tracking-widest opacity-70"
               style={{ color: themeToHSL(chapterTheme, 0.7) }}
@@ -417,36 +443,52 @@ const SceneImage = ({ nodeId, hideOverlay = false, isLoaded: externalLoaded }: S
             </svg>
           </motion.div>
           
-          {/* 載入文字 - 書法風格 + 章節主題色 */}
-          <motion.span
-            className="text-sm font-serif-tc tracking-widest"
-            style={{ color: themeToHSL(chapterTheme, 0.7) }}
-            animate={{ opacity: [0.5, 1, 0.5] }}
-            transition={{ duration: 2, repeat: Infinity }}
+          {/* 進度百分比顯示 - 書法風格 */}
+          <motion.div
+            className="flex flex-col items-center gap-2"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.4 }}
           >
-            意境載入中
-          </motion.span>
-          
-          {/* 墨點進度指示 - 減少數量 */}
-          <div className="flex gap-2.5">
-            {[0, 1, 2].map((i) => (
+            {/* 進度數字 */}
+            <motion.span
+              className="text-2xl font-serif-tc font-semibold tracking-wide"
+              style={{ color: themeToHSL(chapterTheme, 0.85) }}
+              key={progress}
+              initial={{ scale: 1.1, opacity: 0.7 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 0.2 }}
+            >
+              {progress}%
+            </motion.span>
+            
+            {/* 進度條 - 水墨風格 */}
+            <div 
+              className="w-32 h-1 rounded-full overflow-hidden"
+              style={{ backgroundColor: themeToHSL(chapterTheme, 0.15) }}
+            >
               <motion.div
-                key={i}
-                className="w-1.5 h-1.5 rounded-full"
-                style={{ backgroundColor: themeToHSL(chapterTheme, 0.4) }}
-                animate={{
-                  scale: [1, 1.6, 1],
-                  opacity: [0.3, 0.7, 0.3],
+                className="h-full rounded-full"
+                style={{ 
+                  backgroundColor: themeToHSL(chapterTheme, 0.5),
+                  boxShadow: `0 0 8px ${themeToHSL(chapterTheme, 0.4)}`,
                 }}
-                transition={{
-                  duration: 1,
-                  repeat: Infinity,
-                  delay: i * 0.25,
-                  ease: 'easeInOut',
-                }}
+                initial={{ width: 0 }}
+                animate={{ width: `${progress}%` }}
+                transition={{ duration: 0.3, ease: 'easeOut' }}
               />
-            ))}
-          </div>
+            </div>
+            
+            {/* 載入文字 */}
+            <motion.span
+              className="text-sm font-serif-tc tracking-widest mt-1"
+              style={{ color: themeToHSL(chapterTheme, 0.6) }}
+              animate={{ opacity: [0.5, 0.8, 0.5] }}
+              transition={{ duration: 2, repeat: Infinity }}
+            >
+              意境載入中
+            </motion.span>
+          </motion.div>
         </motion.div>
       
         {/* 超時提示 - 章節主題色 */}
