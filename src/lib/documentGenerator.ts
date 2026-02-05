@@ -1,6 +1,7 @@
  import { Document, Packer, Paragraph, TextRun, HeadingLevel, AlignmentType, Table, TableRow, TableCell, WidthType, ShadingType } from 'docx';
  import { saveAs } from 'file-saver';
  import jsPDF from 'jspdf';
+ import html2canvas from 'html2canvas';
  
  // ============ Document Data ============
  const documentData = {
@@ -125,366 +126,624 @@
    }
  };
  
- // ============ PDF Generator ============
+ // ============ PDF Generator (HTML2Canvas based for Chinese support) ============
  export async function generatePDF(): Promise<void> {
-   const pdf = new jsPDF('p', 'mm', 'a4');
-   const pageWidth = 210;
-   const pageHeight = 297;
-   const margin = 20;
-   const contentWidth = pageWidth - margin * 2;
-   let y = margin;
-   
-   // Colors
-   const gold = [139, 105, 20] as const;
-   const darkGray = [51, 51, 51] as const;
-   const lightGray = [102, 102, 102] as const;
-   const bgBeige = [249, 247, 244] as const;
-   
-   // Helper functions
-   const addNewPageIfNeeded = (requiredHeight: number) => {
-     if (y + requiredHeight > pageHeight - margin) {
+   // Create a hidden container for PDF content
+   const container = document.createElement('div');
+   container.id = 'pdf-render-container';
+   container.style.cssText = `
+     position: absolute;
+     left: -9999px;
+     top: 0;
+     width: 794px;
+     background: #FDFBF8;
+     font-family: 'Noto Serif TC', 'Microsoft JhengHei', sans-serif;
+     padding: 0;
+   `;
+   document.body.appendChild(container);
+ 
+   // Build HTML content
+   container.innerHTML = buildPDFContent();
+ 
+   try {
+     // Render to canvas with high quality
+     const canvas = await html2canvas(container, {
+       scale: 2,
+       useCORS: true,
+       logging: false,
+       backgroundColor: '#FDFBF8',
+       windowWidth: 794,
+     });
+ 
+     // Create PDF
+     const pdf = new jsPDF('p', 'mm', 'a4');
+     const pageWidth = 210;
+     const pageHeight = 297;
+     const imgWidth = pageWidth;
+     const imgHeight = (canvas.height * imgWidth) / canvas.width;
+     
+     const imgData = canvas.toDataURL('image/png');
+     
+     let heightLeft = imgHeight;
+     let position = 0;
+     
+     // First page
+     pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+     heightLeft -= pageHeight;
+     
+     // Add more pages if needed
+     while (heightLeft > 0) {
+       position = heightLeft - imgHeight;
        pdf.addPage();
-       y = margin;
-       return true;
-     }
-     return false;
-   };
-   
-   const drawLine = (x1: number, y1: number, x2: number, color: readonly [number, number, number] = gold) => {
-     pdf.setDrawColor(...color);
-     pdf.setLineWidth(0.5);
-     pdf.line(x1, y1, x2, y1);
-   };
-   
-   // ===== COVER PAGE =====
-   // Background gradient effect (simplified with rectangle)
-   pdf.setFillColor(252, 250, 248);
-   pdf.rect(0, 0, pageWidth, pageHeight, 'F');
-   
-   // Decorative top border
-   pdf.setFillColor(...gold);
-   pdf.rect(0, 0, pageWidth, 3, 'F');
-   
-   // Title
-   y = 80;
-   pdf.setFont('helvetica', 'bold');
-   pdf.setFontSize(42);
-   pdf.setTextColor(...gold);
-   pdf.text('Arc to Zero', pageWidth / 2, y, { align: 'center' });
-   
-   y += 15;
-   pdf.setFontSize(18);
-   pdf.setTextColor(...darkGray);
-   pdf.text('System Documentation', pageWidth / 2, y, { align: 'center' });
-   
-   // Decorative line
-   y += 15;
-   drawLine(margin + 40, y, pageWidth - margin - 40, gold);
-   
-   // Tagline
-   y += 20;
-   pdf.setFont('helvetica', 'italic');
-   pdf.setFontSize(12);
-   pdf.setTextColor(...lightGray);
-   pdf.text('Wholeness is not the absence of cracks,', pageWidth / 2, y, { align: 'center' });
-   y += 6;
-   pdf.text('but no longer fearing them.', pageWidth / 2, y, { align: 'center' });
-   
-   // Version info
-   y = pageHeight - 50;
-   pdf.setFont('helvetica', 'normal');
-   pdf.setFontSize(10);
-   pdf.setTextColor(...lightGray);
-   pdf.text(`Version ${documentData.version}`, pageWidth / 2, y, { align: 'center' });
-   y += 6;
-   pdf.text(documentData.date, pageWidth / 2, y, { align: 'center' });
-   
-   // Footer line
-   y = pageHeight - 20;
-   drawLine(margin + 30, y, pageWidth - margin - 30, [200, 195, 190]);
-   y += 8;
-   pdf.setFontSize(8);
-   pdf.text('Arc to Zero - Interactive Narrative Experience', pageWidth / 2, y, { align: 'center' });
-   
-   // ===== TABLE OF CONTENTS =====
-   pdf.addPage();
-   y = margin;
-   
-   // Section header
-   pdf.setFont('helvetica', 'bold');
-   pdf.setFontSize(24);
-   pdf.setTextColor(...gold);
-   pdf.text('Table of Contents', margin, y);
-   y += 5;
-   drawLine(margin, y, margin + 60, gold);
-   y += 15;
-   
-   const tocItems = [
-     { num: '1', title: 'Public Pages Overview', page: '3' },
-     { num: '2', title: 'Membership System', page: '4' },
-     { num: '3', title: 'Route Reference', page: '5' },
-     { num: '4', title: 'Technical Architecture', page: '6' },
-     { num: '5', title: 'Data Models', page: '7' }
-   ];
-   
-   pdf.setFont('helvetica', 'normal');
-   pdf.setFontSize(12);
-   tocItems.forEach(item => {
-     pdf.setTextColor(...gold);
-     pdf.text(item.num + '.', margin, y);
-     pdf.setTextColor(...darkGray);
-     pdf.text(item.title, margin + 10, y);
-     
-     // Dotted line
-     const titleWidth = pdf.getTextWidth(item.title);
-     const dotsStart = margin + 12 + titleWidth;
-     const dotsEnd = pageWidth - margin - 15;
-     pdf.setTextColor(...lightGray);
-     let dotX = dotsStart;
-     while (dotX < dotsEnd) {
-       pdf.text('.', dotX, y);
-       dotX += 2;
-     }
-     pdf.text(item.page, pageWidth - margin, y, { align: 'right' });
-     y += 10;
-   });
-   
-   // ===== SECTION 1: PUBLIC PAGES =====
-   pdf.addPage();
-   y = margin;
-   
-   // Section header
-   pdf.setFillColor(...gold);
-   pdf.rect(margin - 5, y - 5, 4, 14, 'F');
-   pdf.setFont('helvetica', 'bold');
-   pdf.setFontSize(20);
-   pdf.setTextColor(...gold);
-   pdf.text('1. Public Pages Overview', margin + 5, y + 5);
-   y += 20;
-   
-   documentData.publicPages.forEach(page => {
-     addNewPageIfNeeded(40);
-     
-     // Page card
-     pdf.setFillColor(...bgBeige);
-     pdf.roundedRect(margin, y, contentWidth, 30, 3, 3, 'F');
-     
-     pdf.setFont('helvetica', 'bold');
-     pdf.setFontSize(12);
-     pdf.setTextColor(...darkGray);
-     pdf.text(page.name, margin + 5, y + 8);
-     
-     pdf.setFont('helvetica', 'normal');
-     pdf.setFontSize(9);
-     pdf.setTextColor(...gold);
-     pdf.text(`Path: ${page.path}`, margin + 5, y + 16);
-     
-     if (page.content.hero) {
-       pdf.setTextColor(...lightGray);
-       pdf.setFontSize(8);
-       const tagline = pdf.splitTextToSize(page.content.hero.tagline, contentWidth - 10);
-       pdf.text(tagline, margin + 5, y + 24);
+       pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+       heightLeft -= pageHeight;
      }
      
-     y += 38;
-   });
-   
-   // ===== SECTION 2: MEMBERSHIP =====
-   pdf.addPage();
-   y = margin;
-   
-   pdf.setFillColor(...gold);
-   pdf.rect(margin - 5, y - 5, 4, 14, 'F');
-   pdf.setFont('helvetica', 'bold');
-   pdf.setFontSize(20);
-   pdf.setTextColor(...gold);
-   pdf.text('2. Membership System', margin + 5, y + 5);
-   y += 20;
-   
-   pdf.setFont('helvetica', 'normal');
-   pdf.setFontSize(11);
-   pdf.setTextColor(...darkGray);
-   const descLines = pdf.splitTextToSize(documentData.membership.description, contentWidth);
-   pdf.text(descLines, margin, y);
-   y += descLines.length * 6 + 10;
-   
-   // Features box
-   pdf.setFillColor(...bgBeige);
-   const featuresHeight = documentData.membership.features.length * 8 + 15;
-   pdf.roundedRect(margin, y, contentWidth, featuresHeight, 3, 3, 'F');
-   
-   pdf.setFont('helvetica', 'bold');
-   pdf.setFontSize(11);
-   pdf.setTextColor(...gold);
-   pdf.text('Core Features', margin + 5, y + 8);
-   
-   y += 15;
-   pdf.setFont('helvetica', 'normal');
-   pdf.setFontSize(10);
-   pdf.setTextColor(...darkGray);
-   documentData.membership.features.forEach(feature => {
-     pdf.text(`• ${feature}`, margin + 8, y);
-     y += 7;
-   });
-   y += 15;
-   
-   // Data structure
-   addNewPageIfNeeded(60);
-   pdf.setFont('helvetica', 'bold');
-   pdf.setFontSize(11);
-   pdf.setTextColor(...gold);
-   pdf.text('Data Structure', margin, y);
-   y += 8;
-   
-   pdf.setFillColor(245, 245, 245);
-   pdf.roundedRect(margin, y, contentWidth, 45, 2, 2, 'F');
-   pdf.setFont('courier', 'normal');
-   pdf.setFontSize(8);
-   pdf.setTextColor(...darkGray);
-   const codeLines = documentData.membership.dataStructure.split('\n');
-   codeLines.forEach((line, i) => {
-     pdf.text(line, margin + 5, y + 8 + i * 5);
-   });
-   
-   // ===== SECTION 3: ROUTES =====
-   pdf.addPage();
-   y = margin;
-   
-   pdf.setFillColor(...gold);
-   pdf.rect(margin - 5, y - 5, 4, 14, 'F');
-   pdf.setFont('helvetica', 'bold');
-   pdf.setFontSize(20);
-   pdf.setTextColor(...gold);
-   pdf.text('3. Route Reference', margin + 5, y + 5);
-   y += 25;
-   
-   // Table header
-   pdf.setFillColor(240, 235, 227);
-   pdf.rect(margin, y, contentWidth, 10, 'F');
-   pdf.setFont('helvetica', 'bold');
-   pdf.setFontSize(9);
-   pdf.setTextColor(...darkGray);
-   pdf.text('Path', margin + 5, y + 7);
-   pdf.text('Page', margin + 60, y + 7);
-   pdf.text('Component', margin + 110, y + 7);
-   y += 12;
-   
-   // Table rows
-   pdf.setFont('helvetica', 'normal');
-   documentData.routes.public.forEach((route, i) => {
-     if (i % 2 === 0) {
-       pdf.setFillColor(252, 250, 248);
-       pdf.rect(margin, y - 4, contentWidth, 8, 'F');
-     }
-     pdf.setTextColor(...gold);
-     pdf.text(route.path, margin + 5, y);
-     pdf.setTextColor(...darkGray);
-     pdf.text(route.page, margin + 60, y);
-     pdf.setFont('courier', 'normal');
-     pdf.setFontSize(8);
-     pdf.text(route.component, margin + 110, y);
-     pdf.setFont('helvetica', 'normal');
-     pdf.setFontSize(9);
-     y += 8;
-   });
-   
-   // API Endpoints
-   y += 15;
-   pdf.setFont('helvetica', 'bold');
-   pdf.setFontSize(14);
-   pdf.setTextColor(...gold);
-   pdf.text('API Endpoints', margin, y);
-   y += 10;
-   
-   documentData.routes.api.forEach(api => {
-     pdf.setFillColor(...bgBeige);
-     pdf.roundedRect(margin, y, contentWidth, 15, 2, 2, 'F');
-     pdf.setFont('courier', 'bold');
-     pdf.setFontSize(9);
-     pdf.setTextColor(46, 125, 50);
-     pdf.text(api.method, margin + 5, y + 6);
-     pdf.setTextColor(...gold);
-     pdf.text(api.endpoint, margin + 30, y + 6);
-     pdf.setFont('helvetica', 'normal');
-     pdf.setTextColor(...lightGray);
-     pdf.text(api.description, margin + 5, y + 12);
-     y += 20;
-   });
-   
-   // ===== SECTION 4: ARCHITECTURE =====
-   pdf.addPage();
-   y = margin;
-   
-   pdf.setFillColor(...gold);
-   pdf.rect(margin - 5, y - 5, 4, 14, 'F');
-   pdf.setFont('helvetica', 'bold');
-   pdf.setFontSize(20);
-   pdf.setTextColor(...gold);
-   pdf.text('4. Technical Architecture', margin + 5, y + 5);
-   y += 25;
-   
-   // Tech stack grid
-   const stackEntries = Object.entries(documentData.architecture.techStack);
-   const colWidth = (contentWidth - 10) / 2;
-   
-   stackEntries.forEach((entry, i) => {
-     const [category, items] = entry;
-     const col = i % 2;
-     const x = margin + col * (colWidth + 10);
-     
-     if (col === 0 && i > 0) y += 25;
-     
-     pdf.setFillColor(...bgBeige);
-     pdf.roundedRect(x, y, colWidth, 20, 2, 2, 'F');
-     
-     pdf.setFont('helvetica', 'bold');
-     pdf.setFontSize(10);
-     pdf.setTextColor(...gold);
-     pdf.text(category.charAt(0).toUpperCase() + category.slice(1), x + 5, y + 7);
-     
-     pdf.setFont('helvetica', 'normal');
-     pdf.setFontSize(8);
-     pdf.setTextColor(...darkGray);
-     pdf.text((items as string[]).join(' • '), x + 5, y + 14);
-   });
-   
-   y += 40;
-   
-   // Hooks section
-   pdf.setFont('helvetica', 'bold');
-   pdf.setFontSize(14);
-   pdf.setTextColor(...gold);
-   pdf.text('Core Hooks', margin, y);
-   y += 10;
-   
-   documentData.architecture.hooks.forEach((hook, i) => {
-     if (i % 2 === 0) {
-       pdf.setFillColor(252, 250, 248);
-       pdf.rect(margin, y - 4, contentWidth, 8, 'F');
-     }
-     pdf.setFont('courier', 'normal');
-     pdf.setFontSize(9);
-     pdf.setTextColor(...gold);
-     pdf.text(hook.name, margin + 5, y);
-     pdf.setFont('helvetica', 'normal');
-     pdf.setTextColor(...lightGray);
-     pdf.text(hook.desc, margin + 70, y);
-     y += 8;
-   });
-   
-   // ===== FOOTER ON LAST PAGE =====
-   y = pageHeight - 25;
-   drawLine(margin, y, pageWidth - margin, [200, 195, 190]);
-   y += 10;
-   pdf.setFont('helvetica', 'normal');
-   pdf.setFontSize(8);
-   pdf.setTextColor(...lightGray);
-   pdf.text('© 2025 Arc to Zero. All rights reserved.', pageWidth / 2, y, { align: 'center' });
-   y += 5;
-   pdf.text('This document is for reference purposes only.', pageWidth / 2, y, { align: 'center' });
-   
-   // Save
-   pdf.save(`ArcToZero_Documentation_${documentData.date.replace(/\//g, '-')}.pdf`);
+     pdf.save(`弧度歸零_系統文檔_${documentData.date.replace(/\//g, '-')}.pdf`);
+   } finally {
+     // Cleanup
+     document.body.removeChild(container);
+   }
+ }
+ 
+ // Build beautiful PDF HTML content
+ function buildPDFContent(): string {
+   const styles = `
+     <style>
+       * { box-sizing: border-box; margin: 0; padding: 0; }
+       .pdf-page { 
+         width: 794px; 
+         min-height: 1123px; 
+         padding: 60px; 
+         background: linear-gradient(180deg, #FDFBF8 0%, #F9F7F4 100%);
+         page-break-after: always;
+       }
+       .cover-page {
+         display: flex;
+         flex-direction: column;
+         align-items: center;
+         justify-content: center;
+         text-align: center;
+         min-height: 1123px;
+         background: linear-gradient(135deg, #FDFBF8 0%, #F5F0E8 50%, #EDE5D8 100%);
+         position: relative;
+         overflow: hidden;
+       }
+       .cover-page::before {
+         content: '';
+         position: absolute;
+         top: 0;
+         left: 0;
+         right: 0;
+         height: 8px;
+         background: linear-gradient(90deg, #8B6914 0%, #D4A84B 50%, #8B6914 100%);
+       }
+       .cover-page::after {
+         content: '';
+         position: absolute;
+         bottom: 0;
+         left: 0;
+         right: 0;
+         height: 8px;
+         background: linear-gradient(90deg, #8B6914 0%, #D4A84B 50%, #8B6914 100%);
+       }
+       .cover-decoration {
+         width: 120px;
+         height: 2px;
+         background: linear-gradient(90deg, transparent, #8B6914, transparent);
+         margin: 30px 0;
+       }
+       .cover-title {
+         font-size: 56px;
+         font-weight: 700;
+         color: #8B6914;
+         letter-spacing: 8px;
+         margin-bottom: 10px;
+         text-shadow: 2px 2px 4px rgba(139, 105, 20, 0.1);
+       }
+       .cover-subtitle {
+         font-size: 24px;
+         color: #666;
+         letter-spacing: 4px;
+         margin-bottom: 20px;
+       }
+       .cover-tagline {
+         font-size: 18px;
+         color: #888;
+         font-style: italic;
+         max-width: 500px;
+         line-height: 1.8;
+       }
+       .cover-version {
+         position: absolute;
+         bottom: 80px;
+         font-size: 14px;
+         color: #999;
+       }
+       .section-header {
+         display: flex;
+         align-items: center;
+         gap: 15px;
+         margin-bottom: 30px;
+         padding-bottom: 15px;
+         border-bottom: 3px solid #8B6914;
+       }
+       .section-number {
+         width: 50px;
+         height: 50px;
+         background: linear-gradient(135deg, #8B6914 0%, #D4A84B 100%);
+         color: white;
+         font-size: 24px;
+         font-weight: 700;
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         border-radius: 10px;
+       }
+       .section-title {
+         font-size: 28px;
+         font-weight: 700;
+         color: #333;
+       }
+       .content-card {
+         background: white;
+         border-radius: 12px;
+         padding: 25px;
+         margin-bottom: 20px;
+         box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+         border: 1px solid #E8E4DC;
+       }
+       .card-title {
+         font-size: 18px;
+         font-weight: 600;
+         color: #8B6914;
+         margin-bottom: 15px;
+         display: flex;
+         align-items: center;
+         gap: 10px;
+       }
+       .card-title::before {
+         content: '';
+         width: 4px;
+         height: 20px;
+         background: #8B6914;
+         border-radius: 2px;
+       }
+       .card-path {
+         font-size: 13px;
+         color: #8B6914;
+         background: #FDF8E8;
+         padding: 4px 12px;
+         border-radius: 20px;
+         display: inline-block;
+         margin-bottom: 12px;
+       }
+       .card-content {
+         font-size: 14px;
+         color: #555;
+         line-height: 1.8;
+       }
+       .feature-grid {
+         display: grid;
+         grid-template-columns: 1fr 1fr;
+         gap: 15px;
+         margin-top: 15px;
+       }
+       .feature-item {
+         background: #F9F7F4;
+         padding: 15px;
+         border-radius: 8px;
+         border-left: 3px solid #8B6914;
+       }
+       .feature-name {
+         font-weight: 600;
+         color: #333;
+         margin-bottom: 5px;
+       }
+       .feature-desc {
+         font-size: 13px;
+         color: #666;
+       }
+       .route-table {
+         width: 100%;
+         border-collapse: collapse;
+         margin-top: 15px;
+       }
+       .route-table th {
+         background: linear-gradient(135deg, #8B6914 0%, #A67C1A 100%);
+         color: white;
+         padding: 12px 15px;
+         text-align: left;
+         font-size: 14px;
+       }
+       .route-table td {
+         padding: 12px 15px;
+         border-bottom: 1px solid #E8E4DC;
+         font-size: 13px;
+       }
+       .route-table tr:nth-child(even) {
+         background: #F9F7F4;
+       }
+       .route-path {
+         color: #8B6914;
+         font-family: 'Courier New', monospace;
+         font-weight: 600;
+       }
+       .tech-grid {
+         display: grid;
+         grid-template-columns: 1fr 1fr;
+         gap: 20px;
+       }
+       .tech-card {
+         background: linear-gradient(135deg, #FDF8E8 0%, #F9F4E4 100%);
+         padding: 20px;
+         border-radius: 12px;
+         border: 1px solid #E8DCC8;
+       }
+       .tech-category {
+         font-size: 14px;
+         font-weight: 700;
+         color: #8B6914;
+         margin-bottom: 10px;
+         text-transform: uppercase;
+         letter-spacing: 1px;
+       }
+       .tech-items {
+         display: flex;
+         flex-wrap: wrap;
+         gap: 8px;
+       }
+       .tech-item {
+         background: white;
+         padding: 6px 12px;
+         border-radius: 20px;
+         font-size: 12px;
+         color: #555;
+         border: 1px solid #E8E4DC;
+       }
+       .hook-list {
+         margin-top: 20px;
+       }
+       .hook-item {
+         display: flex;
+         padding: 12px 0;
+         border-bottom: 1px dashed #E8E4DC;
+       }
+       .hook-name {
+         width: 200px;
+         font-family: 'Courier New', monospace;
+         color: #8B6914;
+         font-weight: 600;
+         font-size: 13px;
+       }
+       .hook-desc {
+         flex: 1;
+         color: #666;
+         font-size: 13px;
+       }
+       .code-block {
+         background: #2D2D2D;
+         color: #E0E0E0;
+         padding: 20px;
+         border-radius: 8px;
+         font-family: 'Courier New', monospace;
+         font-size: 12px;
+         line-height: 1.6;
+         overflow-x: auto;
+         margin-top: 15px;
+       }
+       .code-keyword { color: #C792EA; }
+       .code-type { color: #FFCB6B; }
+       .code-string { color: #C3E88D; }
+       .list-item {
+         display: flex;
+         align-items: flex-start;
+         gap: 10px;
+         padding: 8px 0;
+       }
+       .list-bullet {
+         width: 8px;
+         height: 8px;
+         background: #8B6914;
+         border-radius: 50%;
+         margin-top: 6px;
+         flex-shrink: 0;
+       }
+       .footer {
+         text-align: center;
+         padding: 40px 0 20px;
+         color: #999;
+         font-size: 12px;
+         border-top: 1px solid #E8E4DC;
+         margin-top: 40px;
+       }
+       .toc-page { padding: 60px; }
+       .toc-title {
+         font-size: 32px;
+         color: #8B6914;
+         margin-bottom: 40px;
+         padding-bottom: 15px;
+         border-bottom: 3px solid #8B6914;
+       }
+       .toc-item {
+         display: flex;
+         align-items: center;
+         padding: 15px 0;
+         border-bottom: 1px dashed #E8E4DC;
+       }
+       .toc-number {
+         width: 40px;
+         height: 40px;
+         background: #FDF8E8;
+         color: #8B6914;
+         font-weight: 700;
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         border-radius: 8px;
+         margin-right: 20px;
+       }
+       .toc-text {
+         flex: 1;
+         font-size: 16px;
+         color: #333;
+       }
+       .toc-page-num {
+         color: #8B6914;
+         font-weight: 600;
+       }
+     </style>
+   `;
+ 
+   // Cover Page
+   const coverPage = `
+     <div class="cover-page">
+       <div class="cover-title">弧度歸零</div>
+       <div class="cover-subtitle">Arc to Zero</div>
+       <div class="cover-decoration"></div>
+       <div class="cover-tagline">
+         完整不是沒有缺口<br/>
+         完整是不再害怕缺口
+       </div>
+       <div class="cover-decoration"></div>
+       <div style="margin-top: 40px; font-size: 20px; color: #8B6914; font-weight: 600;">
+         系統文檔
+       </div>
+       <div class="cover-version">
+         版本 ${documentData.version} | ${documentData.date}
+       </div>
+     </div>
+   `;
+ 
+   // Table of Contents
+   const tocPage = `
+     <div class="pdf-page toc-page">
+       <div class="toc-title">目錄 Contents</div>
+       ${[
+         { num: '1', title: '公開頁面總覽', en: 'Public Pages Overview' },
+         { num: '2', title: '會員系統', en: 'Membership System' },
+         { num: '3', title: '路由對照表', en: 'Route Reference' },
+         { num: '4', title: '技術架構', en: 'Technical Architecture' },
+       ].map(item => `
+         <div class="toc-item">
+           <div class="toc-number">${item.num}</div>
+           <div class="toc-text">${item.title} <span style="color: #999; font-size: 14px;">${item.en}</span></div>
+         </div>
+       `).join('')}
+     </div>
+   `;
+ 
+   // Section 1: Public Pages
+   const section1 = `
+     <div class="pdf-page">
+       <div class="section-header">
+         <div class="section-number">1</div>
+         <div class="section-title">公開頁面總覽</div>
+       </div>
+       
+       ${documentData.publicPages.map(page => `
+         <div class="content-card">
+           <div class="card-title">${page.name}</div>
+           <div class="card-path">路徑：${page.path}</div>
+           ${page.content.hero ? `
+             <div class="card-content">
+               <div style="margin-bottom: 10px;"><strong>主標題：</strong>${page.content.hero.title}</div>
+               <div style="margin-bottom: 10px;"><strong>副標題：</strong>${page.content.hero.subtitle}</div>
+               <div style="margin-bottom: 10px;"><strong>標語：</strong>${page.content.hero.tagline}</div>
+               <div><strong>描述：</strong>${page.content.hero.description}</div>
+             </div>
+           ` : ''}
+           ${page.content.features ? `
+             <div class="feature-grid">
+               ${(page.content.features as string[]).map((f: string) => `
+                 <div class="feature-item">
+                   <div class="feature-desc">• ${f}</div>
+                 </div>
+               `).join('')}
+             </div>
+           ` : ''}
+           ${page.content.sections ? `
+             <div class="card-content" style="margin-top: 10px;">
+               ${(page.content.sections as string[]).map((s: string) => `
+                 <div class="list-item">
+                   <div class="list-bullet"></div>
+                   <div>${s}</div>
+                 </div>
+               `).join('')}
+             </div>
+           ` : ''}
+         </div>
+       `).join('')}
+     </div>
+   `;
+ 
+   // Section 2: Membership
+   const section2 = `
+     <div class="pdf-page">
+       <div class="section-header">
+         <div class="section-number">2</div>
+         <div class="section-title">會員系統</div>
+       </div>
+       
+       <div class="content-card">
+         <div class="card-title">系統說明</div>
+         <div class="card-content">${documentData.membership.description}</div>
+       </div>
+       
+       <div class="content-card">
+         <div class="card-title">核心功能</div>
+         <div class="card-content">
+           ${documentData.membership.features.map(f => `
+             <div class="list-item">
+               <div class="list-bullet"></div>
+               <div>${f}</div>
+             </div>
+           `).join('')}
+         </div>
+       </div>
+       
+       <div class="content-card">
+         <div class="card-title">資料結構</div>
+         <div class="code-block">
+           <span class="code-keyword">interface</span> <span class="code-type">MemberInfo</span> {<br/>
+           &nbsp;&nbsp;email: <span class="code-type">string</span>;<br/>
+           &nbsp;&nbsp;hasAccess: <span class="code-type">boolean</span>;<br/>
+           &nbsp;&nbsp;entitlement?: {<br/>
+           &nbsp;&nbsp;&nbsp;&nbsp;status: <span class="code-type">string</span>;<br/>
+           &nbsp;&nbsp;&nbsp;&nbsp;expiresAt: <span class="code-type">string</span>;<br/>
+           &nbsp;&nbsp;};<br/>
+           &nbsp;&nbsp;verifiedAt: <span class="code-type">number</span>;<br/>
+           }
+         </div>
+       </div>
+     </div>
+   `;
+ 
+   // Section 3: Routes
+   const section3 = `
+     <div class="pdf-page">
+       <div class="section-header">
+         <div class="section-number">3</div>
+         <div class="section-title">路由對照表</div>
+       </div>
+       
+       <div class="content-card">
+         <div class="card-title">公開路由</div>
+         <table class="route-table">
+           <thead>
+             <tr>
+               <th style="width: 120px;">路徑</th>
+               <th style="width: 150px;">頁面名稱</th>
+               <th>元件</th>
+             </tr>
+           </thead>
+           <tbody>
+             ${documentData.routes.public.map(r => `
+               <tr>
+                 <td class="route-path">${r.path}</td>
+                 <td>${r.page}</td>
+                 <td style="font-family: 'Courier New', monospace; font-size: 12px;">${r.component}</td>
+               </tr>
+             `).join('')}
+           </tbody>
+         </table>
+       </div>
+       
+       <div class="content-card">
+         <div class="card-title">管理後台路由（規劃中）</div>
+         <table class="route-table">
+           <thead>
+             <tr>
+               <th style="width: 150px;">路徑</th>
+               <th style="width: 150px;">頁面名稱</th>
+               <th>權限</th>
+             </tr>
+           </thead>
+           <tbody>
+             ${documentData.routes.admin.map(r => `
+               <tr>
+                 <td class="route-path">${r.path}</td>
+                 <td>${r.page}</td>
+                 <td>${r.permission}</td>
+               </tr>
+             `).join('')}
+           </tbody>
+         </table>
+       </div>
+       
+       <div class="content-card">
+         <div class="card-title">API 端點</div>
+         ${documentData.routes.api.map(api => `
+           <div style="background: #F9F7F4; padding: 15px; border-radius: 8px; margin-top: 10px;">
+             <span style="background: #4CAF50; color: white; padding: 3px 10px; border-radius: 4px; font-size: 12px; font-weight: 600;">${api.method}</span>
+             <span style="color: #8B6914; font-family: 'Courier New', monospace; font-weight: 600; margin-left: 10px;">${api.endpoint}</span>
+             <div style="color: #666; font-size: 13px; margin-top: 8px;">${api.description}</div>
+           </div>
+         `).join('')}
+       </div>
+     </div>
+   `;
+ 
+   // Section 4: Architecture
+   const section4 = `
+     <div class="pdf-page">
+       <div class="section-header">
+         <div class="section-number">4</div>
+         <div class="section-title">技術架構</div>
+       </div>
+       
+       <div class="content-card">
+         <div class="card-title">技術堆疊</div>
+         <div class="tech-grid">
+           ${Object.entries(documentData.architecture.techStack).map(([category, items]) => `
+             <div class="tech-card">
+               <div class="tech-category">${category}</div>
+               <div class="tech-items">
+                 ${(items as string[]).map(item => `
+                   <span class="tech-item">${item}</span>
+                 `).join('')}
+               </div>
+             </div>
+           `).join('')}
+         </div>
+       </div>
+       
+       <div class="content-card">
+         <div class="card-title">核心 Hooks</div>
+         <div class="hook-list">
+           ${documentData.architecture.hooks.map(hook => `
+             <div class="hook-item">
+               <div class="hook-name">${hook.name}</div>
+               <div class="hook-desc">${hook.desc}</div>
+             </div>
+           `).join('')}
+         </div>
+       </div>
+       
+       <div class="footer">
+         <div>© 2025 弧度歸零 Arc to Zero. 版權所有</div>
+         <div style="margin-top: 5px;">本文檔僅供參考使用</div>
+       </div>
+     </div>
+   `;
+ 
+   return `
+     <!DOCTYPE html>
+     <html>
+     <head>
+       <meta charset="UTF-8">
+       ${styles}
+     </head>
+     <body>
+       ${coverPage}
+       ${tocPage}
+       ${section1}
+       ${section2}
+       ${section3}
+       ${section4}
+     </body>
+     </html>
+   `;
  }
  
  // ============ Word Generator ============
