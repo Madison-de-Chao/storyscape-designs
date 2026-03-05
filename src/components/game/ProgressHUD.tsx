@@ -131,7 +131,7 @@ const ProgressHUD = ({
       <AnimatePresence>
         {isVisible && (
           <motion.div
-            className="fixed top-14 left-2 sm:top-20 sm:left-6 z-40 w-[calc(100vw-1rem)] sm:w-72 max-w-72"
+            className="fixed top-14 left-2 sm:top-16 sm:left-4 z-40 w-[calc(100vw-1rem)] sm:w-72 max-w-72"
             initial={{ opacity: 0, x: -20, scale: 0.9 }}
             animate={{ opacity: 1, x: 0, scale: 1 }}
             exit={{ opacity: 0, x: -20, scale: 0.9 }}
