@@ -20,10 +20,31 @@ const AudioControls = () => {
   } = useAudioSettings();
   
   const { performanceMode, setPerformanceMode } = usePerformanceStore();
+  const [isFullscreen, setIsFullscreen] = useState(false);
+
+  // 監聽全螢幕狀態變化
+  useEffect(() => {
+    const handleChange = () => setIsFullscreen(!!document.fullscreenElement);
+    document.addEventListener('fullscreenchange', handleChange);
+    return () => document.removeEventListener('fullscreenchange', handleChange);
+  }, []);
+
+  const toggleFullscreen = useCallback(async () => {
+    try {
+      if (!document.fullscreenElement) {
+        await document.documentElement.requestFullscreen();
+      } else {
+        await document.exitFullscreen();
+      }
+    } catch (e) {
+      // 部分瀏覽器/裝置可能不支援
+      console.warn('Fullscreen not supported:', e);
+    }
+  }, []);
 
   return (
-    <div className="fixed top-4 right-32 sm:right-52 z-50">
-      {/* 靜音按鈕 */}
+    <div className="fixed top-3 right-3 sm:top-4 sm:right-4 z-50">
+      {/* 控制按鈕群組 */}
       <div className="flex gap-1.5 sm:gap-2">
         <motion.button
           onClick={toggleMute}
