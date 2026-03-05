@@ -704,7 +704,7 @@ const GameScene = () => {
         chapterSubtitle={transitionChapterSubtitle}
         chapterQuote={transitionChapterQuote}
         chapterKey={transitionChapterKey}
-        onTransitionComplete={() => setIsChapterTransition(false)}
+        onTransitionComplete={handleChapterTransitionComplete}
       />
 
       {/* 遊戲結束覆蓋層 */}
