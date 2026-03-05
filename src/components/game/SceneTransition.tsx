@@ -136,7 +136,8 @@ const SceneTransition = ({
     <AnimatePresence>
       {isTransitioning && (
         <motion.div
-          className="fixed inset-0 z-[100] flex items-center justify-center overflow-hidden"
+          className="fixed inset-0 z-[100] flex items-center justify-center overflow-hidden cursor-pointer"
+          onClick={forceComplete}
           initial={variants.initial}
           animate={variants.animate}
           exit={variants.exit}
