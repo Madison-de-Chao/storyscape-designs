@@ -607,18 +607,18 @@ const DialogueBox = ({ isHidden = false, onToggleHide, onScoreChange }: Dialogue
       </div>
 
       {/* 對話框 - 手機優化佈局 */}
-      <AnimatePresence mode="wait">
+      <AnimatePresence mode="sync">
         {!isHidden && (
           <motion.div
             className="fixed bottom-0 left-0 right-0 z-40 max-h-[55vh] overflow-y-auto p-2 pb-4 sm:max-h-none sm:overflow-visible sm:p-4 md:p-6 lg:p-8"
             style={{ overscrollBehavior: 'contain', contain: 'layout paint' }}
-            initial={{ opacity: 0, y: 60, scale: 0.98 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 40, scale: 0.98 }}
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 20 }}
             transition={{ 
-              duration: 0.45, 
-              ease: [0.43, 0.13, 0.23, 0.96],
-              opacity: { duration: 0.35 },
+              duration: 0.3, 
+              ease: [0.25, 0.46, 0.45, 0.94],
+              opacity: { duration: 0.25 },
             }}
           >
             <div className="max-w-4xl mx-auto">
@@ -635,17 +635,17 @@ const DialogueBox = ({ isHidden = false, onToggleHide, onScoreChange }: Dialogue
                 style={{
                   background: `linear-gradient(
                     180deg, 
-                    hsl(222 47% 10% / 0.96) 0%, 
-                    hsl(222 47% 7% / 0.98) 100%
+                    hsl(222 47% 10% / 0.65) 0%, 
+                    hsl(222 47% 7% / 0.7) 100%
                   )`,
                   boxShadow: `
-                    0 -8px 50px hsl(222 47% 4% / 0.7),
-                    0 8px 30px hsl(0 0% 0% / 0.5),
+                    0 -8px 50px hsl(222 47% 4% / 0.4),
+                    0 8px 30px hsl(0 0% 0% / 0.3),
                     inset 0 1px 0 hsl(45 30% 90% / 0.08),
                     inset 0 -1px 0 hsl(45 30% 90% / 0.03)
                   `,
-                  backdropFilter: 'blur(20px)',
-                  WebkitBackdropFilter: 'blur(20px)',
+                  backdropFilter: 'blur(24px)',
+                  WebkitBackdropFilter: 'blur(24px)',
                 }}
               >
                 {/* 頂部發光邊線 */}
@@ -849,17 +849,17 @@ const DialogueBox = ({ isHidden = false, onToggleHide, onScoreChange }: Dialogue
               </motion.div>
 
               {/* 選項按鈕 - 優化進場動畫 */}
-              <AnimatePresence mode="wait">
+              <AnimatePresence mode="sync">
                 {!isTyping && currentNode.choices && (
                   <motion.div
                     className="mt-5 space-y-3"
-                    initial={{ opacity: 0, y: 25, filter: 'blur(4px)' }}
-                    animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-                    exit={{ opacity: 0, y: -15, filter: 'blur(4px)' }}
+                    initial={{ opacity: 0, y: 15 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
                     transition={{ 
-                      duration: 0.4, 
-                      delay: 0.1,
-                      ease: [0.43, 0.13, 0.23, 0.96],
+                      duration: 0.3, 
+                      delay: 0.05,
+                      ease: [0.25, 0.46, 0.45, 0.94],
                     }}
                   >
                     {currentNode.choices.map((choice, index) => (

@@ -833,14 +833,14 @@ const SceneImage = ({ nodeId, hideOverlay = false, isLoaded: externalLoaded }: S
               alt={prevImage.alt}
               className="w-full h-full object-cover"
             />
-            {/* 淡出時的疊加漸層 */}
+            {/* 淡出時的疊加漸層 - 減輕 */}
             <motion.div
               className="absolute inset-0"
               initial={{ opacity: 0 }}
-              animate={{ opacity: 0.6 }}
+              animate={{ opacity: 0.3 }}
               transition={{ duration: 0.8 }}
               style={{
-                background: 'linear-gradient(180deg, hsl(222 47% 6% / 0.3) 0%, hsl(222 47% 3% / 0.5) 100%)',
+                background: 'linear-gradient(180deg, hsl(222 47% 6% / 0.15) 0%, hsl(222 47% 3% / 0.3) 100%)',
               }}
             />
           </motion.div>
@@ -1132,15 +1132,15 @@ const SceneImage = ({ nodeId, hideOverlay = false, isLoaded: externalLoaded }: S
             ))}
           </div>
 
-          {/* 邊緣光暈 */}
+          {/* 邊緣光暈 - 減輕 */}
           <motion.div
             className="absolute inset-0 pointer-events-none"
-            animate={{ opacity: [0.3, 0.5, 0.3] }}
+            animate={{ opacity: [0.15, 0.3, 0.15] }}
             transition={{ duration: 4, repeat: Infinity, repeatType: 'reverse', ease: 'easeInOut' }}
             style={{
               boxShadow: sceneEffect === 'dark' 
-                ? 'inset 0 0 150px 50px hsl(0 0% 0% / 0.3)'
-                : 'inset 0 0 100px 20px hsl(var(--primary) / 0.08)',
+                ? 'inset 0 0 100px 30px hsl(0 0% 0% / 0.2)'
+                : 'inset 0 0 60px 10px hsl(var(--primary) / 0.05)',
             }}
           />
 
@@ -1184,30 +1184,23 @@ const SceneImage = ({ nodeId, hideOverlay = false, isLoaded: externalLoaded }: S
           >
             {/* 頂部漸變 - 極輕薄 */}
             <div 
-              className="absolute inset-x-0 top-0 h-24 z-10"
+              className="absolute inset-x-0 top-0 h-20 z-10"
               style={{
-                background: 'linear-gradient(to bottom, hsl(var(--background) / 0.35) 0%, hsl(var(--background) / 0.1) 50%, transparent 100%)',
+                background: 'linear-gradient(to bottom, hsl(var(--background) / 0.2) 0%, hsl(var(--background) / 0.05) 50%, transparent 100%)',
               }}
             />
-            {/* 底部漸變 - 更輕薄，讓圖片更清晰可見 */}
+            {/* 底部漸變 - 極輕薄，僅對話框區域需要輕微漸層 */}
             <div 
-              className="absolute inset-x-0 bottom-0 h-[35%] z-10"
+              className="absolute inset-x-0 bottom-0 h-[30%] z-10"
               style={{
-                background: 'linear-gradient(to top, hsl(var(--background) / 0.75) 0%, hsl(var(--background) / 0.4) 30%, hsl(var(--background) / 0.1) 60%, transparent 100%)',
+                background: 'linear-gradient(to top, hsl(var(--background) / 0.45) 0%, hsl(var(--background) / 0.15) 40%, transparent 100%)',
               }}
             />
             {/* 邊角暗化 - 極輕 */}
             <div 
               className="absolute inset-0 z-10 pointer-events-none"
               style={{
-                background: 'radial-gradient(ellipse 95% 95% at center, transparent 60%, hsl(var(--background) / 0.15) 100%)',
-              }}
-            />
-            {/* 左右邊緣 - 極輕 */}
-            <div 
-              className="absolute inset-0 z-10 pointer-events-none"
-              style={{
-                background: 'linear-gradient(90deg, hsl(var(--background) / 0.08) 0%, transparent 8%, transparent 92%, hsl(var(--background) / 0.08) 100%)',
+                background: 'radial-gradient(ellipse 95% 95% at center, transparent 65%, hsl(var(--background) / 0.1) 100%)',
               }}
             />
           </motion.div>
@@ -1230,7 +1223,7 @@ const SceneImage = ({ nodeId, hideOverlay = false, isLoaded: externalLoaded }: S
       <div 
         className="absolute inset-0 z-25 pointer-events-none"
         style={{
-          opacity: sceneEffect === 'glitch' ? 0.04 : 0.02,
+          opacity: sceneEffect === 'glitch' ? 0.03 : 0.01,
           backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, hsl(var(--foreground)) 2px, hsl(var(--foreground)) 3px)',
           backgroundSize: '100% 3px',
         }}
