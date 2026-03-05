@@ -636,6 +636,20 @@ const GameScene = () => {
         onResetPart={() => { resetPart(currentPart); returnToTitle(); }}
       />
 
+      {/* 進度 HUD */}
+      <ProgressHUD
+        chapterProgress={progress.readNodes[getChapterKey(currentNodeId)]?.length || 0}
+        currentChapterTitle={isYiPart ? getChapterTitle(currentNodeId) : '序章・另一個我們'}
+        isVisible={isProgressHUDVisible}
+        onToggle={() => setIsProgressHUDVisible(!isProgressHUDVisible)}
+      />
+
+      {/* 成就通知 */}
+      <AchievementToast
+        achievement={pendingAchievement}
+        onClose={dismissAchievement}
+      />
+
       {/* 對話框（可隱藏） */}
       <DialogueBox 
         isHidden={isDialogueHidden}
