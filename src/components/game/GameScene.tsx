@@ -624,144 +624,17 @@ const GameScene = () => {
         </h3>
       </motion.div>
 
-      {/* 弧度指示器 */}
-      <ArcIndicator />
-
-      {/* 進度 HUD */}
-      <ProgressHUD
-        chapterProgress={progress.readNodes[getChapterKey(currentNodeId)]?.length || 0}
-        currentChapterTitle={isYiPart ? getChapterTitle(currentNodeId) : '序章・另一個我們'}
-        isVisible={isProgressHUDVisible}
-        onToggle={() => setIsProgressHUDVisible(!isProgressHUDVisible)}
+      {/* 整合工具列：弧度 + 音控 + 全螢幕 + 選單 */}
+      <GameToolbar
+        isYiPart={isYiPart}
+        currentPart={currentPart}
+        onOpenChapterSelect={() => setIsChapterSelectOpen(true)}
+        onOpenGallery={() => setIsGalleryOpen(true)}
+        onOpenJourney={() => setIsJourneyOpen(true)}
+        onOpenEndingStats={() => setIsEndingStatsOpen(true)}
+        onReturnToTitle={returnToTitle}
+        onResetPart={() => { resetPart(currentPart); returnToTitle(); }}
       />
-
-      {/* 月明值系統：選項影響隱藏的內心明暗值，不再顯示分數變化 */}
-
-      {/* 成就通知 */}
-      <AchievementToast
-        achievement={pendingAchievement}
-        onClose={dismissAchievement}
-      />
-
-      {/* 選單按鈕 */}
-      {/* 音量控制 */}
-      <AudioControls />
-
-      {/* 選單按鈕 - 手機優化位置 */}
-      <motion.div
-        className="fixed top-3 right-[13rem] sm:top-4 sm:right-[19rem] z-50"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.5 }}
-      >
-        <button
-          onClick={() => {
-            playSFX(isMenuOpen ? 'menu_close' : 'menu_open');
-            setIsMenuOpen(!isMenuOpen);
-          }}
-          className={`
-            p-2.5 sm:p-3 rounded-full backdrop-blur-sm border transition-all duration-300 touch-manipulation
-            ${isMenuOpen 
-              ? 'bg-primary/20 border-primary/50 text-primary' 
-              : 'bg-card/50 border-border/50 text-muted-foreground hover:text-foreground hover:border-border'
-            }
-          `}
-          style={{ WebkitTapHighlightColor: 'transparent' }}
-        >
-          <Menu className="w-4 h-4 sm:w-5 sm:h-5" />
-        </button>
-
-        {/* 下拉選單 */}
-        <motion.div
-          className={`
-            absolute top-14 right-0 w-48
-            bg-card/95 backdrop-blur-md border border-border
-            rounded-xl shadow-xl overflow-hidden
-            ${isMenuOpen ? 'pointer-events-auto' : 'pointer-events-none'}
-          `}
-          initial={false}
-          animate={isMenuOpen ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: -10, scale: 0.95 }}
-          transition={{ duration: 0.2 }}
-        >
-          {/* 章節選擇 */}
-          {isYiPart && (
-            <button
-              onClick={() => {
-                setIsMenuOpen(false);
-                setIsChapterSelectOpen(true);
-              }}
-              className="w-full flex items-center gap-3 px-4 py-3 text-sm text-foreground hover:bg-muted/50 transition-colors"
-            >
-              <BookOpen className="w-4 h-4 text-primary" />
-              章節選擇
-            </button>
-          )}
-
-          {/* 藝廊 */}
-          {isYiPart && (
-            <MenuButton
-              onClick={() => {
-                setIsMenuOpen(false);
-                setIsGalleryOpen(true);
-              }}
-              icon={<Image className="w-4 h-4 text-primary" />}
-              label="藝廊"
-            />
-          )}
-
-          {/* 心路歷程（僅第一部） */}
-          {currentPart === 'yi' && (
-            <MenuButton
-              onClick={() => {
-                setIsMenuOpen(false);
-                setIsJourneyOpen(true);
-              }}
-              icon={<Map className="w-4 h-4 text-emerald-400" />}
-              label="心路歷程"
-            />
-          )}
-
-          {/* 結局統計 */}
-          <MenuButton
-            onClick={() => {
-              setIsMenuOpen(false);
-              setIsEndingStatsOpen(true);
-            }}
-            icon={<Trophy className="w-4 h-4 text-amber-400" />}
-            label="結局統計"
-          />
-
-          {/* 返回標題 */}
-          <MenuButton
-            onClick={() => {
-              setIsMenuOpen(false);
-              returnToTitle();
-            }}
-            icon={<Home className="w-4 h-4 text-muted-foreground" />}
-            label="返回標題"
-          />
-
-          {/* 重新開始 */}
-          <MenuButton
-            onClick={() => {
-              setIsMenuOpen(false);
-              resetPart(currentPart);
-              returnToTitle();
-            }}
-            icon={<RotateCcw className="w-4 h-4" />}
-            label="重新開始本部"
-            variant="destructive"
-          />
-        </motion.div>
-      </motion.div>
-
-      {/* 點擊背景關閉選單 */}
-      {isMenuOpen && (
-        <div 
-          className="fixed inset-0 z-40" 
-          onClick={() => setIsMenuOpen(false)} 
-        />
-      )}
 
       {/* 對話框（可隱藏） */}
       <DialogueBox 
