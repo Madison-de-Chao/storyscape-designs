@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from 'framer-motion';
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState, useMemo, useRef, useCallback } from 'react';
 import { getChapterTheme, themeToHSL, themeToGlow, type ChapterTheme } from '@/utils/chapterThemes';
 import { useSFX, getChapterTransitionSFX } from '@/hooks/useAudio';
 import { usePerformanceStore } from '@/stores/performanceStore';
