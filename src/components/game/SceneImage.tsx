@@ -610,24 +610,6 @@ const SceneImage = ({ nodeId, hideOverlay = false, isLoaded: externalLoaded }: S
     }
   };
 
-  // 判斷是否為章節起始節點
-  const isChapterStart = useMemo(() => {
-    const normalizedId = nodeId.replace(/^yi1-/, '');
-    return (
-      normalizedId.endsWith('-1') ||
-      normalizedId.includes('-intro') ||
-      normalizedId === 'preface-1' ||
-      normalizedId === 'prologue-1'
-    );
-  }, [nodeId]);
-
-  // 取得當前章節資料
-  const chapterMeta = useMemo(() => {
-    const normalizedId = nodeId.replace(/^yi1-/, '');
-    // e.g. "chapter-5-1" → "chapter-5"
-    const chapterKey = normalizedId.replace(/-\d+$/, '').replace(/-intro$/, '');
-    return yi1ChaptersMeta.find(ch => ch.id === chapterKey);
-  }, [nodeId]);
 
   // 根據特效類型獲取過場效果顏色
   const getTransitionColor = () => {
