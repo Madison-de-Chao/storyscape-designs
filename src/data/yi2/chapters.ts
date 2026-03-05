@@ -98,6 +98,35 @@ export const yi2ChaptersMeta: ChapterMeta[] = [
       '林壹看著鏡中的伊，兩人終於開始對話',
     ],
   },
+  {
+    id: 'yi2-ch6',
+    title: '第六章',
+    subtitle: '不完整的禮物',
+    theme: '梵谷、屈原、項羽——選擇留下的人',
+    keyQuote: '他們的不完整，是留給後人的禮物。',
+    character: '伊',
+    suggestedImages: 4,
+    imageDescriptions: [
+      '月光穿過伊的身體，她站在窗邊像薄紗',
+      '梵谷、屈原、項羽、夢露站在路的盡頭，身後是懸崖',
+      '林壹站在離懸崖一段距離的位置，她還可以轉彎',
+      '雲端硬碟裡一個名為「還有另一種人」的檔案',
+    ],
+  },
+  {
+    id: 'yi2-ch7',
+    title: '第七章',
+    subtitle: '還站著的人',
+    theme: '金卡戴珊、安海瑟薇、芭黎絲希爾頓——面對攻擊的三種反應',
+    keyQuote: '同樣的攻擊，不同的濾鏡，不同的結局。',
+    character: '林壹',
+    suggestedImages: 3,
+    imageDescriptions: [
+      '林壹坐在電腦前瀏覽網頁，螢幕映照臉龐',
+      '備忘錄上寫著「第零種：還沒被打就先自己倒」',
+      '窗外天色漸亮，林壹的眼神開始不同',
+    ],
+  },
   // ── 下冊：走出來 ──
   {
     id: 'yi2-ch8',
