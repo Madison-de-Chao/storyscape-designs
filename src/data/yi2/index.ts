@@ -25,7 +25,8 @@ export const yi2AllNodes: DialogueNode[] = [
   ...chapter3Nodes,
   ...chapter4Nodes,
   ...chapter5Nodes,
-  // TODO: 第六章、第七章文稿尚未提供，待補充
+  ...chapter6Nodes,
+  ...chapter7Nodes,
   ...chapter8Nodes,
   ...chapter9Nodes,
   ...chapter10Nodes,
