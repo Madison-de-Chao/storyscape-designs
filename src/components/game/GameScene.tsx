@@ -292,6 +292,10 @@ const GameScene = () => {
   }, [currentNodeId, stopBGM, unlockAchievement]);
 
   // 處理遊戲結束覆蓋層點擊
+  const handleChapterTransitionComplete = useCallback(() => {
+    setIsChapterTransition(false);
+  }, []);
+
   const handleGameEndComplete = useCallback(() => {
     setShowGameEndOverlay(false);
     // 顯示成就統計頁面，標記為從遊戲結束打開
@@ -704,7 +708,7 @@ const GameScene = () => {
         chapterSubtitle={transitionChapterSubtitle}
         chapterQuote={transitionChapterQuote}
         chapterKey={transitionChapterKey}
-        onTransitionComplete={() => setIsChapterTransition(false)}
+        onTransitionComplete={handleChapterTransitionComplete}
       />
 
       {/* 遊戲結束覆蓋層 */}
