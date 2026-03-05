@@ -533,14 +533,83 @@ const SceneImage = ({ nodeId, hideOverlay = false, isLoaded: externalLoaded }: S
     );
   };
 
-  // 換圖統一使用極簡淡入，避免切換閃爍
+  // 根據場景類型選擇不同的柔和過場方式（無閃光）
   const getEntryAnimation = () => {
-    return {
-      initial: { opacity: 0 },
-      animate: { opacity: isLoaded ? 1 : 0 },
-      transition: { duration: 0.28, ease: 'linear' as const },
-    };
+    if (disableImageTransitionEffects || !prevImage) {
+      // 首次載入 or 特效停用：簡單淡入
+      return {
+        initial: { opacity: 0 },
+        animate: { opacity: isLoaded ? 1 : 0 },
+        transition: { duration: 0.4, ease: 'easeOut' as const },
+      };
+    }
+    // 有前一張圖時，根據場景氛圍選不同過場
+    switch (sceneEffect) {
+      case 'mystical':
+      case 'ethereal':
+        // 柔焦溶解：輕微模糊進場
+        return {
+          initial: { opacity: 0, filter: 'blur(8px)' },
+          animate: { opacity: isLoaded ? 1 : 0, filter: isLoaded ? 'blur(0px)' : 'blur(8px)' },
+          transition: { duration: 0.6, ease: 'easeOut' as const },
+        };
+      case 'warm':
+      case 'poetic':
+        // 輕微上移淡入
+        return {
+          initial: { opacity: 0, y: 12 },
+          animate: { opacity: isLoaded ? 1 : 0, y: isLoaded ? 0 : 12 },
+          transition: { duration: 0.5, ease: 'easeOut' as const },
+        };
+      case 'dramatic':
+        // 輕微縮放進場（不用 flash）
+        return {
+          initial: { opacity: 0, scale: 1.03 },
+          animate: { opacity: isLoaded ? 1 : 0, scale: isLoaded ? 1 : 1.03 },
+          transition: { duration: 0.5, ease: 'easeOut' as const },
+        };
+      case 'dark':
+        // 從暗處浮現
+        return {
+          initial: { opacity: 0 },
+          animate: { opacity: isLoaded ? 1 : 0 },
+          transition: { duration: 0.7, ease: [0.4, 0, 0.2, 1] as unknown as string },
+        };
+      case 'glitch':
+        // 快速切入
+        return {
+          initial: { opacity: 0 },
+          animate: { opacity: isLoaded ? 1 : 0 },
+          transition: { duration: 0.15, ease: 'linear' as const },
+        };
+      default:
+        // 預設：交叉淡入
+        return {
+          initial: { opacity: 0 },
+          animate: { opacity: isLoaded ? 1 : 0 },
+          transition: { duration: 0.4, ease: 'easeOut' as const },
+        };
+    }
   };
+
+  // 判斷是否為章節起始節點
+  const isChapterStart = useMemo(() => {
+    const normalizedId = nodeId.replace(/^yi1-/, '');
+    return (
+      normalizedId.endsWith('-1') ||
+      normalizedId.includes('-intro') ||
+      normalizedId === 'preface-1' ||
+      normalizedId === 'prologue-1'
+    );
+  }, [nodeId]);
+
+  // 取得當前章節資料
+  const chapterMeta = useMemo(() => {
+    const normalizedId = nodeId.replace(/^yi1-/, '');
+    // e.g. "chapter-5-1" → "chapter-5"
+    const chapterKey = normalizedId.replace(/-\d+$/, '').replace(/-intro$/, '');
+    return yi1ChaptersMeta.find(ch => ch.id === chapterKey);
+  }, [nodeId]);
 
   // 根據特效類型獲取過場效果顏色
   const getTransitionColor = () => {
