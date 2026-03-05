@@ -7,12 +7,10 @@ import { usePreloadImages } from '@/hooks/usePreloadImages';
 import { usePreloadNextScene } from '@/hooks/usePreloadNextScene';
 import ParticleBackground from './ParticleBackground';
 import DialogueBox from './DialogueBox';
-import ArcIndicator from './ArcIndicator';
 import ChapterSelect from './ChapterSelect';
 import SceneImage from './SceneImage';
-import AudioControls from './AudioControls';
 import SceneTransition from './SceneTransition';
-import MenuButton from './MenuButton';
+import GameToolbar from './GameToolbar';
 import LazyLoadingFallback from './LazyLoadingFallback';
 // ScoreChange 已移除 - 月明值系統對玩家隱藏
 import ProgressHUD from './ProgressHUD';
