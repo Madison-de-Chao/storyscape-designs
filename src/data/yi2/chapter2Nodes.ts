@@ -1,0 +1,279 @@
+import type { DialogueNode } from '@/stores/gameStore';
+
+// 第二章｜空白 — 斷片現象、伊的能力展現
+export const chapter2Nodes: DialogueNode[] = [
+  // ── 一 ──
+  {
+    id: 'yi2-ch2-1',
+    speaker: 'narrator',
+    text: '那之後的幾天，她覺得自己怪怪的。\n\n不是生病的那種怪。是一種說不上來的感覺。像是腦子裡有什麼東西鬆脫了，又像是有什麼東西正在滲進來。',
+    nextNodeId: 'yi2-ch2-2',
+  },
+  {
+    id: 'yi2-ch2-2',
+    speaker: 'narrator',
+    text: '她會在某些時刻「斷片」。\n\n不是喝醉酒的那種斷片。是清醒的、日常的、毫無預警的——突然發現自己不記得過去十分鐘發生了什麼。',
+    nextNodeId: 'yi2-ch2-3',
+  },
+  {
+    id: 'yi2-ch2-3',
+    speaker: 'narrator',
+    text: '第一次是在茶水間。\n\n她記得自己走進去倒水。然後下一秒，她站在走廊上，手裡拿著一杯已經涼掉的咖啡。\n\n她不記得自己泡了咖啡。她明明是要倒水的。\n\n她看了看時間。過了二十分鐘。\n\n**那二十分鐘，去哪了？**',
+    nextNodeId: 'yi2-ch2-4',
+    effect: 'fade-in-slow',
+  },
+
+  // ── 二 ──
+  {
+    id: 'yi2-ch2-4',
+    speaker: 'narrator',
+    text: '第二次是在會議室。\n\n週三下午的例會。主管在講下個月的專案規劃。她坐在角落，努力讓自己看起來很專心。\n\n然後她「醒」過來了。',
+    nextNodeId: 'yi2-ch2-5',
+    bgImage: 'yi2-office',
+  },
+  {
+    id: 'yi2-ch2-5',
+    speaker: 'narrator',
+    text: '不是睡著的那種醒。是突然意識到——她不知道過去這段時間發生了什麼。\n\n會議室裡的氣氛很奇怪。所有人都在看她。主管的表情也很奇怪，不是平常那種嫌棄，而是⋯⋯驚訝？',
+    nextNodeId: 'yi2-ch2-6',
+    effect: 'glitch',
+  },
+  {
+    id: 'yi2-ch2-6',
+    speaker: 'narrator',
+    text: '「⋯⋯所以妳的意思是，我們應該先做市場測試，再決定產品方向？」主管問。\n\n她愣住了。\n\n她不記得自己說過這句話。她不記得自己說過任何話。\n\n「呃⋯⋯對。」她只能硬著頭皮回答。',
+    nextNodeId: 'yi2-ch2-7',
+  },
+  {
+    id: 'yi2-ch2-7',
+    speaker: 'narrator',
+    text: '主管點點頭：「這個想法不錯。比原本的計畫更穩健。」',
+    nextNodeId: 'yi2-ch2-8',
+  },
+  {
+    id: 'yi2-ch2-8',
+    speaker: 'narrator',
+    speakerName: '小玲',
+    text: '會議結束後，小玲湊過來，眼睛亮亮的。\n\n「妳剛剛講得很好耶！我第一次看到主管那種表情，他居然說『不錯』！妳是不是偷偷去上什麼課了？」',
+    nextNodeId: 'yi2-ch2-9',
+  },
+  {
+    id: 'yi2-ch2-9',
+    speaker: 'protagonist',
+    speakerName: '林壹',
+    text: '⋯⋯我說了什麼？',
+    nextNodeId: 'yi2-ch2-10',
+  },
+  {
+    id: 'yi2-ch2-10',
+    speaker: 'narrator',
+    speakerName: '小玲',
+    text: '小玲笑了：「妳在開玩笑吧？妳剛剛講了快十分鐘耶，分析得超清楚的，什麼市場區隔、競品比較、風險評估⋯⋯我都想抄筆記了。」\n\n她完全不記得。\n\n**那十分鐘，是一片空白。**',
+    nextNodeId: 'yi2-ch2-11',
+    effect: 'glitch',
+  },
+
+  // ── 三 ──
+  {
+    id: 'yi2-ch2-11',
+    speaker: 'narrator',
+    text: '她開始害怕了。\n\n不是怕鬼的那種害怕。是一種更深的、更本質的恐懼——**她不知道自己是誰了。**',
+    nextNodeId: 'yi2-ch2-12',
+  },
+  {
+    id: 'yi2-ch2-12',
+    speaker: 'narrator',
+    text: '那個在會議上侃侃而談的人，是她嗎？\n\n那些她說不出口的話、想不到的觀點、沒有的自信——那個人是從哪裡來的？',
+    nextNodeId: 'yi2-ch2-13',
+  },
+  {
+    id: 'yi2-ch2-13',
+    speaker: 'narrator',
+    text: '但奇怪的是，那些「空白」發生的時候，她似乎都表現得⋯⋯很好？\n\n茶水間那次，她後來發現自己不只泡了咖啡，還順手把流理台擦乾淨了。\n\n會議那次，主管居然說她的想法「不錯」。這是她進公司三年來第一次聽到這個詞。',
+    nextNodeId: 'yi2-ch2-14',
+  },
+  {
+    id: 'yi2-ch2-14',
+    speaker: 'narrator',
+    text: '還有一次，她「醒」過來的時候，發現自己正站在主管桌前，主管正在跟她說：「這份報告寫得很好，照這個方向繼續。」\n\n她低頭看自己手上的文件。那是她昨晚熬夜改到凌晨三點的報告——但上面多了很多她不記得寫的內容。',
+    nextNodeId: 'yi2-ch2-15',
+  },
+  {
+    id: 'yi2-ch2-15',
+    speaker: 'narrator',
+    text: '那些字跡是她的。\n\n**但她不記得寫過。**',
+    nextNodeId: 'yi2-ch2-16',
+    effect: 'glitch',
+  },
+
+  // ── 四 ──
+  {
+    id: 'yi2-ch2-16',
+    speaker: 'narrator',
+    text: '週五晚上，她一個人坐在房間裡，盯著鏡子。\n\n鏡子裡的自己，看起來很正常。素顏，黑眼圈，疲憊的表情。跟每一天一樣。\n\n但她不敢眨眼。\n\n**因為她怕一眨眼，鏡子裡的那個人就會變成別人。**',
+    nextNodeId: 'yi2-ch2-17',
+    bgImage: 'yi2-mirror-night',
+    emotionSFX: 'fear',
+  },
+  {
+    id: 'yi2-ch2-17',
+    speaker: 'protagonist',
+    speakerName: '林壹',
+    text: '妳是誰？',
+    nextNodeId: 'yi2-ch2-18',
+  },
+  {
+    id: 'yi2-ch2-18',
+    speaker: 'narrator',
+    text: '鏡子裡的自己沒有回答。當然不會回答。那只是倒影。\n\n但她總覺得，那個倒影在看著她的方式⋯⋯不太對。\n\n像是在打量她。像是在等待什麼。',
+    nextNodeId: 'yi2-ch2-19',
+  },
+  {
+    id: 'yi2-ch2-19',
+    speaker: 'narrator',
+    text: '——滋——',
+    nextNodeId: 'yi2-ch2-20',
+    effect: 'glitch',
+    emotionSFX: 'digital_break',
+  },
+  {
+    id: 'yi2-ch2-20',
+    speaker: 'narrator',
+    text: '她猛然轉頭。\n\n房間裡很安靜。電腦是關著的。手機放在桌上，沒有任何通知。\n\n她一定是聽錯了。\n\n她轉回來，看著鏡子。',
+    nextNodeId: 'yi2-ch2-21',
+  },
+  {
+    id: 'yi2-ch2-21',
+    speaker: 'narrator',
+    text: '**鏡子裡的自己，嘴角微微上揚。**\n\n她的心跳停了一拍。\n\n她沒有笑。她的臉是僵的。她很確定自己沒有笑。\n\n但鏡子裡的那個人，在笑。\n\n不是那種開心的笑。是一種⋯⋯**終於等到了的笑。**',
+    nextNodeId: 'yi2-ch2-22',
+    effect: 'glitch',
+    emotionSFX: 'evil_giggle',
+  },
+  {
+    id: 'yi2-ch2-22',
+    speaker: 'narrator',
+    text: '她想尖叫。她想跑。但她的身體動不了。\n\n鏡子裡的那個「她」，慢慢舉起一隻手。\n\n她的手沒有動。她很確定她的手沒有動。\n\n但鏡子裡的手動了。\n\n那隻手舉到嘴邊，食指輕輕放在嘴唇上。',
+    nextNodeId: 'yi2-ch2-23',
+    effect: 'shake',
+  },
+  {
+    id: 'yi2-ch2-23',
+    speaker: 'narrator',
+    text: '**噓。**',
+    nextNodeId: 'yi2-ch2-24',
+    effect: 'glitch',
+  },
+  {
+    id: 'yi2-ch2-24',
+    speaker: 'yi',
+    speakerName: '伊',
+    text: '妳終於願意看我了。',
+    nextNodeId: 'yi2-ch2-25',
+    effect: 'glitch',
+    emotionSFX: 'mysterious_whisper',
+    specialScene: 'revelation',
+    revelationConfig: {
+      text: '妳終於願意看我了',
+      subtitle: '伊',
+      theme: 'silver',
+      duration: 4000,
+    },
+  },
+
+  // ── 五 ──
+  {
+    id: 'yi2-ch2-25',
+    speaker: 'narrator',
+    text: '她「醒」過來的時候，躺在床上。\n\n窗外的天是亮的。鳥在叫。\n\n她看了看時間。早上七點。週六。',
+    nextNodeId: 'yi2-ch2-26',
+    bgImage: 'yi2-bedroom-morning',
+  },
+  {
+    id: 'yi2-ch2-26',
+    speaker: 'narrator',
+    text: '她不記得自己是什麼時候躺下的。不記得自己是什麼時候睡著的。她最後的記憶是——鏡子。那個在笑的倒影。那隻舉起來的手。那個聲音。\n\n「妳終於願意看我了。」',
+    nextNodeId: 'yi2-ch2-27',
+  },
+  {
+    id: 'yi2-ch2-27',
+    speaker: 'narrator',
+    text: '她猛然坐起來。\n\n她還活著。她在自己的房間。一切看起來都很正常。\n\n她衝去浴室，看著鏡子。\n\n鏡子裡的自己，很正常。素顏，亂髮，剛睡醒的樣子。沒有濃妝，沒有詭異的笑容。',
+    nextNodeId: 'yi2-ch2-28',
+  },
+  {
+    id: 'yi2-ch2-28',
+    speaker: 'narrator',
+    text: '她盯著看了很久，直到眼睛酸了才眨眼。\n\n什麼都沒發生。\n\n她是不是瘋了？',
+    nextNodeId: 'yi2-ch2-29',
+  },
+  {
+    id: 'yi2-ch2-29',
+    speaker: 'narrator',
+    text: '她決定今天哪裡都不去。好好休息。看個電影，叫個外賣，什麼都不想。\n\n她走回房間，拿起手機。\n\n然後她看到了一個通知。',
+    nextNodeId: 'yi2-ch2-30',
+  },
+  {
+    id: 'yi2-ch2-30',
+    speaker: 'narrator',
+    text: '是她自己的雲端硬碟。\n\n「您有一個新資料夾。」',
+    nextNodeId: 'yi2-ch2-31',
+    effect: 'glitch',
+  },
+  {
+    id: 'yi2-ch2-31',
+    speaker: 'narrator',
+    text: '她點開。\n\n資料夾的名稱是一個字。\n\n**「伊」。**',
+    nextNodeId: 'yi2-ch2-32',
+    effect: 'glitch',
+    emotionSFX: 'fear',
+  },
+  {
+    id: 'yi2-ch2-32',
+    speaker: 'narrator',
+    text: '她的手開始抖。\n\n她沒有建立這個資料夾。她很確定她沒有。\n\n她點進去。\n\n裡面有一個檔案。\n\n**「給壹的信.docx」**',
+    nextNodeId: 'yi2-ch2-33',
+  },
+
+  // ── 六 ──
+  {
+    id: 'yi2-ch2-33',
+    speaker: 'narrator',
+    text: '她盯著那個檔案名稱，手指懸在螢幕上方。\n\n壹。\n\n那是她的名字。',
+    nextNodeId: 'yi2-ch2-34',
+  },
+  {
+    id: 'yi2-ch2-34',
+    speaker: 'narrator',
+    text: '她的本名叫林壹。「壹」，是「一」的大寫。她媽說，取這個名字是因為希望她永遠記得——「壹即是全，獨一無二。」\n\n但她從來沒喜歡過這個名字。太奇怪了。每次自我介紹都要解釋半天。所以她從小到大都用小名，從不用本名。\n\n沒有人叫她「壹」。',
+    nextNodeId: 'yi2-ch2-35',
+  },
+  {
+    id: 'yi2-ch2-35',
+    speaker: 'narrator',
+    text: '那這封信，是誰寫給她的？\n\n她點開檔案。\n\n只有一行字。',
+    nextNodeId: 'yi2-ch2-36',
+  },
+  {
+    id: 'yi2-ch2-36',
+    speaker: 'yi',
+    speakerName: '伊',
+    text: '妳刪掉的那個故事，結局其實很好。是妳不敢相信而已。\n\n——伊',
+    nextNodeId: 'yi2-ch2-end',
+    effect: 'glow',
+    emotionSFX: 'mysterious_whisper',
+  },
+  {
+    id: 'yi2-ch2-end',
+    speaker: 'narrator',
+    text: '她盯著那行字，眼淚突然就流下來了。\n\n她不知道自己為什麼哭。她只是覺得，有什麼東西，在她心裡很深很深的地方，裂開了一道縫。\n\n**那道縫裡，透出一點點光。**',
+    nextNodeId: 'yi2-ch3-1',
+    specialScene: 'zen',
+    zenConfig: {
+      text: '那道縫裡\n透出一點點光',
+      subtitle: '第二章完',
+      theme: 'dawn',
+      duration: 5000,
+    },
+  },
+];
