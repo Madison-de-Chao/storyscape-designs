@@ -573,7 +573,7 @@ const SceneImage = ({ nodeId, hideOverlay = false, isLoaded: externalLoaded }: S
         return {
           initial: { opacity: 0 },
           animate: { opacity: isLoaded ? 1 : 0 },
-          transition: { duration: 0.7, ease: [0.4, 0, 0.2, 1] as unknown as string },
+          transition: { duration: 0.7, ease: [0.4, 0, 0.2, 1] as [number, number, number, number] },
         };
       case 'glitch':
         // 快速切入
