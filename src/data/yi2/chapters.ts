@@ -98,6 +98,78 @@ export const yi2ChaptersMeta: ChapterMeta[] = [
       '林壹看著鏡中的伊，兩人終於開始對話',
     ],
   },
+  // ── 下冊：走出來 ──
+  {
+    id: 'yi2-ch8',
+    title: '第八章',
+    subtitle: '對話',
+    theme: '情緒不是問題、觀察vs定義',
+    keyQuote: '觀察讓妳有空間，定義讓妳被困住。',
+    character: '伊',
+    suggestedImages: 3,
+    imageDescriptions: [
+      '浴室鏡前，林壹坐在地板上，鏡中伊看著她',
+      '雲端硬碟裡一個名為「妳問錯問題了」的檔案',
+      '林壹站起來，窗外天色漸亮',
+    ],
+  },
+  {
+    id: 'yi2-ch9',
+    title: '第九章',
+    subtitle: '篩選',
+    theme: '做自己的代價、真正的友情',
+    keyQuote: '做自己是為了——讓對的人找到妳。',
+    character: '小曼',
+    suggestedImages: 3,
+    imageDescriptions: [
+      '辦公室裡同事疏遠林壹的微妙氛圍',
+      '日式餐廳裡小曼握住林壹的手',
+      '浴室鏡前林壹眼神變得穩定',
+    ],
+  },
+  {
+    id: 'yi2-ch10',
+    title: '第十章',
+    subtitle: '庸才',
+    theme: '童年創傷根源、與母親的對話',
+    keyQuote: '小孩不需要道理。小孩需要有人抱著她說，沒關係，我站在妳這邊。',
+    character: '林媽媽',
+    suggestedImages: 4,
+    imageDescriptions: [
+      '夢境中的舞台，小女孩穿著亮片裙子跳舞',
+      '林壹在床上打電話，眼淚流下',
+      '林壹蹲下擁抱想像中七歲的自己',
+      '鏡中伊微笑著看她',
+    ],
+  },
+  {
+    id: 'yi2-ch11',
+    title: '第十一章',
+    subtitle: '回聲',
+    theme: '做自己的實踐、父親的和解',
+    keyQuote: '妳走過了一段路，現在妳想把聲音傳出去。',
+    character: '林爸爸',
+    suggestedImages: 3,
+    imageDescriptions: [
+      '茶水間林壹平靜地走進去倒水',
+      '手機螢幕上爸爸的簡短訊息',
+      '深夜電腦前打下第一行字',
+    ],
+  },
+  {
+    id: 'yi2-ch12',
+    title: '第十二章',
+    subtitle: '歸途',
+    theme: '弧度歸零的誕生、伊的意義',
+    keyQuote: '弧度，是偏離。歸零，是回來。每個人都會偏離，但每個人都可以回來。',
+    character: '林壹',
+    suggestedImages: 3,
+    imageDescriptions: [
+      '夢境中純白的空間，伊站在林壹旁邊',
+      '凌晨3:33的時鐘，電腦螢幕上「元壹境」資料夾',
+      '天亮時螢幕上「弧度歸零」三個字',
+    ],
+  },
 ];
 
 export const yi2TotalSuggestedImages = yi2ChaptersMeta.reduce(
