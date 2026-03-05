@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Volume2, VolumeX, Settings, Music, Sparkles, Wind, Zap, Gauge } from 'lucide-react';
+import { Volume2, VolumeX, Settings, Music, Sparkles, Wind, Zap, Gauge, Maximize, Minimize } from 'lucide-react';
 import { useAudioSettings } from '@/hooks/useAudio';
 import { usePerformanceStore } from '@/stores/performanceStore';
 
@@ -20,10 +20,31 @@ const AudioControls = () => {
   } = useAudioSettings();
   
   const { performanceMode, setPerformanceMode } = usePerformanceStore();
+  const [isFullscreen, setIsFullscreen] = useState(false);
+
+  // 監聽全螢幕狀態變化
+  useEffect(() => {
+    const handleChange = () => setIsFullscreen(!!document.fullscreenElement);
+    document.addEventListener('fullscreenchange', handleChange);
+    return () => document.removeEventListener('fullscreenchange', handleChange);
+  }, []);
+
+  const toggleFullscreen = useCallback(async () => {
+    try {
+      if (!document.fullscreenElement) {
+        await document.documentElement.requestFullscreen();
+      } else {
+        await document.exitFullscreen();
+      }
+    } catch (e) {
+      // 部分瀏覽器/裝置可能不支援
+      console.warn('Fullscreen not supported:', e);
+    }
+  }, []);
 
   return (
-    <div className="fixed top-4 right-32 sm:right-52 z-50">
-      {/* 靜音按鈕 */}
+    <div className="fixed top-3 right-[4.5rem] sm:top-4 sm:right-[7rem] z-50">
+      {/* 控制按鈕群組 */}
       <div className="flex gap-1.5 sm:gap-2">
         <motion.button
           onClick={toggleMute}
@@ -65,6 +86,29 @@ const AudioControls = () => {
           title="音量設定"
         >
           <Settings className="w-4 h-4 sm:w-5 sm:h-5" />
+        </motion.button>
+
+        {/* 全螢幕按鈕 */}
+        <motion.button
+          onClick={toggleFullscreen}
+          className="
+            p-2 sm:p-2.5 rounded-full
+            bg-background/80 backdrop-blur-sm
+            border border-border/50 hover:border-primary/50
+            text-muted-foreground hover:text-foreground
+            transition-colors duration-200 active:scale-95
+            touch-manipulation
+          "
+          style={{ WebkitTapHighlightColor: 'transparent' }}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.9 }}
+          title={isFullscreen ? '退出全螢幕' : '全螢幕'}
+        >
+          {isFullscreen ? (
+            <Minimize className="w-4 h-4 sm:w-5 sm:h-5" />
+          ) : (
+            <Maximize className="w-4 h-4 sm:w-5 sm:h-5" />
+          )}
         </motion.button>
       </div>
 
