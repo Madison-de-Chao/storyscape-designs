@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Volume2, VolumeX, Settings, Music, Sparkles, Wind, Zap, Gauge } from 'lucide-react';
+import { Volume2, VolumeX, Settings, Music, Sparkles, Wind, Zap, Gauge, Maximize, Minimize } from 'lucide-react';
 import { useAudioSettings } from '@/hooks/useAudio';
 import { usePerformanceStore } from '@/stores/performanceStore';
 
