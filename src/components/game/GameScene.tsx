@@ -109,7 +109,7 @@ const GameScene = () => {
   const { playBGM, stopBGM } = useBGM();
   const { playAmbient, stopAmbient } = useAmbient();
   
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  // isMenuOpen 已移至 GameToolbar
   const [isChapterSelectOpen, setIsChapterSelectOpen] = useState(false);
   const [isGalleryOpen, setIsGalleryOpen] = useState(false);
   const [isDialogueHidden, setIsDialogueHidden] = useState(false);
