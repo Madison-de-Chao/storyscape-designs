@@ -69,14 +69,31 @@ const SceneTransition = ({
     }
   }, [isTransitioning, transitionType]);
 
-  // 過場結束回調 - 延長至 2.6 秒以顯示完整內容
-  useEffect(() => {
-    if (isTransitioning && onTransitionComplete) {
-      const duration = transitionType === 'chapter' ? 2600 : 1200;
-      const timer = setTimeout(onTransitionComplete, duration);
-      return () => clearTimeout(timer);
+  // 過場結束回調 - 使用 ref 防止回調變更時重置計時器
+  const onCompleteRef = useRef(onTransitionComplete);
+  onCompleteRef.current = onTransitionComplete;
+  const completedRef = useRef(false);
+
+  const forceComplete = useCallback(() => {
+    if (!completedRef.current) {
+      completedRef.current = true;
+      onCompleteRef.current?.();
     }
-  }, [isTransitioning, transitionType, onTransitionComplete]);
+  }, []);
+
+  useEffect(() => {
+    if (isTransitioning) {
+      completedRef.current = false;
+      const duration = transitionType === 'chapter' ? 2600 : 1200;
+      const timer = setTimeout(forceComplete, duration);
+      // 安全超時：最多 5 秒強制結束，防止卡死
+      const safetyTimer = setTimeout(forceComplete, 5000);
+      return () => {
+        clearTimeout(timer);
+        clearTimeout(safetyTimer);
+      };
+    }
+  }, [isTransitioning, transitionType, forceComplete]);
 
   const getTransitionVariants = () => {
     switch (transitionType) {
