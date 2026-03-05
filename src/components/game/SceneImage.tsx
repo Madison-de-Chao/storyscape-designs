@@ -166,6 +166,24 @@ const SceneImage = ({ nodeId, hideOverlay = false, isLoaded: externalLoaded }: S
   // 預載下一場景圖片 (必須在任何 early return 之前調用)
   usePreloadNextScene(nodeId);
 
+  // 判斷是否為章節起始節點
+  const isChapterStart = useMemo(() => {
+    const normalizedId = nodeId.replace(/^yi1-/, '');
+    return (
+      normalizedId.endsWith('-1') ||
+      normalizedId.includes('-intro') ||
+      normalizedId === 'preface-1' ||
+      normalizedId === 'prologue-1'
+    );
+  }, [nodeId]);
+
+  // 取得當前章節資料
+  const chapterMeta = useMemo(() => {
+    const normalizedId = nodeId.replace(/^yi1-/, '');
+    const chapterKey = normalizedId.replace(/-\d+$/, '').replace(/-intro$/, '');
+    return yi1ChaptersMeta.find(ch => ch.id === chapterKey);
+  }, [nodeId]);
+
   // 即使沒有匹配的圖片，也會使用預設圖片（由 getSceneImage 提供）
   // 這裡只在極端情況下返回 null
   if (!currentImage) {
