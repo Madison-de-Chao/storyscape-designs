@@ -130,13 +130,13 @@ export function getGraduationImage(lessonId: string): GraduationImageData | unde
 // - Chapter 15 coda (伊的整合完成) → journey-complete
 export function getGraduationImageForNode(nodeId: string): GraduationImageData | undefined {
   const mapping: Record<string, string> = {
-    // 使用各章節實際的結束節點
-    'yi1-ch5-foreshadow': 'lesson-01',       // 蘇軾：止血
-    'yi1-ch6-foreshadow': 'lesson-02',       // 王陽明：內求
-    'yi1-ch7-foreshadow': 'lesson-03',       // 武則天：定義
-    'yi1-ch8-foreshadow': 'lesson-04',       // 司馬遷：使命
-    'yi1-ch9-foreshadow': 'lesson-05',       // 李白：自由
-    'yi1-ch10-foreshadow': 'lesson-06',      // 凱薩：關係
+    // 使用各章節實際的結束節點（-end 或 -foreshadow）
+    'yi1-ch5-end': 'lesson-01',              // 蘇軾：止血
+    'yi1-ch6-end': 'lesson-02',              // 王陽明：內求
+    'yi1-ch7-end': 'lesson-03',              // 武則天：定義
+    'yi1-ch8-end': 'lesson-04',              // 司馬遷：使命
+    'yi1-ch9-end': 'lesson-05',              // 李白：自由
+    'yi1-ch10-end': 'lesson-06',             // 凱薩：關係
     'yi1-ch11-foreshadow': 'lesson-07',      // 曼德拉：寬恕
     'yi1-ch12-28': 'lesson-08',              // 林肯：幽默（章節最後節點）
     'yi1-ch13-foreshadow': 'lesson-09',      // 賈伯斯：破框
