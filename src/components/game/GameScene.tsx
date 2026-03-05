@@ -651,7 +651,7 @@ const GameScene = () => {
 
       {/* 選單按鈕 - 手機優化位置 */}
       <motion.div
-        className="fixed top-3 right-[11.5rem] sm:top-4 sm:right-[14.5rem] z-50"
+        className="fixed top-3 left-[calc(100%-17rem)] sm:top-4 sm:left-auto sm:right-[18.5rem] z-50"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.5 }}

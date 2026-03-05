@@ -43,7 +43,7 @@ const AudioControls = () => {
   }, []);
 
   return (
-    <div className="fixed top-3 right-3 sm:top-4 sm:right-4 z-50">
+    <div className="fixed top-3 right-[4.5rem] sm:top-4 sm:right-[7rem] z-50">
       {/* 控制按鈕群組 */}
       <div className="flex gap-1.5 sm:gap-2">
         <motion.button

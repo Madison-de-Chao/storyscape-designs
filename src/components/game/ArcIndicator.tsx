@@ -74,7 +74,7 @@ const ArcIndicator = () => {
 
   return (
     <motion.div
-      className="fixed top-4 right-4 sm:top-6 sm:right-6 z-50"
+      className="fixed top-3 right-3 sm:top-4 sm:right-4 z-50"
       initial={{ opacity: 0, scale: 0.8 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.5, delay: 0.5 }}
