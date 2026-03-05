@@ -8,6 +8,7 @@ import { useProgressiveImage } from '@/hooks/useProgressiveImage';
 import { getChapterTheme, themeToHSL, themeToGlow } from '@/utils/chapterThemes';
 import { getSceneLoadingTimeout, type SceneEffectType } from '@/utils/sceneImageLoading';
 import { usePerformanceStore } from '@/stores/performanceStore';
+import { yi1ChaptersMeta } from '@/data/yi1/chapters';
 
 interface SceneImageProps {
   nodeId: string;
