@@ -112,7 +112,7 @@ const ProgressHUD = ({
     <>
       {/* 展開/收起按鈕 - 手機優化 */}
       <motion.button
-        className="fixed top-4 left-4 sm:top-6 sm:left-6 z-50 p-2.5 sm:p-3 rounded-full 
+        className="fixed top-3 left-3 sm:top-4 sm:left-4 z-50 p-2.5 sm:p-3 rounded-full 
           bg-background/70 backdrop-blur-md border border-border/40
           hover:bg-background/80 active:scale-95 transition-all touch-manipulation"
         onClick={onToggle}
