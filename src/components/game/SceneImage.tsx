@@ -8,6 +8,7 @@ import { useProgressiveImage } from '@/hooks/useProgressiveImage';
 import { getChapterTheme, themeToHSL, themeToGlow } from '@/utils/chapterThemes';
 import { getSceneLoadingTimeout, type SceneEffectType } from '@/utils/sceneImageLoading';
 import { usePerformanceStore } from '@/stores/performanceStore';
+import { yi1ChaptersMeta } from '@/data/yi1/chapters';
 
 interface SceneImageProps {
   nodeId: string;
@@ -164,6 +165,24 @@ const SceneImage = ({ nodeId, hideOverlay = false, isLoaded: externalLoaded }: S
 
   // 預載下一場景圖片 (必須在任何 early return 之前調用)
   usePreloadNextScene(nodeId);
+
+  // 判斷是否為章節起始節點
+  const isChapterStart = useMemo(() => {
+    const normalizedId = nodeId.replace(/^yi1-/, '');
+    return (
+      normalizedId.endsWith('-1') ||
+      normalizedId.includes('-intro') ||
+      normalizedId === 'preface-1' ||
+      normalizedId === 'prologue-1'
+    );
+  }, [nodeId]);
+
+  // 取得當前章節資料
+  const chapterMeta = useMemo(() => {
+    const normalizedId = nodeId.replace(/^yi1-/, '');
+    const chapterKey = normalizedId.replace(/-\d+$/, '').replace(/-intro$/, '');
+    return yi1ChaptersMeta.find(ch => ch.id === chapterKey);
+  }, [nodeId]);
 
   // 即使沒有匹配的圖片，也會使用預設圖片（由 getSceneImage 提供）
   // 這裡只在極端情況下返回 null
@@ -532,14 +551,65 @@ const SceneImage = ({ nodeId, hideOverlay = false, isLoaded: externalLoaded }: S
     );
   };
 
-  // 換圖統一使用極簡淡入，避免切換閃爍
+  // 根據場景類型選擇不同的柔和過場方式（無閃光）
   const getEntryAnimation = () => {
-    return {
-      initial: { opacity: 0 },
-      animate: { opacity: isLoaded ? 1 : 0 },
-      transition: { duration: 0.28, ease: 'linear' as const },
-    };
+    if (disableImageTransitionEffects || !prevImage) {
+      // 首次載入 or 特效停用：簡單淡入
+      return {
+        initial: { opacity: 0 },
+        animate: { opacity: isLoaded ? 1 : 0 },
+        transition: { duration: 0.4, ease: 'easeOut' as const },
+      };
+    }
+    // 有前一張圖時，根據場景氛圍選不同過場
+    switch (sceneEffect) {
+      case 'mystical':
+      case 'ethereal':
+        // 柔焦溶解：輕微模糊進場
+        return {
+          initial: { opacity: 0, filter: 'blur(8px)' },
+          animate: { opacity: isLoaded ? 1 : 0, filter: isLoaded ? 'blur(0px)' : 'blur(8px)' },
+          transition: { duration: 0.6, ease: 'easeOut' as const },
+        };
+      case 'warm':
+      case 'poetic':
+        // 輕微上移淡入
+        return {
+          initial: { opacity: 0, y: 12 },
+          animate: { opacity: isLoaded ? 1 : 0, y: isLoaded ? 0 : 12 },
+          transition: { duration: 0.5, ease: 'easeOut' as const },
+        };
+      case 'dramatic':
+        // 輕微縮放進場（不用 flash）
+        return {
+          initial: { opacity: 0, scale: 1.03 },
+          animate: { opacity: isLoaded ? 1 : 0, scale: isLoaded ? 1 : 1.03 },
+          transition: { duration: 0.5, ease: 'easeOut' as const },
+        };
+      case 'dark':
+        // 從暗處浮現
+        return {
+          initial: { opacity: 0 },
+          animate: { opacity: isLoaded ? 1 : 0 },
+          transition: { duration: 0.7, ease: [0.4, 0, 0.2, 1] as [number, number, number, number] },
+        };
+      case 'glitch':
+        // 快速切入
+        return {
+          initial: { opacity: 0 },
+          animate: { opacity: isLoaded ? 1 : 0 },
+          transition: { duration: 0.15, ease: 'linear' as const },
+        };
+      default:
+        // 預設：交叉淡入
+        return {
+          initial: { opacity: 0 },
+          animate: { opacity: isLoaded ? 1 : 0 },
+          transition: { duration: 0.4, ease: 'easeOut' as const },
+        };
+    }
   };
+
 
   // 根據特效類型獲取過場效果顏色
   const getTransitionColor = () => {
@@ -1144,6 +1214,123 @@ const SceneImage = ({ nodeId, hideOverlay = false, isLoaded: externalLoaded }: S
           backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
         }}
       />
+
+      {/* 章節起始標題疊層 — 僅在章節第一個節點短暫顯示 */}
+      <AnimatePresence>
+        {isChapterStart && chapterMeta && isLoaded && (
+          <motion.div
+            key={`chapter-title-${nodeId}`}
+            className="absolute inset-0 z-30 flex items-center justify-center pointer-events-none"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.8, ease: 'easeOut' }}
+          >
+            {/* 半透明背景遮罩 */}
+            <motion.div
+              className="absolute inset-0"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 0.4 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.6 }}
+              style={{
+                background: 'radial-gradient(ellipse at center, hsl(222 50% 3% / 0.6) 0%, transparent 80%)',
+              }}
+            />
+            
+            <div className="relative text-center z-10 px-8">
+              {/* 上方裝飾線 */}
+              <motion.div
+                className="flex items-center justify-center gap-3 mb-6"
+                initial={{ opacity: 0, scaleX: 0 }}
+                animate={{ opacity: 0.7, scaleX: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+              >
+                <div 
+                  className="h-px w-12 sm:w-20"
+                  style={{
+                    background: `linear-gradient(90deg, transparent, ${themeToHSL(chapterTheme, 0.6)})`,
+                  }}
+                />
+                <div 
+                  className="w-1.5 h-1.5 rotate-45"
+                  style={{
+                    background: themeToHSL(chapterTheme, 0.8),
+                    boxShadow: `0 0 8px ${themeToHSL(chapterTheme, 0.4)}`,
+                  }}
+                />
+                <div 
+                  className="h-px w-12 sm:w-20"
+                  style={{
+                    background: `linear-gradient(90deg, ${themeToHSL(chapterTheme, 0.6)}, transparent)`,
+                  }}
+                />
+              </motion.div>
+
+              {/* 章節標題 */}
+              <motion.h1
+                className="font-serif-tc text-xl sm:text-2xl md:text-4xl tracking-[0.2em] sm:tracking-[0.3em]"
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.7, delay: 0.3, ease: 'easeOut' }}
+                style={{
+                  color: themeToGlow(chapterTheme, 0.95),
+                  textShadow: `
+                    0 0 40px ${themeToHSL(chapterTheme, 0.5)},
+                    0 2px 20px hsl(0 0% 0% / 0.8)
+                  `,
+                }}
+              >
+                {chapterMeta.title}
+              </motion.h1>
+
+              {/* 副標題 */}
+              {chapterMeta.subtitle && (
+                <motion.h2
+                  className="font-serif-tc text-base sm:text-lg md:text-xl mt-2 sm:mt-3 tracking-[0.1em] opacity-80"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 0.85, y: 0 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.6, delay: 0.5, ease: 'easeOut' }}
+                  style={{
+                    color: themeToGlow(chapterTheme, 0.8),
+                    textShadow: `
+                      0 0 25px ${themeToHSL(chapterTheme, 0.3)},
+                      0 2px 15px hsl(0 0% 0% / 0.7)
+                    `,
+                  }}
+                >
+                  {chapterMeta.subtitle}
+                </motion.h2>
+              )}
+
+              {/* 下方裝飾線 */}
+              <motion.div
+                className="flex items-center justify-center gap-3 mt-6"
+                initial={{ opacity: 0, scaleX: 0 }}
+                animate={{ opacity: 0.5, scaleX: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+              >
+                <div 
+                  className="h-px w-8 sm:w-14"
+                  style={{
+                    background: `linear-gradient(90deg, transparent, ${themeToHSL(chapterTheme, 0.4)})`,
+                  }}
+                />
+                <div 
+                  className="h-px w-8 sm:w-14"
+                  style={{
+                    background: `linear-gradient(90deg, ${themeToHSL(chapterTheme, 0.4)}, transparent)`,
+                  }}
+                />
+              </motion.div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
