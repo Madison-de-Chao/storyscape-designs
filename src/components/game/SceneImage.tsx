@@ -54,6 +54,7 @@ const SceneImage = ({ nodeId, hideOverlay = false, isLoaded: externalLoaded }: S
   const shouldSimplify = usePerformanceStore((state) => state.shouldSimplifyAnimations());
   const transitionTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const loadingTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const disableImageTransitionEffects = true;
 
   // 漸進式載入：先顯示模糊縮圖，再過渡到完整圖片（含進度追蹤）
   const { loaded: progressiveLoaded, thumbLoaded, blurLevel, thumbnailUrl, showThumbnail, progress } = useProgressiveImage(currentImage?.image);
@@ -69,22 +70,22 @@ const SceneImage = ({ nodeId, hideOverlay = false, isLoaded: externalLoaded }: S
     const sceneImage = getSceneImage(nodeId);
     if (sceneImage?.image !== currentImage?.image) {
       if (currentImage) {
-        setPrevImage(currentImage);
-        setShowTransitionEffect(true);
-        
-        if (transitionTimeoutRef.current) {
-          clearTimeout(transitionTimeoutRef.current);
-        }
-        
-        // 根據場景類型調整轉場時間
-        const transitionDuration = sceneEffect === 'mystical' ? 2000 : 
-                                   sceneEffect === 'glitch' ? 1000 : 
-                                   sceneEffect === 'dramatic' ? 1800 : 1500;
-        
-        transitionTimeoutRef.current = setTimeout(() => {
+        if (!disableImageTransitionEffects) {
+          setPrevImage(currentImage);
+          setShowTransitionEffect(true);
+
+          if (transitionTimeoutRef.current) {
+            clearTimeout(transitionTimeoutRef.current);
+          }
+
+          transitionTimeoutRef.current = setTimeout(() => {
+            setShowTransitionEffect(false);
+            setPrevImage(null);
+          }, 300);
+        } else {
           setShowTransitionEffect(false);
           setPrevImage(null);
-        }, transitionDuration);
+        }
       }
       
       setIsLoaded(false);
@@ -531,94 +532,13 @@ const SceneImage = ({ nodeId, hideOverlay = false, isLoaded: externalLoaded }: S
     );
   };
 
-  // 根據特效類型獲取進場動畫 - 低性能設備使用簡化版
+  // 換圖統一使用極簡淡入，避免切換閃爍
   const getEntryAnimation = () => {
-    // 低性能設備：統一使用簡單淡入效果
-    if (shouldSimplify) {
-      return {
-        initial: { opacity: 0 },
-        animate: { opacity: isLoaded ? 1 : 0 },
-        transition: { duration: 0.5, ease: 'easeOut' as const },
-      };
-    }
-    
-    // 正常設備：完整特效
-    switch (sceneEffect) {
-      case 'glitch':
-        return {
-          initial: { opacity: 0, x: 10, filter: 'hue-rotate(90deg) saturate(2)' },
-          animate: { 
-            opacity: isLoaded ? 1 : 0, 
-            x: isLoaded ? [0, -5, 3, -2, 0] : 0,
-            filter: isLoaded ? 'hue-rotate(0deg) saturate(1)' : 'hue-rotate(90deg) saturate(2)',
-          },
-          transition: { duration: 0.8, ease: 'easeOut' as const },
-        };
-      case 'mystical':
-        return {
-          initial: { opacity: 0, scale: 1.2, filter: 'blur(20px)' },
-          animate: { 
-            opacity: isLoaded ? 1 : 0, 
-            scale: isLoaded ? 1 : 1.2,
-            filter: isLoaded ? 'blur(0px)' : 'blur(20px)',
-          },
-          transition: { duration: 2, ease: [0.25, 0.46, 0.45, 0.94] as const },
-        };
-      case 'ethereal':
-        return {
-          initial: { opacity: 0, y: -30, filter: 'brightness(2)' },
-          animate: { 
-            opacity: isLoaded ? 1 : 0, 
-            y: isLoaded ? 0 : -30,
-            filter: isLoaded ? 'brightness(1)' : 'brightness(2)',
-          },
-          transition: { duration: 1.5, ease: 'easeOut' as const },
-        };
-      case 'dramatic':
-        return {
-          initial: { opacity: 0, scale: 0.9, filter: 'contrast(1.5) brightness(0.5)' },
-          animate: { 
-            opacity: isLoaded ? 1 : 0, 
-            scale: isLoaded ? 1 : 0.9,
-            filter: isLoaded ? 'contrast(1) brightness(1)' : 'contrast(1.5) brightness(0.5)',
-          },
-          transition: { duration: 1.2, ease: 'easeOut' as const },
-        };
-      case 'warm':
-        return {
-          initial: { opacity: 0, filter: 'sepia(1) brightness(0.8)' },
-          animate: { 
-            opacity: isLoaded ? 1 : 0, 
-            filter: isLoaded ? 'sepia(0.2) brightness(1)' : 'sepia(1) brightness(0.8)',
-          },
-          transition: { duration: 1.5, ease: 'easeInOut' as const },
-        };
-      case 'poetic':
-        return {
-          initial: { opacity: 0, y: 20, filter: 'saturate(0) brightness(1.3)' },
-          animate: { 
-            opacity: isLoaded ? 1 : 0, 
-            y: isLoaded ? 0 : 20,
-            filter: isLoaded ? 'saturate(1) brightness(1)' : 'saturate(0) brightness(1.3)',
-          },
-          transition: { duration: 1.8, ease: 'easeOut' as const },
-        };
-      case 'dark':
-        return {
-          initial: { opacity: 0, filter: 'brightness(0) contrast(2)' },
-          animate: { 
-            opacity: isLoaded ? 1 : 0, 
-            filter: isLoaded ? 'brightness(0.9) contrast(1.1)' : 'brightness(0) contrast(2)',
-          },
-          transition: { duration: 1.5, ease: 'easeInOut' as const },
-        };
-      default:
-        return {
-          initial: { opacity: 0, scale: 1.1 },
-          animate: { opacity: isLoaded ? 1 : 0, scale: isLoaded ? 1 : 1.05 },
-          transition: { duration: 1.5, ease: [0.25, 0.46, 0.45, 0.94] as const },
-        };
-    }
+    return {
+      initial: { opacity: 0 },
+      animate: { opacity: isLoaded ? 1 : 0 },
+      transition: { duration: 0.28, ease: 'linear' as const },
+    };
   };
 
   // 根據特效類型獲取過場效果顏色
@@ -646,7 +566,7 @@ const SceneImage = ({ nodeId, hideOverlay = false, isLoaded: externalLoaded }: S
       
       {/* 過場效果 */}
       <AnimatePresence>
-        {showTransitionEffect && (
+        {!disableImageTransitionEffects && showTransitionEffect && (
           <motion.div
             className="absolute inset-0 z-50 pointer-events-none"
             initial={{ opacity: 0 }}
@@ -812,7 +732,7 @@ const SceneImage = ({ nodeId, hideOverlay = false, isLoaded: externalLoaded }: S
 
       {/* 舊圖片淡出 - 增強平滑度 */}
       <AnimatePresence mode="sync">
-        {prevImage && showTransitionEffect && (
+        {!disableImageTransitionEffects && prevImage && showTransitionEffect && (
           <motion.div
             key={`prev-${prevImage.image}`}
             className="absolute inset-0"
@@ -854,32 +774,25 @@ const SceneImage = ({ nodeId, hideOverlay = false, isLoaded: externalLoaded }: S
           className="absolute inset-0"
           {...entryAnimation}
         >
-          {/* 進場時的柔光效果 */}
-          <motion.div
-            className="absolute inset-0 z-10 pointer-events-none"
-            initial={{ opacity: 0.5 }}
-            animate={{ opacity: 0 }}
-            transition={{ duration: 1.5, delay: 0.3 }}
-            style={{
-              background: 'radial-gradient(ellipse at center, hsl(38 80% 55% / 0.15) 0%, transparent 60%)',
-            }}
-          />
+          {/* 進場柔光已停用，避免換圖閃爍 */}
+          {!disableImageTransitionEffects && (
+            <motion.div
+              className="absolute inset-0 z-10 pointer-events-none"
+              initial={{ opacity: 0.5 }}
+              animate={{ opacity: 0 }}
+              transition={{ duration: 1.5, delay: 0.3 }}
+              style={{
+                background: 'radial-gradient(ellipse at center, hsl(38 80% 55% / 0.15) 0%, transparent 60%)',
+              }}
+            />
+          )}
 
-          {/* 圖片容器 - 緩慢呼吸動畫 + 漸進式載入 blur-up 效果 */}
+          {/* 圖片容器 - 停用呼吸動畫，避免畫面抖動 */}
           <motion.div
             className="absolute inset-0 overflow-hidden"
-            initial={{ scale: 1.05 }}
-            animate={{
-              scale: sceneEffect === 'glitch' ? [1, 1.005, 1] : [1, 1.02, 1],
-            }}
-            transition={{
-              scale: {
-                duration: sceneEffect === 'glitch' ? 8 : 25,
-                repeat: Infinity,
-                repeatType: 'reverse',
-                ease: 'easeInOut',
-              },
-            }}
+            initial={{ scale: 1 }}
+            animate={{ scale: 1 }}
+            transition={{ duration: 0 }}
           >
             {/* 低解析度縮圖佔位符（Blur-Up 效果） */}
             {showThumbnail && thumbnailUrl && (
@@ -907,18 +820,13 @@ const SceneImage = ({ nodeId, hideOverlay = false, isLoaded: externalLoaded }: S
               onLoad={() => setIsLoaded(true)}
               // 若圖片載入失敗，避免 isLoaded 永遠為 false 導致整個場景黑屏
               onError={() => setIsLoaded(true)}
-              initial={{ scale: 1.08, opacity: 0 }}
+              initial={{ scale: 1, opacity: 0 }}
               animate={{
                 scale: 1,
                 opacity: progressiveLoaded ? 1 : 0,
-                y: sceneEffect === 'mystical' ? [0, -15, 0] : [0, -8, 0],
-                x: sceneEffect === 'poetic' ? [0, 5, 0] : [0, 3, 0],
               }}
               transition={{
-                scale: { duration: 1.5, ease: [0.43, 0.13, 0.23, 0.96] },
-                opacity: { duration: 0.6, ease: 'easeOut' },
-                y: { duration: 20, repeat: Infinity, repeatType: 'reverse', ease: 'easeInOut' },
-                x: { duration: 20, repeat: Infinity, repeatType: 'reverse', ease: 'easeInOut' },
+                opacity: { duration: 0.25, ease: 'linear' },
               }}
               style={{
                 willChange: 'transform, opacity',
