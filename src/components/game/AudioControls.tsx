@@ -87,6 +87,29 @@ const AudioControls = () => {
         >
           <Settings className="w-4 h-4 sm:w-5 sm:h-5" />
         </motion.button>
+
+        {/* 全螢幕按鈕 */}
+        <motion.button
+          onClick={toggleFullscreen}
+          className="
+            p-2 sm:p-2.5 rounded-full
+            bg-background/80 backdrop-blur-sm
+            border border-border/50 hover:border-primary/50
+            text-muted-foreground hover:text-foreground
+            transition-colors duration-200 active:scale-95
+            touch-manipulation
+          "
+          style={{ WebkitTapHighlightColor: 'transparent' }}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.9 }}
+          title={isFullscreen ? '退出全螢幕' : '全螢幕'}
+        >
+          {isFullscreen ? (
+            <Minimize className="w-4 h-4 sm:w-5 sm:h-5" />
+          ) : (
+            <Maximize className="w-4 h-4 sm:w-5 sm:h-5" />
+          )}
+        </motion.button>
       </div>
 
       {/* 音量控制面板 */}
