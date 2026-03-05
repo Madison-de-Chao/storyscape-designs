@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, useCallback, useMemo, lazy, Suspense } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, Home, BookOpen, RotateCcw, Image, Trophy, Map } from 'lucide-react';
+import { Home, BookOpen, RotateCcw, Image, Trophy, Map } from 'lucide-react';
 import { useGameStore, type ZenTheme, type RevelationTheme } from '@/stores/gameStore';
 import { useSFX, useBGM, useAmbient, getAmbientTypeForScene, getBGMForNode } from '@/hooks/useAudio';
 import { usePreloadImages } from '@/hooks/usePreloadImages';
