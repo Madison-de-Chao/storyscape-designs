@@ -8,6 +8,8 @@ import { chapter2Nodes } from './chapter2Nodes';
 import { chapter3Nodes } from './chapter3Nodes';
 import { chapter4Nodes } from './chapter4Nodes';
 import { chapter5Nodes } from './chapter5Nodes';
+import { chapter6Nodes } from './chapter6Nodes';
+import { chapter7Nodes } from './chapter7Nodes';
 import { chapter8Nodes } from './chapter8Nodes';
 import { chapter9Nodes } from './chapter9Nodes';
 import { chapter10Nodes } from './chapter10Nodes';
