@@ -1090,25 +1090,25 @@ const SceneImage = ({ nodeId, hideOverlay = false, isLoaded: externalLoaded }: S
             transition={{ duration: 0.5 }}
             className="absolute inset-0 z-20"
           >
-            {/* 頂部漸變 - 極輕薄 */}
+            {/* 頂部漸變 - 約30%遮蔽 */}
             <div 
-              className="absolute inset-x-0 top-0 h-20 z-10"
+              className="absolute inset-x-0 top-0 h-16 z-10"
               style={{
-                background: 'linear-gradient(to bottom, hsl(var(--background) / 0.2) 0%, hsl(var(--background) / 0.05) 50%, transparent 100%)',
+                background: 'linear-gradient(to bottom, hsl(var(--background) / 0.15) 0%, transparent 100%)',
               }}
             />
-            {/* 底部漸變 - 極輕薄，僅對話框區域需要輕微漸層 */}
+            {/* 底部漸變 - 約30%遮蔽 */}
             <div 
-              className="absolute inset-x-0 bottom-0 h-[30%] z-10"
+              className="absolute inset-x-0 bottom-0 h-[25%] z-10"
               style={{
-                background: 'linear-gradient(to top, hsl(var(--background) / 0.45) 0%, hsl(var(--background) / 0.15) 40%, transparent 100%)',
+                background: 'linear-gradient(to top, hsl(var(--background) / 0.3) 0%, hsl(var(--background) / 0.1) 40%, transparent 100%)',
               }}
             />
             {/* 邊角暗化 - 極輕 */}
             <div 
               className="absolute inset-0 z-10 pointer-events-none"
               style={{
-                background: 'radial-gradient(ellipse 95% 95% at center, transparent 65%, hsl(var(--background) / 0.1) 100%)',
+                background: 'radial-gradient(ellipse 95% 95% at center, transparent 70%, hsl(var(--background) / 0.08) 100%)',
               }}
             />
           </motion.div>
