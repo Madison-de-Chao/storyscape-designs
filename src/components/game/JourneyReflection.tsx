@@ -36,14 +36,15 @@ const JourneyReflection = ({ isOpen, onClose }: JourneyReflectionProps) => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-md p-4"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-md p-2 sm:p-4"
     >
       <motion.div
         initial={{ scale: 0.9, opacity: 0, y: 20 }}
         animate={{ scale: 1, opacity: 1, y: 0 }}
         exit={{ scale: 0.9, opacity: 0, y: 20 }}
         transition={{ type: 'spring', duration: 0.5 }}
-        className="relative w-full max-w-3xl max-h-[85vh] overflow-hidden bg-gradient-to-b from-surface-dark via-background to-surface-dark border border-primary/20 rounded-2xl shadow-2xl"
+        className="relative w-full max-w-3xl flex flex-col overflow-hidden bg-gradient-to-b from-surface-dark via-background to-surface-dark border border-primary/20 rounded-2xl shadow-2xl"
+        style={{ maxHeight: 'calc(100vh - 1rem)', height: 'auto' }}
       >
         {/* 背景裝飾 */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -62,7 +63,7 @@ const JourneyReflection = ({ isOpen, onClose }: JourneyReflectionProps) => {
         </Button>
 
         {/* 標題區域 */}
-        <div className="relative p-6 pb-4 text-center border-b border-border/30">
+        <div className="relative p-4 sm:p-6 pb-3 sm:pb-4 text-center border-b border-border/30 flex-shrink-0">
           <motion.div
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
@@ -80,7 +81,7 @@ const JourneyReflection = ({ isOpen, onClose }: JourneyReflectionProps) => {
         </div>
 
         {/* 進度指示器 */}
-        <div className="relative px-6 pt-4">
+        <div className="relative px-4 sm:px-6 pt-3 sm:pt-4 flex-shrink-0">
           <div className="flex items-center justify-center gap-2">
             {phases.map((_, idx) => (
               <button
@@ -115,7 +116,7 @@ const JourneyReflection = ({ isOpen, onClose }: JourneyReflectionProps) => {
         </div>
 
         {/* 內容區域 */}
-        <div className="relative px-6 py-4 overflow-y-auto max-h-[calc(85vh-200px)]">
+        <div className="relative px-4 sm:px-6 py-4 overflow-y-auto flex-1 min-h-0">
           <AnimatePresence mode="wait">
             {isSummaryPage ? (
               <motion.div
@@ -292,7 +293,7 @@ const JourneyReflection = ({ isOpen, onClose }: JourneyReflectionProps) => {
         </div>
 
         {/* 導航按鈕 */}
-        <div className="relative px-6 py-4 border-t border-border/30 flex items-center justify-between">
+        <div className="relative px-4 sm:px-6 py-3 sm:py-4 border-t border-border/30 flex items-center justify-between flex-shrink-0">
           <Button
             variant="ghost"
             onClick={handlePrevPhase}
