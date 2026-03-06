@@ -183,14 +183,14 @@ const GameScene = () => {
   // 成就系統
   const { pendingAchievement, dismissAchievement, unlockAchievement } = useAchievements();
 
+  const visualProgress = 1 - arcValue / 180;
+  const isYiPart = currentPart === 'yi';
+  const themeHue = isYiPart ? 38 : 350;
+
   // 根據當前部查詢節點
   const currentNode = isYiPart
     ? (getYi1NodeById(currentNodeId) || getNodeById(currentNodeId))
     : getYi2NodeById(currentNodeId);
-
-  const visualProgress = 1 - arcValue / 180;
-  const isYiPart = currentPart === 'yi';
-  const themeHue = isYiPart ? 38 : 350;
   const preloadImages = isYiPart
     ? [getSceneImage(currentNodeId)?.image].filter(Boolean) as string[]
     : [];
