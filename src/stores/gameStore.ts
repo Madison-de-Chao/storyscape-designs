@@ -220,7 +220,7 @@ const defaultProgress: PartProgress = {
 const defaultPart2Progress: PartProgress = {
   arcValue: 0,
   currentChapter: 0,
-  currentNodeId: 'yi-prologue-1',
+  currentNodeId: 'yi2-preface-1',
   colorsCollected: [],
   choicesHistory: {},
   shadowLevel: 0,

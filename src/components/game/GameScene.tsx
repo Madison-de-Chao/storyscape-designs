@@ -91,13 +91,17 @@ const getChapterTitle = (nodeId: string, isYiPart: boolean): string => {
 };
 
 // 從節點 ID 提取章節編號（同時返回用於主題色的 key）
-const getChapterNumber = (nodeId: string): string => {
+const getChapterNumber = (nodeId: string, isYiPart: boolean): string => {
+  if (!isYiPart) {
+    // 第二部：直接使用 yi2 的 key
+    return getYi2ChapterKey(nodeId);
+  }
+  
   const normalizedId = normalizeChapterId(nodeId);
   if (normalizedId.startsWith('preface')) return 'preface';
   if (normalizedId.startsWith('prologue')) return 'prologue';
   if (normalizedId.startsWith('epilogue')) return 'epilogue';
   
-  // 支援兩種格式
   const matchDash = normalizedId.match(/chapter-(\d+)/);
   if (matchDash) return `chapter-${matchDash[1]}`;
   
@@ -108,8 +112,8 @@ const getChapterNumber = (nodeId: string): string => {
 };
 
 // 從節點 ID 提取章節 key（用於主題色查詢）
-const getChapterKey = (nodeId: string): string => {
-  return getChapterNumber(nodeId);
+const getChapterKey = (nodeId: string, isYiPart: boolean): string => {
+  return getChapterNumber(nodeId, isYiPart);
 };
 
 const GameScene = () => {
