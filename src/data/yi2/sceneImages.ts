@@ -93,6 +93,7 @@ export const yi2BgImageMap: Record<string, string> = {
 
   // CH09 場景
   'yi2-office-wide': ch09OfficeWide,           // 辦公室廣角
+  'yi2-office-wide-v2': ch09OfficeWideV2,      // 辦公室廣角（修正版）
   'yi2-office-medium': ch09OfficeMedium,       // 辦公室中景
   'yi2-office-corridor': ch09CorridorEmpty,    // 辦公室走廊
   'yi2-office-corridor-v2': ch09CorridorEmptyV2, // 辦公室走廊（修正版）
