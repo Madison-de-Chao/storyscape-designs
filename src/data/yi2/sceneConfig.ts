@@ -3,7 +3,8 @@
  * 將節點 ID 映射到背景 + 人物立繪配置
  */
 import type { BackgroundConfig, CharacterSprite } from '@/components/game/CharacterScene';
-
+import type { DialogueNode } from '@/stores/gameStore';
+import { getCharacterSprite } from './spriteRegistry';
 export interface Yi2SceneConfig {
   background: BackgroundConfig;
   characters?: CharacterSprite[];
