@@ -690,8 +690,8 @@ const GameScene = () => {
 
       {/* 進度 HUD */}
       <ProgressHUD
-        chapterProgress={progress.readNodes[getChapterKey(currentNodeId)]?.length || 0}
-        currentChapterTitle={isYiPart ? getChapterTitle(currentNodeId) : '序章・另一個我們'}
+        chapterProgress={progress.readNodes[getChapterKey(currentNodeId, isYiPart)]?.length || 0}
+        currentChapterTitle={getChapterTitle(currentNodeId, isYiPart)}
         isVisible={isProgressHUDVisible}
         onToggle={() => setIsProgressHUDVisible(!isProgressHUDVisible)}
       />
