@@ -159,9 +159,24 @@ export function getYi2SceneConfig(nodeId: string, node?: DialogueNode): Yi2Scene
   }
 
   // 自動為有立繪的角色生成 sprite
-  if (node?.speaker && ['protagonist', 'yi'].includes(node.speaker)) {
+  const spriteCharacters = ['protagonist', 'yi', 'xiaochen', 'xiaoman', 'linyi'];
+  if (node?.speaker && spriteCharacters.includes(node.speaker)) {
     const spriteSrc = getCharacterSprite(node.speaker, node.expression);
     if (spriteSrc) {
+      const positionMap: Record<string, 'left' | 'center' | 'right'> = {
+        protagonist: 'center',
+        yi: 'right',
+        xiaochen: 'left',
+        xiaoman: 'left',
+        linyi: 'right',
+      };
+      const entranceMap: Record<string, 'fade' | 'glitch' | 'slide-left' | 'slide-right'> = {
+        protagonist: 'fade',
+        yi: 'glitch',
+        xiaochen: 'slide-left',
+        xiaoman: 'slide-left',
+        linyi: 'slide-right',
+      };
       return {
         ...result,
         characters: [
@@ -169,8 +184,8 @@ export function getYi2SceneConfig(nodeId: string, node?: DialogueNode): Yi2Scene
           {
             id: node.speaker,
             src: spriteSrc,
-            position: node.speaker === 'yi' ? 'right' : 'center',
-            entrance: node.speaker === 'yi' ? 'glitch' : 'fade',
+            position: positionMap[node.speaker] || 'center',
+            entrance: entranceMap[node.speaker] || 'fade',
             isSpeaking: true,
             scale: 0.9,
           },
