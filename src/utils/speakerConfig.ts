@@ -149,6 +149,21 @@ export const getSpeakerTextStyle = (speaker: string): TextStyle => {
         color: 'hsl(270 50% 78%)',
         textShadow: '0 0 12px hsl(270 60% 60% / 0.4), 0 1px 3px hsl(0 0% 0% / 0.9)',
       };
+    case 'xiaochen':
+      return {
+        color: 'hsl(210 50% 78%)',
+        textShadow: '0 0 10px hsl(210 60% 60% / 0.3), 0 1px 3px hsl(0 0% 0% / 0.9)',
+      };
+    case 'xiaoman':
+      return {
+        color: 'hsl(35 50% 78%)',
+        textShadow: '0 0 10px hsl(35 60% 60% / 0.3), 0 1px 3px hsl(0 0% 0% / 0.9)',
+      };
+    case 'linyi':
+      return {
+        color: 'hsl(250 45% 78%)',
+        textShadow: '0 0 12px hsl(250 55% 60% / 0.4), 0 1px 3px hsl(0 0% 0% / 0.9)',
+      };
     case 'narrator':
       return {
         color: 'hsl(220 20% 72%)',
