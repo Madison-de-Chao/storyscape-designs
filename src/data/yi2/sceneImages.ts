@@ -3,6 +3,14 @@
  * 將 bgImage key 映射到實際圖片資源
  */
 
+// ── 通用場景背景圖 ──
+import bgMrtInterior from '@/assets/yi2/backgrounds/bg-mrt-interior.jpg';
+import bgApartmentNight from '@/assets/yi2/backgrounds/bg-apartment-night.jpg';
+import bgBedroomMorning from '@/assets/yi2/backgrounds/bg-bedroom-morning.jpg';
+import bgPhoneMorning from '@/assets/yi2/backgrounds/bg-phone-morning.jpg';
+import bgComputerNight from '@/assets/yi2/backgrounds/bg-computer-night.jpg';
+import bgTvMonroe from '@/assets/yi2/backgrounds/bg-tv-monroe.jpg';
+
 // ── CH01 背景圖 ──
 import ch01DeleteFile from '@/assets/yi2/backgrounds/ch01-key-delete-file.png';
 import ch01DeleteFileKv from '@/assets/yi2/backgrounds/ch01-key-delete-file-kv.png';
