@@ -34,6 +34,7 @@ import ch05MirrorYiSimpleV2 from '@/assets/yi2/backgrounds/ch05-key-mirror-yi-si
 
 // ── CH09 背景圖 ──
 import ch09OfficeWide from '@/assets/yi2/backgrounds/ch09-01-office-wide.png';
+import ch09OfficeWideV2 from '@/assets/yi2/backgrounds/ch09-01-office-wide-v2.png';
 import ch09OfficeMedium from '@/assets/yi2/backgrounds/ch09-02-office-medium.png';
 import ch09CorridorEmpty from '@/assets/yi2/backgrounds/ch09-bg-corridor-empty.png';
 import ch09CorridorEmptyV2 from '@/assets/yi2/backgrounds/ch09-bg-corridor-empty-v2.png';
