@@ -672,7 +672,7 @@ const GameScene = () => {
           {isYiPart ? '弧度歸零：壹' : '弧度歸零：伊'}
         </h2>
         <h3 className="text-sm sm:text-lg text-foreground/80 font-serif-tc truncate">
-          {isYiPart ? getChapterTitle(currentNodeId) : '序章・另一個我們'}
+          {getChapterTitle(currentNodeId, isYiPart)}
         </h3>
       </motion.div>
 
