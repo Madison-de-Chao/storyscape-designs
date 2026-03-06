@@ -57,6 +57,20 @@ import ch11PantryDialogueKv from '@/assets/yi2/backgrounds/ch11-key-pantry-dialo
 // ── CH12 背景圖 ──
 import ch12DynamicTension from '@/assets/yi2/backgrounds/ch12-04-dynamic-tension.png';
 
+// ── 尾聲 (EP) 背景圖 ──
+import ep02Medium from '@/assets/yi2/backgrounds/ep-02-medium.png';
+import ep04DynamicTension from '@/assets/yi2/backgrounds/ep-04-dynamic-tension.png';
+import epKey3YearsLater from '@/assets/yi2/backgrounds/ep-key-3years-later.png';
+import epKeyCreatorV4 from '@/assets/yi2/backgrounds/ep-key-creator-v4.png';
+import epKeyCreatorV4_2 from '@/assets/yi2/backgrounds/ep-key-creator-v4-2.png';
+
+// ── 關鍵視覺 (KV) 系列 ──
+import kvCosmicPassage from '@/assets/yi2/backgrounds/kv-cosmic-passage.png';
+import kvCosmicPassage2k from '@/assets/yi2/backgrounds/kv-cosmic-passage-2k.webp';
+import kvMeetingConfrontationV3 from '@/assets/yi2/backgrounds/kv-meeting-confrontation-v3.png';
+import kvSunriseMirrorStep from '@/assets/yi2/backgrounds/kv-sunrise-mirror-step.webp';
+import kvRainReconciliationV3 from '@/assets/yi2/backgrounds/kv-rain-reconciliation-v3.jpg';
+
 /**
  * bgImage key → 實際圖片路徑映射
  * 節點的 bgImage 欄位值對應到此表
