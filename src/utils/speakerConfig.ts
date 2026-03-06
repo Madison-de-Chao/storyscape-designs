@@ -62,6 +62,9 @@ export const speakerColors: Record<string, string> = {
   monroe: 'text-pink-200',
   hemingway: 'text-stone-200',
   woolf: 'text-violet-200',
+  xiaochen: 'text-blue-200',
+  xiaoman: 'text-amber-200',
+  linyi: 'text-indigo-200',
   default: 'text-muted-foreground',
 };
 
