@@ -173,6 +173,120 @@ const chapterThemes: Record<string, ChapterTheme> = {
     lightness: 65,
     mood: 'calm',
   },
+
+  // ── 第二部「弧度歸零：伊」章節主題色 ──
+
+  // 作者序 - 溫柔玫瑰
+  'yi2-preface': {
+    hue: 340,
+    saturation: 45,
+    lightness: 55,
+    mood: 'calm',
+  },
+
+  // 第零章・日常 - 灰藍倦怠
+  'yi2-ch0': {
+    hue: 210,
+    saturation: 20,
+    lightness: 45,
+    mood: 'calm',
+  },
+
+  // 第一章・刪除 - 數位紅（故障感）
+  'yi2-ch1': {
+    hue: 0,
+    saturation: 65,
+    lightness: 50,
+    mood: 'tension',
+  },
+
+  // 第二章・空白 - 虛無淡紫
+  'yi2-ch2': {
+    hue: 270,
+    saturation: 35,
+    lightness: 55,
+    mood: 'mysterious',
+  },
+
+  // 第三章・攻擊 - 衝擊橙紅
+  'yi2-ch3': {
+    hue: 15,
+    saturation: 70,
+    lightness: 50,
+    mood: 'tension',
+  },
+
+  // 第四章・受害 - 冰藍疏離
+  'yi2-ch4': {
+    hue: 195,
+    saturation: 50,
+    lightness: 50,
+    mood: 'emotional',
+  },
+
+  // 第五章・夢露 - 好萊塢金
+  'yi2-ch5': {
+    hue: 45,
+    saturation: 80,
+    lightness: 60,
+    mood: 'revelation',
+  },
+
+  // 第六章・不完整的禮物 - 月光銀藍
+  'yi2-ch6': {
+    hue: 220,
+    saturation: 40,
+    lightness: 60,
+    mood: 'emotional',
+  },
+
+  // 第七章・還站著的人 - 堅韌琥珀
+  'yi2-ch7': {
+    hue: 35,
+    saturation: 65,
+    lightness: 55,
+    mood: 'inspiring',
+  },
+
+  // 第八章・對話 - 清晨青
+  'yi2-ch8': {
+    hue: 170,
+    saturation: 40,
+    lightness: 50,
+    mood: 'calm',
+  },
+
+  // 第九章・篩選 - 櫻花粉
+  'yi2-ch9': {
+    hue: 330,
+    saturation: 50,
+    lightness: 65,
+    mood: 'emotional',
+  },
+
+  // 第十章・庸才 - 舞台暖光
+  'yi2-ch10': {
+    hue: 30,
+    saturation: 70,
+    lightness: 55,
+    mood: 'emotional',
+  },
+
+  // 第十一章・回聲 - 寧靜藍
+  'yi2-ch11': {
+    hue: 200,
+    saturation: 50,
+    lightness: 55,
+    mood: 'calm',
+  },
+
+  // 第十二章・歸途 - 黎明金紫
+  'yi2-ch12': {
+    hue: 280,
+    saturation: 55,
+    lightness: 60,
+    mood: 'revelation',
+  },
 };
 
 /**
