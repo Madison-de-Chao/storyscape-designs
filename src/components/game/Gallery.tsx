@@ -152,36 +152,54 @@ const getChapterForImage = (config: SceneImageConfig): string => {
 };
 
 const Gallery = ({ isOpen, onClose }: GalleryProps) => {
-  const { yiProgress } = useGameStore();
-  const unlockedImages = yiProgress.unlockedImages || [];
+  const { yiProgress, yiPart2Progress, currentPart } = useGameStore();
+  const [activeTab, setActiveTab] = useState<'yi1' | 'yi2'>(currentPart === 'yi-part2' ? 'yi2' : 'yi1');
+  
+  const yi1UnlockedImages = yiProgress.unlockedImages || [];
+  const yi2UnlockedImages = yiPart2Progress.unlockedImages || [];
+  
+  const unlockedImages = activeTab === 'yi1' ? yi1UnlockedImages : yi2UnlockedImages;
+  const chapters = activeTab === 'yi1' ? yi1Chapters : yi2Chapters;
+  
   const [selectedImage, setSelectedImage] = useState<SceneImageConfig | null>(null);
-  const [expandedChapters, setExpandedChapters] = useState<Set<string>>(new Set(['preface', 'prologue', 'chapter-1']));
+  const [expandedChapters, setExpandedChapters] = useState<Set<string>>(new Set(
+    activeTab === 'yi1' ? ['preface', 'prologue', 'chapter-1'] : ['yi2-preface', 'yi2-ch1']
+  ));
 
   // 獲取所有可解鎖的圖片（去重）並按章節分組
   const imagesByChapter = useMemo(() => {
-    const allImages = sceneImages.reduce<SceneImageConfig[]>((acc, config) => {
-      if (!acc.find(img => img.image === config.image)) {
-        acc.push(config);
-      }
-      return acc;
-    }, []);
+    if (activeTab === 'yi1') {
+      const allImages = sceneImages.reduce<SceneImageConfig[]>((acc, config) => {
+        if (!acc.find(img => img.image === config.image)) {
+          acc.push(config);
+        }
+        return acc;
+      }, []);
 
-    const grouped: Record<string, SceneImageConfig[]> = {};
-    
-    for (const image of allImages) {
-      const chapterId = getChapterForImage(image);
-      if (!grouped[chapterId]) {
-        grouped[chapterId] = [];
+      const grouped: Record<string, SceneImageConfig[]> = {};
+      for (const image of allImages) {
+        const chapterId = getChapterForImage(image);
+        if (!grouped[chapterId]) grouped[chapterId] = [];
+        grouped[chapterId].push(image);
       }
-      grouped[chapterId].push(image);
+      return grouped;
+    } else {
+      // Part 2: 從 yi2BgImageMap 構建
+      const grouped: Record<string, SceneImageConfig[]> = {};
+      for (const config of yi2SceneImageConfigs) {
+        const chapterId = getYi2ChapterForImage(config);
+        if (!grouped[chapterId]) grouped[chapterId] = [];
+        grouped[chapterId].push(config);
+      }
+      return grouped;
     }
-
-    return grouped;
-  }, []);
+  }, [activeTab]);
 
   const totalImages = Object.values(imagesByChapter).flat().length;
 
   const isImageUnlocked = (imageUrl: string) => {
+    // 第二部：所有已註冊的背景都視為已解鎖（因為是場景背景而非敘事進度圖）
+    if (activeTab === 'yi2') return true;
     return unlockedImages.includes(imageUrl);
   };
 
