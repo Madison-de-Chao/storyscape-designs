@@ -6,7 +6,8 @@ export type SpeakerType =
   | 'narrator' | 'protagonist' | 'yi' | 'wenxin' | 'wendu' | 'mentor'
   | 'wangyangming' | 'sushi' | 'simaqian' | 'wuzetian' | 'libai'
   | 'mandela' | 'caesar' | 'cleopatra' | 'lincoln' | 'jobs' | 'vangogh' | 'helenkeller'
-  | 'xiangyu' | 'quyuan' | 'monroe' | 'hemingway' | 'woolf';
+  | 'xiangyu' | 'quyuan' | 'monroe' | 'hemingway' | 'woolf'
+  | 'xiaochen' | 'xiaoman' | 'linyi';
 
 // 說話者名稱映射
 export const speakerNames: Record<SpeakerType, string> = {
@@ -32,7 +33,10 @@ export const speakerNames: Record<SpeakerType, string> = {
   quyuan: '屈原',
   monroe: '夢露',
   hemingway: '海明威',
-  woolf: '乌尔芙',
+  woolf: '吳爾芙',
+  xiaochen: '小陳',
+  xiaoman: '小滿',
+  linyi: '林壹',
 };
 
 // 說話者顏色配置（用於名稱標籤）
@@ -58,6 +62,9 @@ export const speakerColors: Record<string, string> = {
   monroe: 'text-pink-200',
   hemingway: 'text-stone-200',
   woolf: 'text-violet-200',
+  xiaochen: 'text-blue-200',
+  xiaoman: 'text-amber-200',
+  linyi: 'text-indigo-200',
   default: 'text-muted-foreground',
 };
 
@@ -141,6 +148,21 @@ export const getSpeakerTextStyle = (speaker: string): TextStyle => {
       return {
         color: 'hsl(270 50% 78%)',
         textShadow: '0 0 12px hsl(270 60% 60% / 0.4), 0 1px 3px hsl(0 0% 0% / 0.9)',
+      };
+    case 'xiaochen':
+      return {
+        color: 'hsl(210 50% 78%)',
+        textShadow: '0 0 10px hsl(210 60% 60% / 0.3), 0 1px 3px hsl(0 0% 0% / 0.9)',
+      };
+    case 'xiaoman':
+      return {
+        color: 'hsl(35 50% 78%)',
+        textShadow: '0 0 10px hsl(35 60% 60% / 0.3), 0 1px 3px hsl(0 0% 0% / 0.9)',
+      };
+    case 'linyi':
+      return {
+        color: 'hsl(250 45% 78%)',
+        textShadow: '0 0 12px hsl(250 55% 60% / 0.4), 0 1px 3px hsl(0 0% 0% / 0.9)',
       };
     case 'narrator':
       return {
