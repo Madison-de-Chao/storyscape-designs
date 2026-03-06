@@ -781,6 +781,20 @@ const GameScene = () => {
           />
         </Suspense>
       )}
+
+      {/* 第二部章節開場動畫 */}
+      {showYi2ChapterIntro && yi2IntroConfig && (
+        <Suspense fallback={<LazyLoadingFallback fullScreen />}>
+          <Yi2ChapterIntro
+            chapterKey={yi2IntroConfig.chapterKey}
+            title={yi2IntroConfig.title}
+            subtitle={yi2IntroConfig.subtitle}
+            quote={yi2IntroConfig.quote}
+            style={yi2IntroConfig.style as any}
+            onComplete={() => setShowYi2ChapterIntro(false)}
+          />
+        </Suspense>
+      )}
     </div>
   );
 };
