@@ -45,6 +45,17 @@ import ch09SocialDistanceSimple from '@/assets/yi2/backgrounds/ch09-key-office-s
 // ── CH10 背景圖 ──
 import ch10StageWide from '@/assets/yi2/backgrounds/ch10-01-stage-wide.png';
 import ch10StageMedium from '@/assets/yi2/backgrounds/ch10-02-stage-medium.png';
+import ch10StageCloseup from '@/assets/yi2/backgrounds/ch10-03-stage-closeup.png';
+import ch10StageDynamic from '@/assets/yi2/backgrounds/ch10-04-stage-dynamic.png';
+import ch10EmbraceKv from '@/assets/yi2/backgrounds/ch10-key-inner-child-embrace-kv.png';
+
+// ── CH11 背景圖 ──
+import ch11PantryCloseup from '@/assets/yi2/backgrounds/ch11-03-pantry-closeup.png';
+import ch11PantryDynamic from '@/assets/yi2/backgrounds/ch11-04-pantry-dynamic.png';
+import ch11PantryDialogueKv from '@/assets/yi2/backgrounds/ch11-key-pantry-dialogue-kv.png';
+
+// ── CH12 背景圖 ──
+import ch12DynamicTension from '@/assets/yi2/backgrounds/ch12-04-dynamic-tension.png';
 
 /**
  * bgImage key → 實際圖片路徑映射
