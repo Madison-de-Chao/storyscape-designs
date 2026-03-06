@@ -5,6 +5,7 @@
 import type { BackgroundConfig, CharacterSprite } from '@/components/game/CharacterScene';
 import type { DialogueNode } from '@/stores/gameStore';
 import { getCharacterSprite } from './spriteRegistry';
+import { getYi2BgImage } from './sceneImages';
 export interface Yi2SceneConfig {
   background: BackgroundConfig;
   characters?: CharacterSprite[];
@@ -132,7 +133,7 @@ const chapterDefaults: Record<string, Yi2SceneConfig> = {
 };
 
 /**
- * 根據節點獲取場景配置（含自動立繪生成）
+ * 根據節點獲取場景配置（含背景圖片解析 + 自動立繪生成）
  */
 export function getYi2SceneConfig(nodeId: string, node?: DialogueNode): Yi2SceneConfig {
   const chapterMatch = nodeId.match(/^(yi2-(?:preface|ch\d+))/);
@@ -140,14 +141,31 @@ export function getYi2SceneConfig(nodeId: string, node?: DialogueNode): Yi2Scene
 
   const base = chapterDefaults[chapterKey] || { background: defaultBg(210) };
 
+  // 若節點有 bgImage，嘗試解析為實際圖片背景
+  let result = { ...base };
+  if (node?.bgImage) {
+    const imageSrc = getYi2BgImage(node.bgImage, chapterKey);
+    if (imageSrc) {
+      result = {
+        ...base,
+        background: {
+          type: 'image',
+          value: imageSrc,
+          animation: 'breathe',
+          overlay: 'noise',
+        },
+      };
+    }
+  }
+
   // 自動為有立繪的角色生成 sprite
   if (node?.speaker && ['protagonist', 'yi'].includes(node.speaker)) {
     const spriteSrc = getCharacterSprite(node.speaker, node.expression);
     if (spriteSrc) {
       return {
-        ...base,
+        ...result,
         characters: [
-          ...(base.characters || []),
+          ...(result.characters || []),
           {
             id: node.speaker,
             src: spriteSrc,
@@ -161,7 +179,7 @@ export function getYi2SceneConfig(nodeId: string, node?: DialogueNode): Yi2Scene
     }
   }
 
-  return base;
+  return result;
 }
 
 /**
