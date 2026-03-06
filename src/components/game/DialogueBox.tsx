@@ -302,7 +302,11 @@ const DialogueBox = ({ isHidden = false, onToggleHide, onScoreChange }: Dialogue
     if (isTyping) {
       setDisplayedText(currentNode.text);
       setIsTyping(false);
+      lastTypingFinishTimeRef.current = Date.now();
     } else if (currentNode.nextNodeId && !currentNode.choices) {
+      // 避免點擊完成打字時誤觸發下一段（增加 300ms 冷卻時間）
+      if (Date.now() - lastTypingFinishTimeRef.current < 300) return;
+      
       playSFX('dialogue_advance');
       advanceToNextNode(currentNode.nextNodeId);
     }
