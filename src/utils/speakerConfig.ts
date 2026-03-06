@@ -33,7 +33,10 @@ export const speakerNames: Record<SpeakerType, string> = {
   quyuan: '屈原',
   monroe: '夢露',
   hemingway: '海明威',
-  woolf: '乌尔芙',
+  woolf: '吳爾芙',
+  xiaochen: '小陳',
+  xiaoman: '小滿',
+  linyi: '林壹',
 };
 
 // 說話者顏色配置（用於名稱標籤）
