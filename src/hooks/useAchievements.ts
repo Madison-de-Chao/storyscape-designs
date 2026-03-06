@@ -78,10 +78,10 @@ export const useAchievements = () => {
 
   // 檢查成就條件
   useEffect(() => {
-    const choicesCount = Object.keys(progress.choicesHistory).length;
-    const arcValue = progress.arcValue;
-    const shadowLevel = progress.shadowLevel;
-    const currentNodeId = progress.currentNodeId;
+    const choicesCount = Object.keys(progress.choicesHistory || {}).length;
+    const arcValue = progress.arcValue || 0;
+    const shadowLevel = progress.shadowLevel || 0;
+    const currentNodeId = progress.currentNodeId || '';
 
     // 選擇類成就
     if (choicesCount >= 1 && choicesCount > prevChoicesCount) {
