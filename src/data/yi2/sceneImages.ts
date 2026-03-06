@@ -76,6 +76,24 @@ import kvRainReconciliationV3 from '@/assets/yi2/backgrounds/kv-rain-reconciliat
  * 節點的 bgImage 欄位值對應到此表
  */
 export const yi2BgImageMap: Record<string, string> = {
+  // ── 通用場景 key（節點中常用的泛用 bgImage）──
+  'yi2-office': ch09OfficeWide,                // 泛用辦公室 → 辦公室廣角
+  'yi2-office-day': ch09OfficeWideV2,          // 辦公室白天 → 辦公室廣角 V2
+  'yi2-bedroom-morning': ch05LivingRoomWide,   // 臥室早晨 → 客廳廣角（最接近居家場景）
+  'yi2-apartment-night': ch05LivingRoomMagic,  // 公寓夜晚 → 客廳魔幻鏡子
+  'yi2-apartment-333': ch05LivingRoomMagic,    // 凌晨 3:33 → 客廳魔幻
+  'yi2-mirror-night': ch03BathroomMirror,      // 夜晚鏡子 → 浴室鏡子
+  'yi2-mirror-monroe': ch03MirrorSmash,        // 夢露鏡像 → 砸鏡場景
+  'yi2-dream-stage': ch10StageWide,            // 夢中舞台 → 童年舞台廣角
+  'yi2-stage-dream': ch10StageDynamic,         // 舞台夢境 → 童年舞台動態
+  'yi2-dream-white-space': kvCosmicPassage,    // 白色空間夢境 → 宇宙通道
+  'yi2-computer-night': ch01DeleteFileKv,      // 電腦夜晚 → 咖啡廳刪檔（電腦螢幕意象）
+  'yi2-phone-morning': ch01DeleteFile,         // 手機早晨 → 刪檔場景
+  'yi2-tv-monroe': ch05LivingRoomWide,         // 電視夢露 → 客廳廣角
+  'yi2-restaurant-warm': ch04HotpotWide,       // 餐廳 → 火鍋店廣角
+  'yi2-pantry': ch11PantryDialogueKv,          // 茶水間 → 茶水間對話
+  'yi2-corridor': ch09CorridorEmpty,           // 走廊 → 辦公室走廊
+
   // CH01 場景
   'yi2-cafe': ch01DeleteFileKv,               // 咖啡廳刪檔場景（電影級）
   'yi2-cafe-delete': ch01DeleteFile,           // 咖啡廳刪檔（雙人構圖）
