@@ -98,6 +98,7 @@ export const yi2BgImageMap: Record<string, string> = {
   'yi2-dream-white-space': kvCosmicPassage,    // 白色空間夢境 → 宇宙通道
   'yi2-computer-night': bgComputerNight,       // 深夜電腦
   'yi2-phone-morning': bgPhoneMorning,         // 早晨看手機
+  'yi2-phone-message': bgPhoneMorning,         // 收到訊息看手機（復用早晨手機場景）
   'yi2-tv-monroe': bgTvMonroe,                 // 電視播放夢露紀錄片
   'yi2-restaurant-warm': ch04HotpotWide,       // 餐廳 → 火鍋店廣角
   'yi2-hotpot': ch04HotpotWide,                // 火鍋店
