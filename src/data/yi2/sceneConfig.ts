@@ -132,22 +132,36 @@ const chapterDefaults: Record<string, Yi2SceneConfig> = {
 };
 
 /**
- * 根據節點 ID 獲取場景配置
- * 優先精確匹配，其次章節預設
+ * 根據節點獲取場景配置（含自動立繪生成）
  */
-export function getYi2SceneConfig(nodeId: string): Yi2SceneConfig {
-  // 提取章節 key
+export function getYi2SceneConfig(nodeId: string, node?: DialogueNode): Yi2SceneConfig {
   const chapterMatch = nodeId.match(/^(yi2-(?:preface|ch\d+))/);
   const chapterKey = chapterMatch ? chapterMatch[1] : 'yi2-preface';
 
-  // TODO: 當有立繪圖片時，在此處根據節點 ID 精確配置 characters
-  // 例如：
-  // if (nodeId === 'yi2-ch1-5') return {
-  //   ...chapterDefaults[chapterKey],
-  //   characters: [{ id: 'yi', src: yiSprite, position: 'right', entrance: 'glitch', isSpeaking: true }],
-  // };
+  const base = chapterDefaults[chapterKey] || { background: defaultBg(210) };
 
-  return chapterDefaults[chapterKey] || { background: defaultBg(210) };
+  // 自動為 protagonist 說話者生成立繪
+  if (node?.speaker === 'protagonist') {
+    const spriteSrc = getCharacterSprite('protagonist', node.expression);
+    if (spriteSrc) {
+      return {
+        ...base,
+        characters: [
+          ...(base.characters || []),
+          {
+            id: 'protagonist',
+            src: spriteSrc,
+            position: 'center',
+            entrance: 'fade',
+            isSpeaking: true,
+            scale: 0.9,
+          },
+        ],
+      };
+    }
+  }
+
+  return base;
 }
 
 /**
