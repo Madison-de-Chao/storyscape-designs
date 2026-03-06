@@ -63,6 +63,7 @@ const DialogueBox = ({ isHidden = false, onToggleHide, onScoreChange }: Dialogue
   const autoForwardRef = useRef<NodeJS.Timeout | null>(null);
   const autoPlayRef = useRef<NodeJS.Timeout | null>(null);
   const lastAutoSaveNodeRef = useRef<string | null>(null);
+  const lastTypingFinishTimeRef = useRef<number>(0);
 
   // 獲取說話者名稱（用於歷史記錄）- 必須在 useEffect 之前定義
   const getSpeakerNameForHistory = useCallback((speaker: string): string => {
