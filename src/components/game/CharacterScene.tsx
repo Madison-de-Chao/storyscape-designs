@@ -94,7 +94,7 @@ const getBackgroundAnimation = (anim: BackgroundAnimation = 'static') => {
     case 'breathe':
       return {
         animate: { scale: [1, 1.03, 1] },
-        transition: { duration: 8, repeat: Infinity, ease: 'easeInOut' },
+        transition: { duration: 8, repeat: Infinity, ease: 'easeInOut' as const },
       };
     case 'drift':
       return {
