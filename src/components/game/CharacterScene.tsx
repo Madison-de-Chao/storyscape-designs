@@ -104,7 +104,7 @@ const getBackgroundAnimation = (anim: BackgroundAnimation = 'static') => {
     case 'pulse':
       return {
         animate: { opacity: [0.8, 1, 0.8] },
-        transition: { duration: 4, repeat: Infinity, ease: 'easeInOut' },
+        transition: { duration: 4, repeat: Infinity, ease: 'easeInOut' as const },
       };
     default:
       return {};
