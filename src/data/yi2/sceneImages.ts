@@ -76,6 +76,19 @@ export const yi2BgImageMap: Record<string, string> = {
   // CH05 場景
   'yi2-living-room-wide': ch05LivingRoomWide,  // 客廳廣角
   'yi2-living-room-magic': ch05LivingRoomMagic, // 客廳魔幻鏡子
+
+  // CH09 場景
+  'yi2-office-wide': ch09OfficeWide,           // 辦公室廣角
+  'yi2-office-medium': ch09OfficeMedium,       // 辦公室中景
+  'yi2-office-corridor': ch09CorridorEmpty,    // 辦公室走廊
+  'yi2-office-corridor-v2': ch09CorridorEmptyV2, // 辦公室走廊（修正版）
+  'yi2-office-social-v2': ch09SocialDistanceV2, // 辦公室社交距離（修正版）
+  'yi2-office-social-kv': ch09SocialDistanceKv, // 辦公室社交距離（KV 風格）
+  'yi2-office-social-simple': ch09SocialDistanceSimple, // 辦公室社交距離（單一構圖）
+
+  // CH10 場景
+  'yi2-stage-wide': ch10StageWide,             // 童年舞台廣角
+  'yi2-stage-medium': ch10StageMedium,         // 童年舞台中景
 };
 
 /**
