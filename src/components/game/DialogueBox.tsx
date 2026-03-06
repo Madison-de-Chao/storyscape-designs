@@ -716,7 +716,7 @@ const DialogueBox = ({ isHidden = false, onToggleHide, onScoreChange }: Dialogue
                       `}
                       style={{
                         fontSize: 'clamp(0.95rem, 3.5vw, 1.35rem)',
-                        lineHeight: '1.9',
+                        lineHeight: '2.2', // 增加行高以提升閱讀舒適度
                         letterSpacing: '0.03em',
                         fontWeight: 400,
                       }}
