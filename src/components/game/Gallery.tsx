@@ -19,7 +19,8 @@ interface ChapterInfo {
   patterns: string[];
 }
 
-const chapters: ChapterInfo[] = [
+// 第一部章節定義
+const yi1Chapters: ChapterInfo[] = [
   { id: 'preface', title: '作者序', subtitle: '起源', color: 'hsl(45, 80%, 55%)', patterns: ['preface-'] },
   { id: 'prologue', title: '序章', subtitle: '訓練場', color: 'hsl(270, 60%, 50%)', patterns: ['prologue-'] },
   { id: 'chapter-1', title: '第一章', subtitle: '刪除', color: 'hsl(0, 70%, 45%)', patterns: ['chapter-1-'] },
@@ -42,21 +43,109 @@ const chapters: ChapterInfo[] = [
   { id: 'postscript', title: '後記', subtitle: '作者的話', color: 'hsl(45, 50%, 45%)', patterns: ['postscript-', 'yi1-postscript-'] },
 ];
 
-// 判斷圖片屬於哪個章節
+// 第二部章節定義
+const yi2Chapters: ChapterInfo[] = [
+  { id: 'yi2-preface', title: '序章', subtitle: '弧度歸零', color: 'hsl(340, 50%, 50%)', patterns: ['yi2-preface'] },
+  { id: 'yi2-ch0', title: '第零章', subtitle: '起點', color: 'hsl(210, 35%, 50%)', patterns: ['yi2-ch0'] },
+  { id: 'yi2-ch1', title: '第一章', subtitle: '刪檔', color: 'hsl(0, 50%, 45%)', patterns: ['yi2-ch1', 'yi2-cafe'] },
+  { id: 'yi2-ch2', title: '第二章', subtitle: '會議室', color: 'hsl(270, 40%, 45%)', patterns: ['yi2-ch2', 'yi2-meeting'] },
+  { id: 'yi2-ch3', title: '第三章', subtitle: '鏡子', color: 'hsl(200, 40%, 45%)', patterns: ['yi2-ch3', 'yi2-bathroom', 'yi2-mirror'] },
+  { id: 'yi2-ch4', title: '第四章', subtitle: '火鍋', color: 'hsl(15, 55%, 50%)', patterns: ['yi2-ch4', 'yi2-hotpot'] },
+  { id: 'yi2-ch5', title: '第五章', subtitle: '客廳', color: 'hsl(45, 55%, 50%)', patterns: ['yi2-ch5', 'yi2-living'] },
+  { id: 'yi2-ch6', title: '第六章', subtitle: '陰影', color: 'hsl(220, 40%, 45%)', patterns: ['yi2-ch6'] },
+  { id: 'yi2-ch7', title: '第七章', subtitle: '蛻變', color: 'hsl(35, 50%, 45%)', patterns: ['yi2-ch7'] },
+  { id: 'yi2-ch8', title: '第八章', subtitle: '深淵', color: 'hsl(170, 35%, 45%)', patterns: ['yi2-ch8'] },
+  { id: 'yi2-ch9', title: '第九章', subtitle: '辦公室', color: 'hsl(330, 40%, 45%)', patterns: ['yi2-ch9', 'yi2-office'] },
+  { id: 'yi2-ch10', title: '第十章', subtitle: '童年舞台', color: 'hsl(30, 55%, 45%)', patterns: ['yi2-ch10', 'yi2-stage'] },
+  { id: 'yi2-ch11', title: '第十一章', subtitle: '茶水間', color: 'hsl(200, 40%, 45%)', patterns: ['yi2-ch11', 'yi2-pantry'] },
+  { id: 'yi2-ch12', title: '第十二章', subtitle: '張力', color: 'hsl(280, 40%, 45%)', patterns: ['yi2-ch12'] },
+  { id: 'yi2-ep', title: '尾聲', subtitle: '收束', color: 'hsl(45, 60%, 55%)', patterns: ['yi2-ep'] },
+  { id: 'yi2-kv', title: '特別視覺', subtitle: 'Key Visual', color: 'hsl(350, 50%, 55%)', patterns: ['yi2-kv'] },
+];
+
+// 將 yi2BgImageMap 轉換為 SceneImageConfig 格式
+const yi2SceneImageConfigs: SceneImageConfig[] = Object.entries(yi2BgImageMap).map(([key, image]) => {
+  // 從 key 推導 alt 和 nodePatterns
+  const altMap: Record<string, string> = {
+    'yi2-cafe': '咖啡廳刪檔場景',
+    'yi2-cafe-delete': '咖啡廳刪檔雙人構圖',
+    'yi2-meeting-room': '會議室空景',
+    'yi2-meeting-room-simple': '會議室單一構圖',
+    'yi2-meeting-room-cinematic': '會議室電影級',
+    'yi2-meeting-wide': '會議室廣角',
+    'yi2-meeting-confused': '會議困惑中景',
+    'yi2-meeting-lowangle': '低角度會議動態',
+    'yi2-meeting-key': '會議困惑關鍵場景',
+    'yi2-meeting-key-v2': '會議困惑關鍵場景 V2',
+    'yi2-meeting-key-female': '會議困惑女主角特寫',
+    'yi2-bathroom-mirror': '浴室鏡子空景',
+    'yi2-mirror-question': '鏡前質疑',
+    'yi2-mirror-smash': '砸鏡場景',
+    'yi2-hotpot-wide': '火鍋店廣角',
+    'yi2-hotpot-conflict': '火鍋店衝突',
+    'yi2-living-room-wide': '客廳廣角',
+    'yi2-living-room-magic': '客廳魔幻鏡子',
+    'yi2-mirror-yi-simple-v2': '鏡中伊修正版',
+    'yi2-office-wide': '辦公室廣角',
+    'yi2-office-wide-v2': '辦公室廣角修正版',
+    'yi2-office-medium': '辦公室中景',
+    'yi2-office-corridor': '辦公室走廊',
+    'yi2-office-corridor-v2': '辦公室走廊修正版',
+    'yi2-office-social-v2': '辦公室社交距離',
+    'yi2-office-social-kv': '辦公室社交距離 KV',
+    'yi2-office-social-simple': '辦公室社交距離構圖',
+    'yi2-stage-wide': '童年舞台廣角',
+    'yi2-stage-medium': '童年舞台中景',
+    'yi2-stage-closeup': '童年舞台特寫',
+    'yi2-stage-dynamic': '童年舞台動態',
+    'yi2-stage-embrace-kv': '內在小孩擁抱',
+    'yi2-pantry-closeup': '茶水間特寫',
+    'yi2-pantry-dynamic': '茶水間動態',
+    'yi2-pantry-dialogue-kv': '茶水間對話 KV',
+    'yi2-ch12-dynamic': '第十二章動態張力',
+    'yi2-ep-medium': '尾聲中景敘事',
+    'yi2-ep-dynamic': '尾聲動態張力',
+    'yi2-ep-3years': '三年後收束',
+    'yi2-ep-creator': '創作者視角',
+    'yi2-ep-creator-v2': '創作者視角 V2',
+    'yi2-kv-cosmic': '宇宙通道',
+    'yi2-kv-cosmic-2k': '宇宙通道 2K',
+    'yi2-kv-meeting-confrontation': '會議室對峙',
+    'yi2-kv-sunrise': '日出踏出鏡面',
+    'yi2-kv-rain': '雨中和解',
+  };
+  return {
+    image,
+    alt: altMap[key] || key.replace('yi2-', '').replace(/-/g, ' '),
+    nodePatterns: [key],
+  };
+});
+
+// 判斷 yi2 圖片屬於哪個章節
+const getYi2ChapterForImage = (config: SceneImageConfig): string => {
+  for (const chapter of yi2Chapters) {
+    for (const pattern of chapter.patterns) {
+      if (config.nodePatterns.some(np => np.startsWith(pattern))) {
+        return chapter.id;
+      }
+    }
+  }
+  return 'yi2-kv';
+};
+
+// 判斷圖片屬於哪個章節 (Part 1)
 const getChapterForImage = (config: SceneImageConfig): string => {
-  for (const chapter of chapters) {
+  for (const chapter of yi1Chapters) {
     for (const pattern of chapter.patterns) {
       if (config.nodePatterns.some(np => np.startsWith(pattern) || np.includes(pattern))) {
         return chapter.id;
       }
     }
   }
-  // 根據 alt 文本判斷
   const alt = config.alt.toLowerCase();
   if (alt.includes('作者序') || alt.includes('起源')) return 'preface';
   if (alt.includes('序章') || alt.includes('虛空') || alt.includes('訓練場')) return 'prologue';
   if (alt.includes('終章') || alt.includes('epilogue')) return 'epilogue';
-  // 嘗試從 alt 中提取章節號
   const chMatch = alt.match(/ch(\d+)/);
   if (chMatch) return `chapter-${chMatch[1]}`;
   return 'other';
