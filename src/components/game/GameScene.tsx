@@ -492,10 +492,23 @@ const GameScene = () => {
         </Suspense>
       )}
 
-      {/* 場景圖片（如果有） */}
+      {/* 場景圖片（第一部） */}
       {isYiPart && !showIntroSequence && (
         <SceneImage nodeId={currentNodeId} hideOverlay={isDialogueHidden} isLoaded={isImagesLoaded} />
       )}
+
+      {/* 第二部：CharacterScene 背景 + 人物立繪 */}
+      {!isYiPart && (() => {
+        const yi2Scene = getYi2SceneConfig(currentNodeId);
+        return (
+          <CharacterScene
+            chapterKey={getYi2ChapterKey(currentNodeId)}
+            background={yi2Scene.background}
+            characters={yi2Scene.characters}
+            hideOverlay={isDialogueHidden}
+          />
+        );
+      })()}
 
       {/* 粒子背景 */}
       <ParticleBackground arcValue={arcValue} />
