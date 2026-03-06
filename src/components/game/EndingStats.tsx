@@ -210,14 +210,14 @@ const EndingStats = ({ isOpen, onClose, fromGameEnd = false, onReturnToTitle }: 
   const { getMoonClarity } = useGameStore();
   const moonClarity = getMoonClarity();
   
-  const { arcValue, colorsCollected, choicesHistory, readNodes, lastReadAt, moonBrightValue, moonDarkValue } = progress;
+  const { arcValue = 0, colorsCollected = [], choicesHistory = {}, readNodes = {}, lastReadAt = null, moonBrightValue = 0, moonDarkValue = 0 } = progress || {};
   
   // 計算統計數據
-  const totalNodesRead = Object.values(readNodes || {}).reduce((sum, nodes) => sum + nodes.length, 0);
+  const totalNodesRead = Object.values(readNodes || {}).reduce((sum, nodes) => sum + (nodes?.length || 0), 0);
   const chaptersVisited = Object.keys(readNodes || {}).length;
   const totalChoices = Object.keys(choicesHistory || {}).length;
-  const ending = getEndingType(arcValue);
-  const suggestions = getGameExperienceSuggestions(arcValue, totalChoices, TOTAL_CHOICES_AVAILABLE);
+  const ending = getEndingType(arcValue || 0);
+  const suggestions = getGameExperienceSuggestions(arcValue || 0, totalChoices, TOTAL_CHOICES_AVAILABLE);
   
   // 計算完整度
   const completeness = getCompletenessData(totalChoices, TOTAL_CHOICES_AVAILABLE);
