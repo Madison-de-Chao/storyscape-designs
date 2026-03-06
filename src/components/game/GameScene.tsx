@@ -344,11 +344,43 @@ const GameScene = () => {
     // 不在 cleanup 中 stopBGM，讓音樂持續播放
   }, [currentNodeId]); // eslint-disable-line react-hooks/exhaustive-deps
 
+  // 第二部章節開場動畫狀態
+  const [showYi2ChapterIntro, setShowYi2ChapterIntro] = useState(false);
+  const [yi2IntroConfig, setYi2IntroConfig] = useState<{
+    chapterKey: string;
+    title: string;
+    subtitle: string;
+    quote: string;
+    style: string;
+  } | null>(null);
+  const yi2IntroShownRef = useRef<Set<string>>(new Set());
+
   // 偵測章節切換並觸發轉場動畫
   useEffect(() => {
-    const currentChapter = getChapterNumber(currentNodeId);
+    const currentChapter = getChapterNumber(currentNodeId, isYiPart);
     
-    // 檢查是否為章節起始節點（節點 ID 以 -1 結尾或包含 -intro）
+    // 第二部：使用 Yi2ChapterIntro
+    if (!isYiPart) {
+      const isChapterStartNode = currentNodeId.endsWith('-1');
+      if (currentChapter && isChapterStartNode && !yi2IntroShownRef.current.has(currentChapter)) {
+        yi2IntroShownRef.current.add(currentChapter);
+        const meta = yi2ChaptersMeta.find(ch => ch.id === currentChapter);
+        if (meta) {
+          setYi2IntroConfig({
+            chapterKey: currentChapter,
+            title: `${meta.title}`,
+            subtitle: meta.subtitle,
+            quote: meta.keyQuote || '',
+            style: yi2IntroStyles[currentChapter] || 'default',
+          });
+          setShowYi2ChapterIntro(true);
+        }
+      }
+      prevChapterRef.current = currentChapter;
+      return;
+    }
+
+    // 第一部：原有邏輯
     const normalizedId = currentNodeId.replace(/^yi1-/, '');
     const isChapterStartNode = 
       normalizedId.endsWith('-1') || 
@@ -356,14 +388,12 @@ const GameScene = () => {
       normalizedId === 'preface-1' ||
       normalizedId === 'prologue-1';
     
-    // 如果是新章節的起始節點，且尚未顯示過該章節的轉場
     if (currentChapter && isChapterStartNode && !chapterTransitionShownRef.current.has(currentChapter)) {
       chapterTransitionShownRef.current.add(currentChapter);
       
-      const newTitle = getChapterTitle(currentNodeId);
-      const chapterKey = getChapterKey(currentNodeId);
+      const newTitle = getChapterTitle(currentNodeId, isYiPart);
+      const chapterKey = getChapterKey(currentNodeId, isYiPart);
       
-      // 從章節資料中獲取副標題和金句
       const chapterMeta = yi1ChaptersMeta.find(ch => ch.id === chapterKey);
       const subtitle = chapterMeta?.subtitle || '';
       const quote = chapterMeta?.keyQuote || '';
@@ -376,7 +406,7 @@ const GameScene = () => {
     }
     
     prevChapterRef.current = currentChapter;
-  }, [currentNodeId]);
+  }, [currentNodeId, isYiPart]);
 
   // 組件卸載時停止音樂
   useEffect(() => {
