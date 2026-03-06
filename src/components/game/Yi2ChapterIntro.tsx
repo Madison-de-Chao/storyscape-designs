@@ -587,7 +587,6 @@ const Yi2ChapterIntro = ({
         >
           <motion.div
             className="h-[1px] w-12 sm:w-20"
-            style={{ background: `linear-gradient(90deg, transparent, ${color})` }}
             initial={{ scaleX: 0 }}
             animate={{ scaleX: 1 }}
             transition={{ duration: 0.6, delay: 0.6 }}
