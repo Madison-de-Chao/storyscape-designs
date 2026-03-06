@@ -4,8 +4,8 @@ import { Eye, EyeOff, FastForward, Play, Pause, History, Save, Download } from '
 import { useGameStore } from '@/stores/gameStore';
 import { usePerformanceStore } from '@/stores/performanceStore';
 import { getNodeById } from '@/data/prologueStory';
-// TODO: 第二部節點查詢函數待建立
 import { getYi1NodeById } from '@/data/yi1';
+import { getYi2NodeById } from '@/data/yi2';
 import { DialogueNode } from '@/stores/gameStore';
 import { useSFX } from '@/hooks/useAudio';
 import { getSpeakerEmotionSFX, shouldPlayEmotionSFX, type SpeakerType } from '@/utils/speakerEmotionSFX';
@@ -88,8 +88,9 @@ const DialogueBox = ({ isHidden = false, onToggleHide, onScoreChange }: Dialogue
   }, [currentPart]);
 
   useEffect(() => {
-    // TODO: 第二部節點邏輯待實作
-    const node = getYi1NodeById(currentNodeId) || getNodeById(currentNodeId);
+    const node = currentPart === 'yi'
+      ? (getYi1NodeById(currentNodeId) || getNodeById(currentNodeId))
+      : getYi2NodeById(currentNodeId);
     if (node) {
       setCurrentNode(node);
       setDisplayedText('');

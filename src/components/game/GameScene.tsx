@@ -15,6 +15,7 @@ import LazyLoadingFallback from './LazyLoadingFallback';
 // ScoreChange 已移除 - 月明值系統對玩家隱藏
 import ProgressHUD from './ProgressHUD';
 import AchievementToast from './AchievementToast';
+import CharacterScene from './CharacterScene';
 
 // 懶加載大型組件 - 僅在需要時載入
 const Gallery = lazy(() => import('./Gallery'));
@@ -25,13 +26,17 @@ const RevelationMoment = lazy(() => import('./RevelationMoment'));
 const GraduationMoment = lazy(() => import('./GraduationMoment'));
 const JourneyReflection = lazy(() => import('./JourneyReflection'));
 const GameEndOverlay = lazy(() => import('./GameEndOverlay'));
+const Yi2ChapterIntro = lazy(() => import('./Yi2ChapterIntro'));
 import { useAchievements } from '@/hooks/useAchievements';
 import { getNodeById } from '@/data/prologueStory';
-// TODO: 第二部節點查詢函數待建立
 import { getYi1NodeById } from '@/data/yi1';
+import { getYi2NodeById } from '@/data/yi2';
 import { getSceneImage, normalizeNodeId } from '@/data/yi1/sceneImages';
 import { yi1ChaptersMeta } from '@/data/yi1/chapters';
+import { yi2ChaptersMeta } from '@/data/yi2/chapters';
 import { getGraduationImageForNode, type GraduationImageData } from '@/data/yi1/graduationImages';
+import { getYi2SceneConfig, getYi2ChapterKey } from '@/data/yi2/sceneConfig';
+import { yi2IntroStyles } from './Yi2ChapterIntro';
 
 // 序章開場詩句（直排禪意動畫）
 const PROLOGUE_INTRO_LINES = [
@@ -48,16 +53,23 @@ const normalizeChapterId = (nodeId: string): string => {
   return normalizeNodeId(nodeId);
 };
 
-// 根據節點 ID 獲取當前章節標題
-const getChapterTitle = (nodeId: string): string => {
-  // 統一處理：章節 ID 正規化（移除 yi1- 前綴、標準化 chX/chapterX 等格式）
+// 根據節點 ID 獲取當前章節標題（支援第一部和第二部）
+const getChapterTitle = (nodeId: string, isYiPart: boolean): string => {
+  if (!isYiPart) {
+    // 第二部：從 yi2ChaptersMeta 查詢
+    const chapterKey = getYi2ChapterKey(nodeId);
+    const meta = yi2ChaptersMeta.find(ch => ch.id === chapterKey);
+    if (meta) return `${meta.title}・${meta.subtitle}`;
+    return '作者序';
+  }
+  
+  // 第一部：原有邏輯
   const normalizedId = normalizeChapterId(nodeId);
 
   if (normalizedId.startsWith('preface')) return '作者序';
   if (normalizedId.startsWith('prologue')) return '序章・未完成的檔案';
   if (normalizedId.startsWith('epilogue')) return '終章・名字';
   
-  // 支援兩種格式：chapter-1- 和 chapter1-
   if (normalizedId.startsWith('chapter-1-') || normalizedId.startsWith('chapter1-')) return '第一章・刪除';
   if (normalizedId.startsWith('chapter-2-') || normalizedId.startsWith('chapter2-')) return '第二章・渡口';
   if (normalizedId.startsWith('chapter-3-') || normalizedId.startsWith('chapter3-')) return '第三章・真相';
@@ -79,13 +91,17 @@ const getChapterTitle = (nodeId: string): string => {
 };
 
 // 從節點 ID 提取章節編號（同時返回用於主題色的 key）
-const getChapterNumber = (nodeId: string): string => {
+const getChapterNumber = (nodeId: string, isYiPart: boolean): string => {
+  if (!isYiPart) {
+    // 第二部：直接使用 yi2 的 key
+    return getYi2ChapterKey(nodeId);
+  }
+  
   const normalizedId = normalizeChapterId(nodeId);
   if (normalizedId.startsWith('preface')) return 'preface';
   if (normalizedId.startsWith('prologue')) return 'prologue';
   if (normalizedId.startsWith('epilogue')) return 'epilogue';
   
-  // 支援兩種格式
   const matchDash = normalizedId.match(/chapter-(\d+)/);
   if (matchDash) return `chapter-${matchDash[1]}`;
   
@@ -96,8 +112,8 @@ const getChapterNumber = (nodeId: string): string => {
 };
 
 // 從節點 ID 提取章節 key（用於主題色查詢）
-const getChapterKey = (nodeId: string): string => {
-  return getChapterNumber(nodeId);
+const getChapterKey = (nodeId: string, isYiPart: boolean): string => {
+  return getChapterNumber(nodeId, isYiPart);
 };
 
 const GameScene = () => {
@@ -167,12 +183,14 @@ const GameScene = () => {
   // 成就系統
   const { pendingAchievement, dismissAchievement, unlockAchievement } = useAchievements();
 
-  // TODO: 第二部節點邏輯待實作
-  const currentNode = getYi1NodeById(currentNodeId) || getNodeById(currentNodeId);
-
   const visualProgress = 1 - arcValue / 180;
   const isYiPart = currentPart === 'yi';
   const themeHue = isYiPart ? 38 : 350;
+
+  // 根據當前部查詢節點
+  const currentNode = isYiPart
+    ? (getYi1NodeById(currentNodeId) || getNodeById(currentNodeId))
+    : getYi2NodeById(currentNodeId);
   const preloadImages = isYiPart
     ? [getSceneImage(currentNodeId)?.image].filter(Boolean) as string[]
     : [];
@@ -326,11 +344,43 @@ const GameScene = () => {
     // 不在 cleanup 中 stopBGM，讓音樂持續播放
   }, [currentNodeId]); // eslint-disable-line react-hooks/exhaustive-deps
 
+  // 第二部章節開場動畫狀態
+  const [showYi2ChapterIntro, setShowYi2ChapterIntro] = useState(false);
+  const [yi2IntroConfig, setYi2IntroConfig] = useState<{
+    chapterKey: string;
+    title: string;
+    subtitle: string;
+    quote: string;
+    style: string;
+  } | null>(null);
+  const yi2IntroShownRef = useRef<Set<string>>(new Set());
+
   // 偵測章節切換並觸發轉場動畫
   useEffect(() => {
-    const currentChapter = getChapterNumber(currentNodeId);
+    const currentChapter = getChapterNumber(currentNodeId, isYiPart);
     
-    // 檢查是否為章節起始節點（節點 ID 以 -1 結尾或包含 -intro）
+    // 第二部：使用 Yi2ChapterIntro
+    if (!isYiPart) {
+      const isChapterStartNode = currentNodeId.endsWith('-1');
+      if (currentChapter && isChapterStartNode && !yi2IntroShownRef.current.has(currentChapter)) {
+        yi2IntroShownRef.current.add(currentChapter);
+        const meta = yi2ChaptersMeta.find(ch => ch.id === currentChapter);
+        if (meta) {
+          setYi2IntroConfig({
+            chapterKey: currentChapter,
+            title: `${meta.title}`,
+            subtitle: meta.subtitle,
+            quote: meta.keyQuote || '',
+            style: yi2IntroStyles[currentChapter] || 'default',
+          });
+          setShowYi2ChapterIntro(true);
+        }
+      }
+      prevChapterRef.current = currentChapter;
+      return;
+    }
+
+    // 第一部：原有邏輯
     const normalizedId = currentNodeId.replace(/^yi1-/, '');
     const isChapterStartNode = 
       normalizedId.endsWith('-1') || 
@@ -338,14 +388,12 @@ const GameScene = () => {
       normalizedId === 'preface-1' ||
       normalizedId === 'prologue-1';
     
-    // 如果是新章節的起始節點，且尚未顯示過該章節的轉場
     if (currentChapter && isChapterStartNode && !chapterTransitionShownRef.current.has(currentChapter)) {
       chapterTransitionShownRef.current.add(currentChapter);
       
-      const newTitle = getChapterTitle(currentNodeId);
-      const chapterKey = getChapterKey(currentNodeId);
+      const newTitle = getChapterTitle(currentNodeId, isYiPart);
+      const chapterKey = getChapterKey(currentNodeId, isYiPart);
       
-      // 從章節資料中獲取副標題和金句
       const chapterMeta = yi1ChaptersMeta.find(ch => ch.id === chapterKey);
       const subtitle = chapterMeta?.subtitle || '';
       const quote = chapterMeta?.keyQuote || '';
@@ -358,7 +406,7 @@ const GameScene = () => {
     }
     
     prevChapterRef.current = currentChapter;
-  }, [currentNodeId]);
+  }, [currentNodeId, isYiPart]);
 
   // 組件卸載時停止音樂
   useEffect(() => {
@@ -444,10 +492,23 @@ const GameScene = () => {
         </Suspense>
       )}
 
-      {/* 場景圖片（如果有） */}
+      {/* 場景圖片（第一部） */}
       {isYiPart && !showIntroSequence && (
         <SceneImage nodeId={currentNodeId} hideOverlay={isDialogueHidden} isLoaded={isImagesLoaded} />
       )}
+
+      {/* 第二部：CharacterScene 背景 + 人物立繪 */}
+      {!isYiPart && (() => {
+        const yi2Scene = getYi2SceneConfig(currentNodeId);
+        return (
+          <CharacterScene
+            chapterKey={getYi2ChapterKey(currentNodeId)}
+            background={yi2Scene.background}
+            characters={yi2Scene.characters}
+            hideOverlay={isDialogueHidden}
+          />
+        );
+      })()}
 
       {/* 粒子背景 */}
       <ParticleBackground arcValue={arcValue} />
@@ -624,7 +685,7 @@ const GameScene = () => {
           {isYiPart ? '弧度歸零：壹' : '弧度歸零：伊'}
         </h2>
         <h3 className="text-sm sm:text-lg text-foreground/80 font-serif-tc truncate">
-          {isYiPart ? getChapterTitle(currentNodeId) : '序章・另一個我們'}
+          {getChapterTitle(currentNodeId, isYiPart)}
         </h3>
       </motion.div>
 
@@ -642,8 +703,8 @@ const GameScene = () => {
 
       {/* 進度 HUD */}
       <ProgressHUD
-        chapterProgress={progress.readNodes[getChapterKey(currentNodeId)]?.length || 0}
-        currentChapterTitle={isYiPart ? getChapterTitle(currentNodeId) : '序章・另一個我們'}
+        chapterProgress={progress.readNodes[getChapterKey(currentNodeId, isYiPart)]?.length || 0}
+        currentChapterTitle={getChapterTitle(currentNodeId, isYiPart)}
         isVisible={isProgressHUDVisible}
         onToggle={() => setIsProgressHUDVisible(!isProgressHUDVisible)}
       />
@@ -717,6 +778,20 @@ const GameScene = () => {
           <GameEndOverlay
             isVisible={showGameEndOverlay}
             onComplete={handleGameEndComplete}
+          />
+        </Suspense>
+      )}
+
+      {/* 第二部章節開場動畫 */}
+      {showYi2ChapterIntro && yi2IntroConfig && (
+        <Suspense fallback={<LazyLoadingFallback fullScreen />}>
+          <Yi2ChapterIntro
+            chapterKey={yi2IntroConfig.chapterKey}
+            title={yi2IntroConfig.title}
+            subtitle={yi2IntroConfig.subtitle}
+            quote={yi2IntroConfig.quote}
+            style={yi2IntroConfig.style as any}
+            onComplete={() => setShowYi2ChapterIntro(false)}
           />
         </Suspense>
       )}

@@ -317,96 +317,80 @@ const TitleScreen = () => {
           <div className="hidden md:block w-px h-24 bg-border/50" />
           <div className="md:hidden w-16 sm:w-24 h-px bg-border/50" />
 
-          {/* 第二部：伊 (製作中) - 封面圖片版 */}
-          <motion.div
+          {/* 第二部：伊 - 封面圖片版（可遊玩） */}
+          <motion.button
+            onClick={() => {
+              playSFX('select');
+              startGame('yi-part2');
+            }}
             className="
               group relative w-40 sm:w-48 md:w-56
               rounded-xl sm:rounded-2xl
               overflow-hidden
-              cursor-not-allowed
-              border border-muted/30
+              touch-manipulation
+              shadow-lg hover:shadow-xl hover:shadow-accent/30
+              border border-accent/20 hover:border-accent/50
             "
-            whileHover={{ scale: 1.01 }}
+            whileHover={{ scale: 1.02 }}
             transition={{ duration: 0.3 }}
           >
-            {/* 封面圖片 - 灰度處理 + 微呼吸 */}
+            {/* 呼吸光暈效果 */}
+            <motion.div
+              className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-accent/30 via-rose-500/20 to-accent/30 blur-lg opacity-0 group-hover:opacity-100 -z-10"
+              animate={{
+                scale: [1, 1.05, 1],
+                opacity: [0.3, 0.5, 0.3],
+              }}
+              transition={{
+                duration: 3,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+            />
+            
+            {/* 封面圖片 */}
             <div className="relative aspect-[2/3] w-full overflow-hidden">
               <motion.img 
                 src={yi2Cover} 
                 alt="弧度歸零：伊 封面"
-                className="w-full h-full object-cover grayscale opacity-60"
+                className="w-full h-full object-cover"
                 animate={{
-                  scale: [1, 1.015, 1],
+                  scale: [1, 1.02, 1],
                 }}
                 transition={{
-                  duration: 5,
+                  duration: 4,
                   repeat: Infinity,
                   ease: "easeInOut",
                 }}
               />
-              {/* 製作中遮罩 */}
-              <div className="absolute inset-0 bg-background/40 backdrop-blur-[1px]" />
               
-              {/* 製作中標籤 */}
-              <motion.div 
-                className="
-                  absolute top-2 right-2
-                  px-2 py-1 rounded-full
-                  bg-background/70 backdrop-blur-sm
-                  border border-muted/40
-                  text-[10px] sm:text-xs text-muted-foreground tracking-wider
-                "
-                animate={{
-                  opacity: [0.7, 1, 0.7],
-                }}
-                transition={{
-                  duration: 2,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
-              >
-                製作中
-              </motion.div>
+              {/* 流動光暈遮罩 */}
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-t from-accent/30 via-transparent to-rose-500/10 opacity-0 group-hover:opacity-100"
+                initial={{ y: "100%" }}
+                whileHover={{ y: "0%" }}
+                transition={{ duration: 0.6 }}
+              />
               
-              {/* 敬請期待文字 */}
-              <div className="absolute inset-0 flex items-center justify-center">
-                <motion.div 
-                  className="
-                    px-4 py-2 rounded-lg
-                    bg-background/60 backdrop-blur-sm
-                    border border-muted/30
-                    text-sm text-muted-foreground font-serif-tc
-                  "
-                  animate={{
-                    y: [0, -3, 0],
-                  }}
-                  transition={{
-                    duration: 3,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                  }}
-                >
-                  敬請期待
-                </motion.div>
-              </div>
+              {/* 掃光效果 */}
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"
+              />
               
-              {/* 裝飾性掃描線動畫 */}
-              <div className="absolute inset-0 pointer-events-none overflow-hidden">
-                <motion.div 
-                  className="absolute w-full h-px bg-gradient-to-r from-transparent via-muted-foreground/30 to-transparent"
-                  style={{ top: '30%' }}
-                  animate={{ opacity: [0.3, 0.6, 0.3] }}
-                  transition={{ duration: 2, repeat: Infinity }}
-                />
-                <motion.div 
-                  className="absolute w-full h-px bg-gradient-to-r from-transparent via-muted-foreground/20 to-transparent"
-                  style={{ top: '70%' }}
-                  animate={{ opacity: [0.2, 0.5, 0.2] }}
-                  transition={{ duration: 2, repeat: Infinity, delay: 1 }}
-                />
-              </div>
+              {/* 進度標籤 */}
+              {yiPart2Progress.hasStarted && (
+                <div className="
+                  absolute bottom-2 left-2 right-2
+                  px-2 py-1 rounded-lg
+                  bg-background/80 backdrop-blur-sm
+                  text-[10px] sm:text-xs text-accent text-center
+                  border border-accent/30
+                ">
+                  進度：{yiPart2Progress.arcValue}°
+                </div>
+              )}
             </div>
-          </motion.div>
+          </motion.button>
         </motion.div>
 
         {/* 功能按鈕區 - 手機優化 */}
