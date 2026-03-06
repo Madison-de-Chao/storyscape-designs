@@ -268,7 +268,7 @@ const Gallery = ({ isOpen, onClose }: GalleryProps) => {
             transition={{ type: 'spring', damping: 25 }}
           >
             {/* 標題列 */}
-            <div className="flex items-center justify-between mb-6">
+            <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-4">
                 <div className="relative">
                   <Sparkles className="w-8 h-8 text-primary" />
@@ -292,6 +292,36 @@ const Gallery = ({ isOpen, onClose }: GalleryProps) => {
                 className="p-3 rounded-full bg-muted/30 hover:bg-muted/50 transition-all duration-300 group"
               >
                 <X className="w-6 h-6 text-muted-foreground group-hover:text-foreground transition-colors" />
+              </button>
+            </div>
+
+            {/* 部分切換 Tab */}
+            <div className="flex gap-2 mb-4">
+              <button
+                onClick={() => {
+                  setActiveTab('yi1');
+                  setExpandedChapters(new Set(['preface', 'prologue', 'chapter-1']));
+                }}
+                className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+                  activeTab === 'yi1'
+                    ? 'bg-primary/20 text-primary border border-primary/30'
+                    : 'bg-muted/20 text-muted-foreground hover:bg-muted/30 border border-transparent'
+                }`}
+              >
+                弧度歸零：壹
+              </button>
+              <button
+                onClick={() => {
+                  setActiveTab('yi2');
+                  setExpandedChapters(new Set(['yi2-preface', 'yi2-ch1']));
+                }}
+                className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+                  activeTab === 'yi2'
+                    ? 'bg-accent/20 text-accent border border-accent/30'
+                    : 'bg-muted/20 text-muted-foreground hover:bg-muted/30 border border-transparent'
+                }`}
+              >
+                弧度歸零：伊
               </button>
             </div>
 
