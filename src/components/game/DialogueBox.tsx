@@ -63,6 +63,7 @@ const DialogueBox = ({ isHidden = false, onToggleHide, onScoreChange }: Dialogue
   const autoForwardRef = useRef<NodeJS.Timeout | null>(null);
   const autoPlayRef = useRef<NodeJS.Timeout | null>(null);
   const lastAutoSaveNodeRef = useRef<string | null>(null);
+  const lastTypingFinishTimeRef = useRef<number>(0);
 
   // 獲取說話者名稱（用於歷史記錄）- 必須在 useEffect 之前定義
   const getSpeakerNameForHistory = useCallback((speaker: string): string => {
@@ -301,7 +302,11 @@ const DialogueBox = ({ isHidden = false, onToggleHide, onScoreChange }: Dialogue
     if (isTyping) {
       setDisplayedText(currentNode.text);
       setIsTyping(false);
+      lastTypingFinishTimeRef.current = Date.now();
     } else if (currentNode.nextNodeId && !currentNode.choices) {
+      // 避免點擊完成打字時誤觸發下一段（增加 300ms 冷卻時間）
+      if (Date.now() - lastTypingFinishTimeRef.current < 300) return;
+      
       playSFX('dialogue_advance');
       advanceToNextNode(currentNode.nextNodeId);
     }
@@ -711,7 +716,7 @@ const DialogueBox = ({ isHidden = false, onToggleHide, onScoreChange }: Dialogue
                       `}
                       style={{
                         fontSize: 'clamp(0.95rem, 3.5vw, 1.35rem)',
-                        lineHeight: '1.9',
+                        lineHeight: '2.2', // 增加行高以提升閱讀舒適度
                         letterSpacing: '0.03em',
                         fontWeight: 400,
                       }}
