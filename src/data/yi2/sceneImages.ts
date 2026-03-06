@@ -129,6 +129,20 @@ export const yi2BgImageMap: Record<string, string> = {
 
   // CH12 場景
   'yi2-ch12-dynamic': ch12DynamicTension,      // 第十二章動態張力
+
+  // 尾聲 (EP) 場景
+  'yi2-ep-medium': ep02Medium,                 // 尾聲中景敘事
+  'yi2-ep-dynamic': ep04DynamicTension,        // 尾聲動態張力
+  'yi2-ep-3years': epKey3YearsLater,           // 三年後收束（KV 風格）
+  'yi2-ep-creator': epKeyCreatorV4,            // 創作者視角
+  'yi2-ep-creator-v2': epKeyCreatorV4_2,       // 創作者視角 V2
+
+  // KV 特別場景
+  'yi2-kv-cosmic': kvCosmicPassage,            // 宇宙通道
+  'yi2-kv-cosmic-2k': kvCosmicPassage2k,       // 宇宙通道 2K
+  'yi2-kv-meeting-confrontation': kvMeetingConfrontationV3, // 會議室對峙 V3
+  'yi2-kv-sunrise': kvSunriseMirrorStep,       // 日出踏出鏡面
+  'yi2-kv-rain': kvRainReconciliationV3,       // 雨中和解 V3
 };
 
 /**
