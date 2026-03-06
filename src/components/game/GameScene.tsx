@@ -183,8 +183,10 @@ const GameScene = () => {
   // 成就系統
   const { pendingAchievement, dismissAchievement, unlockAchievement } = useAchievements();
 
-  // TODO: 第二部節點邏輯待實作
-  const currentNode = getYi1NodeById(currentNodeId) || getNodeById(currentNodeId);
+  // 根據當前部查詢節點
+  const currentNode = isYiPart
+    ? (getYi1NodeById(currentNodeId) || getNodeById(currentNodeId))
+    : getYi2NodeById(currentNodeId);
 
   const visualProgress = 1 - arcValue / 180;
   const isYiPart = currentPart === 'yi';
