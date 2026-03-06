@@ -53,16 +53,23 @@ const normalizeChapterId = (nodeId: string): string => {
   return normalizeNodeId(nodeId);
 };
 
-// 根據節點 ID 獲取當前章節標題
-const getChapterTitle = (nodeId: string): string => {
-  // 統一處理：章節 ID 正規化（移除 yi1- 前綴、標準化 chX/chapterX 等格式）
+// 根據節點 ID 獲取當前章節標題（支援第一部和第二部）
+const getChapterTitle = (nodeId: string, isYiPart: boolean): string => {
+  if (!isYiPart) {
+    // 第二部：從 yi2ChaptersMeta 查詢
+    const chapterKey = getYi2ChapterKey(nodeId);
+    const meta = yi2ChaptersMeta.find(ch => ch.id === chapterKey);
+    if (meta) return `${meta.title}・${meta.subtitle}`;
+    return '作者序';
+  }
+  
+  // 第一部：原有邏輯
   const normalizedId = normalizeChapterId(nodeId);
 
   if (normalizedId.startsWith('preface')) return '作者序';
   if (normalizedId.startsWith('prologue')) return '序章・未完成的檔案';
   if (normalizedId.startsWith('epilogue')) return '終章・名字';
   
-  // 支援兩種格式：chapter-1- 和 chapter1-
   if (normalizedId.startsWith('chapter-1-') || normalizedId.startsWith('chapter1-')) return '第一章・刪除';
   if (normalizedId.startsWith('chapter-2-') || normalizedId.startsWith('chapter2-')) return '第二章・渡口';
   if (normalizedId.startsWith('chapter-3-') || normalizedId.startsWith('chapter3-')) return '第三章・真相';
