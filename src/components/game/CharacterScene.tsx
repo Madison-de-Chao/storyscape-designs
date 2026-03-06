@@ -99,7 +99,7 @@ const getBackgroundAnimation = (anim: BackgroundAnimation = 'static') => {
     case 'drift':
       return {
         animate: { x: [0, 10, -10, 0], y: [0, -5, 5, 0] },
-        transition: { duration: 20, repeat: Infinity, ease: 'easeInOut' },
+        transition: { duration: 20, repeat: Infinity, ease: 'easeInOut' as const },
       };
     case 'pulse':
       return {
