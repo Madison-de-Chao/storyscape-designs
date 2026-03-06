@@ -69,6 +69,8 @@ export interface DialogueNode {
   specialScene?: SpecialSceneType;
   // 背景圖片標籤（對應 sceneImages.ts 的 key）
   bgImage?: string;
+  // 人物立繪表情（用於第二部 CharacterScene）
+  expression?: string;
   // 是否為結局節點
   isEnd?: boolean;
   // 畢業圖片路徑（課程總結時顯示的特殊圖片）
