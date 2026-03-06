@@ -31,6 +31,19 @@ import ch04HotpotConflictFemale from '@/assets/yi2/backgrounds/ch04-key-hotpot-c
 import ch05LivingRoomWide from '@/assets/yi2/backgrounds/ch05-01-living-room-wide.png';
 import ch05LivingRoomMagic from '@/assets/yi2/backgrounds/ch05-04-living-room-mirror-magic.png';
 
+// ── CH09 背景圖 ──
+import ch09OfficeWide from '@/assets/yi2/backgrounds/ch09-01-office-wide.png';
+import ch09OfficeMedium from '@/assets/yi2/backgrounds/ch09-02-office-medium.png';
+import ch09CorridorEmpty from '@/assets/yi2/backgrounds/ch09-bg-corridor-empty.png';
+import ch09CorridorEmptyV2 from '@/assets/yi2/backgrounds/ch09-bg-corridor-empty-v2.png';
+import ch09SocialDistanceV2 from '@/assets/yi2/backgrounds/ch09-key-office-social-distance-v2.png';
+import ch09SocialDistanceKv from '@/assets/yi2/backgrounds/ch09-key-office-social-distance-kv-female.png';
+import ch09SocialDistanceSimple from '@/assets/yi2/backgrounds/ch09-key-office-social-distance-simple.png';
+
+// ── CH10 背景圖 ──
+import ch10StageWide from '@/assets/yi2/backgrounds/ch10-01-stage-wide.png';
+import ch10StageMedium from '@/assets/yi2/backgrounds/ch10-02-stage-medium.png';
+
 /**
  * bgImage key → 實際圖片路徑映射
  * 節點的 bgImage 欄位值對應到此表
@@ -63,6 +76,19 @@ export const yi2BgImageMap: Record<string, string> = {
   // CH05 場景
   'yi2-living-room-wide': ch05LivingRoomWide,  // 客廳廣角
   'yi2-living-room-magic': ch05LivingRoomMagic, // 客廳魔幻鏡子
+
+  // CH09 場景
+  'yi2-office-wide': ch09OfficeWide,           // 辦公室廣角
+  'yi2-office-medium': ch09OfficeMedium,       // 辦公室中景
+  'yi2-office-corridor': ch09CorridorEmpty,    // 辦公室走廊
+  'yi2-office-corridor-v2': ch09CorridorEmptyV2, // 辦公室走廊（修正版）
+  'yi2-office-social-v2': ch09SocialDistanceV2, // 辦公室社交距離（修正版）
+  'yi2-office-social-kv': ch09SocialDistanceKv, // 辦公室社交距離（KV 風格）
+  'yi2-office-social-simple': ch09SocialDistanceSimple, // 辦公室社交距離（單一構圖）
+
+  // CH10 場景
+  'yi2-stage-wide': ch10StageWide,             // 童年舞台廣角
+  'yi2-stage-medium': ch10StageMedium,         // 童年舞台中景
 };
 
 /**
