@@ -499,7 +499,7 @@ const GameScene = () => {
 
       {/* 第二部：CharacterScene 背景 + 人物立繪 */}
       {!isYiPart && (() => {
-        const yi2Scene = getYi2SceneConfig(currentNodeId);
+        const yi2Scene = getYi2SceneConfig(currentNodeId, currentNode || undefined);
         return (
           <CharacterScene
             chapterKey={getYi2ChapterKey(currentNodeId)}
