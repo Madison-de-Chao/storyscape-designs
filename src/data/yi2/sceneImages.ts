@@ -30,6 +30,7 @@ import ch04HotpotConflictFemale from '@/assets/yi2/backgrounds/ch04-key-hotpot-c
 // ── CH05 背景圖 ──
 import ch05LivingRoomWide from '@/assets/yi2/backgrounds/ch05-01-living-room-wide.png';
 import ch05LivingRoomMagic from '@/assets/yi2/backgrounds/ch05-04-living-room-mirror-magic.png';
+import ch05MirrorYiSimpleV2 from '@/assets/yi2/backgrounds/ch05-key-mirror-yi-simple-v2.png';
 
 // ── CH09 背景圖 ──
 import ch09OfficeWide from '@/assets/yi2/backgrounds/ch09-01-office-wide.png';
