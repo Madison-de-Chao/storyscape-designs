@@ -140,19 +140,19 @@ export function getYi2SceneConfig(nodeId: string, node?: DialogueNode): Yi2Scene
 
   const base = chapterDefaults[chapterKey] || { background: defaultBg(210) };
 
-  // 自動為 protagonist 說話者生成立繪
-  if (node?.speaker === 'protagonist') {
-    const spriteSrc = getCharacterSprite('protagonist', node.expression);
+  // 自動為有立繪的角色生成 sprite
+  if (node?.speaker && ['protagonist', 'yi'].includes(node.speaker)) {
+    const spriteSrc = getCharacterSprite(node.speaker, node.expression);
     if (spriteSrc) {
       return {
         ...base,
         characters: [
           ...(base.characters || []),
           {
-            id: 'protagonist',
+            id: node.speaker,
             src: spriteSrc,
-            position: 'center',
-            entrance: 'fade',
+            position: node.speaker === 'yi' ? 'right' : 'center',
+            entrance: node.speaker === 'yi' ? 'glitch' : 'fade',
             isSpeaking: true,
             scale: 0.9,
           },
