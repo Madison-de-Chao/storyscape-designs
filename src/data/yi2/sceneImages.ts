@@ -57,6 +57,20 @@ import ch11PantryDialogueKv from '@/assets/yi2/backgrounds/ch11-key-pantry-dialo
 // ── CH12 背景圖 ──
 import ch12DynamicTension from '@/assets/yi2/backgrounds/ch12-04-dynamic-tension.png';
 
+// ── 尾聲 (EP) 背景圖 ──
+import ep02Medium from '@/assets/yi2/backgrounds/ep-02-medium.png';
+import ep04DynamicTension from '@/assets/yi2/backgrounds/ep-04-dynamic-tension.png';
+import epKey3YearsLater from '@/assets/yi2/backgrounds/ep-key-3years-later.png';
+import epKeyCreatorV4 from '@/assets/yi2/backgrounds/ep-key-creator-v4.png';
+import epKeyCreatorV4_2 from '@/assets/yi2/backgrounds/ep-key-creator-v4-2.png';
+
+// ── 關鍵視覺 (KV) 系列 ──
+import kvCosmicPassage from '@/assets/yi2/backgrounds/kv-cosmic-passage.png';
+import kvCosmicPassage2k from '@/assets/yi2/backgrounds/kv-cosmic-passage-2k.webp';
+import kvMeetingConfrontationV3 from '@/assets/yi2/backgrounds/kv-meeting-confrontation-v3.png';
+import kvSunriseMirrorStep from '@/assets/yi2/backgrounds/kv-sunrise-mirror-step.webp';
+import kvRainReconciliationV3 from '@/assets/yi2/backgrounds/kv-rain-reconciliation-v3.jpg';
+
 /**
  * bgImage key → 實際圖片路徑映射
  * 節點的 bgImage 欄位值對應到此表
@@ -115,6 +129,20 @@ export const yi2BgImageMap: Record<string, string> = {
 
   // CH12 場景
   'yi2-ch12-dynamic': ch12DynamicTension,      // 第十二章動態張力
+
+  // 尾聲 (EP) 場景
+  'yi2-ep-medium': ep02Medium,                 // 尾聲中景敘事
+  'yi2-ep-dynamic': ep04DynamicTension,        // 尾聲動態張力
+  'yi2-ep-3years': epKey3YearsLater,           // 三年後收束（KV 風格）
+  'yi2-ep-creator': epKeyCreatorV4,            // 創作者視角
+  'yi2-ep-creator-v2': epKeyCreatorV4_2,       // 創作者視角 V2
+
+  // KV 特別場景
+  'yi2-kv-cosmic': kvCosmicPassage,            // 宇宙通道
+  'yi2-kv-cosmic-2k': kvCosmicPassage2k,       // 宇宙通道 2K
+  'yi2-kv-meeting-confrontation': kvMeetingConfrontationV3, // 會議室對峙 V3
+  'yi2-kv-sunrise': kvSunriseMirrorStep,       // 日出踏出鏡面
+  'yi2-kv-rain': kvRainReconciliationV3,       // 雨中和解 V3
 };
 
 /**
