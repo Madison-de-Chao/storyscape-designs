@@ -6,7 +6,8 @@ export type SpeakerType =
   | 'narrator' | 'protagonist' | 'yi' | 'wenxin' | 'wendu' | 'mentor'
   | 'wangyangming' | 'sushi' | 'simaqian' | 'wuzetian' | 'libai'
   | 'mandela' | 'caesar' | 'cleopatra' | 'lincoln' | 'jobs' | 'vangogh' | 'helenkeller'
-  | 'xiangyu' | 'quyuan' | 'monroe' | 'hemingway' | 'woolf';
+  | 'xiangyu' | 'quyuan' | 'monroe' | 'hemingway' | 'woolf'
+  | 'xiaochen' | 'xiaoman' | 'linyi';
 
 // 說話者名稱映射
 export const speakerNames: Record<SpeakerType, string> = {
