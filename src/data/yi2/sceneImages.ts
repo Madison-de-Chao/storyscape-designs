@@ -89,6 +89,7 @@ export const yi2BgImageMap: Record<string, string> = {
   // CH05 場景
   'yi2-living-room-wide': ch05LivingRoomWide,  // 客廳廣角
   'yi2-living-room-magic': ch05LivingRoomMagic, // 客廳魔幻鏡子
+  'yi2-mirror-yi-simple-v2': ch05MirrorYiSimpleV2, // 鏡中伊（修正版單一構圖）
 
   // CH09 場景
   'yi2-office-wide': ch09OfficeWide,           // 辦公室廣角
