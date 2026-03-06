@@ -104,6 +104,17 @@ export const yi2BgImageMap: Record<string, string> = {
   // CH10 場景
   'yi2-stage-wide': ch10StageWide,             // 童年舞台廣角
   'yi2-stage-medium': ch10StageMedium,         // 童年舞台中景
+  'yi2-stage-closeup': ch10StageCloseup,       // 童年舞台特寫
+  'yi2-stage-dynamic': ch10StageDynamic,       // 童年舞台動態
+  'yi2-stage-embrace-kv': ch10EmbraceKv,       // 內在小孩擁抱（KV 風格）
+
+  // CH11 場景
+  'yi2-pantry-closeup': ch11PantryCloseup,     // 茶水間特寫
+  'yi2-pantry-dynamic': ch11PantryDynamic,     // 茶水間動態
+  'yi2-pantry-dialogue-kv': ch11PantryDialogueKv, // 茶水間對話（KV 風格）
+
+  // CH12 場景
+  'yi2-ch12-dynamic': ch12DynamicTension,      // 第十二章動態張力
 };
 
 /**
