@@ -30,9 +30,11 @@ import ch04HotpotConflictFemale from '@/assets/yi2/backgrounds/ch04-key-hotpot-c
 // ── CH05 背景圖 ──
 import ch05LivingRoomWide from '@/assets/yi2/backgrounds/ch05-01-living-room-wide.png';
 import ch05LivingRoomMagic from '@/assets/yi2/backgrounds/ch05-04-living-room-mirror-magic.png';
+import ch05MirrorYiSimpleV2 from '@/assets/yi2/backgrounds/ch05-key-mirror-yi-simple-v2.png';
 
 // ── CH09 背景圖 ──
 import ch09OfficeWide from '@/assets/yi2/backgrounds/ch09-01-office-wide.png';
+import ch09OfficeWideV2 from '@/assets/yi2/backgrounds/ch09-01-office-wide-v2.png';
 import ch09OfficeMedium from '@/assets/yi2/backgrounds/ch09-02-office-medium.png';
 import ch09CorridorEmpty from '@/assets/yi2/backgrounds/ch09-bg-corridor-empty.png';
 import ch09CorridorEmptyV2 from '@/assets/yi2/backgrounds/ch09-bg-corridor-empty-v2.png';
@@ -43,6 +45,17 @@ import ch09SocialDistanceSimple from '@/assets/yi2/backgrounds/ch09-key-office-s
 // ── CH10 背景圖 ──
 import ch10StageWide from '@/assets/yi2/backgrounds/ch10-01-stage-wide.png';
 import ch10StageMedium from '@/assets/yi2/backgrounds/ch10-02-stage-medium.png';
+import ch10StageCloseup from '@/assets/yi2/backgrounds/ch10-03-stage-closeup.png';
+import ch10StageDynamic from '@/assets/yi2/backgrounds/ch10-04-stage-dynamic.png';
+import ch10EmbraceKv from '@/assets/yi2/backgrounds/ch10-key-inner-child-embrace-kv.png';
+
+// ── CH11 背景圖 ──
+import ch11PantryCloseup from '@/assets/yi2/backgrounds/ch11-03-pantry-closeup.png';
+import ch11PantryDynamic from '@/assets/yi2/backgrounds/ch11-04-pantry-dynamic.png';
+import ch11PantryDialogueKv from '@/assets/yi2/backgrounds/ch11-key-pantry-dialogue-kv.png';
+
+// ── CH12 背景圖 ──
+import ch12DynamicTension from '@/assets/yi2/backgrounds/ch12-04-dynamic-tension.png';
 
 /**
  * bgImage key → 實際圖片路徑映射
@@ -76,9 +89,11 @@ export const yi2BgImageMap: Record<string, string> = {
   // CH05 場景
   'yi2-living-room-wide': ch05LivingRoomWide,  // 客廳廣角
   'yi2-living-room-magic': ch05LivingRoomMagic, // 客廳魔幻鏡子
+  'yi2-mirror-yi-simple-v2': ch05MirrorYiSimpleV2, // 鏡中伊（修正版單一構圖）
 
   // CH09 場景
   'yi2-office-wide': ch09OfficeWide,           // 辦公室廣角
+  'yi2-office-wide-v2': ch09OfficeWideV2,      // 辦公室廣角（修正版）
   'yi2-office-medium': ch09OfficeMedium,       // 辦公室中景
   'yi2-office-corridor': ch09CorridorEmpty,    // 辦公室走廊
   'yi2-office-corridor-v2': ch09CorridorEmptyV2, // 辦公室走廊（修正版）
@@ -89,6 +104,17 @@ export const yi2BgImageMap: Record<string, string> = {
   // CH10 場景
   'yi2-stage-wide': ch10StageWide,             // 童年舞台廣角
   'yi2-stage-medium': ch10StageMedium,         // 童年舞台中景
+  'yi2-stage-closeup': ch10StageCloseup,       // 童年舞台特寫
+  'yi2-stage-dynamic': ch10StageDynamic,       // 童年舞台動態
+  'yi2-stage-embrace-kv': ch10EmbraceKv,       // 內在小孩擁抱（KV 風格）
+
+  // CH11 場景
+  'yi2-pantry-closeup': ch11PantryCloseup,     // 茶水間特寫
+  'yi2-pantry-dynamic': ch11PantryDynamic,     // 茶水間動態
+  'yi2-pantry-dialogue-kv': ch11PantryDialogueKv, // 茶水間對話（KV 風格）
+
+  // CH12 場景
+  'yi2-ch12-dynamic': ch12DynamicTension,      // 第十二章動態張力
 };
 
 /**
