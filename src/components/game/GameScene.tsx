@@ -15,6 +15,7 @@ import LazyLoadingFallback from './LazyLoadingFallback';
 // ScoreChange 已移除 - 月明值系統對玩家隱藏
 import ProgressHUD from './ProgressHUD';
 import AchievementToast from './AchievementToast';
+import CharacterScene from './CharacterScene';
 
 // 懶加載大型組件 - 僅在需要時載入
 const Gallery = lazy(() => import('./Gallery'));
@@ -25,13 +26,17 @@ const RevelationMoment = lazy(() => import('./RevelationMoment'));
 const GraduationMoment = lazy(() => import('./GraduationMoment'));
 const JourneyReflection = lazy(() => import('./JourneyReflection'));
 const GameEndOverlay = lazy(() => import('./GameEndOverlay'));
+const Yi2ChapterIntro = lazy(() => import('./Yi2ChapterIntro'));
 import { useAchievements } from '@/hooks/useAchievements';
 import { getNodeById } from '@/data/prologueStory';
-// TODO: 第二部節點查詢函數待建立
 import { getYi1NodeById } from '@/data/yi1';
+import { getYi2NodeById } from '@/data/yi2';
 import { getSceneImage, normalizeNodeId } from '@/data/yi1/sceneImages';
 import { yi1ChaptersMeta } from '@/data/yi1/chapters';
+import { yi2ChaptersMeta } from '@/data/yi2/chapters';
 import { getGraduationImageForNode, type GraduationImageData } from '@/data/yi1/graduationImages';
+import { getYi2SceneConfig, getYi2ChapterKey } from '@/data/yi2/sceneConfig';
+import { yi2IntroStyles } from './Yi2ChapterIntro';
 
 // 序章開場詩句（直排禪意動畫）
 const PROLOGUE_INTRO_LINES = [
