@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { X, Lock, ZoomIn, ChevronDown, ChevronRight, Sparkles } from 'lucide-react';
 import { useGameStore } from '@/stores/gameStore';
 import { sceneImages, type SceneImageConfig } from '@/data/yi1/sceneImages';
+import { yi2BgImageMap } from '@/data/yi2/sceneImages';
 
 interface GalleryProps {
   isOpen: boolean;
