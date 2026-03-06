@@ -88,8 +88,9 @@ const DialogueBox = ({ isHidden = false, onToggleHide, onScoreChange }: Dialogue
   }, [currentPart]);
 
   useEffect(() => {
-    // TODO: 第二部節點邏輯待實作
-    const node = getYi1NodeById(currentNodeId) || getNodeById(currentNodeId);
+    const node = currentPart === 'yi'
+      ? (getYi1NodeById(currentNodeId) || getNodeById(currentNodeId))
+      : getYi2NodeById(currentNodeId);
     if (node) {
       setCurrentNode(node);
       setDisplayedText('');
