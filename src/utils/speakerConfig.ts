@@ -198,6 +198,12 @@ export const getEmphasisStyle = (speaker: string) => {
         fontWeight: 700,
         textShadow: '0 0 20px hsl(35 100% 50% / 0.8), 0 0 35px hsl(280 70% 50% / 0.5)',
       };
+    case 'linyi':
+      return {
+        color: 'hsl(250 60% 70%)',
+        fontWeight: 700,
+        textShadow: '0 0 18px hsl(250 70% 55% / 0.7), 0 0 35px hsl(280 60% 50% / 0.4), 0 0 6px hsl(180 80% 60% / 0.3)',
+      };
     default:
       return {
         color: 'hsl(38 80% 70%)',
