@@ -85,6 +85,13 @@ export const chapter2Nodes: DialogueNode[] = [
         shadowChange: 0,
         nextNodeId: 'yi2-ch2-10b-r',
       },
+      {
+        id: 'yi2-ch2-10c',
+        text: '等等⋯⋯所以我斷片的時候變成了職場菁英？可以多斷幾次嗎？',
+        arcChange: 0,
+        shadowChange: 1,
+        nextNodeId: 'yi2-ch2-10c-r',
+      },
     ],
   },
   {
@@ -97,6 +104,12 @@ export const chapter2Nodes: DialogueNode[] = [
     id: 'yi2-ch2-10b-r',
     speaker: 'narrator',
     text: '這個念頭讓她有點頭暈。如果那真的是她⋯⋯那她為什麼平時做不到？',
+    nextNodeId: 'yi2-ch2-11',
+  },
+  {
+    id: 'yi2-ch2-10c-r',
+    speaker: 'narrator',
+    text: '她被自己的想法嚇到了。認真的嗎？拿失憶換升職？\n\n但說真的⋯⋯主管居然說「不錯」。這三年來第一次。',
     nextNodeId: 'yi2-ch2-11',
   },
 
