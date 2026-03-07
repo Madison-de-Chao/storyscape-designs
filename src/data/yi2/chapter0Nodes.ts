@@ -174,6 +174,13 @@ export const chapter0Nodes: DialogueNode[] = [
         shadowChange: 0,
         nextNodeId: 'yi2-ch0-22b-r',
       },
+      {
+        id: 'yi2-ch0-22c',
+        text: '不如把這本書拿去墊桌腳，至少還有點用處。',
+        arcChange: 0,
+        shadowChange: 1,
+        nextNodeId: 'yi2-ch0-22c-r',
+      },
     ],
   },
   {
@@ -186,6 +193,12 @@ export const chapter0Nodes: DialogueNode[] = [
     id: 'yi2-ch0-22b-r',
     speaker: 'narrator',
     text: '這個念頭一閃而過，但她沒有抓住它。車廂又晃了一下，念頭就散了。',
+    nextNodeId: 'yi2-ch0-23',
+  },
+  {
+    id: 'yi2-ch0-22c-r',
+    speaker: 'narrator',
+    text: '她差點笑出來。好像吐槽完，那些「遇見更好的自己」就沒那麼刺眼了。\n\n至少，她還有幽默感。',
     nextNodeId: 'yi2-ch0-23',
   },
   {
