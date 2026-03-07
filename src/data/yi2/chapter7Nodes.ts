@@ -133,6 +133,33 @@ export const chapter7Nodes: DialogueNode[] = [
     id: 'yi2-ch7-19',
     speaker: 'narrator',
     text: '林壹看著這段話，心裡有點震動。\n\n她做到了。\n\n被罵了二十年，她還站著。',
+    choices: [
+      {
+        id: 'yi2-ch7-19a',
+        text: '但她是金卡戴珊啊。她有錢有資源，跟我不一樣。',
+        arcChange: -3,
+        shadowChange: 3,
+        nextNodeId: 'yi2-ch7-19a-r',
+      },
+      {
+        id: 'yi2-ch7-19b',
+        text: '⋯⋯如果她能做到，也許不是不可能。',
+        arcChange: 5,
+        shadowChange: 0,
+        nextNodeId: 'yi2-ch7-19b-r',
+      },
+    ],
+  },
+  {
+    id: 'yi2-ch7-19a-r',
+    speaker: 'narrator',
+    text: '她搖搖頭，繼續往下看。但那句「我自己知道我是誰」卡在她腦子裡，揮之不去。',
+    nextNodeId: 'yi2-ch7-20',
+  },
+  {
+    id: 'yi2-ch7-19b-r',
+    speaker: 'narrator',
+    text: '她不確定自己能不能像金卡戴珊那樣。但她開始覺得，也許「站著」本身就已經很厲害了。',
     nextNodeId: 'yi2-ch7-20',
   },
 
