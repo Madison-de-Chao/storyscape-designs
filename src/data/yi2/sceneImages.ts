@@ -84,6 +84,8 @@ import ep04DynamicTension from '@/assets/yi2/backgrounds/ep-04-dynamic-tension.p
 import epKey3YearsLater from '@/assets/yi2/backgrounds/ep-key-3years-later.png';
 import epKeyCreatorV4 from '@/assets/yi2/backgrounds/ep-key-creator-v4.png';
 import epKeyCreatorV4_2 from '@/assets/yi2/backgrounds/ep-key-creator-v4-2.png';
+import epKvPhoneNotification from '@/assets/yi2/backgrounds/ep-kv-phone-notification.png';
+import epKvYiMerge from '@/assets/yi2/backgrounds/ep-kv-yi-merge.png';
 
 // ── 關鍵視覺 (KV) 系列 ──
 import kvCosmicPassage from '@/assets/yi2/backgrounds/kv-cosmic-passage.png';
