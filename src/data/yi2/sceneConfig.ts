@@ -6,12 +6,31 @@ import type { BackgroundConfig, CharacterSprite } from '@/components/game/Charac
 import type { DialogueNode } from '@/stores/gameStore';
 import { getCharacterSprite } from './spriteRegistry';
 import { getYi2BgImage } from './sceneImages';
+
+// 導入每個章節的預設背景圖
+import bgBedroomMorning from '@/assets/yi2/backgrounds/bg-bedroom-morning.jpg';
+import bgMrtInterior from '@/assets/yi2/backgrounds/bg-mrt-interior.jpg';
+import bgApartmentNight from '@/assets/yi2/backgrounds/bg-apartment-night.jpg';
+import bgComputerNight from '@/assets/yi2/backgrounds/bg-computer-night.jpg';
+import ch02MeetingRoomKv from '@/assets/yi2/backgrounds/ch02-bg-meeting-room-kv.png';
+import ch03BathroomMirror from '@/assets/yi2/backgrounds/ch03-bg-bathroom-mirror-kv.png';
+import ch04HotpotWide from '@/assets/yi2/backgrounds/ch04-01-hotpot-wide.png';
+import ch05LivingRoomWide from '@/assets/yi2/backgrounds/ch05-01-living-room-wide.png';
+import ch06KvCliffTeachers from '@/assets/yi2/backgrounds/ch06-kv-cliff-teachers.png';
+import ch07KvMidnightNotes from '@/assets/yi2/backgrounds/ch07-kv-midnight-notes.png';
+import ch08KvMirrorFirstSight from '@/assets/yi2/backgrounds/ch08-kv-mirror-first-sight.png';
+import ch09OfficeWide from '@/assets/yi2/backgrounds/ch09-01-office-wide.png';
+import ch10StageWide from '@/assets/yi2/backgrounds/ch10-01-stage-wide.png';
+import ch11PantryDialogueKv from '@/assets/yi2/backgrounds/ch11-key-pantry-dialogue-kv.png';
+import ch12KvWhiteWorld from '@/assets/yi2/backgrounds/ch12-kv-white-world.png';
+import ch00KvFoggyMirror from '@/assets/yi2/backgrounds/ch00-kv-foggy-mirror.png';
+
 export interface Yi2SceneConfig {
   background: BackgroundConfig;
   characters?: CharacterSprite[];
 }
 
-// ── 預設背景 ──
+// ── 預設背景（僅作為最終 fallback） ──
 
 const defaultBg = (hue: number, sat: number = 30): BackgroundConfig => ({
   type: 'gradient',
@@ -19,6 +38,24 @@ const defaultBg = (hue: number, sat: number = 30): BackgroundConfig => ({
   animation: 'breathe',
   overlay: 'noise',
 });
+
+// ── 每章預設背景圖片 ──
+const chapterDefaultImages: Record<string, string> = {
+  'yi2-preface': ch00KvFoggyMirror,
+  'yi2-ch0': bgBedroomMorning,
+  'yi2-ch1': bgMrtInterior,
+  'yi2-ch2': ch02MeetingRoomKv,
+  'yi2-ch3': ch03BathroomMirror,
+  'yi2-ch4': ch04HotpotWide,
+  'yi2-ch5': ch05LivingRoomWide,
+  'yi2-ch6': ch06KvCliffTeachers,
+  'yi2-ch7': ch07KvMidnightNotes,
+  'yi2-ch8': ch08KvMirrorFirstSight,
+  'yi2-ch9': ch09OfficeWide,
+  'yi2-ch10': ch10StageWide,
+  'yi2-ch11': ch11PantryDialogueKv,
+  'yi2-ch12': ch12KvWhiteWorld,
+};
 
 // ── 章節預設場景 ──
 
