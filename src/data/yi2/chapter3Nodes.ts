@@ -108,9 +108,8 @@ export const chapter3Nodes: DialogueNode[] = [
   },
   {
     id: 'yi2-ch3-16',
-    speaker: 'yi',
-    speakerName: '伊',
-    text: '妳需要。',
+    speaker: 'narrator',
+    text: '鏡中的嘴角又動了。她不確定是不是光線的關係。\n\n腦海裡，那個不屬於她的念頭又冒出來——**妳需要。**',
     nextNodeId: 'yi2-ch3-17',
     effect: 'glitch',
   },
