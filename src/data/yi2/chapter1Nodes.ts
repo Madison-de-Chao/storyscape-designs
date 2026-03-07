@@ -150,6 +150,33 @@ export const chapter1Nodes: DialogueNode[] = [
     id: 'yi2-ch1-22',
     speaker: 'narrator',
     text: '這些聲音在她腦子裡轉，轉了很多年，轉成一個結論：\n\n**我做什麼都不對。**',
+    choices: [
+      {
+        id: 'yi2-ch1-22a',
+        text: '也許我真的做什麼都不對。',
+        arcChange: -3,
+        shadowChange: 5,
+        nextNodeId: 'yi2-ch1-22a-r',
+      },
+      {
+        id: 'yi2-ch1-22b',
+        text: '⋯⋯但我知道這個想法有問題。',
+        arcChange: 5,
+        shadowChange: 0,
+        nextNodeId: 'yi2-ch1-22b-r',
+      },
+    ],
+  },
+  {
+    id: 'yi2-ch1-22a-r',
+    speaker: 'narrator',
+    text: '她閉上眼睛。認了。反正掙扎也沒用。',
+    nextNodeId: 'yi2-ch1-23',
+  },
+  {
+    id: 'yi2-ch1-22b-r',
+    speaker: 'narrator',
+    text: '她知道這個邏輯不對。但知道歸知道，感覺歸感覺。兩回事。',
     nextNodeId: 'yi2-ch1-23',
   },
   {
