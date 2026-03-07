@@ -59,6 +59,33 @@ export const chapter5Nodes: DialogueNode[] = [
     id: 'yi2-ch5-9',
     speaker: 'narrator',
     text: '她想起自己。\n\n她沒有夢露漂亮，沒有夢露有錢，沒有夢露有名。她只是一個普通的上班族。\n\n夢露有什麼資格抱怨？\n\n她擁有的東西，是林壹做夢都想要的。',
+    choices: [
+      {
+        id: 'yi2-ch5-9a',
+        text: '擁有那麼多還不滿足，太矯情了。',
+        arcChange: -3,
+        shadowChange: 3,
+        nextNodeId: 'yi2-ch5-9a-r',
+      },
+      {
+        id: 'yi2-ch5-9b',
+        text: '⋯⋯但擁有很多，就代表一定快樂嗎？',
+        arcChange: 5,
+        shadowChange: 0,
+        nextNodeId: 'yi2-ch5-9b-r',
+      },
+    ],
+  },
+  {
+    id: 'yi2-ch5-9a-r',
+    speaker: 'narrator',
+    text: '她嘖了一聲，拿起遙控器準備轉台。',
+    nextNodeId: 'yi2-ch5-10',
+  },
+  {
+    id: 'yi2-ch5-9b-r',
+    speaker: 'narrator',
+    text: '她的手指停在遙控器上。這個問題讓她有點不舒服，因為它指向了她自己。',
     nextNodeId: 'yi2-ch5-10',
   },
 
