@@ -318,9 +318,8 @@ export const chapter3Nodes: DialogueNode[] = [
   },
   {
     id: 'yi2-ch3-46',
-    speaker: 'yi',
-    speakerName: '伊',
-    text: '所以妳寧願待在這裡。',
+    speaker: 'narrator',
+    text: '黑暗裡，那個聲音又來了。很輕，像是從枕頭底下傳出來的。\n\n**——所以妳寧願待在這裡。**\n\n她抓緊被子。不是幻聽。也不是做夢。她很清醒。但那個聲音就是在那裡。',
     nextNodeId: 'yi2-ch3-47',
     effect: 'glitch',
     emotionSFX: 'mysterious_whisper',

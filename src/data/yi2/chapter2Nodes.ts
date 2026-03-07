@@ -248,9 +248,8 @@ export const chapter2Nodes: DialogueNode[] = [
   },
   {
     id: 'yi2-ch2-36',
-    speaker: 'yi',
-    speakerName: '伊',
-    text: '妳刪掉的那個故事，結局其實很好。是妳不敢相信而已。\n\n——伊',
+    speaker: 'narrator',
+    text: '只有一行字。沒有署名。\n\n**「妳刪掉的那個故事，結局其實很好。是妳不敢相信而已。」**\n\n誰寫的？什麼時候寫的？她完全沒有印象。',
     nextNodeId: 'yi2-ch2-end',
     effect: 'glow',
     emotionSFX: 'mysterious_whisper',
