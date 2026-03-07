@@ -35,6 +35,10 @@ import ch03MirrorSmash from '@/assets/yi2/backgrounds/ch03-mirror-smash-real.png
 import ch04HotpotWide from '@/assets/yi2/backgrounds/ch04-01-hotpot-wide.png';
 import ch04HotpotConflictFemale from '@/assets/yi2/backgrounds/ch04-key-hotpot-conflict-kv-female.png';
 
+// ── CH08 背景圖 ──
+import ch08KvMirrorFirstSight from '@/assets/yi2/backgrounds/ch08-kv-mirror-first-sight.png';
+import ch08KvAllowCrying from '@/assets/yi2/backgrounds/ch08-kv-allow-crying.png';
+
 // ── CH05 背景圖 ──
 import ch05LivingRoomWide from '@/assets/yi2/backgrounds/ch05-01-living-room-wide.png';
 import ch05LivingRoomMagic from '@/assets/yi2/backgrounds/ch05-04-living-room-mirror-magic.png';
