@@ -298,6 +298,33 @@ export const chapter5Nodes: DialogueNode[] = [
     id: 'yi2-ch5-37',
     speaker: 'narrator',
     text: '林壹低下頭。\n\n她沒辦法反駁。',
+    choices: [
+      {
+        id: 'yi2-ch5-37a',
+        text: '⋯⋯我跟小曼說的，真的一樣。我對夢露也不公平。',
+        arcChange: 5,
+        shadowChange: -3,
+        nextNodeId: 'yi2-ch5-37a-r',
+      },
+      {
+        id: 'yi2-ch5-37b',
+        text: '但這不一樣⋯⋯我的情況跟夢露不同。',
+        arcChange: -3,
+        shadowChange: 3,
+        nextNodeId: 'yi2-ch5-37b-r',
+      },
+    ],
+  },
+  {
+    id: 'yi2-ch5-37a-r',
+    speaker: 'narrator',
+    text: '她的胸口悶悶的。承認自己的不公平，比承認別人的不公平更痛。',
+    nextNodeId: 'yi2-ch5-38',
+  },
+  {
+    id: 'yi2-ch5-37b-r',
+    speaker: 'narrator',
+    text: '但她知道這句話很勉強。伊看著她，什麼都沒說。那個沉默比任何話都重。',
     nextNodeId: 'yi2-ch5-38',
   },
 

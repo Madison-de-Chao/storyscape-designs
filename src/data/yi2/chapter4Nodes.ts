@@ -402,8 +402,35 @@ export const chapter4Nodes: DialogueNode[] = [
     id: 'yi2-ch4-53',
     speaker: 'narrator',
     text: '林壹一個人坐在火鍋店裡，湯底還在滾，對面的位子空了。\n\n**她覺得全身發冷。**',
-    nextNodeId: 'yi2-ch4-54',
     emotionSFX: 'sad_sigh',
+    choices: [
+      {
+        id: 'yi2-ch4-53a',
+        text: '她根本不懂我。沒有人懂我。',
+        arcChange: -5,
+        shadowChange: 5,
+        nextNodeId: 'yi2-ch4-53a-r',
+      },
+      {
+        id: 'yi2-ch4-53b',
+        text: '⋯⋯也許她說的，有一點點道理。',
+        arcChange: 5,
+        shadowChange: -3,
+        nextNodeId: 'yi2-ch4-53b-r',
+      },
+    ],
+  },
+  {
+    id: 'yi2-ch4-53a-r',
+    speaker: 'narrator',
+    text: '她把臉埋進手心裡。火鍋的蒸氣模糊了她的視線，但不是因為蒸氣。',
+    nextNodeId: 'yi2-ch4-54',
+  },
+  {
+    id: 'yi2-ch4-53b-r',
+    speaker: 'narrator',
+    text: '這個想法像一根細針，刺進她最不想碰的地方。很痛。但好像不是壞的那種痛。',
+    nextNodeId: 'yi2-ch4-54',
   },
 
   // ── 五 ──

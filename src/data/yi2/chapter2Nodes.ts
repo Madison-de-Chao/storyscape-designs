@@ -224,6 +224,33 @@ export const chapter2Nodes: DialogueNode[] = [
     id: 'yi2-ch2-28',
     speaker: 'narrator',
     text: '她盯著看了很久，直到眼睛酸了才眨眼。\n\n什麼都沒發生。\n\n她是不是瘋了？',
+    choices: [
+      {
+        id: 'yi2-ch2-28a',
+        text: '我一定是太累了。什麼鏡子、什麼笑容，都是幻覺。',
+        arcChange: -3,
+        shadowChange: 3,
+        nextNodeId: 'yi2-ch2-28a-r',
+      },
+      {
+        id: 'yi2-ch2-28b',
+        text: '我不知道那是什麼⋯⋯但好像不全是壞事。',
+        arcChange: 5,
+        shadowChange: 0,
+        nextNodeId: 'yi2-ch2-28b-r',
+      },
+    ],
+  },
+  {
+    id: 'yi2-ch2-28a-r',
+    speaker: 'narrator',
+    text: '她用力甩了甩頭，好像這樣就能把昨晚的記憶甩掉。',
+    nextNodeId: 'yi2-ch2-29',
+  },
+  {
+    id: 'yi2-ch2-28b-r',
+    speaker: 'narrator',
+    text: '她不知道為什麼會這樣想。但那個在鏡中微笑的人⋯⋯好像沒有惡意。',
     nextNodeId: 'yi2-ch2-29',
   },
   {
