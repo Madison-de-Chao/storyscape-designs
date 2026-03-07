@@ -146,6 +146,10 @@ export const yi2BgImageMap: Record<string, string> = {
   'yi2-living-room-magic': ch05LivingRoomMagic, // 客廳魔幻鏡子
   'yi2-mirror-yi-simple-v2': ch05MirrorYiSimpleV2, // 鏡中伊（修正版單一構圖）
 
+  // CH08 場景
+  'yi2-ch8-mirror-first-sight': ch08KvMirrorFirstSight, // 鏡中初見（KV）
+  'yi2-ch8-allow-crying': ch08KvAllowCrying,   // 允許自己哭（KV）
+
   // CH09 場景
   'yi2-office-wide': ch09OfficeWide,           // 辦公室廣角
   'yi2-office-wide-v2': ch09OfficeWideV2,      // 辦公室廣角（修正版）
@@ -155,6 +159,8 @@ export const yi2BgImageMap: Record<string, string> = {
   'yi2-office-social-v2': ch09SocialDistanceV2, // 辦公室社交距離（修正版）
   'yi2-office-social-kv': ch09SocialDistanceKv, // 辦公室社交距離（KV 風格）
   'yi2-office-social-simple': ch09SocialDistanceSimple, // 辦公室社交距離（單一構圖）
+  'yi2-ch9-meeting-thanks': ch09KvMeetingThanks, // 會議上的謝謝（KV）
+  'yi2-ch9-screening-night': ch09KvScreeningNight, // 篩選之夜（KV）
 
   // CH10 場景
   'yi2-stage-wide': ch10StageWide,             // 童年舞台廣角
@@ -162,14 +168,18 @@ export const yi2BgImageMap: Record<string, string> = {
   'yi2-stage-closeup': ch10StageCloseup,       // 童年舞台特寫
   'yi2-stage-dynamic': ch10StageDynamic,       // 童年舞台動態
   'yi2-stage-embrace-kv': ch10EmbraceKv,       // 內在小孩擁抱（KV 風格）
+  'yi2-ch10-childhood-stage': ch10KvChildhoodStage, // 童年舞台（KV）
 
   // CH11 場景
   'yi2-pantry-closeup': ch11PantryCloseup,     // 茶水間特寫
   'yi2-pantry-dynamic': ch11PantryDynamic,     // 茶水間動態
   'yi2-pantry-dialogue-kv': ch11PantryDialogueKv, // 茶水間對話（KV 風格）
+  'yi2-ch11-pantry-echo': ch11KvPantryEcho,    // 茶水間回聲（KV）
+  'yi2-ch11-father-message': ch11KvFatherMessage, // 父親的訊息（KV）
 
   // CH12 場景
   'yi2-ch12-dynamic': ch12DynamicTension,      // 第十二章動態張力
+  'yi2-ch12-white-world': ch12KvWhiteWorld,    // 未被創造的白色世界（KV）
 
   // 尾聲 (EP) 場景
   'yi2-ep-medium': ep02Medium,                 // 尾聲中景敘事
