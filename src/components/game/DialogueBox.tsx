@@ -52,8 +52,9 @@ const DialogueBox = ({ isHidden = false, onToggleHide, onScoreChange }: Dialogue
   const currentNodeId = progress.currentNodeId;
   const { playSFX, playEmotionSFX } = useSFX();
   
-  const [displayedText, setDisplayedText] = useState('');
-  const [isTyping, setIsTyping] = useState(true);
+   const [displayedText, setDisplayedText] = useState('');
+   const [isTyping, setIsTyping] = useState(true);
+   const typingCancelledRef = useRef(false);
   const [currentNode, setCurrentNode] = useState<DialogueNode | null>(null);
   const [isAutoForward, setIsAutoForward] = useState(false);
   const [isAutoPlay, setIsAutoPlay] = useState(false);
