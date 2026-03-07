@@ -302,6 +302,7 @@ const DialogueBox = ({ isHidden = false, onToggleHide, onScoreChange }: Dialogue
     if (!currentNode) return;
 
     if (isTyping) {
+      typingCancelledRef.current = true;
       setDisplayedText(currentNode.text);
       setIsTyping(false);
       lastTypingFinishTimeRef.current = Date.now();
