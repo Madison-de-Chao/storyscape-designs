@@ -6,12 +6,31 @@ import type { BackgroundConfig, CharacterSprite } from '@/components/game/Charac
 import type { DialogueNode } from '@/stores/gameStore';
 import { getCharacterSprite } from './spriteRegistry';
 import { getYi2BgImage } from './sceneImages';
+
+// 導入每個章節的預設背景圖
+import bgBedroomMorning from '@/assets/yi2/backgrounds/bg-bedroom-morning.jpg';
+import bgMrtInterior from '@/assets/yi2/backgrounds/bg-mrt-interior.jpg';
+import bgApartmentNight from '@/assets/yi2/backgrounds/bg-apartment-night.jpg';
+import bgComputerNight from '@/assets/yi2/backgrounds/bg-computer-night.jpg';
+import ch02MeetingRoomKv from '@/assets/yi2/backgrounds/ch02-bg-meeting-room-kv.png';
+import ch03BathroomMirror from '@/assets/yi2/backgrounds/ch03-bg-bathroom-mirror-kv.png';
+import ch04HotpotWide from '@/assets/yi2/backgrounds/ch04-01-hotpot-wide.png';
+import ch05LivingRoomWide from '@/assets/yi2/backgrounds/ch05-01-living-room-wide.png';
+import ch06KvCliffTeachers from '@/assets/yi2/backgrounds/ch06-kv-cliff-teachers.png';
+import ch07KvMidnightNotes from '@/assets/yi2/backgrounds/ch07-kv-midnight-notes.png';
+import ch08KvMirrorFirstSight from '@/assets/yi2/backgrounds/ch08-kv-mirror-first-sight.png';
+import ch09OfficeWide from '@/assets/yi2/backgrounds/ch09-01-office-wide.png';
+import ch10StageWide from '@/assets/yi2/backgrounds/ch10-01-stage-wide.png';
+import ch11PantryDialogueKv from '@/assets/yi2/backgrounds/ch11-key-pantry-dialogue-kv.png';
+import ch12KvWhiteWorld from '@/assets/yi2/backgrounds/ch12-kv-white-world.png';
+import ch00KvFoggyMirror from '@/assets/yi2/backgrounds/ch00-kv-foggy-mirror.png';
+
 export interface Yi2SceneConfig {
   background: BackgroundConfig;
   characters?: CharacterSprite[];
 }
 
-// ── 預設背景 ──
+// ── 預設背景（僅作為最終 fallback） ──
 
 const defaultBg = (hue: number, sat: number = 30): BackgroundConfig => ({
   type: 'gradient',
@@ -19,6 +38,24 @@ const defaultBg = (hue: number, sat: number = 30): BackgroundConfig => ({
   animation: 'breathe',
   overlay: 'noise',
 });
+
+// ── 每章預設背景圖片 ──
+const chapterDefaultImages: Record<string, string> = {
+  'yi2-preface': ch00KvFoggyMirror,
+  'yi2-ch0': bgBedroomMorning,
+  'yi2-ch1': bgMrtInterior,
+  'yi2-ch2': ch02MeetingRoomKv,
+  'yi2-ch3': ch03BathroomMirror,
+  'yi2-ch4': ch04HotpotWide,
+  'yi2-ch5': ch05LivingRoomWide,
+  'yi2-ch6': ch06KvCliffTeachers,
+  'yi2-ch7': ch07KvMidnightNotes,
+  'yi2-ch8': ch08KvMirrorFirstSight,
+  'yi2-ch9': ch09OfficeWide,
+  'yi2-ch10': ch10StageWide,
+  'yi2-ch11': ch11PantryDialogueKv,
+  'yi2-ch12': ch12KvWhiteWorld,
+};
 
 // ── 章節預設場景 ──
 
@@ -141,7 +178,7 @@ export function getYi2SceneConfig(nodeId: string, node?: DialogueNode): Yi2Scene
 
   const base = chapterDefaults[chapterKey] || { background: defaultBg(210) };
 
-  // 若節點有 bgImage，嘗試解析為實際圖片背景
+  // 1. 若節點有 bgImage，嘗試解析為實際圖片背景
   let result = { ...base };
   if (node?.bgImage) {
     const imageSrc = getYi2BgImage(node.bgImage, chapterKey);
@@ -156,12 +193,52 @@ export function getYi2SceneConfig(nodeId: string, node?: DialogueNode): Yi2Scene
         },
       };
     }
+  } else {
+    // 2. 沒有 bgImage 時，使用章節預設背景圖片（而非漸層）
+    const defaultImage = chapterDefaultImages[chapterKey];
+    if (defaultImage) {
+      result = {
+        ...base,
+        background: {
+          type: 'image',
+          value: defaultImage,
+          animation: 'breathe',
+          overlay: 'noise',
+        },
+      };
+    }
   }
 
-  // 自動為有立繪的角色生成 sprite
+  // 3. 自動為角色生成 sprite
   const spriteCharacters = ['protagonist', 'yi', 'xiaochen', 'xiaoman', 'linyi'];
+  // 決定顯示哪個角色的立繪
+  let spriteCharacter: string | null = null;
+
   if (node?.speaker && spriteCharacters.includes(node.speaker)) {
-    const spriteSrc = getCharacterSprite(node.speaker, node.expression);
+    // 直接匹配角色發言
+    spriteCharacter = node.speaker;
+  } else if (node?.speaker === 'narrator') {
+    // 旁白節點：根據上下文顯示主角立繪
+    // 如果有 speakerName 包含特定角色名，顯示該角色
+    if (node.speakerName) {
+      const nameMap: Record<string, string> = {
+        '林壹': 'protagonist',
+        '伊': 'yi',
+        '小陳': 'xiaochen',
+        '小曼': 'xiaoman',
+        '小滿': 'xiaoman',
+      };
+      spriteCharacter = nameMap[node.speakerName] || null;
+    }
+    // 否則在大部分旁白場景中也顯示主角立繪（讓畫面不空）
+    if (!spriteCharacter) {
+      spriteCharacter = 'protagonist';
+    }
+  }
+
+  if (spriteCharacter) {
+    const expression = node?.expression || 'default';
+    const spriteSrc = getCharacterSprite(spriteCharacter, expression);
     if (spriteSrc) {
       const positionMap: Record<string, 'left' | 'center' | 'right'> = {
         protagonist: 'center',
@@ -182,11 +259,11 @@ export function getYi2SceneConfig(nodeId: string, node?: DialogueNode): Yi2Scene
         characters: [
           ...(result.characters || []),
           {
-            id: node.speaker,
+            id: spriteCharacter,
             src: spriteSrc,
-            position: positionMap[node.speaker] || 'center',
-            entrance: entranceMap[node.speaker] || 'fade',
-            isSpeaking: true,
+            position: positionMap[spriteCharacter] || 'center',
+            entrance: entranceMap[spriteCharacter] || 'fade',
+            isSpeaking: node?.speaker === spriteCharacter,
             scale: 0.9,
           },
         ],
