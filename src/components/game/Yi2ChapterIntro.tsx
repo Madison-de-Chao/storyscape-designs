@@ -184,7 +184,8 @@ const MirrorCrackEffect = forwardRef<HTMLDivElement, { color: string }>(({ color
       transition={{ duration: 1.2, delay: 0.8 }}
     />
   </>
-);
+));
+MirrorCrackEffect.displayName = 'MirrorCrackEffect';
 
 /** 火鍋蒸氣（第四章） */
 const HotpotSteamEffect = ({ color }: { color: string }) => (
