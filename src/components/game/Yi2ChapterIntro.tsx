@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from 'framer-motion';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { forwardRef, useCallback, useEffect, useRef, useState } from 'react';
 import { getChapterTheme, themeToHSL, themeToGlow } from '@/utils/chapterThemes';
 import { usePerformanceStore } from '@/stores/performanceStore';
 
@@ -155,7 +155,7 @@ const MemoryGapEffect = ({ color }: { color: string }) => (
 );
 
 /** 鏡子碎裂（第三章） */
-const MirrorCrackEffect = ({ color }: { color: string }) => (
+const MirrorCrackEffect = forwardRef<HTMLDivElement, { color: string }>(({ color }, _ref) => (
   <>
     {/* 裂痕線條 */}
     <svg className="absolute inset-0 w-full h-full" viewBox="0 0 100 100">
@@ -184,7 +184,8 @@ const MirrorCrackEffect = ({ color }: { color: string }) => (
       transition={{ duration: 1.2, delay: 0.8 }}
     />
   </>
-);
+));
+MirrorCrackEffect.displayName = 'MirrorCrackEffect';
 
 /** 火鍋蒸氣（第四章） */
 const HotpotSteamEffect = ({ color }: { color: string }) => (
@@ -512,7 +513,7 @@ const ZeroCountdownEffect = ({ color }: { color: string }) => {
 
 // ── 效果選擇器 ──
 
-const EffectRenderer = ({ style, color }: { style: IntroStyle; color: string }) => {
+const EffectRenderer = forwardRef<HTMLDivElement, { style: IntroStyle; color: string }>(({ style, color }, _ref) => {
   switch (style) {
     case 'digital-wake': return <DigitalWakeEffect color={color} />;
     case 'file-delete': return <FileDeleteEffect color={color} />;
@@ -529,7 +530,8 @@ const EffectRenderer = ({ style, color }: { style: IntroStyle; color: string }) 
     case 'zero-countdown': return <ZeroCountdownEffect color={color} />;
     default: return null;
   }
-};
+});
+EffectRenderer.displayName = 'EffectRenderer';
 
 // ── 主組件 ──
 
