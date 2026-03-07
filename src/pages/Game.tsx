@@ -34,6 +34,7 @@ const Index = () => {
     if (
       isPlaying && 
       !prevIsPlaying.current && 
+      currentPart === 'yi' &&
       currentNodeId === 'preface-1' &&
       !introShown
     ) {
