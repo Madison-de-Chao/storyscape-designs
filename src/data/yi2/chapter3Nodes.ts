@@ -93,9 +93,8 @@ export const chapter3Nodes: DialogueNode[] = [
   },
   {
     id: 'yi2-ch3-14',
-    speaker: 'yi',
-    speakerName: '伊',
-    text: '我在幫妳。',
+    speaker: 'narrator',
+    text: '一個念頭浮上來，不像是她自己的。\n\n**——我在幫妳。**\n\n她打了個寒顫。這個「聲音」，又來了。',
     nextNodeId: 'yi2-ch3-15',
     effect: 'glitch',
     emotionSFX: 'mysterious_whisper',
