@@ -75,6 +75,7 @@ import ch11KvFatherMessage from '@/assets/yi2/backgrounds/ch11-kv-father-message
 
 // ── CH12 背景圖 ──
 import ch12DynamicTension from '@/assets/yi2/backgrounds/ch12-04-dynamic-tension.png';
+import ch12KvWhiteWorld from '@/assets/yi2/backgrounds/ch12-kv-white-world.png';
 
 // ── 尾聲 (EP) 背景圖 ──
 import ep02Medium from '@/assets/yi2/backgrounds/ep-02-medium.png';
