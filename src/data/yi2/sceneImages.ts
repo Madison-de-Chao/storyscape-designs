@@ -54,12 +54,17 @@ import ch09SocialDistanceV2 from '@/assets/yi2/backgrounds/ch09-key-office-socia
 import ch09SocialDistanceKv from '@/assets/yi2/backgrounds/ch09-key-office-social-distance-kv-female.png';
 import ch09SocialDistanceSimple from '@/assets/yi2/backgrounds/ch09-key-office-social-distance-simple.png';
 
+// ── CH09 額外 KV ──
+import ch09KvMeetingThanks from '@/assets/yi2/backgrounds/ch09-kv-meeting-thanks.png';
+import ch09KvScreeningNight from '@/assets/yi2/backgrounds/ch09-kv-screening-night.png';
+
 // ── CH10 背景圖 ──
 import ch10StageWide from '@/assets/yi2/backgrounds/ch10-01-stage-wide.png';
 import ch10StageMedium from '@/assets/yi2/backgrounds/ch10-02-stage-medium.png';
 import ch10StageCloseup from '@/assets/yi2/backgrounds/ch10-03-stage-closeup.png';
 import ch10StageDynamic from '@/assets/yi2/backgrounds/ch10-04-stage-dynamic.png';
 import ch10EmbraceKv from '@/assets/yi2/backgrounds/ch10-key-inner-child-embrace-kv.png';
+import ch10KvChildhoodStage from '@/assets/yi2/backgrounds/ch10-kv-childhood-stage.png';
 
 // ── CH11 背景圖 ──
 import ch11PantryCloseup from '@/assets/yi2/backgrounds/ch11-03-pantry-closeup.png';
