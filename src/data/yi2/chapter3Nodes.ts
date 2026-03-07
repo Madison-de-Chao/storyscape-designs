@@ -228,6 +228,13 @@ export const chapter3Nodes: DialogueNode[] = [
         shadowChange: 0,
         nextNodeId: 'yi2-ch3-30b-r',
       },
+      {
+        id: 'yi2-ch3-30c',
+        text: '⋯⋯所以我的擺爛技能，就是別人眼中的「剛好」？我是不是天才？',
+        arcChange: 0,
+        shadowChange: 1,
+        nextNodeId: 'yi2-ch3-30c-r',
+      },
     ],
   },
   {
@@ -240,6 +247,12 @@ export const chapter3Nodes: DialogueNode[] = [
     id: 'yi2-ch3-30b-r',
     speaker: 'narrator',
     text: '這個想法嚇了她一跳。她趕緊收起來，像藏一封不該被別人看見的信。',
+    nextNodeId: 'yi2-ch3-31',
+  },
+  {
+    id: 'yi2-ch3-30c-r',
+    speaker: 'narrator',
+    text: '她對自己翻了個白眼。天才個頭。\n\n但仔細想想⋯⋯她三分力做出來的東西，居然比十分力的時候更好？\n\n這到底代表什麼？',
     nextNodeId: 'yi2-ch3-31',
   },
 
