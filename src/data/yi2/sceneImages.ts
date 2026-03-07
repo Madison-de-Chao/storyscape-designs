@@ -35,6 +35,10 @@ import ch03MirrorSmash from '@/assets/yi2/backgrounds/ch03-mirror-smash-real.png
 import ch04HotpotWide from '@/assets/yi2/backgrounds/ch04-01-hotpot-wide.png';
 import ch04HotpotConflictFemale from '@/assets/yi2/backgrounds/ch04-key-hotpot-conflict-kv-female.png';
 
+// ── CH08 背景圖 ──
+import ch08KvMirrorFirstSight from '@/assets/yi2/backgrounds/ch08-kv-mirror-first-sight.png';
+import ch08KvAllowCrying from '@/assets/yi2/backgrounds/ch08-kv-allow-crying.png';
+
 // ── CH05 背景圖 ──
 import ch05LivingRoomWide from '@/assets/yi2/backgrounds/ch05-01-living-room-wide.png';
 import ch05LivingRoomMagic from '@/assets/yi2/backgrounds/ch05-04-living-room-mirror-magic.png';
@@ -50,20 +54,28 @@ import ch09SocialDistanceV2 from '@/assets/yi2/backgrounds/ch09-key-office-socia
 import ch09SocialDistanceKv from '@/assets/yi2/backgrounds/ch09-key-office-social-distance-kv-female.png';
 import ch09SocialDistanceSimple from '@/assets/yi2/backgrounds/ch09-key-office-social-distance-simple.png';
 
+// ── CH09 額外 KV ──
+import ch09KvMeetingThanks from '@/assets/yi2/backgrounds/ch09-kv-meeting-thanks.png';
+import ch09KvScreeningNight from '@/assets/yi2/backgrounds/ch09-kv-screening-night.png';
+
 // ── CH10 背景圖 ──
 import ch10StageWide from '@/assets/yi2/backgrounds/ch10-01-stage-wide.png';
 import ch10StageMedium from '@/assets/yi2/backgrounds/ch10-02-stage-medium.png';
 import ch10StageCloseup from '@/assets/yi2/backgrounds/ch10-03-stage-closeup.png';
 import ch10StageDynamic from '@/assets/yi2/backgrounds/ch10-04-stage-dynamic.png';
 import ch10EmbraceKv from '@/assets/yi2/backgrounds/ch10-key-inner-child-embrace-kv.png';
+import ch10KvChildhoodStage from '@/assets/yi2/backgrounds/ch10-kv-childhood-stage.png';
 
 // ── CH11 背景圖 ──
 import ch11PantryCloseup from '@/assets/yi2/backgrounds/ch11-03-pantry-closeup.png';
 import ch11PantryDynamic from '@/assets/yi2/backgrounds/ch11-04-pantry-dynamic.png';
 import ch11PantryDialogueKv from '@/assets/yi2/backgrounds/ch11-key-pantry-dialogue-kv.png';
+import ch11KvPantryEcho from '@/assets/yi2/backgrounds/ch11-kv-pantry-echo.png';
+import ch11KvFatherMessage from '@/assets/yi2/backgrounds/ch11-kv-father-message.png';
 
 // ── CH12 背景圖 ──
 import ch12DynamicTension from '@/assets/yi2/backgrounds/ch12-04-dynamic-tension.png';
+import ch12KvWhiteWorld from '@/assets/yi2/backgrounds/ch12-kv-white-world.png';
 
 // ── 尾聲 (EP) 背景圖 ──
 import ep02Medium from '@/assets/yi2/backgrounds/ep-02-medium.png';
@@ -134,6 +146,10 @@ export const yi2BgImageMap: Record<string, string> = {
   'yi2-living-room-magic': ch05LivingRoomMagic, // 客廳魔幻鏡子
   'yi2-mirror-yi-simple-v2': ch05MirrorYiSimpleV2, // 鏡中伊（修正版單一構圖）
 
+  // CH08 場景
+  'yi2-ch8-mirror-first-sight': ch08KvMirrorFirstSight, // 鏡中初見（KV）
+  'yi2-ch8-allow-crying': ch08KvAllowCrying,   // 允許自己哭（KV）
+
   // CH09 場景
   'yi2-office-wide': ch09OfficeWide,           // 辦公室廣角
   'yi2-office-wide-v2': ch09OfficeWideV2,      // 辦公室廣角（修正版）
@@ -143,6 +159,8 @@ export const yi2BgImageMap: Record<string, string> = {
   'yi2-office-social-v2': ch09SocialDistanceV2, // 辦公室社交距離（修正版）
   'yi2-office-social-kv': ch09SocialDistanceKv, // 辦公室社交距離（KV 風格）
   'yi2-office-social-simple': ch09SocialDistanceSimple, // 辦公室社交距離（單一構圖）
+  'yi2-ch9-meeting-thanks': ch09KvMeetingThanks, // 會議上的謝謝（KV）
+  'yi2-ch9-screening-night': ch09KvScreeningNight, // 篩選之夜（KV）
 
   // CH10 場景
   'yi2-stage-wide': ch10StageWide,             // 童年舞台廣角
@@ -150,14 +168,18 @@ export const yi2BgImageMap: Record<string, string> = {
   'yi2-stage-closeup': ch10StageCloseup,       // 童年舞台特寫
   'yi2-stage-dynamic': ch10StageDynamic,       // 童年舞台動態
   'yi2-stage-embrace-kv': ch10EmbraceKv,       // 內在小孩擁抱（KV 風格）
+  'yi2-ch10-childhood-stage': ch10KvChildhoodStage, // 童年舞台（KV）
 
   // CH11 場景
   'yi2-pantry-closeup': ch11PantryCloseup,     // 茶水間特寫
   'yi2-pantry-dynamic': ch11PantryDynamic,     // 茶水間動態
   'yi2-pantry-dialogue-kv': ch11PantryDialogueKv, // 茶水間對話（KV 風格）
+  'yi2-ch11-pantry-echo': ch11KvPantryEcho,    // 茶水間回聲（KV）
+  'yi2-ch11-father-message': ch11KvFatherMessage, // 父親的訊息（KV）
 
   // CH12 場景
   'yi2-ch12-dynamic': ch12DynamicTension,      // 第十二章動態張力
+  'yi2-ch12-white-world': ch12KvWhiteWorld,    // 未被創造的白色世界（KV）
 
   // 尾聲 (EP) 場景
   'yi2-ep-medium': ep02Medium,                 // 尾聲中景敘事
