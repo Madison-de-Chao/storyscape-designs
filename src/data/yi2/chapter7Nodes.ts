@@ -403,6 +403,33 @@ export const chapter7Nodes: DialogueNode[] = [
     id: 'yi2-ch7-52',
     speaker: 'narrator',
     text: '她連第一種都還沒走出來。\n\n她甚至不是被攻擊才崩潰——她是還沒被攻擊，就先自己崩潰了。\n\n她在別人開槍之前，就先把自己打趴。',
+    choices: [
+      {
+        id: 'yi2-ch7-52a',
+        text: '我就是第零種。最差的那一種。',
+        arcChange: -5,
+        shadowChange: 5,
+        nextNodeId: 'yi2-ch7-52a-r',
+      },
+      {
+        id: 'yi2-ch7-52b',
+        text: '但我現在看見了。看見，就是改變的開始。',
+        arcChange: 5,
+        shadowChange: -3,
+        nextNodeId: 'yi2-ch7-52b-r',
+      },
+    ],
+  },
+  {
+    id: 'yi2-ch7-52a-r',
+    speaker: 'narrator',
+    text: '她打下這行字的時候，手指在抖。但她沒有刪掉。有些真相必須先被寫下來。',
+    nextNodeId: 'yi2-ch7-53',
+  },
+  {
+    id: 'yi2-ch7-52b-r',
+    speaker: 'narrator',
+    text: '她深吸一口氣。能夠看見自己的問題，這件事本身⋯⋯也許就已經不是第零種了。',
     nextNodeId: 'yi2-ch7-53',
   },
   {

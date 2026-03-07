@@ -438,6 +438,33 @@ export const chapter3Nodes: DialogueNode[] = [
     id: 'yi2-ch3-60',
     speaker: 'narrator',
     text: '她低下頭，扒著飯。\n\n是喔。\n\n她條件很好。\n\n**所以她沒有資格難過。**\n\n**所以她的痛苦不算痛苦。**',
+    choices: [
+      {
+        id: 'yi2-ch3-60a',
+        text: '對。我確實沒有資格。',
+        arcChange: -5,
+        shadowChange: 5,
+        nextNodeId: 'yi2-ch3-60a-r',
+      },
+      {
+        id: 'yi2-ch3-60b',
+        text: '但痛苦就是痛苦，跟資格有什麼關係？',
+        arcChange: 5,
+        shadowChange: -3,
+        nextNodeId: 'yi2-ch3-60b-r',
+      },
+    ],
+  },
+  {
+    id: 'yi2-ch3-60a-r',
+    speaker: 'narrator',
+    text: '她把這句話吞進去，跟飯一起嚥下。苦苦的。',
+    nextNodeId: 'yi2-ch3-61',
+  },
+  {
+    id: 'yi2-ch3-60b-r',
+    speaker: 'narrator',
+    text: '這個念頭在她腦子裡閃了一下，像流星。她來不及抓住，但她知道它存在過。',
     nextNodeId: 'yi2-ch3-61',
   },
   {

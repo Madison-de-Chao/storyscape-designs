@@ -563,6 +563,33 @@ export const chapter8Nodes: DialogueNode[] = [
     speaker: 'protagonist',
     speakerName: '林壹',
     text: '可是⋯⋯這樣我怎麼知道自己有沒有進步？',
+    choices: [
+      {
+        id: 'yi2-ch8-67a',
+        text: '如果不能衡量進步，那努力有什麼意義？',
+        arcChange: -3,
+        shadowChange: 3,
+        nextNodeId: 'yi2-ch8-67a-r',
+      },
+      {
+        id: 'yi2-ch8-67b',
+        text: '也許⋯⋯進步不是用「變成什麼人」來衡量的。',
+        arcChange: 5,
+        shadowChange: 0,
+        nextNodeId: 'yi2-ch8-67b-r',
+      },
+    ],
+  },
+  {
+    id: 'yi2-ch8-67a-r',
+    speaker: 'narrator',
+    text: '她習慣用結果來定義自己。沒有結果，她就不知道自己在哪裡。',
+    nextNodeId: 'yi2-ch8-68',
+  },
+  {
+    id: 'yi2-ch8-67b-r',
+    speaker: 'narrator',
+    text: '她說完這句話，自己愣了一下。這不像是她會說的話。但它是從她嘴裡出來的。',
     nextNodeId: 'yi2-ch8-68',
   },
   {

@@ -718,6 +718,33 @@ export const chapter6Nodes: DialogueNode[] = [
     speaker: 'protagonist',
     speakerName: '林壹',
     text: '可是⋯⋯知道歸知道，做到是另一回事。',
+    choices: [
+      {
+        id: 'yi2-ch6-90a',
+        text: '我永遠做不到他們做到的事。',
+        arcChange: -3,
+        shadowChange: 3,
+        nextNodeId: 'yi2-ch6-90a-r',
+      },
+      {
+        id: 'yi2-ch6-90b',
+        text: '但至少我知道了。知道，是第一步。',
+        arcChange: 5,
+        shadowChange: 0,
+        nextNodeId: 'yi2-ch6-90b-r',
+      },
+    ],
+  },
+  {
+    id: 'yi2-ch6-90a-r',
+    speaker: 'narrator',
+    text: '她垂下眼睛。那些人的故事太沉重了，壓在她身上，讓她覺得自己更渺小。',
+    nextNodeId: 'yi2-ch6-91',
+  },
+  {
+    id: 'yi2-ch6-90b-r',
+    speaker: 'narrator',
+    text: '這句話說出來的時候，她自己都有點意外。好像有什麼東西在她心裡悄悄鬆動了。',
     nextNodeId: 'yi2-ch6-91',
   },
   {
