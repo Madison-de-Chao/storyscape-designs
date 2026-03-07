@@ -159,6 +159,33 @@ export const chapter0Nodes: DialogueNode[] = [
     id: 'yi2-ch0-22',
     speaker: 'narrator',
     text: '那些「你值得更好的」、「相信自己」、「踏出舒適圈」的句子，每一個字她都認識，但讀起來就是覺得刺眼。\n\n像是有人在指著她的鼻子說：**妳現在這樣不夠好。**',
+    choices: [
+      {
+        id: 'yi2-ch0-22a',
+        text: '對⋯⋯我就是不夠好。所以這些話才這麼刺眼。',
+        arcChange: -3,
+        shadowChange: 3,
+        nextNodeId: 'yi2-ch0-22a-r',
+      },
+      {
+        id: 'yi2-ch0-22b',
+        text: '⋯⋯也許這些話不是在罵我。是我自己先覺得自己不好。',
+        arcChange: 5,
+        shadowChange: 0,
+        nextNodeId: 'yi2-ch0-22b-r',
+      },
+    ],
+  },
+  {
+    id: 'yi2-ch0-22a-r',
+    speaker: 'narrator',
+    text: '她把書塞回包包最底層。眼不見為淨。',
+    nextNodeId: 'yi2-ch0-23',
+  },
+  {
+    id: 'yi2-ch0-22b-r',
+    speaker: 'narrator',
+    text: '這個念頭一閃而過，但她沒有抓住它。車廂又晃了一下，念頭就散了。',
     nextNodeId: 'yi2-ch0-23',
   },
   {
@@ -370,6 +397,33 @@ export const chapter0Nodes: DialogueNode[] = [
     id: 'yi2-ch0-48',
     speaker: 'narrator',
     text: '不是想死。她沒有想死。死很麻煩，要寫遺書，要處理後事，要讓爸媽傷心。\n\n她只是不知道為什麼要活。\n\n**這兩件事不一樣。**',
+    choices: [
+      {
+        id: 'yi2-ch0-48a',
+        text: '也許⋯⋯這就是我的人生了吧。',
+        arcChange: -3,
+        shadowChange: 3,
+        nextNodeId: 'yi2-ch0-48a-r',
+      },
+      {
+        id: 'yi2-ch0-48b',
+        text: '但我不想一直這樣。',
+        arcChange: 5,
+        shadowChange: 0,
+        nextNodeId: 'yi2-ch0-48b-r',
+      },
+    ],
+  },
+  {
+    id: 'yi2-ch0-48a-r',
+    speaker: 'narrator',
+    text: '她盯著天花板的水漬，像一張地圖。通往哪裡都好，只要不是這裡。',
+    nextNodeId: 'yi2-ch0-49',
+  },
+  {
+    id: 'yi2-ch0-48b-r',
+    speaker: 'narrator',
+    text: '這個念頭來得很突然。她不知道它從哪裡冒出來的。但它確實在那裡，微弱地跳了一下。',
     nextNodeId: 'yi2-ch0-49',
   },
 

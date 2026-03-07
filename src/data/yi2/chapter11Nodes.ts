@@ -30,6 +30,33 @@ export const chapter11Nodes: DialogueNode[] = [
     id: 'yi2-ch11-4',
     speaker: 'narrator',
     text: '中午的時候，她去茶水間倒水。\n\n聽見有人在說話，聲音壓得很低，但她還是聽見了。\n\n「她最近很奇怪欸，感覺變了一個人。」\n「對啊，以前還滿好相處的。」\n「現在講話都不知道在跩什麼。」',
+    choices: [
+      {
+        id: 'yi2-ch11-4a',
+        text: '假裝沒聽到，轉身離開。',
+        arcChange: -3,
+        shadowChange: 3,
+        nextNodeId: 'yi2-ch11-4a-r',
+      },
+      {
+        id: 'yi2-ch11-4b',
+        text: '走進去。讓他們知道我聽到了。',
+        arcChange: 5,
+        shadowChange: -3,
+        nextNodeId: 'yi2-ch11-4b-r',
+      },
+    ],
+  },
+  {
+    id: 'yi2-ch11-4a-r',
+    speaker: 'narrator',
+    text: '她轉身的瞬間，腳步頓了一下。以前的她一定會逃走。但今天⋯⋯她停下來，轉回去，還是走進了茶水間。',
+    nextNodeId: 'yi2-ch11-5',
+  },
+  {
+    id: 'yi2-ch11-4b-r',
+    speaker: 'narrator',
+    text: '她的心跳得很快。但她的腳步沒有停。',
     nextNodeId: 'yi2-ch11-5',
   },
   {

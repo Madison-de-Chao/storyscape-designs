@@ -69,8 +69,35 @@ export const chapter2Nodes: DialogueNode[] = [
     speaker: 'narrator',
     speakerName: '小玲',
     text: '小玲笑了：「妳在開玩笑吧？妳剛剛講了快十分鐘耶，分析得超清楚的，什麼市場區隔、競品比較、風險評估⋯⋯我都想抄筆記了。」\n\n她完全不記得。\n\n**那十分鐘，是一片空白。**',
-    nextNodeId: 'yi2-ch2-11',
     effect: 'glitch',
+    choices: [
+      {
+        id: 'yi2-ch2-10a',
+        text: '那不是我。那個人不是我。',
+        arcChange: -3,
+        shadowChange: 3,
+        nextNodeId: 'yi2-ch2-10a-r',
+      },
+      {
+        id: 'yi2-ch2-10b',
+        text: '⋯⋯也許那也是我的一部分？',
+        arcChange: 5,
+        shadowChange: 0,
+        nextNodeId: 'yi2-ch2-10b-r',
+      },
+    ],
+  },
+  {
+    id: 'yi2-ch2-10a-r',
+    speaker: 'narrator',
+    text: '她攥緊手心。不對。她不可能做到那些。一定是搞錯了。',
+    nextNodeId: 'yi2-ch2-11',
+  },
+  {
+    id: 'yi2-ch2-10b-r',
+    speaker: 'narrator',
+    text: '這個念頭讓她有點頭暈。如果那真的是她⋯⋯那她為什麼平時做不到？',
+    nextNodeId: 'yi2-ch2-11',
   },
 
   // ── 三 ──
@@ -197,6 +224,33 @@ export const chapter2Nodes: DialogueNode[] = [
     id: 'yi2-ch2-28',
     speaker: 'narrator',
     text: '她盯著看了很久，直到眼睛酸了才眨眼。\n\n什麼都沒發生。\n\n她是不是瘋了？',
+    choices: [
+      {
+        id: 'yi2-ch2-28a',
+        text: '我一定是太累了。什麼鏡子、什麼笑容，都是幻覺。',
+        arcChange: -3,
+        shadowChange: 3,
+        nextNodeId: 'yi2-ch2-28a-r',
+      },
+      {
+        id: 'yi2-ch2-28b',
+        text: '我不知道那是什麼⋯⋯但好像不全是壞事。',
+        arcChange: 5,
+        shadowChange: 0,
+        nextNodeId: 'yi2-ch2-28b-r',
+      },
+    ],
+  },
+  {
+    id: 'yi2-ch2-28a-r',
+    speaker: 'narrator',
+    text: '她用力甩了甩頭，好像這樣就能把昨晚的記憶甩掉。',
+    nextNodeId: 'yi2-ch2-29',
+  },
+  {
+    id: 'yi2-ch2-28b-r',
+    speaker: 'narrator',
+    text: '她不知道為什麼會這樣想。但那個在鏡中微笑的人⋯⋯好像沒有惡意。',
     nextNodeId: 'yi2-ch2-29',
   },
   {

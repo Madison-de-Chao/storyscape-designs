@@ -150,6 +150,33 @@ export const chapter1Nodes: DialogueNode[] = [
     id: 'yi2-ch1-22',
     speaker: 'narrator',
     text: '這些聲音在她腦子裡轉，轉了很多年，轉成一個結論：\n\n**我做什麼都不對。**',
+    choices: [
+      {
+        id: 'yi2-ch1-22a',
+        text: '也許我真的做什麼都不對。',
+        arcChange: -3,
+        shadowChange: 5,
+        nextNodeId: 'yi2-ch1-22a-r',
+      },
+      {
+        id: 'yi2-ch1-22b',
+        text: '⋯⋯但我知道這個想法有問題。',
+        arcChange: 5,
+        shadowChange: 0,
+        nextNodeId: 'yi2-ch1-22b-r',
+      },
+    ],
+  },
+  {
+    id: 'yi2-ch1-22a-r',
+    speaker: 'narrator',
+    text: '她閉上眼睛。認了。反正掙扎也沒用。',
+    nextNodeId: 'yi2-ch1-23',
+  },
+  {
+    id: 'yi2-ch1-22b-r',
+    speaker: 'narrator',
+    text: '她知道這個邏輯不對。但知道歸知道，感覺歸感覺。兩回事。',
     nextNodeId: 'yi2-ch1-23',
   },
   {
@@ -195,6 +222,33 @@ export const chapter1Nodes: DialogueNode[] = [
     id: 'yi2-ch1-29',
     speaker: 'narrator',
     text: '她盯著那個檔案名稱。「未完成」。\n\n其實那個故事，三年前就寫完了。',
+    choices: [
+      {
+        id: 'yi2-ch1-29a',
+        text: '算了⋯⋯反正也不會有人想看。',
+        arcChange: -3,
+        shadowChange: 3,
+        nextNodeId: 'yi2-ch1-29a-r',
+      },
+      {
+        id: 'yi2-ch1-29b',
+        text: '⋯⋯再看一次吧。',
+        arcChange: 5,
+        shadowChange: 0,
+        nextNodeId: 'yi2-ch1-29b-r',
+      },
+    ],
+  },
+  {
+    id: 'yi2-ch1-29a-r',
+    speaker: 'narrator',
+    text: '她的手停在觸控板上。刪掉嗎？不。留著吧。留著提醒自己，這就是她最接近「做自己」的時刻。',
+    nextNodeId: 'yi2-ch1-30',
+  },
+  {
+    id: 'yi2-ch1-29b-r',
+    speaker: 'narrator',
+    text: '她點開第一章，文字跳出來的瞬間，有什麼東西在胸口輕輕動了一下。',
     nextNodeId: 'yi2-ch1-30',
   },
   {
