@@ -122,9 +122,8 @@ export const chapter3Nodes: DialogueNode[] = [
   },
   {
     id: 'yi2-ch3-18',
-    speaker: 'yi',
-    speakerName: '伊',
-    text: '那為什麼妳做不出來？',
+    speaker: 'narrator',
+    text: '**——那為什麼妳做不出來？**\n\n這句話像一根針，刺進她的胸口。她不知道這是自己在想，還是「它」在說。',
     nextNodeId: 'yi2-ch3-19',
     effect: 'glitch',
   },
