@@ -149,9 +149,8 @@ export const chapter3Nodes: DialogueNode[] = [
   },
   {
     id: 'yi2-ch3-22',
-    speaker: 'yi',
-    speakerName: '伊',
-    text: '妳明明知道怎麼做。妳只是怕做好了之後，就沒有藉口了。',
+    speaker: 'narrator',
+    text: '**——妳明明知道怎麼做。妳只是怕做好了之後，就沒有藉口了。**\n\n她的手在發抖。不是因為冷。是因為那句話太準了。準到她覺得，說這話的人比她自己更了解她。',
     nextNodeId: 'yi2-ch3-23',
     effect: 'glitch',
   },
