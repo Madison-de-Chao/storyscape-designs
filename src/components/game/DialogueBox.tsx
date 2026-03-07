@@ -132,6 +132,7 @@ const DialogueBox = ({ isHidden = false, onToggleHide, onScoreChange }: Dialogue
     const text = currentNode.text;
     setDisplayedText('');
     setIsTyping(true);
+    typingCancelledRef.current = false;
 
     // 低性能模式：直接顯示完整文字，避免逐字渲染
     if (shouldSimplify && !isAutoForward) {
