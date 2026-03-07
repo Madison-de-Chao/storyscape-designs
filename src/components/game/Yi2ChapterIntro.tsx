@@ -155,7 +155,7 @@ const MemoryGapEffect = ({ color }: { color: string }) => (
 );
 
 /** 鏡子碎裂（第三章） */
-const MirrorCrackEffect = ({ color }: { color: string }) => (
+const MirrorCrackEffect = forwardRef<HTMLDivElement, { color: string }>(({ color }, _ref) => (
   <>
     {/* 裂痕線條 */}
     <svg className="absolute inset-0 w-full h-full" viewBox="0 0 100 100">
