@@ -530,7 +530,8 @@ const EffectRenderer = forwardRef<HTMLDivElement, { style: IntroStyle; color: st
     case 'zero-countdown': return <ZeroCountdownEffect color={color} />;
     default: return null;
   }
-};
+});
+EffectRenderer.displayName = 'EffectRenderer';
 
 // ── 主組件 ──
 
