@@ -511,8 +511,35 @@ export const chapter8Nodes: DialogueNode[] = [
     id: 'yi2-ch8-64',
     speaker: 'narrator',
     text: '林壹低下頭，眼淚掉在睡褲上。',
-    nextNodeId: 'yi2-ch8-65',
     emotionSFX: 'sad_sigh',
+    choices: [
+      {
+        id: 'yi2-ch8-64a',
+        text: '我永遠都走不出這個迴圈了。',
+        arcChange: -3,
+        shadowChange: 5,
+        nextNodeId: 'yi2-ch8-64a-r',
+      },
+      {
+        id: 'yi2-ch8-64b',
+        text: '⋯⋯我想打破它。告訴我怎麼做。',
+        arcChange: 5,
+        shadowChange: -3,
+        nextNodeId: 'yi2-ch8-64b-r',
+      },
+    ],
+  },
+  {
+    id: 'yi2-ch8-64a-r',
+    speaker: 'narrator',
+    text: '她擦了擦眼睛。但即使這麼想，她還是沒有從鏡子前走開。也許，不走開本身就是一種回答。',
+    nextNodeId: 'yi2-ch8-65',
+  },
+  {
+    id: 'yi2-ch8-64b-r',
+    speaker: 'narrator',
+    text: '她抬起頭，鏡中的自己淚痕未乾，但眼神不一樣了。有什麼東西在裡面燃起來。',
+    nextNodeId: 'yi2-ch8-65',
   },
   {
     id: 'yi2-ch8-65',
