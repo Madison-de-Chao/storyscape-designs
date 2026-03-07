@@ -70,6 +70,8 @@ import ch10KvChildhoodStage from '@/assets/yi2/backgrounds/ch10-kv-childhood-sta
 import ch11PantryCloseup from '@/assets/yi2/backgrounds/ch11-03-pantry-closeup.png';
 import ch11PantryDynamic from '@/assets/yi2/backgrounds/ch11-04-pantry-dynamic.png';
 import ch11PantryDialogueKv from '@/assets/yi2/backgrounds/ch11-key-pantry-dialogue-kv.png';
+import ch11KvPantryEcho from '@/assets/yi2/backgrounds/ch11-kv-pantry-echo.png';
+import ch11KvFatherMessage from '@/assets/yi2/backgrounds/ch11-kv-father-message.png';
 
 // ── CH12 背景圖 ──
 import ch12DynamicTension from '@/assets/yi2/backgrounds/ch12-04-dynamic-tension.png';
