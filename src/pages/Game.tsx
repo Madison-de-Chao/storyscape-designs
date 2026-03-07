@@ -18,6 +18,7 @@ const INTRO_SHOWN_KEY = 'arctozero_intro_shown';
 
 const Index = () => {
   const isPlaying = useGameStore((state) => state.isPlaying);
+  const currentPart = useGameStore((state) => state.currentPart);
   const currentNodeId = useGameStore((state) => state.yiProgress.currentNodeId);
   
   // 追蹤是否需要顯示開場動畫
@@ -33,6 +34,7 @@ const Index = () => {
     if (
       isPlaying && 
       !prevIsPlaying.current && 
+      currentPart === 'yi' &&
       currentNodeId === 'preface-1' &&
       !introShown
     ) {
