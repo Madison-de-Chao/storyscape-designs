@@ -151,7 +151,7 @@ const DialogueBox = ({ isHidden = false, onToggleHide, onScoreChange }: Dialogue
     const baseSpeed = isAutoForward ? 8 : 35;
     
     const typeNextChar = () => {
-      if (index < text.length) {
+      if (index < text.length && !typingCancelledRef.current) {
         const char = text[index];
         
         // 使用 functional update 避免閉包問題，減少重新創建字串
