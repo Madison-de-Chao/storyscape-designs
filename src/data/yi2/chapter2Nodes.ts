@@ -166,19 +166,11 @@ export const chapter2Nodes: DialogueNode[] = [
   },
   {
     id: 'yi2-ch2-24',
-    speaker: 'yi',
-    speakerName: '伊',
-    text: '妳終於願意看我了。',
+    speaker: 'narrator',
+    text: '她好像聽到了什麼。很輕，很遠，像是風穿過門縫的聲音。又像是——有人在說話？\n\n不。一定是聽錯了。\n\n但那個聲音留在耳朵裡，揮之不去。像一句話的尾巴，抓不住意思，卻知道它存在過。',
     nextNodeId: 'yi2-ch2-25',
     effect: 'glitch',
     emotionSFX: 'mysterious_whisper',
-    specialScene: 'revelation',
-    revelationConfig: {
-      text: '妳終於願意看我了',
-      subtitle: '伊',
-      theme: 'silver',
-      duration: 4000,
-    },
   },
 
   // ── 五 ──
