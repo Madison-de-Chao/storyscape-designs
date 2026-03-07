@@ -250,6 +250,13 @@ export const chapter1Nodes: DialogueNode[] = [
         shadowChange: 0,
         nextNodeId: 'yi2-ch1-29b-r',
       },
+      {
+        id: 'yi2-ch1-29c',
+        text: '不如改寫霸總文，搞不好還能出書。「冷酷總裁的專屬秘書」⋯⋯嗯，有搞頭。',
+        arcChange: 0,
+        shadowChange: 1,
+        nextNodeId: 'yi2-ch1-29c-r',
+      },
     ],
   },
   {
@@ -262,6 +269,12 @@ export const chapter1Nodes: DialogueNode[] = [
     id: 'yi2-ch1-29b-r',
     speaker: 'narrator',
     text: '她點開第一章，文字跳出來的瞬間，有什麼東西在胸口輕輕動了一下。',
+    nextNodeId: 'yi2-ch1-30',
+  },
+  {
+    id: 'yi2-ch1-29c-r',
+    speaker: 'narrator',
+    text: '她忍不住笑了。然後又有點心酸——為什麼她覺得寫霸總文比寫自己的故事更「正當」？\n\n但至少，她沒有關掉那個資料夾。',
     nextNodeId: 'yi2-ch1-30',
   },
   {
