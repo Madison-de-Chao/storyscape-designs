@@ -546,16 +546,21 @@ const Yi2ChapterIntro = ({
   const glow = themeToGlow(theme, 0.8);
   const shouldSimplify = usePerformanceStore((s) => s.shouldSimplifyAnimations());
 
+  // 使用 ref 穩定回調，防止父組件重渲染時重置計時器
+  const onCompleteRef = useRef(onComplete);
+  onCompleteRef.current = onComplete;
   const completedRef = useRef(false);
+
   const forceComplete = useCallback(() => {
     if (!completedRef.current) {
       completedRef.current = true;
-      onComplete();
+      onCompleteRef.current();
     }
-  }, [onComplete]);
+  }, []);
 
-  // 自動結束計時
+  // 自動結束計時 - forceComplete 穩定不變，計時器不會被重置
   useEffect(() => {
+    completedRef.current = false;
     const timer = setTimeout(forceComplete, 4500);
     const safety = setTimeout(forceComplete, 7000);
     return () => { clearTimeout(timer); clearTimeout(safety); };
