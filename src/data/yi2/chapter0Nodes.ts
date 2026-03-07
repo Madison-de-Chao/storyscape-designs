@@ -50,6 +50,46 @@ export const chapter0Nodes: DialogueNode[] = [
     id: 'yi2-ch0-8',
     speaker: 'narrator',
     text: '林壹看著這些照片，心裡沒有羨慕，沒有嫉妒，甚至沒有酸。\n\n她只是覺得——**好遠。**',
+    choices: [
+      {
+        id: 'yi2-ch0-8a',
+        text: '好遠⋯⋯我永遠也到不了那裡。',
+        arcChange: -3,
+        shadowChange: 3,
+        nextNodeId: 'yi2-ch0-8a-r',
+      },
+      {
+        id: 'yi2-ch0-8b',
+        text: '也許她們也只是在演。',
+        arcChange: 3,
+        shadowChange: 0,
+        nextNodeId: 'yi2-ch0-8b-r',
+      },
+      {
+        id: 'yi2-ch0-8c',
+        text: '算了，我也來發一張。「美好的一天從賴床開始。」',
+        arcChange: 0,
+        shadowChange: 1,
+        nextNodeId: 'yi2-ch0-8c-r',
+      },
+    ],
+  },
+  {
+    id: 'yi2-ch0-8a-r',
+    speaker: 'narrator',
+    text: '她關掉螢幕，把手機翻面朝下。看不見就好。',
+    nextNodeId: 'yi2-ch0-9',
+  },
+  {
+    id: 'yi2-ch0-8b-r',
+    speaker: 'narrator',
+    text: '她想起之前看過一篇文章，說社群媒體上90%的生活都是精心策劃的。這個想法讓她稍微沒那麼難受了。',
+    nextNodeId: 'yi2-ch0-9',
+  },
+  {
+    id: 'yi2-ch0-8c-r',
+    speaker: 'narrator',
+    text: '她差點真的拍了一張亂髮照。想了想，還是算了。但嘴角不自覺勾了一下。\n\n好久沒有這種想笑的感覺了。',
     nextNodeId: 'yi2-ch0-9',
   },
   {
@@ -174,6 +214,13 @@ export const chapter0Nodes: DialogueNode[] = [
         shadowChange: 0,
         nextNodeId: 'yi2-ch0-22b-r',
       },
+      {
+        id: 'yi2-ch0-22c',
+        text: '不如把這本書拿去墊桌腳，至少還有點用處。',
+        arcChange: 0,
+        shadowChange: 1,
+        nextNodeId: 'yi2-ch0-22c-r',
+      },
     ],
   },
   {
@@ -186,6 +233,12 @@ export const chapter0Nodes: DialogueNode[] = [
     id: 'yi2-ch0-22b-r',
     speaker: 'narrator',
     text: '這個念頭一閃而過，但她沒有抓住它。車廂又晃了一下，念頭就散了。',
+    nextNodeId: 'yi2-ch0-23',
+  },
+  {
+    id: 'yi2-ch0-22c-r',
+    speaker: 'narrator',
+    text: '她差點笑出來。好像吐槽完，那些「遇見更好的自己」就沒那麼刺眼了。\n\n至少，她還有幽默感。',
     nextNodeId: 'yi2-ch0-23',
   },
   {
@@ -412,6 +465,13 @@ export const chapter0Nodes: DialogueNode[] = [
         shadowChange: 0,
         nextNodeId: 'yi2-ch0-48b-r',
       },
+      {
+        id: 'yi2-ch0-48c',
+        text: '⋯⋯肚子好餓。不知道冰箱裡還有沒有泡麵。',
+        arcChange: 0,
+        shadowChange: 0,
+        nextNodeId: 'yi2-ch0-48c-r',
+      },
     ],
   },
   {
@@ -424,6 +484,12 @@ export const chapter0Nodes: DialogueNode[] = [
     id: 'yi2-ch0-48b-r',
     speaker: 'narrator',
     text: '這個念頭來得很突然。她不知道它從哪裡冒出來的。但它確實在那裡，微弱地跳了一下。',
+    nextNodeId: 'yi2-ch0-49',
+  },
+  {
+    id: 'yi2-ch0-48c-r',
+    speaker: 'narrator',
+    text: '她的胃發出了一聲抗議。好吧，不管人生有沒有意義，肚子餓是真的。\n\n她爬起來，走向廚房。也許活著的理由，從泡麵開始也行。',
     nextNodeId: 'yi2-ch0-49',
   },
 

@@ -49,6 +49,46 @@ export const chapter1Nodes: DialogueNode[] = [
     id: 'yi2-ch1-7',
     speaker: 'narrator',
     text: '她眨了眨眼。\n\n倒影恢復正常了。白襯衫，素顏，沒有任何妝。\n\n她轉頭看看四周。沒有人注意到她。大家都在滑手機，或者閉著眼睛補眠。\n\n她一定是太累了。眼花。',
+    choices: [
+      {
+        id: 'yi2-ch1-7a',
+        text: '⋯⋯我是不是該去看醫生？',
+        arcChange: -3,
+        shadowChange: 3,
+        nextNodeId: 'yi2-ch1-7a-r',
+      },
+      {
+        id: 'yi2-ch1-7b',
+        text: '那個濃妝的自己⋯⋯好像不討厭？',
+        arcChange: 5,
+        shadowChange: 0,
+        nextNodeId: 'yi2-ch1-7b-r',
+      },
+      {
+        id: 'yi2-ch1-7c',
+        text: '⋯⋯那個妝是誰畫的？技術不錯欸。可以推薦一下眼線筆嗎？',
+        arcChange: 0,
+        shadowChange: 1,
+        nextNodeId: 'yi2-ch1-7c-r',
+      },
+    ],
+  },
+  {
+    id: 'yi2-ch1-7a-r',
+    speaker: 'narrator',
+    text: '她把這件事壓在心底。不是什麼大事。可能是最近壓力太大了。',
+    nextNodeId: 'yi2-ch1-8',
+  },
+  {
+    id: 'yi2-ch1-7b-r',
+    speaker: 'narrator',
+    text: '這個念頭讓她嚇了一跳。她趕緊甩了甩頭，假裝什麼都沒想過。',
+    nextNodeId: 'yi2-ch1-8',
+  },
+  {
+    id: 'yi2-ch1-7c-r',
+    speaker: 'narrator',
+    text: '她差點笑出來。在捷運上對著幻覺問化妝品推薦，她是認真的嗎？\n\n但不知道為什麼，這個荒謬的念頭讓那份恐懼淡了一點。',
     nextNodeId: 'yi2-ch1-8',
   },
 
@@ -165,6 +205,13 @@ export const chapter1Nodes: DialogueNode[] = [
         shadowChange: 0,
         nextNodeId: 'yi2-ch1-22b-r',
       },
+      {
+        id: 'yi2-ch1-22c',
+        text: '⋯⋯等等，如果我做什麼都不對，那我什麼都不做是不是就對了？完美。',
+        arcChange: 0,
+        shadowChange: 1,
+        nextNodeId: 'yi2-ch1-22c-r',
+      },
     ],
   },
   {
@@ -177,6 +224,12 @@ export const chapter1Nodes: DialogueNode[] = [
     id: 'yi2-ch1-22b-r',
     speaker: 'narrator',
     text: '她知道這個邏輯不對。但知道歸知道，感覺歸感覺。兩回事。',
+    nextNodeId: 'yi2-ch1-23',
+  },
+  {
+    id: 'yi2-ch1-22c-r',
+    speaker: 'narrator',
+    text: '她被自己的邏輯逗到了。什麼都不做就是全部做對？\n\n荒謬歸荒謬，但她的嘴角確實翹了一下。',
     nextNodeId: 'yi2-ch1-23',
   },
   {
@@ -237,6 +290,13 @@ export const chapter1Nodes: DialogueNode[] = [
         shadowChange: 0,
         nextNodeId: 'yi2-ch1-29b-r',
       },
+      {
+        id: 'yi2-ch1-29c',
+        text: '不如改寫霸總文，搞不好還能出書。「冷酷總裁的專屬秘書」⋯⋯嗯，有搞頭。',
+        arcChange: 0,
+        shadowChange: 1,
+        nextNodeId: 'yi2-ch1-29c-r',
+      },
     ],
   },
   {
@@ -249,6 +309,12 @@ export const chapter1Nodes: DialogueNode[] = [
     id: 'yi2-ch1-29b-r',
     speaker: 'narrator',
     text: '她點開第一章，文字跳出來的瞬間，有什麼東西在胸口輕輕動了一下。',
+    nextNodeId: 'yi2-ch1-30',
+  },
+  {
+    id: 'yi2-ch1-29c-r',
+    speaker: 'narrator',
+    text: '她忍不住笑了。然後又有點心酸——為什麼她覺得寫霸總文比寫自己的故事更「正當」？\n\n但至少，她沒有關掉那個資料夾。',
     nextNodeId: 'yi2-ch1-30',
   },
   {

@@ -85,6 +85,13 @@ export const chapter2Nodes: DialogueNode[] = [
         shadowChange: 0,
         nextNodeId: 'yi2-ch2-10b-r',
       },
+      {
+        id: 'yi2-ch2-10c',
+        text: '等等⋯⋯所以我斷片的時候變成了職場菁英？可以多斷幾次嗎？',
+        arcChange: 0,
+        shadowChange: 1,
+        nextNodeId: 'yi2-ch2-10c-r',
+      },
     ],
   },
   {
@@ -97,6 +104,12 @@ export const chapter2Nodes: DialogueNode[] = [
     id: 'yi2-ch2-10b-r',
     speaker: 'narrator',
     text: '這個念頭讓她有點頭暈。如果那真的是她⋯⋯那她為什麼平時做不到？',
+    nextNodeId: 'yi2-ch2-11',
+  },
+  {
+    id: 'yi2-ch2-10c-r',
+    speaker: 'narrator',
+    text: '她被自己的想法嚇到了。認真的嗎？拿失憶換升職？\n\n但說真的⋯⋯主管居然說「不錯」。這三年來第一次。',
     nextNodeId: 'yi2-ch2-11',
   },
 
@@ -153,6 +166,46 @@ export const chapter2Nodes: DialogueNode[] = [
     id: 'yi2-ch2-18',
     speaker: 'narrator',
     text: '鏡子裡的自己沒有回答。當然不會回答。那只是倒影。\n\n但她總覺得，那個倒影在看著她的方式⋯⋯不太對。\n\n像是在打量她。像是在等待什麼。',
+    choices: [
+      {
+        id: 'yi2-ch2-18a',
+        text: '不要看我。我不想被看見。',
+        arcChange: -3,
+        shadowChange: 3,
+        nextNodeId: 'yi2-ch2-18a-r',
+      },
+      {
+        id: 'yi2-ch2-18b',
+        text: '⋯⋯妳在等什麼？',
+        arcChange: 5,
+        shadowChange: 0,
+        nextNodeId: 'yi2-ch2-18b-r',
+      },
+      {
+        id: 'yi2-ch2-18c',
+        text: '欸，你看什麼看？沒看過素顏嗎？',
+        arcChange: 0,
+        shadowChange: 1,
+        nextNodeId: 'yi2-ch2-18c-r',
+      },
+    ],
+  },
+  {
+    id: 'yi2-ch2-18a-r',
+    speaker: 'narrator',
+    text: '她把視線移開。不敢再看。',
+    nextNodeId: 'yi2-ch2-19',
+  },
+  {
+    id: 'yi2-ch2-18b-r',
+    speaker: 'narrator',
+    text: '這個問題問出口的瞬間，她感覺鏡中的空氣變了。像是有什麼東西在回應。',
+    nextNodeId: 'yi2-ch2-19',
+  },
+  {
+    id: 'yi2-ch2-18c-r',
+    speaker: 'narrator',
+    text: '她對著鏡子翻了個白眼。鏡中的自己也翻了個白眼——但那個表情裡，好像帶著一絲微笑。\n\n她：「⋯⋯」',
     nextNodeId: 'yi2-ch2-19',
   },
   {

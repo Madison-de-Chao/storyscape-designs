@@ -67,6 +67,13 @@ export const chapter4Nodes: DialogueNode[] = [
         shadowChange: 0,
         nextNodeId: 'yi2-ch4-8b-r',
       },
+      {
+        id: 'yi2-ch4-8c',
+        text: '⋯⋯其實她化的那個妝還不錯，要不要問她用什麼品牌的？',
+        arcChange: 0,
+        shadowChange: 1,
+        nextNodeId: 'yi2-ch4-8c-r',
+      },
     ],
   },
   {
@@ -79,6 +86,12 @@ export const chapter4Nodes: DialogueNode[] = [
     id: 'yi2-ch4-8b-r',
     speaker: 'narrator',
     text: '她不知道為什麼會這樣想。也許是昨晚的夢太真實了。也許是她太久沒有認真聽過自己的聲音。',
+    nextNodeId: 'yi2-ch4-9',
+  },
+  {
+    id: 'yi2-ch4-8c-r',
+    speaker: 'narrator',
+    text: '她對著鏡子露出一個無奈的笑。跟自己的幻覺討論化妝品，她大概真的瘋了。\n\n但不知道為什麼，今天出門的時候，她多塗了一層護唇膏。',
     nextNodeId: 'yi2-ch4-9',
   },
 

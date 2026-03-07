@@ -45,6 +45,13 @@ export const chapter11Nodes: DialogueNode[] = [
         shadowChange: -3,
         nextNodeId: 'yi2-ch11-4b-r',
       },
+      {
+        id: 'yi2-ch11-4c',
+        text: '走進去，大聲說「你們繼續，我就是來倒水的，不用停」。',
+        arcChange: 0,
+        shadowChange: 1,
+        nextNodeId: 'yi2-ch11-4c-r',
+      },
     ],
   },
   {
@@ -57,6 +64,12 @@ export const chapter11Nodes: DialogueNode[] = [
     id: 'yi2-ch11-4b-r',
     speaker: 'narrator',
     text: '她的心跳得很快。但她的腳步沒有停。',
+    nextNodeId: 'yi2-ch11-5',
+  },
+  {
+    id: 'yi2-ch11-4c-r',
+    speaker: 'narrator',
+    text: '那兩個人的表情簡直像見了鬼。林壹面不改色地倒水，內心OS：「看我演技。」\n\n不知道為什麼，她覺得自己今天特別帥。',
     nextNodeId: 'yi2-ch11-5',
   },
   {
