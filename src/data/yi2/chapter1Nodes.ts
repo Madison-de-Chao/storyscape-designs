@@ -49,6 +49,46 @@ export const chapter1Nodes: DialogueNode[] = [
     id: 'yi2-ch1-7',
     speaker: 'narrator',
     text: '她眨了眨眼。\n\n倒影恢復正常了。白襯衫，素顏，沒有任何妝。\n\n她轉頭看看四周。沒有人注意到她。大家都在滑手機，或者閉著眼睛補眠。\n\n她一定是太累了。眼花。',
+    choices: [
+      {
+        id: 'yi2-ch1-7a',
+        text: '⋯⋯我是不是該去看醫生？',
+        arcChange: -3,
+        shadowChange: 3,
+        nextNodeId: 'yi2-ch1-7a-r',
+      },
+      {
+        id: 'yi2-ch1-7b',
+        text: '那個濃妝的自己⋯⋯好像不討厭？',
+        arcChange: 5,
+        shadowChange: 0,
+        nextNodeId: 'yi2-ch1-7b-r',
+      },
+      {
+        id: 'yi2-ch1-7c',
+        text: '⋯⋯那個妝是誰畫的？技術不錯欸。可以推薦一下眼線筆嗎？',
+        arcChange: 0,
+        shadowChange: 1,
+        nextNodeId: 'yi2-ch1-7c-r',
+      },
+    ],
+  },
+  {
+    id: 'yi2-ch1-7a-r',
+    speaker: 'narrator',
+    text: '她把這件事壓在心底。不是什麼大事。可能是最近壓力太大了。',
+    nextNodeId: 'yi2-ch1-8',
+  },
+  {
+    id: 'yi2-ch1-7b-r',
+    speaker: 'narrator',
+    text: '這個念頭讓她嚇了一跳。她趕緊甩了甩頭，假裝什麼都沒想過。',
+    nextNodeId: 'yi2-ch1-8',
+  },
+  {
+    id: 'yi2-ch1-7c-r',
+    speaker: 'narrator',
+    text: '她差點笑出來。在捷運上對著幻覺問化妝品推薦，她是認真的嗎？\n\n但不知道為什麼，這個荒謬的念頭讓那份恐懼淡了一點。',
     nextNodeId: 'yi2-ch1-8',
   },
 

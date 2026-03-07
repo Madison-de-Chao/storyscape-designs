@@ -74,6 +74,13 @@ export const chapter5Nodes: DialogueNode[] = [
         shadowChange: 0,
         nextNodeId: 'yi2-ch5-9b-r',
       },
+      {
+        id: 'yi2-ch5-9c',
+        text: '⋯⋯不管了，我餓了。先叫外賣再說。妳想吃什麼，夢露？',
+        arcChange: 0,
+        shadowChange: 1,
+        nextNodeId: 'yi2-ch5-9c-r',
+      },
     ],
   },
   {
@@ -86,6 +93,12 @@ export const chapter5Nodes: DialogueNode[] = [
     id: 'yi2-ch5-9b-r',
     speaker: 'narrator',
     text: '她的手指停在遙控器上。這個問題讓她有點不舒服，因為它指向了她自己。',
+    nextNodeId: 'yi2-ch5-10',
+  },
+  {
+    id: 'yi2-ch5-9c-r',
+    speaker: 'narrator',
+    text: '她打開外賣APP，滑了半天，最後點了一份炸雞。\n\n紀錄片還在播，夢露在螢幕上微笑著。\n\n好吧，等炸雞來的時候，繼續看一下。',
     nextNodeId: 'yi2-ch5-10',
   },
 

@@ -50,6 +50,46 @@ export const chapter0Nodes: DialogueNode[] = [
     id: 'yi2-ch0-8',
     speaker: 'narrator',
     text: '林壹看著這些照片，心裡沒有羨慕，沒有嫉妒，甚至沒有酸。\n\n她只是覺得——**好遠。**',
+    choices: [
+      {
+        id: 'yi2-ch0-8a',
+        text: '好遠⋯⋯我永遠也到不了那裡。',
+        arcChange: -3,
+        shadowChange: 3,
+        nextNodeId: 'yi2-ch0-8a-r',
+      },
+      {
+        id: 'yi2-ch0-8b',
+        text: '也許她們也只是在演。',
+        arcChange: 3,
+        shadowChange: 0,
+        nextNodeId: 'yi2-ch0-8b-r',
+      },
+      {
+        id: 'yi2-ch0-8c',
+        text: '算了，我也來發一張。「美好的一天從賴床開始。」',
+        arcChange: 0,
+        shadowChange: 1,
+        nextNodeId: 'yi2-ch0-8c-r',
+      },
+    ],
+  },
+  {
+    id: 'yi2-ch0-8a-r',
+    speaker: 'narrator',
+    text: '她關掉螢幕，把手機翻面朝下。看不見就好。',
+    nextNodeId: 'yi2-ch0-9',
+  },
+  {
+    id: 'yi2-ch0-8b-r',
+    speaker: 'narrator',
+    text: '她想起之前看過一篇文章，說社群媒體上90%的生活都是精心策劃的。這個想法讓她稍微沒那麼難受了。',
+    nextNodeId: 'yi2-ch0-9',
+  },
+  {
+    id: 'yi2-ch0-8c-r',
+    speaker: 'narrator',
+    text: '她差點真的拍了一張亂髮照。想了想，還是算了。但嘴角不自覺勾了一下。\n\n好久沒有這種想笑的感覺了。',
     nextNodeId: 'yi2-ch0-9',
   },
   {

@@ -53,6 +53,46 @@ export const chapter3Nodes: DialogueNode[] = [
     id: 'yi2-ch3-8',
     speaker: 'narrator',
     text: '她看了一眼時間。距離剛才只過了四十分鐘。正常狀態下，她至少需要三小時。\n\n客戶那邊回覆：「這個方向可以，週五定案。」\n\n林壹坐在椅子上，感覺心臟跳得很用力。**不是興奮。是恐懼。**',
+    choices: [
+      {
+        id: 'yi2-ch3-8a',
+        text: '我被附身了嗎？這不是我做的。',
+        arcChange: -3,
+        shadowChange: 3,
+        nextNodeId: 'yi2-ch3-8a-r',
+      },
+      {
+        id: 'yi2-ch3-8b',
+        text: '如果這是我做的⋯⋯那我比自己以為的更厲害？',
+        arcChange: 5,
+        shadowChange: 0,
+        nextNodeId: 'yi2-ch3-8b-r',
+      },
+      {
+        id: 'yi2-ch3-8c',
+        text: '管它是誰做的，反正客戶OK了，今天可以準時下班！',
+        arcChange: 0,
+        shadowChange: 1,
+        nextNodeId: 'yi2-ch3-8c-r',
+      },
+    ],
+  },
+  {
+    id: 'yi2-ch3-8a-r',
+    speaker: 'narrator',
+    text: '她的手心出了冷汗。這種不受控的感覺讓她想逃。',
+    nextNodeId: 'yi2-ch3-9',
+  },
+  {
+    id: 'yi2-ch3-8b-r',
+    speaker: 'narrator',
+    text: '這個想法太大膽了。她趕緊壓下去，但它已經在心裡種下了一顆種子。',
+    nextNodeId: 'yi2-ch3-9',
+  },
+  {
+    id: 'yi2-ch3-8c-r',
+    speaker: 'narrator',
+    text: '她差點歡呼出來。管它什麼神秘力量，能準時下班就是正義。\n\n但回過神來，她還是覺得哪裡不對勁。',
     nextNodeId: 'yi2-ch3-9',
   },
 

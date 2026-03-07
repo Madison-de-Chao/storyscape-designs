@@ -733,6 +733,13 @@ export const chapter6Nodes: DialogueNode[] = [
         shadowChange: 0,
         nextNodeId: 'yi2-ch6-90b-r',
       },
+      {
+        id: 'yi2-ch6-90c',
+        text: '伊，妳可以別一直講大道理嗎？我腦子要爆炸了。給我五分鐘去泡杯茶。',
+        arcChange: 0,
+        shadowChange: 1,
+        nextNodeId: 'yi2-ch6-90c-r',
+      },
     ],
   },
   {
@@ -745,6 +752,12 @@ export const chapter6Nodes: DialogueNode[] = [
     id: 'yi2-ch6-90b-r',
     speaker: 'narrator',
     text: '這句話說出來的時候，她自己都有點意外。好像有什麼東西在她心裡悄悄鬆動了。',
+    nextNodeId: 'yi2-ch6-91',
+  },
+  {
+    id: 'yi2-ch6-90c-r',
+    speaker: 'narrator',
+    text: '鏡中的伊看著她，居然笑了。不是那種神秘的笑，是一種——被逗到的笑。\n\n林壹愣了一下。這是她第一次看到伊笑得這麼⋯⋯像個人。',
     nextNodeId: 'yi2-ch6-91',
   },
   {
