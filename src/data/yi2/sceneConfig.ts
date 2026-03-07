@@ -178,7 +178,7 @@ export function getYi2SceneConfig(nodeId: string, node?: DialogueNode): Yi2Scene
 
   const base = chapterDefaults[chapterKey] || { background: defaultBg(210) };
 
-  // 若節點有 bgImage，嘗試解析為實際圖片背景
+  // 1. 若節點有 bgImage，嘗試解析為實際圖片背景
   let result = { ...base };
   if (node?.bgImage) {
     const imageSrc = getYi2BgImage(node.bgImage, chapterKey);
@@ -193,12 +193,52 @@ export function getYi2SceneConfig(nodeId: string, node?: DialogueNode): Yi2Scene
         },
       };
     }
+  } else {
+    // 2. 沒有 bgImage 時，使用章節預設背景圖片（而非漸層）
+    const defaultImage = chapterDefaultImages[chapterKey];
+    if (defaultImage) {
+      result = {
+        ...base,
+        background: {
+          type: 'image',
+          value: defaultImage,
+          animation: 'breathe',
+          overlay: 'noise',
+        },
+      };
+    }
   }
 
-  // 自動為有立繪的角色生成 sprite
+  // 3. 自動為角色生成 sprite
   const spriteCharacters = ['protagonist', 'yi', 'xiaochen', 'xiaoman', 'linyi'];
+  // 決定顯示哪個角色的立繪
+  let spriteCharacter: string | null = null;
+
   if (node?.speaker && spriteCharacters.includes(node.speaker)) {
-    const spriteSrc = getCharacterSprite(node.speaker, node.expression);
+    // 直接匹配角色發言
+    spriteCharacter = node.speaker;
+  } else if (node?.speaker === 'narrator') {
+    // 旁白節點：根據上下文顯示主角立繪
+    // 如果有 speakerName 包含特定角色名，顯示該角色
+    if (node.speakerName) {
+      const nameMap: Record<string, string> = {
+        '林壹': 'protagonist',
+        '伊': 'yi',
+        '小陳': 'xiaochen',
+        '小曼': 'xiaoman',
+        '小滿': 'xiaoman',
+      };
+      spriteCharacter = nameMap[node.speakerName] || null;
+    }
+    // 否則在大部分旁白場景中也顯示主角立繪（讓畫面不空）
+    if (!spriteCharacter) {
+      spriteCharacter = 'protagonist';
+    }
+  }
+
+  if (spriteCharacter) {
+    const expression = node?.expression || 'default';
+    const spriteSrc = getCharacterSprite(spriteCharacter, expression);
     if (spriteSrc) {
       const positionMap: Record<string, 'left' | 'center' | 'right'> = {
         protagonist: 'center',
@@ -219,11 +259,11 @@ export function getYi2SceneConfig(nodeId: string, node?: DialogueNode): Yi2Scene
         characters: [
           ...(result.characters || []),
           {
-            id: node.speaker,
+            id: spriteCharacter,
             src: spriteSrc,
-            position: positionMap[node.speaker] || 'center',
-            entrance: entranceMap[node.speaker] || 'fade',
-            isSpeaking: true,
+            position: positionMap[spriteCharacter] || 'center',
+            entrance: entranceMap[spriteCharacter] || 'fade',
+            isSpeaking: node?.speaker === spriteCharacter,
             scale: 0.9,
           },
         ],
