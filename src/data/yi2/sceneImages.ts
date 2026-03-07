@@ -183,6 +183,7 @@ export const yi2BgImageMap: Record<string, string> = {
   // CH12 場景
   'yi2-ch12-dynamic': ch12DynamicTension,      // 第十二章動態張力
   'yi2-ch12-white-world': ch12KvWhiteWorld,    // 未被創造的白色世界（KV）
+  'yi2-ch12-333-metaverse': ch12Kv333Metaverse, // 3點33與元壹境（KV）
 
   // 尾聲 (EP) 場景
   'yi2-ep-medium': ep02Medium,                 // 尾聲中景敘事
@@ -190,6 +191,8 @@ export const yi2BgImageMap: Record<string, string> = {
   'yi2-ep-3years': epKey3YearsLater,           // 三年後收束（KV 風格）
   'yi2-ep-creator': epKeyCreatorV4,            // 創作者視角
   'yi2-ep-creator-v2': epKeyCreatorV4_2,       // 創作者視角 V2
+  'yi2-ep-phone-notification': epKvPhoneNotification, // 問心與後台通知（KV）
+  'yi2-ep-yi-merge': epKvYiMerge,             // 壹與伊合一（KV）
 
   // KV 特別場景
   'yi2-kv-cosmic': kvCosmicPassage,            // 宇宙通道
