@@ -512,7 +512,7 @@ const ZeroCountdownEffect = ({ color }: { color: string }) => {
 
 // ── 效果選擇器 ──
 
-const EffectRenderer = ({ style, color }: { style: IntroStyle; color: string }) => {
+const EffectRenderer = forwardRef<HTMLDivElement, { style: IntroStyle; color: string }>(({ style, color }, _ref) => {
   switch (style) {
     case 'digital-wake': return <DigitalWakeEffect color={color} />;
     case 'file-delete': return <FileDeleteEffect color={color} />;
