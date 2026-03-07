@@ -165,6 +165,13 @@ export const chapter1Nodes: DialogueNode[] = [
         shadowChange: 0,
         nextNodeId: 'yi2-ch1-22b-r',
       },
+      {
+        id: 'yi2-ch1-22c',
+        text: '⋯⋯等等，如果我做什麼都不對，那我什麼都不做是不是就對了？完美。',
+        arcChange: 0,
+        shadowChange: 1,
+        nextNodeId: 'yi2-ch1-22c-r',
+      },
     ],
   },
   {
@@ -177,6 +184,12 @@ export const chapter1Nodes: DialogueNode[] = [
     id: 'yi2-ch1-22b-r',
     speaker: 'narrator',
     text: '她知道這個邏輯不對。但知道歸知道，感覺歸感覺。兩回事。',
+    nextNodeId: 'yi2-ch1-23',
+  },
+  {
+    id: 'yi2-ch1-22c-r',
+    speaker: 'narrator',
+    text: '她被自己的邏輯逗到了。什麼都不做就是全部做對？\n\n荒謬歸荒謬，但她的嘴角確實翹了一下。',
     nextNodeId: 'yi2-ch1-23',
   },
   {
