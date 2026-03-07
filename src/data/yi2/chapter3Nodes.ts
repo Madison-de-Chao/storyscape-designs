@@ -171,15 +171,14 @@ export const chapter3Nodes: DialogueNode[] = [
   },
   {
     id: 'yi2-ch3-25',
-    speaker: 'yi',
-    speakerName: '伊',
-    text: '**妳打的是妳自己。**',
+    speaker: 'narrator',
+    text: '鏡子裡，她的倒影看著她。那個表情不是憤怒，不是恐懼。是一種很平靜的、帶著某種悲傷的注視。\n\n她腦海裡浮現一個念頭，清晰得不像是自己想出來的——\n\n**妳打的是妳自己。**',
     nextNodeId: 'yi2-ch3-26',
     effect: 'glitch',
     specialScene: 'zen',
     zenConfig: {
       text: '妳打的是妳自己',
-      subtitle: '伊',
+      subtitle: '',
       theme: 'crimson',
       duration: 3500,
     },
