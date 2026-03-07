@@ -11,9 +11,15 @@ import bgPhoneMorning from '@/assets/yi2/backgrounds/bg-phone-morning.jpg';
 import bgComputerNight from '@/assets/yi2/backgrounds/bg-computer-night.jpg';
 import bgTvMonroe from '@/assets/yi2/backgrounds/bg-tv-monroe.jpg';
 
+// ── 序章 (Preface) 背景圖 ──
+import ch00KvDelaySelf from '@/assets/yi2/backgrounds/ch00-kv-delay-self.png';
+import ch00KvFoggyMirror from '@/assets/yi2/backgrounds/ch00-kv-foggy-mirror.png';
+
 // ── CH01 背景圖 ──
 import ch01DeleteFile from '@/assets/yi2/backgrounds/ch01-key-delete-file.png';
 import ch01DeleteFileKv from '@/assets/yi2/backgrounds/ch01-key-delete-file-kv.png';
+import ch01KvDeleteStory from '@/assets/yi2/backgrounds/ch01-kv-delete-story.png';
+import ch01KvReflectionSmile from '@/assets/yi2/backgrounds/ch01-kv-reflection-smile.png';
 
 // ── CH02 背景圖 ──
 import ch02MeetingRoomKv from '@/assets/yi2/backgrounds/ch02-bg-meeting-room-kv.png';
@@ -25,6 +31,8 @@ import ch02LowAngleMeeting from '@/assets/yi2/backgrounds/ch02-04-low-angle-meet
 import ch02KeyConfused from '@/assets/yi2/backgrounds/ch02-key-meeting-confused.png';
 import ch02KeyConfusedV2 from '@/assets/yi2/backgrounds/ch02-key-meeting-confused-v2.png';
 import ch02KeyConfusedFemale from '@/assets/yi2/backgrounds/ch02-key-meeting-confused-kv-female.png';
+import ch02KvMirrorMovedFirst from '@/assets/yi2/backgrounds/ch02-kv-mirror-moved-first.png';
+import ch02KvLetterToYi from '@/assets/yi2/backgrounds/ch02-kv-letter-to-yi.png';
 
 // ── CH03 背景圖 ──
 import ch03BathroomMirror from '@/assets/yi2/backgrounds/ch03-bg-bathroom-mirror-kv.png';
@@ -35,14 +43,22 @@ import ch03MirrorSmash from '@/assets/yi2/backgrounds/ch03-mirror-smash-real.png
 import ch04HotpotWide from '@/assets/yi2/backgrounds/ch04-01-hotpot-wide.png';
 import ch04HotpotConflictFemale from '@/assets/yi2/backgrounds/ch04-key-hotpot-conflict-kv-female.png';
 
-// ── CH08 背景圖 ──
-import ch08KvMirrorFirstSight from '@/assets/yi2/backgrounds/ch08-kv-mirror-first-sight.png';
-import ch08KvAllowCrying from '@/assets/yi2/backgrounds/ch08-kv-allow-crying.png';
-
 // ── CH05 背景圖 ──
 import ch05LivingRoomWide from '@/assets/yi2/backgrounds/ch05-01-living-room-wide.png';
 import ch05LivingRoomMagic from '@/assets/yi2/backgrounds/ch05-04-living-room-mirror-magic.png';
 import ch05MirrorYiSimpleV2 from '@/assets/yi2/backgrounds/ch05-key-mirror-yi-simple-v2.png';
+import ch05KvMonroeMirror from '@/assets/yi2/backgrounds/ch05-kv-monroe-mirror.png';
+
+// ── CH06 背景圖 ──
+import ch06KvCliffTeachers from '@/assets/yi2/backgrounds/ch06-kv-cliff-teachers.png';
+
+// ── CH07 背景圖 ──
+import ch07KvMidnightNotes from '@/assets/yi2/backgrounds/ch07-kv-midnight-notes.png';
+import ch07KvBeatenStanding from '@/assets/yi2/backgrounds/ch07-kv-beaten-standing.png';
+
+// ── CH08 背景圖 ──
+import ch08KvMirrorFirstSight from '@/assets/yi2/backgrounds/ch08-kv-mirror-first-sight.png';
+import ch08KvAllowCrying from '@/assets/yi2/backgrounds/ch08-kv-allow-crying.png';
 
 // ── CH09 背景圖 ──
 import ch09OfficeWide from '@/assets/yi2/backgrounds/ch09-01-office-wide.png';
@@ -120,9 +136,15 @@ export const yi2BgImageMap: Record<string, string> = {
   'yi2-pantry': ch11PantryDialogueKv,          // 茶水間 → 茶水間對話
   'yi2-corridor': ch09CorridorEmpty,           // 走廊 → 辦公室走廊
 
+  // 序章場景
+  'yi2-ch0-delay-self': ch00KvDelaySelf,       // 延後自己（KV）
+  'yi2-ch0-foggy-mirror': ch00KvFoggyMirror,   // 霧鏡與空眼（KV）
+
   // CH01 場景
   'yi2-cafe': ch01DeleteFileKv,               // 咖啡廳刪檔場景（電影級）
   'yi2-cafe-delete': ch01DeleteFile,           // 咖啡廳刪檔（雙人構圖）
+  'yi2-ch1-delete-story': ch01KvDeleteStory,   // 刪掉三年的故事（KV）
+  'yi2-ch1-reflection-smile': ch01KvReflectionSmile, // 倒影在笑（KV）
 
   // CH02 場景
   'yi2-meeting-room': ch02MeetingRoomKv,       // 會議室空景（KV 風格）
@@ -134,6 +156,8 @@ export const yi2BgImageMap: Record<string, string> = {
   'yi2-meeting-key': ch02KeyConfused,          // 會議困惑關鍵場景
   'yi2-meeting-key-v2': ch02KeyConfusedV2,     // 會議困惑關鍵場景 V2
   'yi2-meeting-key-female': ch02KeyConfusedFemale, // 會議困惑關鍵場景（女主角特寫）
+  'yi2-ch2-mirror-moved-first': ch02KvMirrorMovedFirst, // 鏡中先動的人（KV）
+  'yi2-ch2-letter-to-yi': ch02KvLetterToYi,    // 給壹的信（KV）
 
   // CH03 場景
   'yi2-bathroom-mirror': ch03BathroomMirror,   // 浴室鏡子空景
@@ -148,6 +172,14 @@ export const yi2BgImageMap: Record<string, string> = {
   'yi2-living-room-wide': ch05LivingRoomWide,  // 客廳廣角
   'yi2-living-room-magic': ch05LivingRoomMagic, // 客廳魔幻鏡子
   'yi2-mirror-yi-simple-v2': ch05MirrorYiSimpleV2, // 鏡中伊（修正版單一構圖）
+  'yi2-ch5-monroe-mirror': ch05KvMonroeMirror, // 夢露在鏡中（KV）
+
+  // CH06 場景
+  'yi2-ch6-cliff-teachers': ch06KvCliffTeachers, // 懸崖前的四位老師（KV）
+
+  // CH07 場景
+  'yi2-ch7-midnight-notes': ch07KvMidnightNotes, // 資料海中的凌晨筆記（KV）
+  'yi2-ch7-beaten-standing': ch07KvBeatenStanding, // 被打但還站著（KV）
 
   // CH08 場景
   'yi2-ch8-mirror-first-sight': ch08KvMirrorFirstSight, // 鏡中初見（KV）
