@@ -425,6 +425,13 @@ export const chapter0Nodes: DialogueNode[] = [
         shadowChange: 0,
         nextNodeId: 'yi2-ch0-48b-r',
       },
+      {
+        id: 'yi2-ch0-48c',
+        text: '⋯⋯肚子好餓。不知道冰箱裡還有沒有泡麵。',
+        arcChange: 0,
+        shadowChange: 0,
+        nextNodeId: 'yi2-ch0-48c-r',
+      },
     ],
   },
   {
@@ -437,6 +444,12 @@ export const chapter0Nodes: DialogueNode[] = [
     id: 'yi2-ch0-48b-r',
     speaker: 'narrator',
     text: '這個念頭來得很突然。她不知道它從哪裡冒出來的。但它確實在那裡，微弱地跳了一下。',
+    nextNodeId: 'yi2-ch0-49',
+  },
+  {
+    id: 'yi2-ch0-48c-r',
+    speaker: 'narrator',
+    text: '她的胃發出了一聲抗議。好吧，不管人生有沒有意義，肚子餓是真的。\n\n她爬起來，走向廚房。也許活著的理由，從泡麵開始也行。',
     nextNodeId: 'yi2-ch0-49',
   },
 
