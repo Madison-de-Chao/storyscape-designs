@@ -51,6 +51,46 @@ export const chapter12Nodes: DialogueNode[] = [
     id: 'yi2-ch12-7',
     speaker: 'narrator',
     text: '她想起第一次被這個時間驚醒的那個夜晚。\n\n那時候她以為自己瘋了。\n\n現在她知道，那是開始。',
+    choices: [
+      {
+        id: 'yi2-ch12-7a',
+        text: '開始⋯⋯是嗎？我真的改變了嗎？',
+        arcChange: 3,
+        shadowChange: 0,
+        nextNodeId: 'yi2-ch12-7a-r',
+      },
+      {
+        id: 'yi2-ch12-7b',
+        text: '從崩潰到現在，原來已經走了這麼遠。',
+        arcChange: 5,
+        shadowChange: -3,
+        nextNodeId: 'yi2-ch12-7b-r',
+      },
+      {
+        id: 'yi2-ch12-7c',
+        text: '等一下⋯⋯我現在是在一個遊戲裡嗎？為什麼感覺有人在看我的故事？',
+        arcChange: 0,
+        shadowChange: 1,
+        nextNodeId: 'yi2-ch12-7c-r',
+      },
+    ],
+  },
+  {
+    id: 'yi2-ch12-7a-r',
+    speaker: 'narrator',
+    text: '她不確定。但她知道，至少她不再害怕這個時間了。',
+    nextNodeId: 'yi2-ch12-8',
+  },
+  {
+    id: 'yi2-ch12-7b-r',
+    speaker: 'narrator',
+    text: '她看了看窗外的夜空。星星不多，但每一顆都很亮。',
+    nextNodeId: 'yi2-ch12-8',
+  },
+  {
+    id: 'yi2-ch12-7c-r',
+    speaker: 'narrator',
+    text: '她搖了搖頭。太多了，不要想了。\n\n但如果真的有人在看她的故事⋯⋯她希望對方知道——「你也可以的。」\n\n⋯⋯好吧，先去泡咖啡。',
     nextNodeId: 'yi2-ch12-8',
   },
 

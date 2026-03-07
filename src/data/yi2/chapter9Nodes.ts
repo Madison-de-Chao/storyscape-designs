@@ -58,6 +58,13 @@ export const chapter9Nodes: DialogueNode[] = [
         shadowChange: -3,
         nextNodeId: 'yi2-ch9-6b-r',
       },
+      {
+        id: 'yi2-ch9-6c',
+        text: '⋯⋯算了不管了，反正中午不跟他們吃，我可以自己去吃拉麵。讚。',
+        arcChange: 0,
+        shadowChange: 1,
+        nextNodeId: 'yi2-ch9-6c-r',
+      },
     ],
   },
   {
@@ -70,6 +77,12 @@ export const chapter9Nodes: DialogueNode[] = [
     id: 'yi2-ch9-6b-r',
     speaker: 'narrator',
     text: '這句話讓她自己嚇了一跳。以前的她絕對說不出這種話。但現在，它就這樣冒出來了。',
+    nextNodeId: 'yi2-ch9-7',
+  },
+  {
+    id: 'yi2-ch9-6c-r',
+    speaker: 'narrator',
+    text: '她打開手機搜「附近拉麵」，突然覺得一個人吃飯好像也不錯。\n\n至少不用假裝「都可以」「隨便」「你們決定」。\n\n她可以自己選。',
     nextNodeId: 'yi2-ch9-7',
   },
 

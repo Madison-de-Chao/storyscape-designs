@@ -148,6 +148,13 @@ export const chapter7Nodes: DialogueNode[] = [
         shadowChange: 0,
         nextNodeId: 'yi2-ch7-19b-r',
       },
+      {
+        id: 'yi2-ch7-19c',
+        text: '等等，金卡戴珊考律師執照？？？我連駕照都還沒考過。',
+        arcChange: 0,
+        shadowChange: 1,
+        nextNodeId: 'yi2-ch7-19c-r',
+      },
     ],
   },
   {
@@ -160,6 +167,12 @@ export const chapter7Nodes: DialogueNode[] = [
     id: 'yi2-ch7-19b-r',
     speaker: 'narrator',
     text: '她不確定自己能不能像金卡戴珊那樣。但她開始覺得，也許「站著」本身就已經很厲害了。',
+    nextNodeId: 'yi2-ch7-20',
+  },
+  {
+    id: 'yi2-ch7-19c-r',
+    speaker: 'narrator',
+    text: '她搖了搖頭，忍不住笑了。金卡戴珊考律師執照，她連Excel公式都還沒搞懂。\n\n但說真的⋯⋯如果金卡戴珊都能從頭學起，她是不是也可以？',
     nextNodeId: 'yi2-ch7-20',
   },
 

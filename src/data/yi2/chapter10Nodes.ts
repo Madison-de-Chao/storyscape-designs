@@ -80,6 +80,13 @@ export const chapter10Nodes: DialogueNode[] = [
         shadowChange: -3,
         nextNodeId: 'yi2-ch10-9b-r',
       },
+      {
+        id: 'yi2-ch10-9c',
+        text: '七歲的我也太猛了吧。自己發明生存策略。我怎麼不去當間諜？',
+        arcChange: 0,
+        shadowChange: 1,
+        nextNodeId: 'yi2-ch10-9c-r',
+      },
     ],
   },
   {
@@ -92,6 +99,12 @@ export const chapter10Nodes: DialogueNode[] = [
     id: 'yi2-ch10-9b-r',
     speaker: 'narrator',
     text: '這個發現像一盆冷水，澆得她全身發涼。但涼過之後，是清醒。',
+    nextNodeId: 'yi2-ch10-10',
+  },
+  {
+    id: 'yi2-ch10-9c-r',
+    speaker: 'narrator',
+    text: '她被自己逗笑了。笑著笑著，眼眶有點濕。\n\n七歲的自己，真的很努力了。只是那套方法，不該再用二十年。',
     nextNodeId: 'yi2-ch10-10',
   },
 

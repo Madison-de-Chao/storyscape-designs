@@ -527,6 +527,13 @@ export const chapter8Nodes: DialogueNode[] = [
         shadowChange: -3,
         nextNodeId: 'yi2-ch8-64b-r',
       },
+      {
+        id: 'yi2-ch8-64c',
+        text: '⋯⋯伊，妳能不能別每次都在我哭的時候講大道理？至少讓我哭完再說。',
+        arcChange: 0,
+        shadowChange: 1,
+        nextNodeId: 'yi2-ch8-64c-r',
+      },
     ],
   },
   {
@@ -539,6 +546,12 @@ export const chapter8Nodes: DialogueNode[] = [
     id: 'yi2-ch8-64b-r',
     speaker: 'narrator',
     text: '她抬起頭，鏡中的自己淚痕未乾，但眼神不一樣了。有什麼東西在裡面燃起來。',
+    nextNodeId: 'yi2-ch8-65',
+  },
+  {
+    id: 'yi2-ch8-64c-r',
+    speaker: 'narrator',
+    text: '鏡中的伊頓了一下。然後——居然遞了一張衛生紙。\n\n不對，那是她自己伸手拿的衛生紙。但她發誓伊剛才動了一下。\n\n她擤了擤鼻子：「好了，妳繼續說吧。」',
     nextNodeId: 'yi2-ch8-65',
   },
   {
