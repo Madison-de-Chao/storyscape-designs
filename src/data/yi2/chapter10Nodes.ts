@@ -64,8 +64,35 @@ export const chapter10Nodes: DialogueNode[] = [
     id: 'yi2-ch10-9',
     speaker: 'narrator',
     text: '所以她學會了自己處理。\n\n怎麼處理？\n\n不要太亮。不要太好。不要讓別人嫉妒。\n先說自己不好，這樣就不會被攻擊了。\n先否定自己，這樣就安全了。\n\n這是她七八歲的時候，自己想出來的生存策略。\n\n**然後她用了二十幾年。**',
-    nextNodeId: 'yi2-ch10-10',
     effect: 'shake',
+    choices: [
+      {
+        id: 'yi2-ch10-9a',
+        text: '那時候的我沒有選擇。這是唯一能保護自己的方式。',
+        arcChange: 3,
+        shadowChange: 0,
+        nextNodeId: 'yi2-ch10-9a-r',
+      },
+      {
+        id: 'yi2-ch10-9b',
+        text: '⋯⋯原來我一直在用七歲時的方法活到現在。',
+        arcChange: 5,
+        shadowChange: -3,
+        nextNodeId: 'yi2-ch10-9b-r',
+      },
+    ],
+  },
+  {
+    id: 'yi2-ch10-9a-r',
+    speaker: 'narrator',
+    text: '她抱住自己的膝蓋。那個七歲的小女孩，其實很聰明。她在沒有人幫助的情況下，想出了一套活下去的辦法。',
+    nextNodeId: 'yi2-ch10-10',
+  },
+  {
+    id: 'yi2-ch10-9b-r',
+    speaker: 'narrator',
+    text: '這個發現像一盆冷水，澆得她全身發涼。但涼過之後，是清醒。',
+    nextNodeId: 'yi2-ch10-10',
   },
 
   // ── 四～五 ── 打電話給媽媽

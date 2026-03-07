@@ -82,6 +82,33 @@ export const chapter12Nodes: DialogueNode[] = [
     id: 'yi2-ch12-11',
     speaker: 'narrator',
     text: '她寫著寫著，突然停下來。\n\n她發現一件事。\n\n她不是在寫別人的故事。\n\n**她是在寫自己剛剛走過的路。**',
+    choices: [
+      {
+        id: 'yi2-ch12-11a',
+        text: '但我的路有什麼好寫的？又不是什麼了不起的故事。',
+        arcChange: -3,
+        shadowChange: 3,
+        nextNodeId: 'yi2-ch12-11a-r',
+      },
+      {
+        id: 'yi2-ch12-11b',
+        text: '也許⋯⋯這條路本身就值得被記下來。',
+        arcChange: 5,
+        shadowChange: 0,
+        nextNodeId: 'yi2-ch12-11b-r',
+      },
+    ],
+  },
+  {
+    id: 'yi2-ch12-11a-r',
+    speaker: 'narrator',
+    text: '但她的手指沒有停。即使她嘴上這樣說，她的身體已經做出了選擇。',
+    nextNodeId: 'yi2-ch12-12',
+  },
+  {
+    id: 'yi2-ch12-11b-r',
+    speaker: 'narrator',
+    text: '她看著螢幕上自己寫的字，覺得它們有重量。不是文學的重量，是真實的重量。',
     nextNodeId: 'yi2-ch12-12',
   },
 

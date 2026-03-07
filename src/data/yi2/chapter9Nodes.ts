@@ -43,6 +43,33 @@ export const chapter9Nodes: DialogueNode[] = [
     id: 'yi2-ch9-6',
     speaker: 'narrator',
     text: '以前的她會想：我是不是做錯什麼了？\n\n現在的她停下來，仔細感受了一下。\n\n她沒有做錯什麼。\n\n她只是不再像以前那樣，說「沒有沒有」「我不行啦」「都是運氣好」。\n\n她只是不再配合他們的遊戲了。\n\n而他們，不喜歡這樣的她。',
+    choices: [
+      {
+        id: 'yi2-ch9-6a',
+        text: '也許我不應該改變。以前至少還有朋友。',
+        arcChange: -3,
+        shadowChange: 3,
+        nextNodeId: 'yi2-ch9-6a-r',
+      },
+      {
+        id: 'yi2-ch9-6b',
+        text: '如果他們只喜歡假的我，那這種朋友不要也罷。',
+        arcChange: 5,
+        shadowChange: -3,
+        nextNodeId: 'yi2-ch9-6b-r',
+      },
+    ],
+  },
+  {
+    id: 'yi2-ch9-6a-r',
+    speaker: 'narrator',
+    text: '她低下頭。孤獨的滋味比她想像中更苦。但她已經走到這裡了。',
+    nextNodeId: 'yi2-ch9-7',
+  },
+  {
+    id: 'yi2-ch9-6b-r',
+    speaker: 'narrator',
+    text: '這句話讓她自己嚇了一跳。以前的她絕對說不出這種話。但現在，它就這樣冒出來了。',
     nextNodeId: 'yi2-ch9-7',
   },
 
