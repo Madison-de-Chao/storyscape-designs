@@ -52,8 +52,9 @@ const DialogueBox = ({ isHidden = false, onToggleHide, onScoreChange }: Dialogue
   const currentNodeId = progress.currentNodeId;
   const { playSFX, playEmotionSFX } = useSFX();
   
-  const [displayedText, setDisplayedText] = useState('');
-  const [isTyping, setIsTyping] = useState(true);
+   const [displayedText, setDisplayedText] = useState('');
+   const [isTyping, setIsTyping] = useState(true);
+   const typingCancelledRef = useRef(false);
   const [currentNode, setCurrentNode] = useState<DialogueNode | null>(null);
   const [isAutoForward, setIsAutoForward] = useState(false);
   const [isAutoPlay, setIsAutoPlay] = useState(false);
@@ -131,6 +132,7 @@ const DialogueBox = ({ isHidden = false, onToggleHide, onScoreChange }: Dialogue
     const text = currentNode.text;
     setDisplayedText('');
     setIsTyping(true);
+    typingCancelledRef.current = false;
 
     // 低性能模式：直接顯示完整文字，避免逐字渲染
     if (shouldSimplify && !isAutoForward) {
@@ -149,7 +151,7 @@ const DialogueBox = ({ isHidden = false, onToggleHide, onScoreChange }: Dialogue
     const baseSpeed = isAutoForward ? 8 : 35;
     
     const typeNextChar = () => {
-      if (index < text.length) {
+      if (index < text.length && !typingCancelledRef.current) {
         const char = text[index];
         
         // 使用 functional update 避免閉包問題，減少重新創建字串
@@ -300,6 +302,7 @@ const DialogueBox = ({ isHidden = false, onToggleHide, onScoreChange }: Dialogue
     if (!currentNode) return;
 
     if (isTyping) {
+      typingCancelledRef.current = true;
       setDisplayedText(currentNode.text);
       setIsTyping(false);
       lastTypingFinishTimeRef.current = Date.now();
