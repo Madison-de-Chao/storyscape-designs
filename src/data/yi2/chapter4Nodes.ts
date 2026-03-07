@@ -52,6 +52,33 @@ export const chapter4Nodes: DialogueNode[] = [
     id: 'yi2-ch4-8',
     speaker: 'narrator',
     text: '她打開水龍頭，用冷水洗了把臉。\n\n算了，懶得理她。\n\n今天還要上班，還要活著。哪有那麼多時間在這裡傷春悲秋。',
+    choices: [
+      {
+        id: 'yi2-ch4-8a',
+        text: '那個「伊」最好別再出現。',
+        arcChange: -3,
+        shadowChange: 3,
+        nextNodeId: 'yi2-ch4-8a-r',
+      },
+      {
+        id: 'yi2-ch4-8b',
+        text: '⋯⋯她到底想告訴我什麼？',
+        arcChange: 5,
+        shadowChange: 0,
+        nextNodeId: 'yi2-ch4-8b-r',
+      },
+    ],
+  },
+  {
+    id: 'yi2-ch4-8a-r',
+    speaker: 'narrator',
+    text: '她關掉水龍頭，抓起毛巾擦臉。用力擦，好像要把那些亂七八糟的念頭一起擦掉。',
+    nextNodeId: 'yi2-ch4-9',
+  },
+  {
+    id: 'yi2-ch4-8b-r',
+    speaker: 'narrator',
+    text: '她不知道為什麼會這樣想。也許是昨晚的夢太真實了。也許是她太久沒有認真聽過自己的聲音。',
     nextNodeId: 'yi2-ch4-9',
   },
 
