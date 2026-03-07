@@ -135,9 +135,8 @@ export const chapter3Nodes: DialogueNode[] = [
   },
   {
     id: 'yi2-ch3-20',
-    speaker: 'yi',
-    speakerName: '伊',
-    text: '妳明明會。妳只是不敢。',
+    speaker: 'narrator',
+    text: '**——妳明明會。妳只是不敢。**\n\n又來了。那個聲音。不是從外面來的，是從她裡面。像心跳一樣，堵也堵不住。',
     nextNodeId: 'yi2-ch3-21',
     effect: 'glitch',
   },
