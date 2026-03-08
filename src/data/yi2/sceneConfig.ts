@@ -81,41 +81,44 @@ const chapterDefaultImages: Record<string, string> = {
 type SceneRange = [number, number, string];
 
 const chapterSceneRanges: Record<string, SceneRange[]> = {
-  // Ch0: 臥室(1-10) → 伊的旁白/臥室(yi-1~yi-6) → 捷運(11-15) → 辦公室(16-30) → 公寓夜(31+)
+  // Ch0: 臥室(1-10) → 浴室鏡(11-19) → 捷運(20-26) → 辦公室(27-57) → 公寓夜(58+)
   'yi2-ch0': [
     [1, 10, bgBedroomMorning],
-    [11, 20, bgMrtInterior],
-    [21, 35, ch09OfficeWide],
-    [36, 99, bgApartmentNight],
+    [11, 19, ch03BathroomMirror],
+    [20, 26, bgMrtInterior],
+    [27, 57, ch09OfficeWide],
+    [58, 199, bgApartmentNight],
   ],
-  // Ch1: 臥室(1-3) → 捷運(4-7) → 辦公室(8-24) → 咖啡廳(25-35) → 公寓夜(36+)
+  // Ch1: 臥室(1-3) → 捷運(4-7) → 辦公室(8-24) → 刪除檔案/咖啡廳(25-40) → 公寓夜(41+)
   'yi2-ch1': [
     [1, 3, bgBedroomMorning],
     [4, 7, bgMrtInterior],
     [8, 24, ch09OfficeWide],
     [25, 40, ch01DeleteFileKv],
-    [41, 99, bgApartmentNight],
+    [41, 199, bgApartmentNight],
   ],
-  // Ch2: 茶水間/走廊(1-3) → 會議室(4-15) → 公寓反思(16-25) → 鏡子(26+)
+  // Ch2: 茶水間/走廊(1-3) → 會議室(4-15) → 公寓反思(16-29) → 雲端硬碟/鏡子(30+)
   'yi2-ch2': [
     [1, 3, ch09CorridorEmpty],
     [4, 15, ch02MeetingWide],
-    [16, 25, bgApartmentNight],
-    [26, 99, ch03BathroomMirror],
+    [16, 29, bgApartmentNight],
+    [30, 199, ch03BathroomMirror],
   ],
-  // Ch3: 辦公室(1-9) → 浴室鏡子(10-25) → 砸鏡(26-35) → 公寓夜(36+)
+  // Ch3: 辦公室(1-9) → 浴室鏡子(10-25) → 砸鏡(26-35) → 公寓夜(36-47) → 夢境舞台(48-65) → 公寓夜(66+)
   'yi2-ch3': [
     [1, 9, ch09OfficeWide],
     [10, 25, ch03BathroomMirror],
     [26, 35, ch03MirrorSmash],
-    [36, 99, bgApartmentNight],
+    [36, 47, bgApartmentNight],
+    [48, 65, ch10StageWide],
+    [66, 199, bgApartmentNight],
   ],
-  // Ch4: 臥室(1-8) → 辦公室(9-21) → 火鍋店(22-50) → 公寓夜(51+)
+  // Ch4: 臥室(1-8) → 辦公室(9-21) → 火鍋店(22-54) → 公寓夜(55+)
   'yi2-ch4': [
     [1, 8, bgBedroomMorning],
     [9, 21, ch09OfficeWide],
     [22, 54, ch04HotpotWide],
-    [55, 99, bgApartmentNight],
+    [55, 199, bgApartmentNight],
   ],
   // Ch5: 公寓沙發(1-4) → 電視夢露(5-9) → 客廳(10-25) → 客廳魔幻鏡(26-35) → 夢露鏡中(36+)
   'yi2-ch5': [
@@ -123,27 +126,30 @@ const chapterSceneRanges: Record<string, SceneRange[]> = {
     [5, 9, bgTvMonroe],
     [10, 25, ch05LivingRoomWide],
     [26, 35, ch05LivingRoomMagic],
-    [36, 99, ch05KvMonroeMirror],
+    [36, 199, ch05KvMonroeMirror],
   ],
-  // Ch6: 公寓夜(1-8) → 懸崖夢境(9-25) → 老師們(26+)
+  // Ch6: 公寓夜(1-8) → 夢境/伊講故事(9-55) → 總結三人(56-90) → 林壹反思+新檔案(91+)
   'yi2-ch6': [
     [1, 8, bgApartmentNight],
-    [9, 99, ch06KvCliffTeachers],
+    [9, 55, ch06KvCliffTeachers],
+    [56, 90, ch06KvCliffTeachers],
+    [91, 120, bgComputerNight],
+    [121, 199, bgApartmentNight],
   ],
-  // Ch7: 公寓夜(1-5) → 電腦搜尋(6-30) → 深夜筆記(31-45) → 被打但站著(46+)
+  // Ch7: 公寓夜(1-5) → 電腦搜尋(6-30) → 深夜筆記(31-50) → 被打但站著(51+)
   'yi2-ch7': [
     [1, 5, bgApartmentNight],
     [6, 30, bgComputerNight],
-    [31, 45, ch07KvMidnightNotes],
-    [46, 99, ch07KvBeatenStanding],
+    [31, 50, ch07KvMidnightNotes],
+    [51, 199, ch07KvBeatenStanding],
   ],
-  // Ch8: 公寓夜(1-2) → 手機早晨(3-5) → 浴室鏡子(6-30) → 鏡中初見(31-45) → 允許哭泣(46+)
+  // Ch8: 公寓夜(1-2) → 手機早晨(3-5) → 浴室鏡子(6-30) → 鏡中初見(31-50) → 允許哭泣(51+)
   'yi2-ch8': [
     [1, 2, bgApartmentNight],
     [3, 5, bgPhoneMorning],
     [6, 30, ch03BathroomMirror],
-    [31, 45, ch08KvMirrorFirstSight],
-    [46, 99, ch08KvAllowCrying],
+    [31, 50, ch08KvMirrorFirstSight],
+    [51, 199, ch08KvAllowCrying],
   ],
   // Ch9: 辦公室(1-18) → 餐廳(19-30) → 辦公室走廊(31-42) → 浴室鏡子(43-50) → 公寓夜(51+)
   'yi2-ch9': [
@@ -151,7 +157,7 @@ const chapterSceneRanges: Record<string, SceneRange[]> = {
     [19, 30, ch04HotpotWide],
     [31, 42, ch09CorridorEmpty],
     [43, 50, ch03BathroomMirror],
-    [51, 99, bgApartmentNight],
+    [51, 199, bgApartmentNight],
   ],
   // Ch10: 夢中舞台(1-4) → 公寓夜(5-9) → 舞台中景(10-20) → 舞台特寫(21-30) → 內在擁抱(31+)
   'yi2-ch10': [
@@ -159,7 +165,7 @@ const chapterSceneRanges: Record<string, SceneRange[]> = {
     [5, 9, bgApartmentNight],
     [10, 20, ch10StageMedium],
     [21, 30, ch10StageCloseup],
-    [31, 99, ch10EmbraceKv],
+    [31, 199, ch10EmbraceKv],
   ],
   // Ch11: 辦公室(1-9) → 手機訊息(10-14) → 浴室鏡子(15-30) → 茶水間(31-40) → 深夜電腦(41+)
   'yi2-ch11': [
@@ -167,7 +173,7 @@ const chapterSceneRanges: Record<string, SceneRange[]> = {
     [10, 14, bgPhoneMorning],
     [15, 30, ch03BathroomMirror],
     [31, 40, ch11PantryDialogueKv],
-    [41, 99, bgComputerNight],
+    [41, 199, bgComputerNight],
   ],
   // Ch12: 白色空間(1-5) → 公寓333(6-7) → 深夜電腦(8-15) → 元壹境(16-25) → 宇宙通道(26+)
   'yi2-ch12': [
@@ -175,7 +181,7 @@ const chapterSceneRanges: Record<string, SceneRange[]> = {
     [6, 7, bgApartmentNight],
     [8, 15, bgComputerNight],
     [16, 25, ch12Kv333Metaverse],
-    [26, 99, kvCosmicPassage],
+    [26, 199, kvCosmicPassage],
   ],
 };
 
