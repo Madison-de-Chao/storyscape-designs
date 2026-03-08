@@ -57,6 +57,143 @@ const chapterDefaultImages: Record<string, string> = {
   'yi2-ch12': ch12KvWhiteWorld,
 };
 
+/**
+ * 節點 ID 範圍 → 背景圖片的細化映射
+ * 每個章節內依劇情場景切換不同背景，避免整章只用同一張圖
+ * 格式: [minNodeNum, maxNodeNum, imageSrc]
+ * 包含回應節點（如 yi2-ch0-8a-r → 解析為 8）
+ */
+type SceneRange = [number, number, string];
+
+const chapterSceneRanges: Record<string, SceneRange[]> = {
+  // Ch0: 臥室(1-10) → 伊的旁白/臥室(yi-1~yi-6) → 捷運(11-15) → 辦公室(16-30) → 公寓夜(31+)
+  'yi2-ch0': [
+    [1, 10, bgBedroomMorning],
+    [11, 20, bgMrtInterior],
+    [21, 35, ch09OfficeWide],
+    [36, 99, bgApartmentNight],
+  ],
+  // Ch1: 臥室(1-3) → 捷運(4-7) → 辦公室(8-24) → 咖啡廳(25-35) → 公寓夜(36+)
+  'yi2-ch1': [
+    [1, 3, bgBedroomMorning],
+    [4, 7, bgMrtInterior],
+    [8, 24, ch09OfficeWide],
+    [25, 40, ch01DeleteFileKv],
+    [41, 99, bgApartmentNight],
+  ],
+  // Ch2: 茶水間/走廊(1-3) → 會議室(4-15) → 公寓反思(16-25) → 鏡子(26+)
+  'yi2-ch2': [
+    [1, 3, ch09CorridorEmpty],
+    [4, 15, ch02MeetingWide],
+    [16, 25, bgApartmentNight],
+    [26, 99, ch03BathroomMirror],
+  ],
+  // Ch3: 辦公室(1-9) → 浴室鏡子(10-25) → 砸鏡(26-35) → 公寓夜(36+)
+  'yi2-ch3': [
+    [1, 9, ch09OfficeWide],
+    [10, 25, ch03BathroomMirror],
+    [26, 35, ch03MirrorSmash],
+    [36, 99, bgApartmentNight],
+  ],
+  // Ch4: 臥室(1-8) → 辦公室(9-21) → 火鍋店(22-50) → 公寓夜(51+)
+  'yi2-ch4': [
+    [1, 8, bgBedroomMorning],
+    [9, 21, ch09OfficeWide],
+    [22, 54, ch04HotpotWide],
+    [55, 99, bgApartmentNight],
+  ],
+  // Ch5: 公寓沙發(1-4) → 電視夢露(5-9) → 客廳(10-25) → 客廳魔幻鏡(26-35) → 夢露鏡中(36+)
+  'yi2-ch5': [
+    [1, 4, bgApartmentNight],
+    [5, 9, bgTvMonroe],
+    [10, 25, ch05LivingRoomWide],
+    [26, 35, ch05LivingRoomMagic],
+    [36, 99, ch05KvMonroeMirror],
+  ],
+  // Ch6: 公寓夜(1-8) → 懸崖夢境(9-25) → 老師們(26+)
+  'yi2-ch6': [
+    [1, 8, bgApartmentNight],
+    [9, 99, ch06KvCliffTeachers],
+  ],
+  // Ch7: 公寓夜(1-5) → 電腦搜尋(6-30) → 深夜筆記(31-45) → 被打但站著(46+)
+  'yi2-ch7': [
+    [1, 5, bgApartmentNight],
+    [6, 30, bgComputerNight],
+    [31, 45, ch07KvMidnightNotes],
+    [46, 99, ch07KvBeatenStanding],
+  ],
+  // Ch8: 公寓夜(1-2) → 手機早晨(3-5) → 浴室鏡子(6-30) → 鏡中初見(31-45) → 允許哭泣(46+)
+  'yi2-ch8': [
+    [1, 2, bgApartmentNight],
+    [3, 5, bgPhoneMorning],
+    [6, 30, ch03BathroomMirror],
+    [31, 45, ch08KvMirrorFirstSight],
+    [46, 99, ch08KvAllowCrying],
+  ],
+  // Ch9: 辦公室(1-18) → 餐廳(19-30) → 辦公室走廊(31-42) → 浴室鏡子(43-50) → 公寓夜(51+)
+  'yi2-ch9': [
+    [1, 18, ch09OfficeWide],
+    [19, 30, ch04HotpotWide],
+    [31, 42, ch09CorridorEmpty],
+    [43, 50, ch03BathroomMirror],
+    [51, 99, bgApartmentNight],
+  ],
+  // Ch10: 夢中舞台(1-4) → 公寓夜(5-9) → 舞台中景(10-20) → 舞台特寫(21-30) → 內在擁抱(31+)
+  'yi2-ch10': [
+    [1, 4, ch10StageWide],
+    [5, 9, bgApartmentNight],
+    [10, 20, ch10StageMedium],
+    [21, 30, ch10StageCloseup],
+    [31, 99, ch10EmbraceKv],
+  ],
+  // Ch11: 辦公室(1-9) → 手機訊息(10-14) → 浴室鏡子(15-30) → 茶水間(31-40) → 深夜電腦(41+)
+  'yi2-ch11': [
+    [1, 9, ch09OfficeWide],
+    [10, 14, bgPhoneMorning],
+    [15, 30, ch03BathroomMirror],
+    [31, 40, ch11PantryDialogueKv],
+    [41, 99, bgComputerNight],
+  ],
+  // Ch12: 白色空間(1-5) → 公寓333(6-7) → 深夜電腦(8-15) → 元壹境(16-25) → 宇宙通道(26+)
+  'yi2-ch12': [
+    [1, 5, ch12KvWhiteWorld],
+    [6, 7, bgApartmentNight],
+    [8, 15, bgComputerNight],
+    [16, 25, ch12Kv333Metaverse],
+    [26, 99, kvCosmicPassage],
+  ],
+};
+
+/**
+ * 從節點 ID 解析出數字部分（用於範圍匹配）
+ * 例: 'yi2-ch0-8a-r' → 8, 'yi2-ch5-yi-3' → 特殊處理
+ */
+function parseNodeNumber(nodeId: string, chapterKey: string): number | null {
+  // 移除章節前綴
+  const suffix = nodeId.replace(chapterKey + '-', '');
+  // 嘗試提取第一個數字
+  const numMatch = suffix.match(/^(\d+)/);
+  if (numMatch) return parseInt(numMatch[1], 10);
+  // yi- 前綴的旁白節點（如 yi2-ch0-yi-1），映射到較高範圍
+  const yiMatch = suffix.match(/^yi-(\d+)/);
+  if (yiMatch) return parseInt(yiMatch[1], 10) + 100; // offset to avoid collision
+  return null;
+}
+
+/**
+ * 根據節點 ID 在章節場景範圍中查找對應背景圖
+ */
+function getSceneRangeImage(nodeId: string, chapterKey: string): string | null {
+  const ranges = chapterSceneRanges[chapterKey];
+  if (!ranges) return null;
+  const num = parseNodeNumber(nodeId, chapterKey);
+  if (num === null) return null;
+  for (const [min, max, image] of ranges) {
+    if (num >= min && num <= max) return image;
+  }
+  return null;
+}
+
 // ── 章節預設場景 ──
 
 const chapterDefaults: Record<string, Yi2SceneConfig> = {
