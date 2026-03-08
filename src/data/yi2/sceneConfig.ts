@@ -346,18 +346,32 @@ export function getYi2SceneConfig(nodeId: string, node?: DialogueNode): Yi2Scene
       };
     }
   } else {
-    // 2. 沒有 bgImage 時，使用章節預設背景圖片（而非漸層）
-    const defaultImage = chapterDefaultImages[chapterKey];
-    if (defaultImage) {
+    // 2. 沒有 bgImage 時，先嘗試節點範圍映射（細化場景切換）
+    const rangeImage = getSceneRangeImage(nodeId, chapterKey);
+    if (rangeImage) {
       result = {
         ...base,
         background: {
           type: 'image',
-          value: defaultImage,
+          value: rangeImage,
           animation: 'breathe',
           overlay: 'noise',
         },
       };
+    } else {
+      // 3. 最後才 fallback 到章節預設背景圖片
+      const defaultImage = chapterDefaultImages[chapterKey];
+      if (defaultImage) {
+        result = {
+          ...base,
+          background: {
+            type: 'image',
+            value: defaultImage,
+            animation: 'breathe',
+            overlay: 'noise',
+          },
+        };
+      }
     }
   }
 
