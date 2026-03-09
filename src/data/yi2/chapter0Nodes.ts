@@ -107,8 +107,8 @@ export const chapter0Nodes: DialogueNode[] = [
   // 伊的內心旁白
   {
     id: 'yi2-ch0-yi-1',
-    speaker: 'yi',
-    speakerName: '伊',
+    speaker: 'narrator',
+    speakerName: '???',
     text: '她又在床上躺了十五分鐘。\n\n不是睡覺，是放空。\n\n她不知道這十五分鐘對她來說有多珍貴——這是她一天裡唯一誠實的時刻。',
     nextNodeId: 'yi2-ch0-yi-2',
     effect: 'glitch',
