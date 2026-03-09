@@ -435,3 +435,110 @@ export const ZeroCountdownEffect = ({ color }: { color: string }) => {
     </>
   );
 };
+
+/** 訊號碎片（序章） — 故障條紋 + 文字閃現 + 色差抖動 */
+export const SignalFragmentEffect = ({ color }: { color: string }) => {
+  const [phase, setPhase] = useState(0);
+
+  useEffect(() => {
+    const t1 = setTimeout(() => setPhase(1), 600);
+    const t2 = setTimeout(() => setPhase(2), 1800);
+    const t3 = setTimeout(() => setPhase(3), 3000);
+    return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); };
+  }, []);
+
+  const fragments = ['——滋滋——', '......壹境......', '......伊......', '......在等你......'];
+
+  return (
+    <>
+      {/* 掃描線 — 持續閃動 */}
+      <motion.div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: `repeating-linear-gradient(0deg, transparent, transparent 3px, ${color} 3px, ${color} 4px)`,
+          mixBlendMode: 'overlay',
+        }}
+        animate={{ opacity: [0.15, 0.04, 0.12, 0.02, 0.1] }}
+        transition={{ duration: 1.2, repeat: Infinity, ease: 'steps(5)' }}
+      />
+
+      {/* 隨機故障色塊 */}
+      {[...Array(6)].map((_, i) => (
+        <motion.div
+          key={`block-${i}`}
+          className="absolute pointer-events-none"
+          style={{
+            top: `${15 + i * 12}%`,
+            left: `${10 + Math.random() * 60}%`,
+            width: `${20 + Math.random() * 40}%`,
+            height: '3px',
+            background: color,
+            mixBlendMode: 'screen',
+          }}
+          animate={{
+            opacity: [0, 0.6, 0, 0.3, 0],
+            x: [0, -10, 5, -3, 0],
+          }}
+          transition={{
+            duration: 0.4,
+            delay: 0.2 + i * 0.35,
+            repeat: 2,
+            repeatDelay: 0.8,
+          }}
+        />
+      ))}
+
+      {/* 碎片文字閃現 */}
+      {fragments.map((text, i) => (
+        <motion.div
+          key={`frag-${i}`}
+          className="absolute font-serif-tc text-lg sm:text-2xl pointer-events-none"
+          style={{
+            top: `${20 + i * 15}%`,
+            left: '50%',
+            transform: 'translateX(-50%)',
+            color,
+            textShadow: `0 0 15px ${color}, 2px 0 0 hsl(0 100% 50% / 0.5), -2px 0 0 hsl(200 100% 50% / 0.5)`,
+          }}
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={phase >= (i < 2 ? 0 : i < 3 ? 1 : 2) ? {
+            opacity: [0, 0.9, 0.7, 0],
+            x: [0, -3, 5, 0],
+          } : { opacity: 0 }}
+          transition={{
+            duration: 1,
+            delay: i * 0.5,
+            ease: 'easeOut',
+          }}
+        >
+          {text}
+        </motion.div>
+      ))}
+
+      {/* 全畫面閃白 — 模擬訊號中斷 */}
+      <motion.div
+        className="absolute inset-0 pointer-events-none"
+        style={{ background: 'white', mixBlendMode: 'overlay' }}
+        animate={{
+          opacity: [0, 0.15, 0, 0, 0.1, 0, 0, 0.2, 0],
+        }}
+        transition={{ duration: 3, delay: 0.5, ease: 'steps(9)' }}
+      />
+
+      {/* 色差偏移效果 */}
+      {phase >= 2 && (
+        <motion.div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background: `linear-gradient(90deg, hsl(0 100% 50% / 0.08) 0%, transparent 30%, transparent 70%, hsl(200 100% 50% / 0.08) 100%)`,
+          }}
+          animate={{
+            x: [-2, 3, -1, 2, 0],
+            opacity: [0.6, 0.3, 0.8, 0.2, 0],
+          }}
+          transition={{ duration: 1.5, ease: 'easeOut' }}
+        />
+      )}
+    </>
+  );
+};
