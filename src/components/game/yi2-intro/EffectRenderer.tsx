@@ -1,6 +1,7 @@
 import { forwardRef } from 'react';
 import type { IntroStyle } from './types';
 import {
+  SignalFragmentEffect,
   DigitalWakeEffect,
   FileDeleteEffect,
   MemoryGapEffect,
