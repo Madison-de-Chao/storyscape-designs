@@ -391,8 +391,8 @@ export const chapter0Nodes: DialogueNode[] = [
   },
   {
     id: 'yi2-ch0-yi-6',
-    speaker: 'yi',
-    speakerName: '伊',
+    speaker: 'narrator',
+    speakerName: '???',
     text: '但她不說。\n\n她把這個想法塞進喉嚨裡，和其他所有沒說出口的話放在一起，讓它們慢慢發霉。',
     nextNodeId: 'yi2-ch0-yi-7',
     effect: 'glitch',
