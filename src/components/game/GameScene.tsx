@@ -513,30 +513,34 @@ const GameScene = () => {
       {/* 粒子背景 */}
       <ParticleBackground arcValue={arcValue} />
       
-      {/* 漸變背景（半透明覆蓋，避免遮住場景圖） */}
-      <motion.div
-        className="absolute inset-0 z-10 pointer-events-none transition-colors duration-1000"
-        style={{
-          background: `linear-gradient(180deg,
-            hsl(222 ${47 - visualProgress * 10}% ${6 + visualProgress * 4}% / 0.75) 0%,
-            hsl(222 ${47 - visualProgress * 15}% ${10 + visualProgress * 5}% / 0.85) 100%
-          )`,
-        }}
-      />
-
-      {/* 光暈效果 */}
-      <motion.div
-        className="absolute inset-0 pointer-events-none"
-        animate={{ opacity: 0.5 + visualProgress * 0.5 }}
-        transition={{ duration: 1 }}
-      >
-        <div 
-          className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full blur-[150px]"
+      {/* 漸變背景（半透明覆蓋）- 僅第一部使用 */}
+      {isYiPart && (
+        <motion.div
+          className="absolute inset-0 z-10 pointer-events-none transition-colors duration-1000"
           style={{
-            background: `radial-gradient(circle, hsl(${themeHue}, 60%, 30%, 0.1) 0%, transparent 70%)`,
+            background: `linear-gradient(180deg,
+              hsl(222 ${47 - visualProgress * 10}% ${6 + visualProgress * 4}% / 0.75) 0%,
+              hsl(222 ${47 - visualProgress * 15}% ${10 + visualProgress * 5}% / 0.85) 100%
+            )`,
           }}
         />
-      </motion.div>
+      )}
+
+      {/* 光暈效果 - 僅第一部使用 */}
+      {isYiPart && (
+        <motion.div
+          className="absolute inset-0 pointer-events-none"
+          animate={{ opacity: 0.5 + visualProgress * 0.5 }}
+          transition={{ duration: 1 }}
+        >
+          <div 
+            className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full blur-[150px]"
+            style={{
+              background: `radial-gradient(circle, hsl(${themeHue}, 60%, 30%, 0.1) 0%, transparent 70%)`,
+            }}
+          />
+        </motion.div>
+      )}
 
       {/* 故障效果覆蓋層 - yi 說話時 */}
       {currentNode?.speaker === 'yi' && (
