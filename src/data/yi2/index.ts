@@ -20,6 +20,7 @@ import { chapter12Nodes } from './chapter12Nodes';
 // 合併所有節點
 export const yi2AllNodes: DialogueNode[] = [
   ...yi2PrefaceNodes,
+  ...yi2PrologueNodes,
   ...chapter0Nodes,
   ...chapter1Nodes,
   ...chapter2Nodes,
