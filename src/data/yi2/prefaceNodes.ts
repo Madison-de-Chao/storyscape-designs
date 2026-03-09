@@ -111,6 +111,6 @@ export const yi2PrefaceNodes: DialogueNode[] = [
     speaker: 'narrator',
     speakerName: '作者',
     text: '默默超\n\n寫於不惑之年',
-    nextNodeId: 'yi2-ch0-1',
+    nextNodeId: 'yi2-prologue-1',
   },
 ];
