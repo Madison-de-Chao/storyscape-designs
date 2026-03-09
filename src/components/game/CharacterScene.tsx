@@ -195,7 +195,7 @@ const CharacterScene = ({
       <div
         className="absolute inset-0 pointer-events-none z-[4]"
         style={{
-          background: 'radial-gradient(ellipse at center, transparent 40%, hsl(0 0% 0% / 0.4) 100%)',
+          background: 'radial-gradient(ellipse at center, transparent 40%, hsl(0 0% 0% / 0.3) 100%)',
         }}
       />
 
@@ -214,7 +214,7 @@ const CharacterScene = ({
               animate={{
                 ...variants.animate,
                 // 非說話者降低不透明度
-                opacity: char.isSpeaking ? 1 : 0.6,
+                opacity: 1,
                 filter: char.isSpeaking
                   ? 'brightness(1) drop-shadow(0 0 20px ' + themeToHSL(theme, 0.3) + ')'
                   : 'brightness(0.7)',
@@ -257,7 +257,7 @@ const CharacterScene = ({
         <div
           className="absolute bottom-0 left-0 right-0 h-1/3 z-[6] pointer-events-none"
           style={{
-            background: 'linear-gradient(to top, hsl(0 0% 0% / 0.6) 0%, transparent 100%)',
+            background: 'linear-gradient(to top, hsl(0 0% 0% / 0.1) 0%, transparent 100%)',
           }}
         />
       )}
