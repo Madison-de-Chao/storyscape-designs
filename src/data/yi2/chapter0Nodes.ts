@@ -664,8 +664,8 @@ export const chapter0Nodes: DialogueNode[] = [
   },
   {
     id: 'yi2-ch0-yi-12',
-    speaker: 'yi',
-    speakerName: '伊',
+    speaker: 'narrator',
+    speakerName: '???',
     text: '每一個夜晚，我都在等。\n\n等她願意看見我。\n\n等她願意承認：她不是不行，她是不敢。\n\n她不是沒有能力，她是害怕展現能力。\n\n她不是無所謂，她是太在乎了所以假裝無所謂。',
     nextNodeId: 'yi2-ch0-yi-13',
     effect: 'glitch',
