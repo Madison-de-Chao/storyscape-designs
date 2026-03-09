@@ -268,8 +268,8 @@ export const chapter0Nodes: DialogueNode[] = [
   // 伊的旁白
   {
     id: 'yi2-ch0-yi-3',
-    speaker: 'yi',
-    speakerName: '伊',
+    speaker: 'narrator',
+    speakerName: '???',
     text: '她又在腦子裡開庭了。\n\n原告是她自己，被告也是她自己，法官還是她自己。\n\n證據？今天早上賴床十五分鐘。\n\n判決？有罪。罪名是「浪費生命」。',
     nextNodeId: 'yi2-ch0-yi-4',
     effect: 'glitch',
