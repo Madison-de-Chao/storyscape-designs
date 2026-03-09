@@ -552,8 +552,8 @@ export const chapter0Nodes: DialogueNode[] = [
   // 伊的旁白
   {
     id: 'yi2-ch0-yi-8',
-    speaker: 'yi',
-    speakerName: '伊',
+    speaker: 'narrator',
+    speakerName: '???',
     text: '她又逃了。\n\n每一次機會來的時候，她都在門口轉身。\n\n她告訴自己：「我不行。」',
     nextNodeId: 'yi2-ch0-yi-9',
     effect: 'glitch',
