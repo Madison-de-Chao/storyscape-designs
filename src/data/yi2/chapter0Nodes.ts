@@ -383,8 +383,8 @@ export const chapter0Nodes: DialogueNode[] = [
   // 伊的旁白
   {
     id: 'yi2-ch0-yi-5',
-    speaker: 'yi',
-    speakerName: '伊',
+    speaker: 'narrator',
+    speakerName: '???',
     text: '她又把自己藏起來了。\n\n她不知道，我看見了她的想法。\n\n短影音行銷，平台選擇，內容方向，執行時程——她連細節都想好了。\n\n比阿凱那個「KOL 合作」完整多了。',
     nextNodeId: 'yi2-ch0-yi-6',
     effect: 'glitch',
