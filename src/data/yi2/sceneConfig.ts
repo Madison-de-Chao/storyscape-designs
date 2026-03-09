@@ -7,6 +7,16 @@ import type { DialogueNode } from '@/stores/gameStore';
 import { getCharacterSprite } from './spriteRegistry';
 import { getYi2BgImage } from './sceneImages';
 
+// ── 共用第一部序章背景圖 ──
+import IMG_prologue_深夜_疲憊的臨界 from '@/assets/scenes/prologue_深夜_疲憊的臨界_粉嫩少女耽美版.webp';
+import IMG_prologue_虛空_意識的光點 from '@/assets/scenes/prologue_虛空_意識的光點_粉嫩少女耽美版.webp';
+import IMG_prologue_拉扯_分裂的痛苦 from '@/assets/scenes/prologue_拉扯_分裂的痛苦_粉嫩少女耽美版.webp';
+import IMG_prologue_宇宙聚焦_窗戶的光 from '@/assets/scenes/prologue_宇宙聚焦_窗戶的光_粉嫩少女耽美版.webp';
+import IMG_prologue_覺醒_超越的瞬間 from '@/assets/scenes/prologue_覺醒_超越的瞬間_粉嫩少女耽美版.webp';
+import IMG_prologue_場景A from '@/assets/scenes/prologue_場景A_粉嫩少女耽美版.webp';
+import IMG_prologue_場景B from '@/assets/scenes/prologue_場景B_粉嫩少女耽美版.webp';
+import IMG_prologue_合一_治癒的完成 from '@/assets/scenes/prologue_合一_治癒的完成_粉嫩少女耽美版.webp';
+
 // 導入每個章節的預設背景圖
 import bgBedroomMorning from '@/assets/yi2/backgrounds/bg-bedroom-morning.jpg';
 import bgMrtInterior from '@/assets/yi2/backgrounds/bg-mrt-interior.jpg';
@@ -57,6 +67,7 @@ const defaultBg = (hue: number, sat: number = 30): BackgroundConfig => ({
 // ── 每章預設背景圖片 ──
 const chapterDefaultImages: Record<string, string> = {
   'yi2-preface': ch00KvFoggyMirror,
+  'yi2-prologue': IMG_prologue_虛空_意識的光點, // 序章預設：夢境虛空
   'yi2-ch0': bgBedroomMorning,
   'yi2-ch1': bgMrtInterior,
   'yi2-ch2': ch02MeetingRoomKv,
@@ -81,6 +92,16 @@ const chapterDefaultImages: Record<string, string> = {
 type SceneRange = [number, number, string];
 
 const chapterSceneRanges: Record<string, SceneRange[]> = {
+  // 序章(碎片): 夢境訊號(1-4) → 夢中醒來(5-8) → 謎之聲(9-14) → 凌晨3:33(15-18) → 夢的深處(19-24) → 期待(25-29)
+  'yi2-prologue': [
+    [1, 4, IMG_prologue_虛空_意識的光點],      // glitch 訊號碎片
+    [5, 8, IMG_prologue_深夜_疲憊的臨界],      // 翻身、汗濕枕頭
+    [9, 14, IMG_prologue_拉扯_分裂的痛苦],     // 把自己切成兩半
+    [15, 18, IMG_prologue_宇宙聚焦_窗戶的光],  // 凌晨 3:33 醒來
+    [19, 22, IMG_prologue_場景A],              // 「伊」— 猛然坐起
+    [23, 26, IMG_prologue_場景B],              // 在等你、很久了
+    [27, 29, IMG_prologue_覺醒_超越的瞬間],    // 期待 → zen 轉場
+  ],
   // Ch0: 臥室(1-10) → 浴室鏡(11-19) → 捷運(20-26) → 辦公室(27-57) → 公寓夜(58+)
   'yi2-ch0': [
     [1, 10, bgBedroomMorning],
@@ -450,6 +471,6 @@ export function getYi2SceneConfig(nodeId: string, node?: DialogueNode): Yi2Scene
  * 獲取章節 key（從節點 ID）
  */
 export function getYi2ChapterKey(nodeId: string): string {
-  const match = nodeId.match(/^(yi2-(?:preface|ch\d+))/);
+const match = nodeId.match(/^(yi2-(?:preface|prologue|ch\d+))/);
   return match ? match[1] : 'yi2-preface';
 }
