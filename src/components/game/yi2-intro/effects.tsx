@@ -459,7 +459,7 @@ export const SignalFragmentEffect = ({ color }: { color: string }) => {
           mixBlendMode: 'overlay',
         }}
         animate={{ opacity: [0.15, 0.04, 0.12, 0.02, 0.1] }}
-        transition={{ duration: 1.2, repeat: Infinity, ease: 'steps(5)' }}
+        transition={{ duration: 1.2, repeat: Infinity, ease: 'linear' }}
       />
 
       {/* 隨機故障色塊 */}
