@@ -26,6 +26,7 @@ export interface Yi2ChapterIntroProps {
 
 /** 章節 key → 動畫風格映射 */
 export const yi2IntroStyles: Record<string, IntroStyle> = {
+  'yi2-prologue': 'signal-fragment',
   'yi2-preface': 'default',
   'yi2-ch0': 'digital-wake',
   'yi2-ch1': 'file-delete',

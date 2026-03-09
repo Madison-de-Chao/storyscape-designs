@@ -3,6 +3,18 @@ import type { ChapterMeta } from '../yi1/chapters';
 
 export const yi2ChaptersMeta: ChapterMeta[] = [
   {
+    id: 'yi2-prologue',
+    title: '序章',
+    subtitle: '碎片',
+    theme: '夢境碎片、神秘訊號',
+    keyQuote: '在夢的最深處，有什麼在看著她。',
+    suggestedImages: 2,
+    imageDescriptions: [
+      '虛空中閃爍的訊號碎片，如同壞掉的電視畫面',
+      '凌晨3:33的手機螢幕，微光照亮黑暗的房間',
+    ],
+  },
+  {
     id: 'yi2-preface',
     title: '作者序',
     subtitle: '給正在打仗的你',
