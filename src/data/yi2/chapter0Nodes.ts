@@ -655,8 +655,8 @@ export const chapter0Nodes: DialogueNode[] = [
   // 伊的結尾旁白
   {
     id: 'yi2-ch0-yi-11',
-    speaker: 'yi',
-    speakerName: '伊',
+    speaker: 'narrator',
+    speakerName: '???',
     text: '她睡著了。\n\n她的呼吸很淺，像是連睡覺都不敢太用力。\n\n她不知道，我在她夢裡等她。',
     nextNodeId: 'yi2-ch0-yi-12',
     effect: 'glitch',
