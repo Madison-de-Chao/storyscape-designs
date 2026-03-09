@@ -117,7 +117,8 @@ import kvRainReconciliationV3 from '@/assets/yi2/backgrounds/kv-rain-reconciliat
  */
 export const yi2BgImageMap: Record<string, string> = {
   // ── 通用場景 key（節點中常用的泛用 bgImage）──
-  'yi2-mrt': bgMrtInterior,                    // 捷運車廂
+  'yi2-mrt': bgMrtCrowded,                     // 捷運車廂（擁擠人潮 KV）
+  'yi2-mrt-isolation': bgMrtIsolation,         // 捷運車廂（人群中的抽離 KV）
   'yi2-office': ch09OfficeWide,                // 泛用辦公室 → 辦公室廣角
   'yi2-office-day': ch09OfficeWideV2,          // 辦公室白天 → 辦公室廣角 V2
   'yi2-bedroom-morning': bgBedroomMorning,     // 臥室早晨
