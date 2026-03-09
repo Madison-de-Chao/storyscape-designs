@@ -352,7 +352,7 @@ const chapterDefaults: Record<string, Yi2SceneConfig> = {
  * 根據節點獲取場景配置（含背景圖片解析 + 自動立繪生成）
  */
 export function getYi2SceneConfig(nodeId: string, node?: DialogueNode): Yi2SceneConfig {
-  const chapterMatch = nodeId.match(/^(yi2-(?:preface|ch\d+))/);
+  const chapterMatch = nodeId.match(/^(yi2-(?:preface|prologue|ch\d+))/);
   const chapterKey = chapterMatch ? chapterMatch[1] : 'yi2-preface';
 
   const base = chapterDefaults[chapterKey] || { background: defaultBg(210) };
