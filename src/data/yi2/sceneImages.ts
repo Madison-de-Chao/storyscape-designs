@@ -4,7 +4,8 @@
  */
 
 // ── 通用場景背景圖 ──
-import bgMrtInterior from '@/assets/yi2/backgrounds/bg-mrt-interior.jpg';
+import bgMrtCrowded from '@/assets/yi2/backgrounds/preface-kv-mrt-crowded.png';
+import bgMrtIsolation from '@/assets/yi2/backgrounds/preface-kv-mrt-isolation.png';
 import bgApartmentNight from '@/assets/yi2/backgrounds/bg-apartment-night.jpg';
 import bgBedroomMorning from '@/assets/yi2/backgrounds/bg-bedroom-morning.jpg';
 import bgPhoneMorning from '@/assets/yi2/backgrounds/bg-phone-morning.jpg';
