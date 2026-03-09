@@ -276,8 +276,8 @@ export const chapter0Nodes: DialogueNode[] = [
   },
   {
     id: 'yi2-ch0-yi-4',
-    speaker: 'yi',
-    speakerName: '伊',
+    speaker: 'narrator',
+    speakerName: '???',
     text: '刑罰？自我厭惡一整天。\n\n她不知道，這場審判從來沒有辯護律師。\n\n她也從來沒想過要請一個。\n\n**因為在她的世界裡，她沒有資格被辯護。**',
     nextNodeId: 'yi2-ch0-27',
     effect: 'glitch',
