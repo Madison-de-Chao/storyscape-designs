@@ -399,8 +399,8 @@ export const chapter0Nodes: DialogueNode[] = [
   },
   {
     id: 'yi2-ch0-yi-7',
-    speaker: 'yi',
-    speakerName: '伊',
+    speaker: 'narrator',
+    speakerName: '???',
     text: '繼續把我推開。\n\n繼續假裝她沒有能力，沒有野心，沒有慾望。\n\n**繼續殺死我。**',
     nextNodeId: 'yi2-ch0-42',
     effect: 'glitch',
