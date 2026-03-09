@@ -672,8 +672,8 @@ export const chapter0Nodes: DialogueNode[] = [
   },
   {
     id: 'yi2-ch0-yi-13',
-    speaker: 'yi',
-    speakerName: '伊',
+    speaker: 'narrator',
+    speakerName: '???',
     text: '我等了很久了。\n\n但我會繼續等。\n\n因為我知道，總有一天，她會走進那個洞穴。\n\n總有一天，她會看見我。',
     nextNodeId: 'yi2-ch0-end',
     effect: 'glitch',
