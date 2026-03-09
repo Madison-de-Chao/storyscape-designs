@@ -7,6 +7,16 @@ import type { DialogueNode } from '@/stores/gameStore';
 import { getCharacterSprite } from './spriteRegistry';
 import { getYi2BgImage } from './sceneImages';
 
+// ── 共用第一部序章背景圖 ──
+import IMG_prologue_深夜_疲憊的臨界 from '@/assets/scenes/prologue_深夜_疲憊的臨界_粉嫩少女耽美版.webp';
+import IMG_prologue_虛空_意識的光點 from '@/assets/scenes/prologue_虛空_意識的光點_粉嫩少女耽美版.webp';
+import IMG_prologue_拉扯_分裂的痛苦 from '@/assets/scenes/prologue_拉扯_分裂的痛苦_粉嫩少女耽美版.webp';
+import IMG_prologue_宇宙聚焦_窗戶的光 from '@/assets/scenes/prologue_宇宙聚焦_窗戶的光_粉嫩少女耽美版.webp';
+import IMG_prologue_覺醒_超越的瞬間 from '@/assets/scenes/prologue_覺醒_超越的瞬間_粉嫩少女耽美版.webp';
+import IMG_prologue_場景A from '@/assets/scenes/prologue_場景A_粉嫩少女耽美版.webp';
+import IMG_prologue_場景B from '@/assets/scenes/prologue_場景B_粉嫩少女耽美版.webp';
+import IMG_prologue_合一_治癒的完成 from '@/assets/scenes/prologue_合一_治癒的完成_粉嫩少女耽美版.webp';
+
 // 導入每個章節的預設背景圖
 import bgBedroomMorning from '@/assets/yi2/backgrounds/bg-bedroom-morning.jpg';
 import bgMrtInterior from '@/assets/yi2/backgrounds/bg-mrt-interior.jpg';
