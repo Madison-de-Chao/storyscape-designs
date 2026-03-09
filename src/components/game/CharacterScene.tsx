@@ -216,8 +216,8 @@ const CharacterScene = ({
                 // 非說話者降低不透明度
                 opacity: 1,
                 filter: char.isSpeaking
-                  ? 'brightness(1) drop-shadow(0 0 20px ' + themeToHSL(theme, 0.3) + ')'
-                  : 'brightness(0.7)',
+                  ? 'brightness(1.1) drop-shadow(0 0 20px ' + themeToHSL(theme, 0.3) + ')'
+                  : 'brightness(0.55)',
               }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.6, ease: 'easeOut' }}
