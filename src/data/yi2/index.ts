@@ -2,6 +2,7 @@
 import type { Chapter, DialogueNode } from '@/stores/gameStore';
 import { yi2ChaptersMeta, yi2TotalSuggestedImages } from './chapters';
 import { yi2PrefaceNodes } from './prefaceNodes';
+import { yi2PrologueNodes } from './prologueNodes';
 import { chapter0Nodes } from './chapter0Nodes';
 import { chapter1Nodes } from './chapter1Nodes';
 import { chapter2Nodes } from './chapter2Nodes';
