@@ -67,6 +67,7 @@ const defaultBg = (hue: number, sat: number = 30): BackgroundConfig => ({
 // ── 每章預設背景圖片 ──
 const chapterDefaultImages: Record<string, string> = {
   'yi2-preface': ch00KvFoggyMirror,
+  'yi2-prologue': IMG_prologue_虛空_意識的光點, // 序章預設：夢境虛空
   'yi2-ch0': bgBedroomMorning,
   'yi2-ch1': bgMrtInterior,
   'yi2-ch2': ch02MeetingRoomKv,
