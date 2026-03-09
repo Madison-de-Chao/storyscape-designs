@@ -1,4 +1,5 @@
 export type IntroStyle =
+  | 'signal-fragment'    // 序章：訊號碎片 + 故障閃爍
   | 'digital-wake'      // 第零章：鬧鐘 + 數位噪訊醒來
   | 'file-delete'       // 第一章：檔案刪除動畫
   | 'memory-gap'        // 第二章：記憶斷片（閃白 + 碎片）
@@ -25,6 +26,7 @@ export interface Yi2ChapterIntroProps {
 
 /** 章節 key → 動畫風格映射 */
 export const yi2IntroStyles: Record<string, IntroStyle> = {
+  'yi2-prologue': 'signal-fragment',
   'yi2-preface': 'default',
   'yi2-ch0': 'digital-wake',
   'yi2-ch1': 'file-delete',

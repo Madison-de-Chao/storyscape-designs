@@ -1,6 +1,7 @@
 import { forwardRef } from 'react';
 import type { IntroStyle } from './types';
 import {
+  SignalFragmentEffect,
   DigitalWakeEffect,
   FileDeleteEffect,
   MemoryGapEffect,
@@ -18,6 +19,7 @@ import {
 
 const EffectRenderer = forwardRef<HTMLDivElement, { style: IntroStyle; color: string }>(({ style, color }, _ref) => {
   switch (style) {
+    case 'signal-fragment': return <SignalFragmentEffect color={color} />;
     case 'digital-wake': return <DigitalWakeEffect color={color} />;
     case 'file-delete': return <FileDeleteEffect color={color} />;
     case 'memory-gap': return <MemoryGapEffect color={color} />;
