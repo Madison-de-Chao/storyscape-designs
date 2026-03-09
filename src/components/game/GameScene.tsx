@@ -533,7 +533,83 @@ const GameScene = () => {
         </motion.div>
       )}
 
-      {/* 崩潰刪除場景 - 畫面閃爍與故障效果 */}
+      {/* 節點 glitch 效果 — 畫面抖動 + 色差濾鏡（序章碎片等） */}
+      <AnimatePresence>
+        {currentNode?.effect === 'glitch' && (
+          <motion.div
+            className="absolute inset-0 pointer-events-none z-30"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.15 }}
+          >
+            {/* 畫面抖動 */}
+            <motion.div
+              className="absolute inset-0"
+              animate={{
+                x: [0, -3, 4, -2, 3, -1, 0],
+                y: [0, 2, -1, 1, -2, 1, 0],
+              }}
+              transition={{
+                duration: 0.35,
+                repeat: 3,
+                ease: 'linear',
+              }}
+            />
+
+            {/* 色差分離 (Chromatic Aberration) */}
+            <motion.div
+              className="absolute inset-0 mix-blend-screen"
+              animate={{
+                boxShadow: [
+                  'inset -3px 0 0 hsl(0 100% 50% / 0.12), inset 3px 0 0 hsl(200 100% 50% / 0.12)',
+                  'inset -5px 0 0 hsl(0 100% 50% / 0.18), inset 5px 0 0 hsl(200 100% 50% / 0.18)',
+                  'inset -2px 0 0 hsl(0 100% 50% / 0.08), inset 2px 0 0 hsl(200 100% 50% / 0.08)',
+                  'inset -4px 0 0 hsl(0 100% 50% / 0.15), inset 4px 0 0 hsl(200 100% 50% / 0.15)',
+                  'inset 0 0 0 transparent',
+                ],
+              }}
+              transition={{
+                duration: 0.6,
+                repeat: 2,
+                ease: 'linear',
+              }}
+            />
+
+            {/* 隨機故障條紋 */}
+            {[...Array(4)].map((_, i) => (
+              <motion.div
+                key={`glitch-bar-${i}`}
+                className="absolute left-0 right-0 pointer-events-none"
+                style={{
+                  top: `${20 + i * 18}%`,
+                  height: '2px',
+                  background: 'hsl(0 0% 100% / 0.15)',
+                }}
+                animate={{
+                  opacity: [0, 0.8, 0, 0.5, 0],
+                  scaleX: [1, 1.3, 0.7, 1.1, 1],
+                  x: [0, -8, 12, -4, 0],
+                }}
+                transition={{
+                  duration: 0.3,
+                  delay: i * 0.12,
+                  repeat: 2,
+                }}
+              />
+            ))}
+
+            {/* 全畫面閃白 */}
+            <motion.div
+              className="absolute inset-0"
+              style={{ background: 'hsl(0 0% 100% / 0.06)' }}
+              animate={{ opacity: [0, 1, 0, 0.5, 0] }}
+              transition={{ duration: 0.4, ease: 'linear' }}
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       <AnimatePresence>
         {isCollapseScene && (
           <motion.div
