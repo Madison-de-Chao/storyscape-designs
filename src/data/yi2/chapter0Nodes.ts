@@ -569,8 +569,8 @@ export const chapter0Nodes: DialogueNode[] = [
   },
   {
     id: 'yi2-ch0-yi-10',
-    speaker: 'yi',
-    speakerName: '伊',
+    speaker: 'narrator',
+    speakerName: '???',
     text: '但我存在。\n\n**我一直都存在。**\n\n她只是不願意承認。',
     nextNodeId: 'yi2-ch0-58',
     effect: 'glitch',
