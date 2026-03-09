@@ -560,8 +560,8 @@ export const chapter0Nodes: DialogueNode[] = [
   },
   {
     id: 'yi2-ch0-yi-9',
-    speaker: 'yi',
-    speakerName: '伊',
+    speaker: 'narrator',
+    speakerName: '???',
     text: '但她不知道，「我不行」這三個字，是她對我說過最狠的話。\n\n因為**我是她的能力。我是她的野心。我是她所有「想要」和「可以」的總和。**\n\n每一次她說「我不行」，她就是在對我說：「妳不存在。」',
     nextNodeId: 'yi2-ch0-yi-10',
     effect: 'glitch',
