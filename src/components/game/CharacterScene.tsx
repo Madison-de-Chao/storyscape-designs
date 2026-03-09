@@ -257,7 +257,7 @@ const CharacterScene = ({
         <div
           className="absolute bottom-0 left-0 right-0 h-1/3 z-[6] pointer-events-none"
           style={{
-            background: 'linear-gradient(to top, hsl(0 0% 0% / 0.6) 0%, transparent 100%)',
+            background: 'linear-gradient(to top, hsl(0 0% 0% / 0.1) 0%, transparent 100%)',
           }}
         />
       )}
