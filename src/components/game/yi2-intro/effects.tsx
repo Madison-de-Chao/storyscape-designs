@@ -522,7 +522,7 @@ export const SignalFragmentEffect = ({ color }: { color: string }) => {
         animate={{
           opacity: [0, 0.15, 0, 0, 0.1, 0, 0, 0.2, 0],
         }}
-        transition={{ duration: 3, delay: 0.5, ease: 'steps(9)' }}
+        transition={{ duration: 3, delay: 0.5, ease: 'linear' }}
       />
 
       {/* 色差偏移效果 */}
