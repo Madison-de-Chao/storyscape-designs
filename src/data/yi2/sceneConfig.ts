@@ -450,6 +450,6 @@ export function getYi2SceneConfig(nodeId: string, node?: DialogueNode): Yi2Scene
  * 獲取章節 key（從節點 ID）
  */
 export function getYi2ChapterKey(nodeId: string): string {
-  const match = nodeId.match(/^(yi2-(?:preface|ch\d+))/);
+const match = nodeId.match(/^(yi2-(?:preface|prologue|ch\d+))/);
   return match ? match[1] : 'yi2-preface';
 }
