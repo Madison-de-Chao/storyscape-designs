@@ -92,6 +92,16 @@ const chapterDefaultImages: Record<string, string> = {
 type SceneRange = [number, number, string];
 
 const chapterSceneRanges: Record<string, SceneRange[]> = {
+  // 序章(碎片): 夢境訊號(1-4) → 夢中醒來(5-8) → 謎之聲(9-14) → 凌晨3:33(15-18) → 夢的深處(19-24) → 期待(25-29)
+  'yi2-prologue': [
+    [1, 4, IMG_prologue_虛空_意識的光點],      // glitch 訊號碎片
+    [5, 8, IMG_prologue_深夜_疲憊的臨界],      // 翻身、汗濕枕頭
+    [9, 14, IMG_prologue_拉扯_分裂的痛苦],     // 把自己切成兩半
+    [15, 18, IMG_prologue_宇宙聚焦_窗戶的光],  // 凌晨 3:33 醒來
+    [19, 22, IMG_prologue_場景A],              // 「伊」— 猛然坐起
+    [23, 26, IMG_prologue_場景B],              // 在等你、很久了
+    [27, 29, IMG_prologue_覺醒_超越的瞬間],    // 期待 → zen 轉場
+  ],
   // Ch0: 臥室(1-10) → 浴室鏡(11-19) → 捷運(20-26) → 辦公室(27-57) → 公寓夜(58+)
   'yi2-ch0': [
     [1, 10, bgBedroomMorning],
