@@ -180,22 +180,16 @@ const CharacterScene = ({
         {...bgAnimProps}
       />
 
-      {/* 紋理疊加 */}
-      <OverlayTexture type={background.overlay || 'noise'} themeHue={theme.hue} />
+      {/* 紋理疊加 - 極輕微 */}
+      {background.overlay && background.overlay !== 'none' && (
+        <OverlayTexture type={background.overlay} themeHue={theme.hue} />
+      )}
 
-      {/* 主題色環境光暈 */}
-      <div
-        className="absolute inset-0 pointer-events-none z-[3]"
-        style={{
-          background: `radial-gradient(ellipse at 50% 70%, ${themeToHSL(theme, 0.08)} 0%, transparent 60%)`,
-        }}
-      />
-
-      {/* 邊緣暈影 */}
+      {/* 邊緣暈影 - 極輕微 */}
       <div
         className="absolute inset-0 pointer-events-none z-[4]"
         style={{
-          background: 'radial-gradient(ellipse at center, transparent 40%, hsl(0 0% 0% / 0.3) 100%)',
+          background: 'radial-gradient(ellipse at center, transparent 50%, hsl(0 0% 0% / 0.15) 100%)',
         }}
       />
 
