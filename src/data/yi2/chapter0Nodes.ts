@@ -115,8 +115,8 @@ export const chapter0Nodes: DialogueNode[] = [
   },
   {
     id: 'yi2-ch0-yi-2',
-    speaker: 'yi',
-    speakerName: '伊',
+    speaker: 'narrator',
+    speakerName: '???',
     text: '在這十五分鐘裡，她不用假裝自己很好。\n\n但她不知道，每一次她按下「延後」，她延後的不只是鬧鐘。\n\n**她在延後她自己。**',
     nextNodeId: 'yi2-ch0-11',
     effect: 'glitch',
