@@ -680,8 +680,8 @@ export const chapter0Nodes: DialogueNode[] = [
   },
   {
     id: 'yi2-ch0-end',
-    speaker: 'yi',
-    speakerName: '伊',
+    speaker: 'narrator',
+    speakerName: '???',
     text: '到時候，她會發現——\n\n她一直在逃避的那個「伊」，不是她的敵人。\n\n是她的名字的另一半。\n\n**壹與伊。**\n\n**本來就是同一個人。**',
     nextNodeId: 'yi2-ch1-1',
     specialScene: 'zen',
