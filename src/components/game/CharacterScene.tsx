@@ -195,7 +195,7 @@ const CharacterScene = ({
       <div
         className="absolute inset-0 pointer-events-none z-[4]"
         style={{
-          background: 'radial-gradient(ellipse at center, transparent 40%, hsl(0 0% 0% / 0.4) 100%)',
+          background: 'radial-gradient(ellipse at center, transparent 40%, hsl(0 0% 0% / 0.3) 100%)',
         }}
       />
 
