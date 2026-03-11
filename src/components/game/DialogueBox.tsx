@@ -395,8 +395,11 @@ const DialogueBox = ({ isHidden = false, onToggleHide, onScoreChange }: Dialogue
   };
 
   // 根據說話者獲取專屬文字效果樣式
+  // 序章 ??? 說話者使用伊的紅字樣式
+  const effectiveSpeaker = (currentNode.speaker === 'narrator' && currentNode.speakerName === '???') ? 'yi' : currentNode.speaker;
+
   const getSpeakerTextStyle = () => {
-    switch (currentNode.speaker) {
+    switch (effectiveSpeaker) {
       case 'yi':
         return {
           color: 'hsl(350 55% 72%)',
@@ -448,7 +451,7 @@ const DialogueBox = ({ isHidden = false, onToggleHide, onScoreChange }: Dialogue
 
   // 強調文字的樣式
   const getEmphasisStyle = () => {
-    switch (currentNode.speaker) {
+    switch (effectiveSpeaker) {
       case 'yi':
         return {
           color: 'hsl(350 70% 65%)',
