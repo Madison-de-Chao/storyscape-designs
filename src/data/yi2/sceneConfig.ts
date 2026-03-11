@@ -402,7 +402,9 @@ export function getYi2SceneConfig(nodeId: string, node?: DialogueNode): Yi2Scene
     }
   }
 
-  // 3. 自動為角色生成 sprite
+  // 3. 自動為角色生成 sprite（序章不顯示任何立繪）
+  if (chapterKey === 'yi2-prologue') return result;
+
   const spriteCharacters = ['protagonist', 'yi', 'xiaochen', 'xiaoman', 'linyi'];
   // 決定顯示哪個角色的立繪
   let spriteCharacter: string | null = null;
