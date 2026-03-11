@@ -451,7 +451,7 @@ const DialogueBox = ({ isHidden = false, onToggleHide, onScoreChange }: Dialogue
 
   // 強調文字的樣式
   const getEmphasisStyle = () => {
-    switch (currentNode.speaker) {
+    switch (effectiveSpeaker) {
       case 'yi':
         return {
           color: 'hsl(350 70% 65%)',
