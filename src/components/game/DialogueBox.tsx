@@ -134,6 +134,13 @@ const DialogueBox = ({ isHidden = false, onToggleHide, onScoreChange }: Dialogue
     setIsTyping(true);
     typingCancelledRef.current = false;
 
+    // materialize 效果：跳過打字機，由逐字動畫控制顯示
+    if (currentNode.textEffect === 'materialize') {
+      setDisplayedText(text);
+      setIsTyping(false);
+      return;
+    }
+
     // 低性能模式：直接顯示完整文字，避免逐字渲染
     if (shouldSimplify && !isAutoForward) {
       const timer = setTimeout(() => {
