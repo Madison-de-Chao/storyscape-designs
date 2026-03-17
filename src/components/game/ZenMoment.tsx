@@ -155,19 +155,29 @@ export const ZenMoment = ({
           ))}
         </div>
 
-        {/* 中央光暈 */}
+        {/* 中央光暈 — ink 主題從金色漸變到灰色 */}
         <motion.div
           className="absolute w-[500px] h-[500px] rounded-full"
           style={{
-            background: `radial-gradient(circle, ${style.glow} 0%, transparent 60%)`,
             filter: 'blur(40px)',
           }}
-          initial={{ scale: 0, opacity: 0 }}
+          initial={{
+            scale: 0,
+            opacity: 0,
+            background: isInk
+              ? 'radial-gradient(circle, rgba(212, 175, 55, 0.35) 0%, transparent 60%)'
+              : `radial-gradient(circle, ${style.glow} 0%, transparent 60%)`,
+          }}
           animate={{ 
             scale: phase === 'exit' ? 1.5 : 1, 
-            opacity: phase === 'exit' ? 0 : 0.6 
+            opacity: phase === 'exit' ? 0 : 0.6,
+            background: isInk
+              ? phase === 'enter'
+                ? 'radial-gradient(circle, rgba(212, 175, 55, 0.3) 0%, transparent 60%)'
+                : `radial-gradient(circle, ${style.glow} 0%, transparent 60%)`
+              : `radial-gradient(circle, ${style.glow} 0%, transparent 60%)`,
           }}
-          transition={{ duration: 2, ease: "easeOut" }}
+          transition={{ duration: isInk ? 3 : 2, ease: "easeOut" }}
         />
 
         {/* 裝飾邊框 */}
