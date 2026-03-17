@@ -610,6 +610,89 @@ const GameScene = () => {
         )}
       </AnimatePresence>
 
+      {/* 節點 glow 效果 — 柔光擴散 + 文字發光脈動（序章「伊」「期待」等） */}
+      <AnimatePresence>
+        {currentNode?.effect === 'glow' && (
+          <motion.div
+            className="absolute inset-0 pointer-events-none z-30"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0, transition: { duration: 0.8 } }}
+            transition={{ duration: 0.6 }}
+          >
+            {/* 中心柔光擴散 */}
+            <motion.div
+              className="absolute inset-0"
+              style={{
+                background: 'radial-gradient(ellipse at 50% 50%, hsl(var(--zen-gold) / 0.15) 0%, hsl(var(--zen-gold) / 0.05) 40%, transparent 70%)',
+              }}
+              animate={{
+                scale: [1, 1.15, 1.05, 1.2, 1],
+                opacity: [0.6, 1, 0.8, 1, 0.6],
+              }}
+              transition={{
+                duration: 4,
+                repeat: Infinity,
+                ease: 'easeInOut',
+              }}
+            />
+
+            {/* 外圈光暈呼吸 */}
+            <motion.div
+              className="absolute inset-0"
+              style={{
+                boxShadow: 'inset 0 0 120px 40px hsl(var(--zen-gold) / 0.08)',
+              }}
+              animate={{
+                opacity: [0.3, 0.7, 0.3],
+              }}
+              transition={{
+                duration: 3,
+                repeat: Infinity,
+                ease: 'easeInOut',
+              }}
+            />
+
+            {/* 微粒光點浮動 */}
+            {[...Array(6)].map((_, i) => (
+              <motion.div
+                key={`glow-particle-${i}`}
+                className="absolute rounded-full"
+                style={{
+                  width: `${2 + (i % 3)}px`,
+                  height: `${2 + (i % 3)}px`,
+                  left: `${20 + i * 10}%`,
+                  top: `${30 + (i % 3) * 15}%`,
+                  background: 'hsl(var(--zen-gold) / 0.6)',
+                  boxShadow: '0 0 8px hsl(var(--zen-gold) / 0.4)',
+                }}
+                animate={{
+                  y: [0, -20 - i * 5, -10, -25 - i * 3, 0],
+                  x: [0, 5 - i * 2, -3 + i, 4, 0],
+                  opacity: [0, 0.8, 0.4, 0.9, 0],
+                }}
+                transition={{
+                  duration: 4 + i * 0.5,
+                  repeat: Infinity,
+                  delay: i * 0.6,
+                  ease: 'easeInOut',
+                }}
+              />
+            ))}
+
+            {/* 底部金色漸層渲染 */}
+            <motion.div
+              className="absolute bottom-0 left-0 right-0 h-1/3"
+              style={{
+                background: 'linear-gradient(to top, hsl(var(--zen-gold) / 0.06) 0%, transparent 100%)',
+              }}
+              animate={{ opacity: [0.4, 0.8, 0.4] }}
+              transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut' }}
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       <AnimatePresence>
         {isCollapseScene && (
           <motion.div
