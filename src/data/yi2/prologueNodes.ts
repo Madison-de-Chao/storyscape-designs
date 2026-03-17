@@ -115,6 +115,7 @@ export const yi2PrologueNodes: DialogueNode[] = [
     speakerName: '???',
     text: '「......伊......」',
     effect: 'glow',
+    textEffect: 'materialize',
     nextNodeId: 'yi2-prologue-18',
   },
   {

@@ -134,6 +134,13 @@ const DialogueBox = ({ isHidden = false, onToggleHide, onScoreChange }: Dialogue
     setIsTyping(true);
     typingCancelledRef.current = false;
 
+    // materialize 效果：跳過打字機，由逐字動畫控制顯示
+    if (currentNode.textEffect === 'materialize') {
+      setDisplayedText(text);
+      setIsTyping(false);
+      return;
+    }
+
     // 低性能模式：直接顯示完整文字，避免逐字渲染
     if (shouldSimplify && !isAutoForward) {
       const timer = setTimeout(() => {
@@ -770,33 +777,79 @@ const DialogueBox = ({ isHidden = false, onToggleHide, onScoreChange }: Dialogue
 
                       {/* 渲染解析後的文字 */}
                       <span style={speakerTextStyle}>
-                        {parsedText.map((part, index) => (
-                          part.isEmphasis ? (
-                            <motion.span
-                              key={index}
-                              style={emphasisStyle}
-                              animate={currentNode.speaker === 'wenxin' ? {
-                                textShadow: [
-                                  '0 0 20px hsl(38 90% 55% / 0.8), 0 0 40px hsl(38 90% 55% / 0.4)',
-                                  '0 0 30px hsl(38 90% 55% / 1), 0 0 60px hsl(38 90% 55% / 0.6)',
-                                  '0 0 20px hsl(38 90% 55% / 0.8), 0 0 40px hsl(38 90% 55% / 0.4)',
-                                ],
-                              } : currentNode.speaker === 'yi' ? {
-                                x: [0, -1, 1, 0],
-                                opacity: [1, 0.8, 1, 0.9, 1],
-                              } : {}}
-                              transition={{
-                                duration: currentNode.speaker === 'wenxin' ? 2 : 0.5,
-                                repeat: Infinity,
-                                repeatType: 'reverse',
-                              }}
-                            >
-                              {part.text}
-                            </motion.span>
-                          ) : (
-                            <span key={index}>{part.text}</span>
-                          )
-                        ))}
+                        {currentNode.textEffect === 'materialize' ? (
+                          // 文字從虛無中凝聚成形效果
+                          parsedText.map((part, index) => (
+                            <span key={index}>
+                              {[...part.text].map((char, charIdx) => {
+                                const isCore = char === '伊';
+                                return (
+                                  <motion.span
+                                    key={`${index}-${charIdx}`}
+                                    className="inline-block"
+                                    style={part.isEmphasis ? emphasisStyle : undefined}
+                                    initial={{
+                                      opacity: 0,
+                                      filter: 'blur(12px)',
+                                      y: isCore ? 20 : 8,
+                                      scale: isCore ? 0.3 : 0.7,
+                                    }}
+                                    animate={{
+                                      opacity: 1,
+                                      filter: 'blur(0px)',
+                                      y: 0,
+                                      scale: 1,
+                                      textShadow: isCore
+                                        ? [
+                                            '0 0 30px hsl(350 60% 50% / 0.8), 0 0 60px hsl(350 60% 50% / 0.4)',
+                                            '0 0 15px hsl(350 60% 50% / 0.5), 0 0 30px hsl(350 60% 50% / 0.2)',
+                                            '0 0 25px hsl(350 60% 50% / 0.7), 0 0 50px hsl(350 60% 50% / 0.3)',
+                                          ]
+                                        : undefined,
+                                    }}
+                                    transition={{
+                                      opacity: { duration: isCore ? 2.5 : 1.2, delay: charIdx * 0.15 + (isCore ? 0.8 : 0) },
+                                      filter: { duration: isCore ? 2.5 : 1.0, delay: charIdx * 0.15 + (isCore ? 0.8 : 0) },
+                                      y: { duration: isCore ? 2.0 : 0.8, delay: charIdx * 0.15 + (isCore ? 0.8 : 0), ease: [0.25, 0.46, 0.45, 0.94] },
+                                      scale: { duration: isCore ? 2.0 : 0.8, delay: charIdx * 0.15 + (isCore ? 0.8 : 0) },
+                                      textShadow: isCore ? { duration: 3, repeat: Infinity, repeatType: 'reverse' as const, delay: 3 } : undefined,
+                                    }}
+                                  >
+                                    {char === ' ' ? '\u00A0' : char}
+                                  </motion.span>
+                                );
+                              })}
+                            </span>
+                          ))
+                        ) : (
+                          parsedText.map((part, index) => (
+                            part.isEmphasis ? (
+                              <motion.span
+                                key={index}
+                                style={emphasisStyle}
+                                animate={currentNode.speaker === 'wenxin' ? {
+                                  textShadow: [
+                                    '0 0 20px hsl(38 90% 55% / 0.8), 0 0 40px hsl(38 90% 55% / 0.4)',
+                                    '0 0 30px hsl(38 90% 55% / 1), 0 0 60px hsl(38 90% 55% / 0.6)',
+                                    '0 0 20px hsl(38 90% 55% / 0.8), 0 0 40px hsl(38 90% 55% / 0.4)',
+                                  ],
+                                } : currentNode.speaker === 'yi' ? {
+                                  x: [0, -1, 1, 0],
+                                  opacity: [1, 0.8, 1, 0.9, 1],
+                                } : {}}
+                                transition={{
+                                  duration: currentNode.speaker === 'wenxin' ? 2 : 0.5,
+                                  repeat: Infinity,
+                                  repeatType: 'reverse',
+                                }}
+                              >
+                                {part.text}
+                              </motion.span>
+                            ) : (
+                              <span key={index}>{part.text}</span>
+                            )
+                          ))
+                        )}
                       </span>
 
                       {/* 打字游標 */}
