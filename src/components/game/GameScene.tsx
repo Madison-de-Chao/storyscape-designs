@@ -223,13 +223,19 @@ const GameScene = () => {
       zenMomentShownRef.current.add(currentNodeId);
       // 淡出 BGM，進入禪意時刻
       stopBGM(true);
-      // 設定禪意配置
-      setZenConfig(currentNode.zenConfig || {
-        text: currentNode.text.replace(/\*\*/g, ''), // 移除 markdown 粗體標記
-        theme: 'golden',
+      const config = currentNode.zenConfig || {
+        text: currentNode.text.replace(/\*\*/g, ''),
+        theme: 'golden' as const,
         duration: 6000,
-      });
-      setShowZenMoment(true);
+      };
+      // 若前一個節點有 glow 效果，延遲觸發 zen 讓 glow 自然消散
+      const hasGlowBridge = currentNode.effect === 'glow';
+      const delay = hasGlowBridge ? 800 : 0;
+      const timer = setTimeout(() => {
+        setZenConfig(config);
+        setShowZenMoment(true);
+      }, delay);
+      return () => clearTimeout(timer);
     }
   }, [currentNodeId, currentNode, stopBGM]);
 

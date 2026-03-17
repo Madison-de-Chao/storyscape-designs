@@ -87,10 +87,12 @@ export const ZenMoment = ({
 }: ZenMomentProps) => {
   const [phase, setPhase] = useState<'enter' | 'display' | 'exit'>('enter');
   const style = themeStyles[theme];
+  const isInk = theme === 'ink';
 
   useEffect(() => {
-    // 進入動畫完成後進入展示階段
-    const enterTimer = setTimeout(() => setPhase('display'), 1500);
+    // ink 主題使用更長的進入時間，與 glow 效果銜接
+    const enterDuration = isInk ? 2200 : 1500;
+    const enterTimer = setTimeout(() => setPhase('display'), enterDuration);
     
     // 展示後進入退出階段
     const displayTimer = setTimeout(() => setPhase('exit'), duration - 1500);
@@ -103,7 +105,14 @@ export const ZenMoment = ({
       clearTimeout(displayTimer);
       clearTimeout(exitTimer);
     };
-  }, [duration, onComplete]);
+  }, [duration, onComplete, isInk]);
+
+  // ink 主題的背景：從暖金色漸變到冷灰水墨色
+  const inkBackground = isInk
+    ? phase === 'enter'
+      ? 'linear-gradient(180deg, hsl(38 30% 6%) 0%, hsl(38 20% 10%) 50%, hsl(222 20% 5%) 100%)'
+      : 'linear-gradient(180deg, hsl(222 15% 4%) 0%, hsl(222 10% 8%) 50%, hsl(222 15% 4%) 100%)'
+    : undefined;
 
   return (
     <AnimatePresence>
@@ -111,11 +120,13 @@ export const ZenMoment = ({
         className="fixed inset-0 z-50 flex flex-col items-center justify-center cursor-pointer"
         onClick={onComplete}
         initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
+        animate={{ opacity: 1, background: inkBackground }}
         exit={{ opacity: 0 }}
-        transition={{ duration: 1.5 }}
+        transition={{ duration: isInk ? 2.5 : 1.5, background: { duration: 3, ease: 'easeInOut' } }}
         style={{
-          background: 'linear-gradient(180deg, hsl(222 50% 3%) 0%, hsl(222 47% 8%) 50%, hsl(222 50% 3%) 100%)'
+          background: isInk
+            ? 'linear-gradient(180deg, hsl(38 30% 6%) 0%, hsl(38 20% 10%) 50%, hsl(222 20% 5%) 100%)'
+            : 'linear-gradient(180deg, hsl(222 50% 3%) 0%, hsl(222 47% 8%) 50%, hsl(222 50% 3%) 100%)'
         }}
       >
         {/* 水墨霧氣效果 */}
@@ -144,19 +155,29 @@ export const ZenMoment = ({
           ))}
         </div>
 
-        {/* 中央光暈 */}
+        {/* 中央光暈 — ink 主題從金色漸變到灰色 */}
         <motion.div
           className="absolute w-[500px] h-[500px] rounded-full"
           style={{
-            background: `radial-gradient(circle, ${style.glow} 0%, transparent 60%)`,
             filter: 'blur(40px)',
           }}
-          initial={{ scale: 0, opacity: 0 }}
+          initial={{
+            scale: 0,
+            opacity: 0,
+            background: isInk
+              ? 'radial-gradient(circle, rgba(212, 175, 55, 0.35) 0%, transparent 60%)'
+              : `radial-gradient(circle, ${style.glow} 0%, transparent 60%)`,
+          }}
           animate={{ 
             scale: phase === 'exit' ? 1.5 : 1, 
-            opacity: phase === 'exit' ? 0 : 0.6 
+            opacity: phase === 'exit' ? 0 : 0.6,
+            background: isInk
+              ? phase === 'enter'
+                ? 'radial-gradient(circle, rgba(212, 175, 55, 0.3) 0%, transparent 60%)'
+                : `radial-gradient(circle, ${style.glow} 0%, transparent 60%)`
+              : `radial-gradient(circle, ${style.glow} 0%, transparent 60%)`,
           }}
-          transition={{ duration: 2, ease: "easeOut" }}
+          transition={{ duration: isInk ? 3 : 2, ease: "easeOut" }}
         />
 
         {/* 裝飾邊框 */}
