@@ -405,6 +405,11 @@ export function getYi2SceneConfig(nodeId: string, node?: DialogueNode): Yi2Scene
   // 3. 自動為角色生成 sprite（序章不顯示任何立繪）
   if (chapterKey === 'yi2-prologue') return result;
 
+  // 4. 有 KV/圖片背景時，預設不顯示立繪（避免遮擋畫面），除非節點設 forceSprite
+  if (result.background.type === 'image' && !node?.forceSprite) {
+    return result;
+  }
+
   const spriteCharacters = ['protagonist', 'yi', 'xiaochen', 'xiaoman', 'linyi'];
   // 決定顯示哪個角色的立繪
   let spriteCharacter: string | null = null;
