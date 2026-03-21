@@ -644,8 +644,7 @@ const DialogueBox = ({ isHidden = false, onToggleHide, onScoreChange }: Dialogue
             <div className="max-w-4xl mx-auto relative">
               {/* 半身立繪頭像 — 從對話框左側探出 */}
               {currentNode.speaker !== 'narrator' && (() => {
-                const effectiveSpeakerForAvatar = (currentNode.speakerName === '???') ? 'yi' : currentNode.speaker;
-                const avatarSrc = getSpeakerAvatar(effectiveSpeakerForAvatar);
+                const avatarSrc = getSpeakerAvatar(currentNode.speaker, currentNode.speakerName || getSpeakerName(currentNode));
                 if (!avatarSrc) return null;
                 return (
                   <motion.div
