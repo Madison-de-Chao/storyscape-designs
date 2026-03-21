@@ -176,6 +176,8 @@ export const yi2PrologueNodes: DialogueNode[] = [
     speaker: 'narrator',
     speakerName: '???',
     text: '「......很久了......」',
+    effect: 'glow',
+    textEffect: 'heavy-reveal',
     nextNodeId: 'yi2-prologue-27',
   },
   {

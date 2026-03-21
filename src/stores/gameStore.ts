@@ -72,7 +72,7 @@ export interface DialogueNode {
   // 人物立繪表情（用於第二部 CharacterScene）
   expression?: string;
   // 文字特殊動畫效果（如從虛無中凝聚成形）
-  textEffect?: 'materialize';
+  textEffect?: 'materialize' | 'whisper' | 'heavy-reveal';
   // 是否為結局節點
   isEnd?: boolean;
   // 畢業圖片路徑（課程總結時顯示的特殊圖片）
