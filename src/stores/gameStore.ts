@@ -73,6 +73,8 @@ export interface DialogueNode {
   expression?: string;
   // 文字特殊動畫效果（如從虛無中凝聚成形）
   textEffect?: 'materialize' | 'whisper' | 'heavy-reveal';
+  // 強制顯示立繪（即使有 KV 背景圖時也顯示）
+  forceSprite?: boolean;
   // 是否為結局節點
   isEnd?: boolean;
   // 畢業圖片路徑（課程總結時顯示的特殊圖片）
