@@ -720,7 +720,7 @@ const DialogueBox = ({ isHidden = false, onToggleHide, onScoreChange }: Dialogue
 
                 {/* 內容區域 — 桌面版有立繪時左邊內縮 */}
                 <div className={`relative px-4 py-4 sm:py-6 md:py-7 lg:py-8 ${
-                  currentNode.speaker !== 'narrator' && getSpeakerAvatar((currentNode.speakerName === '???') ? 'yi' : currentNode.speaker)
+                  currentNode.speaker !== 'narrator' && getSpeakerAvatar(currentNode.speaker, currentNode.speakerName || getSpeakerName(currentNode))
                     ? 'sm:pl-36 sm:pr-8 md:pl-40 md:pr-10 lg:pl-44 lg:pr-12'
                     : 'sm:px-8 md:px-10 lg:px-12'
                 }`}>
