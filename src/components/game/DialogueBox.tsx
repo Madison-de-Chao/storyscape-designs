@@ -702,9 +702,8 @@ const DialogueBox = ({ isHidden = false, onToggleHide, onScoreChange }: Dialogue
                     >
                       {/* 角色頭像 */}
                       {(() => {
-                        const avatarSrc = getSpeakerAvatar(
-                          (currentNode.speaker === 'narrator' && currentNode.speakerName === '???') ? 'yi' : currentNode.speaker
-                        );
+                        const effectiveSpeakerForAvatar = (currentNode.speakerName === '???') ? 'yi' : currentNode.speaker;
+                        const avatarSrc = getSpeakerAvatar(effectiveSpeakerForAvatar);
                         if (!avatarSrc) return null;
                         return (
                           <div
