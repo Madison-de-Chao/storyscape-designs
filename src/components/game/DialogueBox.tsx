@@ -134,8 +134,8 @@ const DialogueBox = ({ isHidden = false, onToggleHide, onScoreChange }: Dialogue
     setIsTyping(true);
     typingCancelledRef.current = false;
 
-    // materialize 效果：跳過打字機，由逐字動畫控制顯示
-    if (currentNode.textEffect === 'materialize') {
+    // 特殊文字效果：跳過打字機，由逐字動畫控制顯示
+    if (currentNode.textEffect === 'materialize' || currentNode.textEffect === 'whisper' || currentNode.textEffect === 'heavy-reveal') {
       setDisplayedText(text);
       setIsTyping(false);
       return;
