@@ -160,6 +160,8 @@ export const yi2PrologueNodes: DialogueNode[] = [
     speaker: 'narrator',
     speakerName: '???',
     text: '「......在等你......」',
+    effect: 'glow',
+    textEffect: 'whisper',
     nextNodeId: 'yi2-prologue-25',
   },
   {
