@@ -801,7 +801,20 @@ const DialogueBox = ({ isHidden = false, onToggleHide, onScoreChange }: Dialogue
 
                       {/* 渲染解析後的文字 */}
                       <span style={speakerTextStyle}>
-                        {currentNode.textEffect === 'materialize' ? (
+                        {/* 省電模式：所有特殊文字效果降級為簡單淡入 */}
+                        {shouldSimplify && currentNode.textEffect ? (
+                          parsedText.map((part, index) => (
+                            <motion.span
+                              key={index}
+                              style={part.isEmphasis ? emphasisStyle : undefined}
+                              initial={{ opacity: 0 }}
+                              animate={{ opacity: 1 }}
+                              transition={{ duration: 0.5, delay: index * 0.15 }}
+                            >
+                              {part.text}
+                            </motion.span>
+                          ))
+                        ) : currentNode.textEffect === 'materialize' ? (
                           // 文字從虛無中凝聚成形效果
                           parsedText.map((part, index) => (
                             <span key={index}>
