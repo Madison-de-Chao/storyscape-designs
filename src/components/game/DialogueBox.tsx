@@ -692,14 +692,38 @@ const DialogueBox = ({ isHidden = false, onToggleHide, onScoreChange }: Dialogue
 
                 {/* 內容區域 - 手機優化間距 */}
                 <div className="relative px-4 py-4 sm:px-8 sm:py-6 md:px-10 md:py-7 lg:px-12 lg:py-8">
-                  {/* 說話者名稱 */}
+                  {/* 說話者名稱 + 頭像 */}
                   {currentNode.speaker !== 'narrator' && (
                     <motion.div
-                      className="mb-2 sm:mb-4 flex items-center gap-2 sm:gap-4"
+                      className="mb-2 sm:mb-4 flex items-center gap-2 sm:gap-3"
                       initial={{ opacity: 0, x: -15 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ duration: 0.3 }}
                     >
+                      {/* 角色頭像 */}
+                      {(() => {
+                        const avatarSrc = getSpeakerAvatar(
+                          (currentNode.speaker === 'narrator' && currentNode.speakerName === '???') ? 'yi' : currentNode.speaker
+                        );
+                        if (!avatarSrc) return null;
+                        return (
+                          <div
+                            className="relative flex-shrink-0 w-8 h-8 sm:w-10 sm:h-10 rounded-full overflow-hidden border border-border/40"
+                            style={{
+                              boxShadow: currentNode.speaker === 'yi'
+                                ? '0 0 10px hsl(350 60% 45% / 0.5)'
+                                : '0 0 8px hsl(38 80% 55% / 0.3)',
+                            }}
+                          >
+                            <img
+                              src={avatarSrc}
+                              alt={getSpeakerName(currentNode)}
+                              className="w-full h-full object-cover object-top"
+                              draggable={false}
+                            />
+                          </div>
+                        );
+                      })()}
                       <span
                         className={`font-serif-tc text-base sm:text-xl font-bold tracking-widest ${getSpeakerColor(currentNode.speaker)}`}
                         style={{
