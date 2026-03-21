@@ -649,11 +649,10 @@ const DialogueBox = ({ isHidden = false, onToggleHide, onScoreChange }: Dialogue
                 if (!avatarSrc) return null;
                 return (
                   <motion.div
-                    className="absolute bottom-0 left-0 z-10 pointer-events-none hidden sm:block"
+                    className="absolute bottom-0 left-2 z-10 pointer-events-none hidden sm:block"
                     style={{
-                      width: '140px',
-                      height: '200px',
-                      marginLeft: '-10px',
+                      width: '110px',
+                      height: '160px',
                     }}
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
