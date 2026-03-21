@@ -190,6 +190,7 @@ export const yi2PrologueNodes: DialogueNode[] = [
     id: 'yi2-prologue-28',
     speaker: 'narrator',
     text: '那個眼神很複雜。\n\n有憤怒。有悲傷。有疲憊。\n\n還有一點點的——',
+    textEffect: 'emotion-cascade',
     nextNodeId: 'yi2-prologue-29',
   },
   {

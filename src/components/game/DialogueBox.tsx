@@ -136,7 +136,7 @@ const DialogueBox = ({ isHidden = false, onToggleHide, onScoreChange }: Dialogue
     typingCancelledRef.current = false;
 
     // 特殊文字效果：跳過打字機，由逐字動畫控制顯示
-    if (currentNode.textEffect === 'materialize' || currentNode.textEffect === 'whisper' || currentNode.textEffect === 'heavy-reveal') {
+    if (currentNode.textEffect === 'materialize' || currentNode.textEffect === 'whisper' || currentNode.textEffect === 'heavy-reveal' || currentNode.textEffect === 'emotion-cascade') {
       setDisplayedText(text);
       setIsTyping(false);
       return;
