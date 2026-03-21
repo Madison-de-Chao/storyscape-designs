@@ -945,6 +945,110 @@ const DialogueBox = ({ isHidden = false, onToggleHide, onScoreChange }: Dialogue
                               })}
                             </span>
                           ))
+                        ) : currentNode.textEffect === 'emotion-cascade' ? (
+                          // 「那個眼神很複雜」— 情緒遞進：憤怒(紅)、悲傷(藍)、疲憊(灰紫) 依序變色浮現
+                          (() => {
+                            // 情緒關鍵字 → 色調映射
+                            const emotionColors: Record<string, { hue: number; sat: number; light: number }> = {
+                              '憤': { hue: 0, sat: 75, light: 60 },
+                              '怒': { hue: 0, sat: 75, light: 60 },
+                              '悲': { hue: 210, sat: 55, light: 70 },
+                              '傷': { hue: 210, sat: 55, light: 70 },
+                              '疲': { hue: 270, sat: 30, light: 65 },
+                              '憊': { hue: 270, sat: 30, light: 65 },
+                            };
+                            // 情緒波段：根據文字位置決定當前情緒色調
+                            const fullText = parsedText.map(p => p.text).join('');
+                            const angerIdx = fullText.indexOf('憤怒');
+                            const sadIdx = fullText.indexOf('悲傷');
+                            const tiredIdx = fullText.indexOf('疲憊');
+
+                            const getEmotionPhase = (globalIdx: number): { hue: number; sat: number; light: number } | null => {
+                              if (tiredIdx >= 0 && globalIdx >= tiredIdx) return { hue: 270, sat: 30, light: 65 };
+                              if (sadIdx >= 0 && globalIdx >= sadIdx) return { hue: 210, sat: 55, light: 70 };
+                              if (angerIdx >= 0 && globalIdx >= angerIdx) return { hue: 0, sat: 75, light: 60 };
+                              return null;
+                            };
+
+                            let globalCharIdx = 0;
+                            return parsedText.map((part, index) => (
+                              <span key={index}>
+                                {[...part.text].map((char) => {
+                                  const idx = globalCharIdx++;
+                                  const directColor = emotionColors[char];
+                                  const phaseColor = getEmotionPhase(idx);
+                                  const isEmotionChar = !!directColor;
+                                  const isLastPhrase = fullText.indexOf('還有') >= 0 && idx >= fullText.indexOf('還有');
+
+                                  // 情緒關鍵字：放大 + 專屬色彩
+                                  // 同一情緒區段：微微染色
+                                  // 最後破折號段落：金色暗示下一節「期待」
+                                  const charColor = directColor
+                                    ? `hsl(${directColor.hue} ${directColor.sat}% ${directColor.light}%)`
+                                    : isLastPhrase
+                                    ? 'hsl(38 60% 75%)'
+                                    : phaseColor
+                                    ? `hsl(${phaseColor.hue} ${phaseColor.sat * 0.3}% ${phaseColor.light + 15}%)`
+                                    : undefined;
+
+                                  const charShadow = isEmotionChar
+                                    ? `0 0 18px hsl(${directColor!.hue} ${directColor!.sat}% ${directColor!.light}% / 0.7), 0 0 35px hsl(${directColor!.hue} ${directColor!.sat}% ${directColor!.light}% / 0.35)`
+                                    : isLastPhrase
+                                    ? '0 0 12px hsl(38 70% 60% / 0.4)'
+                                    : undefined;
+
+                                  return (
+                                    <motion.span
+                                      key={`emo-${index}-${idx}`}
+                                      className="inline-block"
+                                      style={{
+                                        ...(part.isEmphasis ? emphasisStyle : {}),
+                                        color: charColor,
+                                      }}
+                                      initial={{
+                                        opacity: 0,
+                                        y: isEmotionChar ? -18 : 6,
+                                        scale: isEmotionChar ? 1.3 : 1,
+                                        filter: isEmotionChar ? 'blur(6px)' : 'blur(3px)',
+                                      }}
+                                      animate={{
+                                        opacity: 1,
+                                        y: 0,
+                                        scale: 1,
+                                        filter: 'blur(0px)',
+                                        textShadow: isEmotionChar
+                                          ? [
+                                              charShadow!,
+                                              charShadow!.replace(/0\.7/g, '0.4').replace(/0\.35/g, '0.15'),
+                                              charShadow!,
+                                            ]
+                                          : charShadow
+                                          ? [charShadow, charShadow.replace(/0\.4/g, '0.2'), charShadow]
+                                          : undefined,
+                                      }}
+                                      transition={{
+                                        opacity: { duration: isEmotionChar ? 1.2 : 0.6, delay: idx * 0.1 },
+                                        y: {
+                                          duration: isEmotionChar ? 1.0 : 0.5,
+                                          delay: idx * 0.1,
+                                          ease: isEmotionChar ? [0.6, 0.05, 0.01, 0.9] : 'easeOut',
+                                        },
+                                        scale: { duration: 0.8, delay: idx * 0.1 },
+                                        filter: { duration: 0.6, delay: idx * 0.1 },
+                                        textShadow: isEmotionChar
+                                          ? { duration: 2.5, repeat: Infinity, repeatType: 'reverse' as const, delay: idx * 0.1 + 1.5 }
+                                          : isLastPhrase
+                                          ? { duration: 3, repeat: Infinity, repeatType: 'reverse' as const, delay: idx * 0.1 + 2 }
+                                          : undefined,
+                                      }}
+                                    >
+                                      {char === ' ' ? '\u00A0' : char}
+                                    </motion.span>
+                                  );
+                                })}
+                              </span>
+                            ));
+                          })()
                         ) : (
                           parsedText.map((part, index) => (
                             part.isEmphasis ? (
