@@ -134,8 +134,8 @@ const DialogueBox = ({ isHidden = false, onToggleHide, onScoreChange }: Dialogue
     setIsTyping(true);
     typingCancelledRef.current = false;
 
-    // materialize 效果：跳過打字機，由逐字動畫控制顯示
-    if (currentNode.textEffect === 'materialize') {
+    // 特殊文字效果：跳過打字機，由逐字動畫控制顯示
+    if (currentNode.textEffect === 'materialize' || currentNode.textEffect === 'whisper' || currentNode.textEffect === 'heavy-reveal') {
       setDisplayedText(text);
       setIsTyping(false);
       return;
@@ -813,6 +813,106 @@ const DialogueBox = ({ isHidden = false, onToggleHide, onScoreChange }: Dialogue
                                       y: { duration: isCore ? 2.0 : 0.8, delay: charIdx * 0.15 + (isCore ? 0.8 : 0), ease: [0.25, 0.46, 0.45, 0.94] },
                                       scale: { duration: isCore ? 2.0 : 0.8, delay: charIdx * 0.15 + (isCore ? 0.8 : 0) },
                                       textShadow: isCore ? { duration: 3, repeat: Infinity, repeatType: 'reverse' as const, delay: 3 } : undefined,
+                                    }}
+                                  >
+                                    {char === ' ' ? '\u00A0' : char}
+                                  </motion.span>
+                                );
+                              })}
+                            </span>
+                          ))
+                        ) : currentNode.textEffect === 'whisper' ? (
+                          // 「在等你」— 呢喃浮現：字元從四散位置柔和漂入，如低語飄來
+                          parsedText.map((part, index) => (
+                            <span key={index}>
+                              {[...part.text].map((char, charIdx) => {
+                                const isKeyChar = '在等你'.includes(char);
+                                const driftX = (charIdx % 3 - 1) * 15;
+                                return (
+                                  <motion.span
+                                    key={`whisper-${index}-${charIdx}`}
+                                    className="inline-block"
+                                    style={part.isEmphasis ? emphasisStyle : undefined}
+                                    initial={{
+                                      opacity: 0,
+                                      x: driftX,
+                                      y: isKeyChar ? -12 : 6,
+                                      filter: 'blur(8px)',
+                                      scale: 0.85,
+                                    }}
+                                    animate={{
+                                      opacity: isKeyChar ? [0, 1, 0.7, 1] : 1,
+                                      x: 0,
+                                      y: 0,
+                                      filter: 'blur(0px)',
+                                      scale: 1,
+                                      textShadow: isKeyChar
+                                        ? [
+                                            '0 0 20px hsl(38 70% 60% / 0.6), 0 0 40px hsl(38 70% 60% / 0.3)',
+                                            '0 0 10px hsl(38 70% 60% / 0.3), 0 0 20px hsl(38 70% 60% / 0.15)',
+                                            '0 0 20px hsl(38 70% 60% / 0.6), 0 0 40px hsl(38 70% 60% / 0.3)',
+                                          ]
+                                        : undefined,
+                                    }}
+                                    transition={{
+                                      opacity: { duration: 1.8, delay: charIdx * 0.2, ease: 'easeOut' },
+                                      x: { duration: 1.5, delay: charIdx * 0.2, ease: [0.25, 0.1, 0.25, 1] },
+                                      y: { duration: 1.5, delay: charIdx * 0.2, ease: [0.25, 0.1, 0.25, 1] },
+                                      filter: { duration: 1.5, delay: charIdx * 0.2 },
+                                      scale: { duration: 1.2, delay: charIdx * 0.2 },
+                                      textShadow: isKeyChar ? { duration: 2.5, repeat: Infinity, repeatType: 'reverse' as const, delay: charIdx * 0.2 + 2 } : undefined,
+                                    }}
+                                  >
+                                    {char === ' ' ? '\u00A0' : char}
+                                  </motion.span>
+                                );
+                              })}
+                            </span>
+                          ))
+                        ) : currentNode.textEffect === 'heavy-reveal' ? (
+                          // 「很久了」— 沉重揭示：字元沉重落下，如漫長時光的重量
+                          parsedText.map((part, index) => (
+                            <span key={index}>
+                              {[...part.text].map((char, charIdx) => {
+                                const isKeyChar = '很久了'.includes(char);
+                                return (
+                                  <motion.span
+                                    key={`heavy-${index}-${charIdx}`}
+                                    className="inline-block"
+                                    style={part.isEmphasis ? emphasisStyle : undefined}
+                                    initial={{
+                                      opacity: 0,
+                                      y: -30,
+                                      scale: isKeyChar ? 1.4 : 1.1,
+                                      filter: 'blur(6px)',
+                                    }}
+                                    animate={{
+                                      opacity: 1,
+                                      y: 0,
+                                      scale: 1,
+                                      filter: 'blur(0px)',
+                                      textShadow: isKeyChar
+                                        ? [
+                                            '0 0 25px hsl(220 40% 70% / 0.7), 0 0 50px hsl(220 40% 70% / 0.3)',
+                                            '0 0 12px hsl(220 40% 70% / 0.4), 0 0 25px hsl(220 40% 70% / 0.15)',
+                                            '0 0 25px hsl(220 40% 70% / 0.7), 0 0 50px hsl(220 40% 70% / 0.3)',
+                                          ]
+                                        : undefined,
+                                    }}
+                                    transition={{
+                                      opacity: { duration: 0.8, delay: charIdx * 0.35 },
+                                      y: {
+                                        duration: isKeyChar ? 1.2 : 0.8,
+                                        delay: charIdx * 0.35,
+                                        ease: [0.6, 0.05, 0.01, 0.9],
+                                      },
+                                      scale: {
+                                        duration: isKeyChar ? 1.5 : 0.8,
+                                        delay: charIdx * 0.35,
+                                        ease: [0.6, 0.05, 0.01, 0.9],
+                                      },
+                                      filter: { duration: 0.6, delay: charIdx * 0.35 },
+                                      textShadow: isKeyChar ? { duration: 3, repeat: Infinity, repeatType: 'reverse' as const, delay: charIdx * 0.35 + 1.5 } : undefined,
                                     }}
                                   >
                                     {char === ' ' ? '\u00A0' : char}
