@@ -734,8 +734,7 @@ const DialogueBox = ({ isHidden = false, onToggleHide, onScoreChange }: Dialogue
                     >
                       {/* 手機版小圓頭像（桌面版用左側立繪代替） */}
                       {(() => {
-                        const effectiveSpeakerForAvatar = (currentNode.speakerName === '???') ? 'yi' : currentNode.speaker;
-                        const avatarSrc = getSpeakerAvatar(effectiveSpeakerForAvatar);
+                        const avatarSrc = getSpeakerAvatar(currentNode.speaker, currentNode.speakerName || getSpeakerName(currentNode));
                         if (!avatarSrc) return null;
                         return (
                           <div
