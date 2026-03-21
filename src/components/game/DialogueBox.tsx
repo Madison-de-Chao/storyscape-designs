@@ -641,7 +641,34 @@ const DialogueBox = ({ isHidden = false, onToggleHide, onScoreChange }: Dialogue
               opacity: { duration: 0.25 },
             }}
           >
-            <div className="max-w-4xl mx-auto">
+            <div className="max-w-4xl mx-auto relative">
+              {/* 半身立繪頭像 — 從對話框左側探出 */}
+              {currentNode.speaker !== 'narrator' && (() => {
+                const effectiveSpeakerForAvatar = (currentNode.speakerName === '???') ? 'yi' : currentNode.speaker;
+                const avatarSrc = getSpeakerAvatar(effectiveSpeakerForAvatar);
+                if (!avatarSrc) return null;
+                return (
+                  <motion.div
+                    className="absolute bottom-0 left-0 z-10 pointer-events-none hidden sm:block"
+                    style={{
+                      width: '140px',
+                      height: '200px',
+                      marginLeft: '-10px',
+                    }}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.4, ease: 'easeOut' }}
+                  >
+                    <img
+                      src={avatarSrc}
+                      alt={getSpeakerName(currentNode)}
+                      className="w-full h-full object-contain object-bottom drop-shadow-lg"
+                      draggable={false}
+                    />
+                  </motion.div>
+                );
+              })()}
+
               {/* 主對話框 - 手機觸控優化 */}
               <motion.div
                 className={`
@@ -666,6 +693,8 @@ const DialogueBox = ({ isHidden = false, onToggleHide, onScoreChange }: Dialogue
                   `,
                   backdropFilter: 'blur(24px)',
                   WebkitBackdropFilter: 'blur(24px)',
+                  // 桌面版左邊留空給立繪
+                  marginLeft: currentNode.speaker !== 'narrator' ? undefined : undefined,
                 }}
               >
                 {/* 頂部發光邊線 */}
@@ -690,24 +719,28 @@ const DialogueBox = ({ isHidden = false, onToggleHide, onScoreChange }: Dialogue
                 <div className="hidden sm:block absolute bottom-3 left-3 w-5 h-5 border-l-2 border-b-2 border-primary/15 rounded-bl-lg" />
                 <div className="hidden sm:block absolute bottom-3 right-3 w-5 h-5 border-r-2 border-b-2 border-primary/15 rounded-br-lg" />
 
-                {/* 內容區域 - 手機優化間距 */}
-                <div className="relative px-4 py-4 sm:px-8 sm:py-6 md:px-10 md:py-7 lg:px-12 lg:py-8">
-                  {/* 說話者名稱 + 頭像 */}
+                {/* 內容區域 — 桌面版有立繪時左邊內縮 */}
+                <div className={`relative px-4 py-4 sm:py-6 md:py-7 lg:py-8 ${
+                  currentNode.speaker !== 'narrator' && getSpeakerAvatar((currentNode.speakerName === '???') ? 'yi' : currentNode.speaker)
+                    ? 'sm:pl-36 sm:pr-8 md:pl-40 md:pr-10 lg:pl-44 lg:pr-12'
+                    : 'sm:px-8 md:px-10 lg:px-12'
+                }`}>
+                  {/* 說話者名稱 — 手機版顯示小圓頭像 */}
                   {currentNode.speaker !== 'narrator' && (
                     <motion.div
-                      className="mb-2 sm:mb-4 flex items-center gap-2 sm:gap-3"
+                      className="mb-2 sm:mb-3 flex items-center gap-2 sm:gap-3"
                       initial={{ opacity: 0, x: -15 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ duration: 0.3 }}
                     >
-                      {/* 角色頭像 */}
+                      {/* 手機版小圓頭像（桌面版用左側立繪代替） */}
                       {(() => {
                         const effectiveSpeakerForAvatar = (currentNode.speakerName === '???') ? 'yi' : currentNode.speaker;
                         const avatarSrc = getSpeakerAvatar(effectiveSpeakerForAvatar);
                         if (!avatarSrc) return null;
                         return (
                           <div
-                            className="relative flex-shrink-0 w-8 h-8 sm:w-10 sm:h-10 rounded-full overflow-hidden border border-border/40"
+                            className="sm:hidden relative flex-shrink-0 w-8 h-8 rounded-full overflow-hidden border border-border/40"
                             style={{
                               boxShadow: currentNode.speaker === 'yi'
                                 ? '0 0 10px hsl(350 60% 45% / 0.5)'
