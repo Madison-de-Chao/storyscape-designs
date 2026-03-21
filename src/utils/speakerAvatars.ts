@@ -19,10 +19,22 @@ const speakerAvatarMap: Record<string, string> = {
   linyi: linyiHalfV2,
 };
 
+const speakerNameToAvatarKey: Record<string, string> = {
+  '你': 'protagonist',
+  '她': 'protagonist',
+  '伊': 'yi',
+  '???': 'yi',
+  '小陳': 'xiaochen',
+  '小滿': 'xiaoman',
+  '小曼': 'xiaoman',
+  '林壹': 'linyi',
+};
+
 /**
  * 取得說話者的頭像圖片路徑
- * @returns 圖片路徑，若無對應頭像則回傳 null
+ * 優先使用顯示名稱對應，其次才使用 speaker key
  */
-export function getSpeakerAvatar(speaker: string): string | null {
-  return speakerAvatarMap[speaker] || null;
+export function getSpeakerAvatar(speaker: string, speakerName?: string): string | null {
+  const resolvedKey = (speakerName && speakerNameToAvatarKey[speakerName]) || speakerAvatarMap[speaker] ? ((speakerName && speakerNameToAvatarKey[speakerName]) || speaker) : speaker;
+  return speakerAvatarMap[resolvedKey] || null;
 }
