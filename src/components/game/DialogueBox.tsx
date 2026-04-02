@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback, useRef, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Eye, EyeOff, FastForward, Play, Pause, History, Save, Download } from 'lucide-react';
-import { getSpeakerAvatar } from '@/utils/speakerAvatars';
+import { getSpeakerAvatar, preloadAvatars } from '@/utils/speakerAvatars';
 import { useGameStore } from '@/stores/gameStore';
 import { usePerformanceStore } from '@/stores/performanceStore';
 import { getNodeById } from '@/data/prologueStory';
