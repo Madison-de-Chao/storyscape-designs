@@ -90,6 +90,9 @@ const DialogueBox = ({ isHidden = false, onToggleHide, onScoreChange }: Dialogue
     }
   }, [currentPart]);
 
+  // 預載頭像圖片，避免首次出現時延遲
+  useEffect(() => { preloadAvatars(); }, []);
+
   useEffect(() => {
     const node = currentPart === 'yi'
       ? (getYi1NodeById(currentNodeId) || getNodeById(currentNodeId))
