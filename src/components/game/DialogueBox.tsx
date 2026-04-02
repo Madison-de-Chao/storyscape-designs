@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback, useRef, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Eye, EyeOff, FastForward, Play, Pause, History, Save, Download } from 'lucide-react';
-import { getSpeakerAvatar } from '@/utils/speakerAvatars';
+import { getSpeakerAvatar, preloadAvatars } from '@/utils/speakerAvatars';
 import { useGameStore } from '@/stores/gameStore';
 import { usePerformanceStore } from '@/stores/performanceStore';
 import { getNodeById } from '@/data/prologueStory';
@@ -89,6 +89,9 @@ const DialogueBox = ({ isHidden = false, onToggleHide, onScoreChange }: Dialogue
       default: return '';
     }
   }, [currentPart]);
+
+  // 預載頭像圖片，避免首次出現時延遲
+  useEffect(() => { preloadAvatars(); }, []);
 
   useEffect(() => {
     const node = currentPart === 'yi'
