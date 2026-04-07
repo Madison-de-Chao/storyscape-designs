@@ -604,6 +604,13 @@ export const chapter7Nodes: DialogueNode[] = [
     id: 'yi2-ch7-end',
     speaker: 'narrator',
     text: '【第七章完】',
-    isEnd: true,
+    nextNodeId: 'yi2-ch8-1',
+    specialScene: 'zen',
+    zenConfig: {
+      text: '第七章完',
+      subtitle: '',
+      theme: 'ink',
+      duration: 4000,
+    },
   },
 ];
