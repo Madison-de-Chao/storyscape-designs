@@ -646,7 +646,7 @@ const DialogueBox = ({ isHidden = false, onToggleHide, onScoreChange }: Dialogue
           >
             <div className="max-w-4xl mx-auto relative">
               {/* 半身立繪頭像 — 從對話框左側探出 */}
-              {currentNode.speaker !== 'narrator' && (() => {
+              {(currentNode.speaker !== 'narrator' || currentNode.speakerName) && (() => {
                 const avatarSrc = getSpeakerAvatar(currentNode.speaker, currentNode.speakerName || getSpeakerName(currentNode));
                 if (!avatarSrc) return null;
                 return (
@@ -723,12 +723,12 @@ const DialogueBox = ({ isHidden = false, onToggleHide, onScoreChange }: Dialogue
 
                 {/* 內容區域 — 桌面版有立繪時左邊內縮 */}
                 <div className={`relative px-4 py-4 sm:py-6 md:py-7 lg:py-8 ${
-                  currentNode.speaker !== 'narrator' && getSpeakerAvatar(currentNode.speaker, currentNode.speakerName || getSpeakerName(currentNode))
+                  (currentNode.speaker !== 'narrator' || currentNode.speakerName) && getSpeakerAvatar(currentNode.speaker, currentNode.speakerName || getSpeakerName(currentNode))
                     ? 'sm:pl-36 sm:pr-8 md:pl-40 md:pr-10 lg:pl-44 lg:pr-12'
                     : 'sm:px-8 md:px-10 lg:px-12'
                 }`}>
                   {/* 說話者名稱 — 手機版顯示小圓頭像 */}
-                  {currentNode.speaker !== 'narrator' && (
+                  {(currentNode.speaker !== 'narrator' || currentNode.speakerName) && (
                     <motion.div
                       className="mb-2 sm:mb-3 flex items-center gap-2 sm:gap-3"
                       initial={{ opacity: 0, x: -15 }}
