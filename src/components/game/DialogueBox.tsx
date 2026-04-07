@@ -728,7 +728,7 @@ const DialogueBox = ({ isHidden = false, onToggleHide, onScoreChange }: Dialogue
                     : 'sm:px-8 md:px-10 lg:px-12'
                 }`}>
                   {/* 說話者名稱 — 手機版顯示小圓頭像 */}
-                  {currentNode.speaker !== 'narrator' && (
+                  {(currentNode.speaker !== 'narrator' || currentNode.speakerName) && (
                     <motion.div
                       className="mb-2 sm:mb-3 flex items-center gap-2 sm:gap-3"
                       initial={{ opacity: 0, x: -15 }}
