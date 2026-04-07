@@ -520,12 +520,11 @@ export const chapter5Nodes: DialogueNode[] = [
     id: 'yi2-ch5-end',
     speaker: 'narrator',
     text: '林壹看著鏡中的伊，沉默了很久。\n\n她開始覺得，也許有些事情，她需要重新看一遍。\n\n不是用她習慣的那副濾鏡。',
-    nextNodeId: null,
-    isEnd: true, // 暫時標記為結束，待後續章節補充
+    nextNodeId: 'yi2-ch6-1',
     specialScene: 'zen',
     zenConfig: {
       text: '也許有些事情\n她需要重新看一遍',
-      subtitle: '第五章・夢露（待續）',
+      subtitle: '第五章・夢露',
       theme: 'golden',
       duration: 5000,
     },
