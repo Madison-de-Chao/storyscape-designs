@@ -4,38 +4,38 @@
  */
 
 // ── 女主角立繪 ──
-import protagonistSad from '@/assets/yi2/sprites/protagonist-sad.png';
-import protagonistGentle from '@/assets/yi2/sprites/protagonist-gentle.png';
-import protagonistConfident from '@/assets/yi2/sprites/protagonist-confident.png';
-import protagonistMysterious from '@/assets/yi2/sprites/protagonist-mysterious.png';
-import protagonistSurprised from '@/assets/yi2/sprites/protagonist-surprised.png';
-import protagonistAngry from '@/assets/yi2/sprites/protagonist-angry.png';
-import protagonistFurious from '@/assets/yi2/sprites/protagonist-furious.png';
-import protagonistThoughtful from '@/assets/yi2/sprites/protagonist-thoughtful.png';
-import protagonistOffice from '@/assets/yi2/sprites/protagonist-office.png';
+import protagonistSad from '@/assets/yi2/sprites/protagonist-sad.webp';
+import protagonistGentle from '@/assets/yi2/sprites/protagonist-gentle.webp';
+import protagonistConfident from '@/assets/yi2/sprites/protagonist-confident.webp';
+import protagonistMysterious from '@/assets/yi2/sprites/protagonist-mysterious.webp';
+import protagonistSurprised from '@/assets/yi2/sprites/protagonist-surprised.webp';
+import protagonistAngry from '@/assets/yi2/sprites/protagonist-angry.webp';
+import protagonistFurious from '@/assets/yi2/sprites/protagonist-furious.webp';
+import protagonistThoughtful from '@/assets/yi2/sprites/protagonist-thoughtful.webp';
+import protagonistOffice from '@/assets/yi2/sprites/protagonist-office.webp';
 
 // ── 伊的立繪 ──
-import yiCold from '@/assets/yi2/sprites/yi-cold.png';
-import yiMockery from '@/assets/yi2/sprites/yi-mockery.png';
-import yiPower from '@/assets/yi2/sprites/yi-power.png';
-import yiCasual from '@/assets/yi2/sprites/yi-casual.png';
-import yiAngry from '@/assets/yi2/sprites/yi-angry.png';
-import yiSurprised from '@/assets/yi2/sprites/yi-surprised.png';
-import yiQipaoRealistic from '@/assets/yi2/sprites/yi-qipao-realistic.png';
+import yiCold from '@/assets/yi2/sprites/yi-cold.webp';
+import yiMockery from '@/assets/yi2/sprites/yi-mockery.webp';
+import yiPower from '@/assets/yi2/sprites/yi-power.webp';
+import yiCasual from '@/assets/yi2/sprites/yi-casual.webp';
+import yiAngry from '@/assets/yi2/sprites/yi-angry.webp';
+import yiSurprised from '@/assets/yi2/sprites/yi-surprised.webp';
+import yiQipaoRealistic from '@/assets/yi2/sprites/yi-qipao-realistic.webp';
 
 // ── 小陳立繪 ──
-import xiaochenKv from '@/assets/yi2/sprites/xiaochen-kv.png';
-import xiaochenKvV2 from '@/assets/yi2/sprites/xiaochen-kv-v2.png';
+import xiaochenKv from '@/assets/yi2/sprites/xiaochen-kv.webp';
+import xiaochenKvV2 from '@/assets/yi2/sprites/xiaochen-kv-v2.webp';
 
 // ── 小滿立繪 ──
-import xiaomanKv from '@/assets/yi2/sprites/xiaoman-kv.png';
-import xiaomanFull from '@/assets/yi2/sprites/xiaoman-full.png';
-import xiaomanFullV2 from '@/assets/yi2/sprites/xiaoman-full-v2.png';
+import xiaomanKv from '@/assets/yi2/sprites/xiaoman-kv.webp';
+import xiaomanFull from '@/assets/yi2/sprites/xiaoman-full.webp';
+import xiaomanFullV2 from '@/assets/yi2/sprites/xiaoman-full-v2.webp';
 
 // ── 林壹立繪 ──
-import linyiFull from '@/assets/yi2/sprites/linyi-full.png';
-import linyiHalf from '@/assets/yi2/sprites/linyi-half.png';
-import linyiHalfV2 from '@/assets/yi2/sprites/linyi-half-v2.png';
+import linyiFull from '@/assets/yi2/sprites/linyi-full.webp';
+import linyiHalf from '@/assets/yi2/sprites/linyi-half.webp';
+import linyiHalfV2 from '@/assets/yi2/sprites/linyi-half-v2.webp';
 
 // ── 表情映射 ──
 
