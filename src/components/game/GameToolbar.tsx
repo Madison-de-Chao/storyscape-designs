@@ -222,13 +222,11 @@ const GameToolbar = ({
                   label="章節選擇"
                 />
               )}
-              {isYiPart && (
-                <MenuButton
-                  onClick={() => { setIsMenuOpen(false); onOpenGallery(); }}
-                  icon={<Image className="w-4 h-4 text-primary" />}
-                  label="藝廊"
-                />
-              )}
+              <MenuButton
+                onClick={() => { setIsMenuOpen(false); onOpenGallery(); }}
+                icon={<Image className="w-4 h-4 text-primary" />}
+                label="藝廊"
+              />
               {currentPart === 'yi' && (
                 <MenuButton
                   onClick={() => { setIsMenuOpen(false); onOpenJourney(); }}
