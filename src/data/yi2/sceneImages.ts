@@ -4,112 +4,112 @@
  */
 
 // ── 通用場景背景圖 ──
-import bgMrtCrowded from '@/assets/yi2/backgrounds/preface-kv-mrt-crowded.png';
-import bgMrtIsolation from '@/assets/yi2/backgrounds/preface-kv-mrt-isolation.png';
-import bgApartmentNight from '@/assets/yi2/backgrounds/bg-apartment-night.jpg';
-import bgBedroomMorning from '@/assets/yi2/backgrounds/bg-bedroom-morning.jpg';
-import bgPhoneMorning from '@/assets/yi2/backgrounds/bg-phone-morning.jpg';
-import bgComputerNight from '@/assets/yi2/backgrounds/bg-computer-night.jpg';
-import bgTvMonroe from '@/assets/yi2/backgrounds/bg-tv-monroe.jpg';
+import bgMrtCrowded from '@/assets/yi2/backgrounds/preface-kv-mrt-crowded.webp';
+import bgMrtIsolation from '@/assets/yi2/backgrounds/preface-kv-mrt-isolation.webp';
+import bgApartmentNight from '@/assets/yi2/backgrounds/bg-apartment-night.webp';
+import bgBedroomMorning from '@/assets/yi2/backgrounds/bg-bedroom-morning.webp';
+import bgPhoneMorning from '@/assets/yi2/backgrounds/bg-phone-morning.webp';
+import bgComputerNight from '@/assets/yi2/backgrounds/bg-computer-night.webp';
+import bgTvMonroe from '@/assets/yi2/backgrounds/bg-tv-monroe.webp';
 
 // ── 序章 (Preface) 背景圖 ──
-import ch00KvDelaySelf from '@/assets/yi2/backgrounds/ch00-kv-delay-self.png';
-import ch00KvFoggyMirror from '@/assets/yi2/backgrounds/ch00-kv-foggy-mirror.png';
+import ch00KvDelaySelf from '@/assets/yi2/backgrounds/ch00-kv-delay-self.webp';
+import ch00KvFoggyMirror from '@/assets/yi2/backgrounds/ch00-kv-foggy-mirror.webp';
 
 // ── CH01 背景圖 ──
-import ch01DeleteFile from '@/assets/yi2/backgrounds/ch01-key-delete-file.png';
-import ch01DeleteFileKv from '@/assets/yi2/backgrounds/ch01-key-delete-file-kv.png';
-import ch01KvDeleteStory from '@/assets/yi2/backgrounds/ch01-kv-delete-story.png';
-import ch01KvReflectionSmile from '@/assets/yi2/backgrounds/ch01-kv-reflection-smile.png';
+import ch01DeleteFile from '@/assets/yi2/backgrounds/ch01-key-delete-file.webp';
+import ch01DeleteFileKv from '@/assets/yi2/backgrounds/ch01-key-delete-file-kv.webp';
+import ch01KvDeleteStory from '@/assets/yi2/backgrounds/ch01-kv-delete-story.webp';
+import ch01KvReflectionSmile from '@/assets/yi2/backgrounds/ch01-kv-reflection-smile.webp';
 
 // ── CH02 背景圖 ──
-import ch02MeetingRoomKv from '@/assets/yi2/backgrounds/ch02-bg-meeting-room-kv.png';
-import ch02MeetingRoomSimple from '@/assets/yi2/backgrounds/ch02-bg-meeting-room-simple.png';
-import ch02MeetingRoomCinematic from '@/assets/yi2/backgrounds/ch02-bg-meeting-room-cinematic.png';
-import ch02MeetingWide from '@/assets/yi2/backgrounds/ch02-01-meeting-wide.png';
-import ch02ConfusedMeeting from '@/assets/yi2/backgrounds/ch02-02-linyi-confused.png';
-import ch02LowAngleMeeting from '@/assets/yi2/backgrounds/ch02-04-low-angle-meeting.png';
-import ch02KeyConfused from '@/assets/yi2/backgrounds/ch02-key-meeting-confused.png';
-import ch02KeyConfusedV2 from '@/assets/yi2/backgrounds/ch02-key-meeting-confused-v2.png';
-import ch02KeyConfusedFemale from '@/assets/yi2/backgrounds/ch02-key-meeting-confused-kv-female.png';
-import ch02KvMirrorMovedFirst from '@/assets/yi2/backgrounds/ch02-kv-mirror-moved-first.png';
-import ch02KvLetterToYi from '@/assets/yi2/backgrounds/ch02-kv-letter-to-yi.png';
+import ch02MeetingRoomKv from '@/assets/yi2/backgrounds/ch02-bg-meeting-room-kv.webp';
+import ch02MeetingRoomSimple from '@/assets/yi2/backgrounds/ch02-bg-meeting-room-simple.webp';
+import ch02MeetingRoomCinematic from '@/assets/yi2/backgrounds/ch02-bg-meeting-room-cinematic.webp';
+import ch02MeetingWide from '@/assets/yi2/backgrounds/ch02-01-meeting-wide.webp';
+import ch02ConfusedMeeting from '@/assets/yi2/backgrounds/ch02-02-linyi-confused.webp';
+import ch02LowAngleMeeting from '@/assets/yi2/backgrounds/ch02-04-low-angle-meeting.webp';
+import ch02KeyConfused from '@/assets/yi2/backgrounds/ch02-key-meeting-confused.webp';
+import ch02KeyConfusedV2 from '@/assets/yi2/backgrounds/ch02-key-meeting-confused-v2.webp';
+import ch02KeyConfusedFemale from '@/assets/yi2/backgrounds/ch02-key-meeting-confused-kv-female.webp';
+import ch02KvMirrorMovedFirst from '@/assets/yi2/backgrounds/ch02-kv-mirror-moved-first.webp';
+import ch02KvLetterToYi from '@/assets/yi2/backgrounds/ch02-kv-letter-to-yi.webp';
 
 // ── CH03 背景圖 ──
-import ch03BathroomMirror from '@/assets/yi2/backgrounds/ch03-bg-bathroom-mirror-kv.png';
-import ch03MirrorQuestionFemale from '@/assets/yi2/backgrounds/ch03-key-mirror-question-kv-female.png';
-import ch03MirrorSmash from '@/assets/yi2/backgrounds/ch03-mirror-smash-real.png';
+import ch03BathroomMirror from '@/assets/yi2/backgrounds/ch03-bg-bathroom-mirror-kv.webp';
+import ch03MirrorQuestionFemale from '@/assets/yi2/backgrounds/ch03-key-mirror-question-kv-female.webp';
+import ch03MirrorSmash from '@/assets/yi2/backgrounds/ch03-mirror-smash-real.webp';
 
 // ── CH04 背景圖 ──
-import ch04HotpotWide from '@/assets/yi2/backgrounds/ch04-01-hotpot-wide.png';
-import ch04HotpotConflictFemale from '@/assets/yi2/backgrounds/ch04-key-hotpot-conflict-kv-female.png';
+import ch04HotpotWide from '@/assets/yi2/backgrounds/ch04-01-hotpot-wide.webp';
+import ch04HotpotConflictFemale from '@/assets/yi2/backgrounds/ch04-key-hotpot-conflict-kv-female.webp';
 
 // ── CH05 背景圖 ──
-import ch05LivingRoomWide from '@/assets/yi2/backgrounds/ch05-01-living-room-wide.png';
-import ch05LivingRoomMagic from '@/assets/yi2/backgrounds/ch05-04-living-room-mirror-magic.png';
-import ch05MirrorYiSimpleV2 from '@/assets/yi2/backgrounds/ch05-key-mirror-yi-simple-v2.png';
-import ch05KvMonroeMirror from '@/assets/yi2/backgrounds/ch05-kv-monroe-mirror.png';
+import ch05LivingRoomWide from '@/assets/yi2/backgrounds/ch05-01-living-room-wide.webp';
+import ch05LivingRoomMagic from '@/assets/yi2/backgrounds/ch05-04-living-room-mirror-magic.webp';
+import ch05MirrorYiSimpleV2 from '@/assets/yi2/backgrounds/ch05-key-mirror-yi-simple-v2.webp';
+import ch05KvMonroeMirror from '@/assets/yi2/backgrounds/ch05-kv-monroe-mirror.webp';
 
 // ── CH06 背景圖 ──
-import ch06KvCliffTeachers from '@/assets/yi2/backgrounds/ch06-kv-cliff-teachers.png';
+import ch06KvCliffTeachers from '@/assets/yi2/backgrounds/ch06-kv-cliff-teachers.webp';
 
 // ── CH07 背景圖 ──
-import ch07KvMidnightNotes from '@/assets/yi2/backgrounds/ch07-kv-midnight-notes.png';
-import ch07KvBeatenStanding from '@/assets/yi2/backgrounds/ch07-kv-beaten-standing.png';
+import ch07KvMidnightNotes from '@/assets/yi2/backgrounds/ch07-kv-midnight-notes.webp';
+import ch07KvBeatenStanding from '@/assets/yi2/backgrounds/ch07-kv-beaten-standing.webp';
 
 // ── CH08 背景圖 ──
-import ch08KvMirrorFirstSight from '@/assets/yi2/backgrounds/ch08-kv-mirror-first-sight.png';
-import ch08KvAllowCrying from '@/assets/yi2/backgrounds/ch08-kv-allow-crying.png';
+import ch08KvMirrorFirstSight from '@/assets/yi2/backgrounds/ch08-kv-mirror-first-sight.webp';
+import ch08KvAllowCrying from '@/assets/yi2/backgrounds/ch08-kv-allow-crying.webp';
 
 // ── CH09 背景圖 ──
-import ch09OfficeWide from '@/assets/yi2/backgrounds/ch09-01-office-wide.png';
-import ch09OfficeWideV2 from '@/assets/yi2/backgrounds/ch09-01-office-wide-v2.png';
-import ch09OfficeMedium from '@/assets/yi2/backgrounds/ch09-02-office-medium.png';
-import ch09CorridorEmpty from '@/assets/yi2/backgrounds/ch09-bg-corridor-empty.png';
-import ch09CorridorEmptyV2 from '@/assets/yi2/backgrounds/ch09-bg-corridor-empty-v2.png';
-import ch09SocialDistanceV2 from '@/assets/yi2/backgrounds/ch09-key-office-social-distance-v2.png';
-import ch09SocialDistanceKv from '@/assets/yi2/backgrounds/ch09-key-office-social-distance-kv-female.png';
-import ch09SocialDistanceSimple from '@/assets/yi2/backgrounds/ch09-key-office-social-distance-simple.png';
+import ch09OfficeWide from '@/assets/yi2/backgrounds/ch09-01-office-wide.webp';
+import ch09OfficeWideV2 from '@/assets/yi2/backgrounds/ch09-01-office-wide-v2.webp';
+import ch09OfficeMedium from '@/assets/yi2/backgrounds/ch09-02-office-medium.webp';
+import ch09CorridorEmpty from '@/assets/yi2/backgrounds/ch09-bg-corridor-empty.webp';
+import ch09CorridorEmptyV2 from '@/assets/yi2/backgrounds/ch09-bg-corridor-empty-v2.webp';
+import ch09SocialDistanceV2 from '@/assets/yi2/backgrounds/ch09-key-office-social-distance-v2.webp';
+import ch09SocialDistanceKv from '@/assets/yi2/backgrounds/ch09-key-office-social-distance-kv-female.webp';
+import ch09SocialDistanceSimple from '@/assets/yi2/backgrounds/ch09-key-office-social-distance-simple.webp';
 
 // ── CH09 額外 KV ──
-import ch09KvMeetingThanks from '@/assets/yi2/backgrounds/ch09-kv-meeting-thanks.png';
-import ch09KvScreeningNight from '@/assets/yi2/backgrounds/ch09-kv-screening-night.png';
+import ch09KvMeetingThanks from '@/assets/yi2/backgrounds/ch09-kv-meeting-thanks.webp';
+import ch09KvScreeningNight from '@/assets/yi2/backgrounds/ch09-kv-screening-night.webp';
 
 // ── CH10 背景圖 ──
-import ch10StageWide from '@/assets/yi2/backgrounds/ch10-01-stage-wide.png';
-import ch10StageMedium from '@/assets/yi2/backgrounds/ch10-02-stage-medium.png';
-import ch10StageCloseup from '@/assets/yi2/backgrounds/ch10-03-stage-closeup.png';
-import ch10StageDynamic from '@/assets/yi2/backgrounds/ch10-04-stage-dynamic.png';
-import ch10EmbraceKv from '@/assets/yi2/backgrounds/ch10-key-inner-child-embrace-kv.png';
-import ch10KvChildhoodStage from '@/assets/yi2/backgrounds/ch10-kv-childhood-stage.png';
+import ch10StageWide from '@/assets/yi2/backgrounds/ch10-01-stage-wide.webp';
+import ch10StageMedium from '@/assets/yi2/backgrounds/ch10-02-stage-medium.webp';
+import ch10StageCloseup from '@/assets/yi2/backgrounds/ch10-03-stage-closeup.webp';
+import ch10StageDynamic from '@/assets/yi2/backgrounds/ch10-04-stage-dynamic.webp';
+import ch10EmbraceKv from '@/assets/yi2/backgrounds/ch10-key-inner-child-embrace-kv.webp';
+import ch10KvChildhoodStage from '@/assets/yi2/backgrounds/ch10-kv-childhood-stage.webp';
 
 // ── CH11 背景圖 ──
-import ch11PantryCloseup from '@/assets/yi2/backgrounds/ch11-03-pantry-closeup.png';
-import ch11PantryDynamic from '@/assets/yi2/backgrounds/ch11-04-pantry-dynamic.png';
-import ch11PantryDialogueKv from '@/assets/yi2/backgrounds/ch11-key-pantry-dialogue-kv.png';
-import ch11KvPantryEcho from '@/assets/yi2/backgrounds/ch11-kv-pantry-echo.png';
-import ch11KvFatherMessage from '@/assets/yi2/backgrounds/ch11-kv-father-message.png';
+import ch11PantryCloseup from '@/assets/yi2/backgrounds/ch11-03-pantry-closeup.webp';
+import ch11PantryDynamic from '@/assets/yi2/backgrounds/ch11-04-pantry-dynamic.webp';
+import ch11PantryDialogueKv from '@/assets/yi2/backgrounds/ch11-key-pantry-dialogue-kv.webp';
+import ch11KvPantryEcho from '@/assets/yi2/backgrounds/ch11-kv-pantry-echo.webp';
+import ch11KvFatherMessage from '@/assets/yi2/backgrounds/ch11-kv-father-message.webp';
 
 // ── CH12 背景圖 ──
-import ch12DynamicTension from '@/assets/yi2/backgrounds/ch12-04-dynamic-tension.png';
-import ch12KvWhiteWorld from '@/assets/yi2/backgrounds/ch12-kv-white-world.png';
-import ch12Kv333Metaverse from '@/assets/yi2/backgrounds/ch12-kv-333-metaverse.png';
+import ch12DynamicTension from '@/assets/yi2/backgrounds/ch12-04-dynamic-tension.webp';
+import ch12KvWhiteWorld from '@/assets/yi2/backgrounds/ch12-kv-white-world.webp';
+import ch12Kv333Metaverse from '@/assets/yi2/backgrounds/ch12-kv-333-metaverse.webp';
 
 // ── 尾聲 (EP) 背景圖 ──
-import ep02Medium from '@/assets/yi2/backgrounds/ep-02-medium.png';
-import ep04DynamicTension from '@/assets/yi2/backgrounds/ep-04-dynamic-tension.png';
-import epKey3YearsLater from '@/assets/yi2/backgrounds/ep-key-3years-later.png';
-import epKeyCreatorV4 from '@/assets/yi2/backgrounds/ep-key-creator-v4.png';
-import epKeyCreatorV4_2 from '@/assets/yi2/backgrounds/ep-key-creator-v4-2.png';
-import epKvPhoneNotification from '@/assets/yi2/backgrounds/ep-kv-phone-notification.png';
-import epKvYiMerge from '@/assets/yi2/backgrounds/ep-kv-yi-merge.png';
+import ep02Medium from '@/assets/yi2/backgrounds/ep-02-medium.webp';
+import ep04DynamicTension from '@/assets/yi2/backgrounds/ep-04-dynamic-tension.webp';
+import epKey3YearsLater from '@/assets/yi2/backgrounds/ep-key-3years-later.webp';
+import epKeyCreatorV4 from '@/assets/yi2/backgrounds/ep-key-creator-v4.webp';
+import epKeyCreatorV4_2 from '@/assets/yi2/backgrounds/ep-key-creator-v4-2.webp';
+import epKvPhoneNotification from '@/assets/yi2/backgrounds/ep-kv-phone-notification.webp';
+import epKvYiMerge from '@/assets/yi2/backgrounds/ep-kv-yi-merge.webp';
 
 // ── 關鍵視覺 (KV) 系列 ──
-import kvCosmicPassage from '@/assets/yi2/backgrounds/kv-cosmic-passage.png';
+import kvCosmicPassage from '@/assets/yi2/backgrounds/kv-cosmic-passage.webp';
 import kvCosmicPassage2k from '@/assets/yi2/backgrounds/kv-cosmic-passage-2k.webp';
-import kvMeetingConfrontationV3 from '@/assets/yi2/backgrounds/kv-meeting-confrontation-v3.png';
+import kvMeetingConfrontationV3 from '@/assets/yi2/backgrounds/kv-meeting-confrontation-v3.webp';
 import kvSunriseMirrorStep from '@/assets/yi2/backgrounds/kv-sunrise-mirror-step.webp';
-import kvRainReconciliationV3 from '@/assets/yi2/backgrounds/kv-rain-reconciliation-v3.jpg';
+import kvRainReconciliationV3 from '@/assets/yi2/backgrounds/kv-rain-reconciliation-v3.webp';
 
 /**
  * bgImage key → 實際圖片路徑映射

@@ -3,11 +3,11 @@
  */
 
 // Yi2 角色頭像
-import protagonistGentle from '@/assets/yi2/sprites/protagonist-gentle.png';
-import yiCold from '@/assets/yi2/sprites/yi-cold.png';
-import xiaochenKv from '@/assets/yi2/sprites/xiaochen-kv.png';
-import xiaomanKv from '@/assets/yi2/sprites/xiaoman-kv.png';
-import linyiAvatar from '@/assets/yi2/sprites/linyi-avatar.png';
+import protagonistGentle from '@/assets/yi2/sprites/protagonist-gentle.webp';
+import yiCold from '@/assets/yi2/sprites/yi-cold.webp';
+import xiaochenKv from '@/assets/yi2/sprites/xiaochen-kv.webp';
+import xiaomanKv from '@/assets/yi2/sprites/xiaoman-kv.webp';
+import linyiAvatar from '@/assets/yi2/sprites/linyi-avatar.webp';
 
 /** 角色 → 頭像圖片路徑 */
 const speakerAvatarMap: Record<string, string> = {
