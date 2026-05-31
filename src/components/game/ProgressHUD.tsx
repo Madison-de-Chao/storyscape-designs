@@ -83,7 +83,7 @@ const ProgressHUD = ({
   const arcCompletionPercent = Math.round(((180 - arcValue) / 180) * 100);
 
   // 依照當前部別選擇章節元資料
-  const activeChaptersMeta = currentPart === 'yi2' ? yi2ChaptersMeta : yi1ChaptersMeta;
+  const activeChaptersMeta = currentPart === 'yi-part2' ? yi2ChaptersMeta : yi1ChaptersMeta;
 
   // 計算各章節進度
   const chapterProgressList = useMemo(() => {
