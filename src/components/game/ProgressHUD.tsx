@@ -292,20 +292,24 @@ const ProgressHUD = ({
                       className="space-y-1"
                     >
                       {chapterProgressList.map((ch, index) => (
-                        <motion.div
+                        <motion.button
                           key={ch.id}
+                          type="button"
+                          onClick={() => handleJumpToChapter(ch.id)}
                           className={`
-                            flex items-center gap-2 p-2 rounded-lg text-xs transition-colors
-                            ${ch.isCurrent 
-                              ? 'bg-primary/20 border border-primary/40' 
-                              : ch.visited 
-                                ? 'bg-muted/20 hover:bg-muted/30' 
-                                : 'opacity-50'
+                            w-full text-left flex items-center gap-2 p-2 rounded-lg text-xs transition-colors
+                            cursor-pointer hover:bg-primary/10
+                            ${ch.isCurrent
+                              ? 'bg-primary/20 border border-primary/40'
+                              : ch.visited
+                                ? 'bg-muted/20 hover:bg-muted/30'
+                                : 'opacity-60 hover:opacity-100'
                             }
                           `}
                           initial={{ opacity: 0, x: -10 }}
                           animate={{ opacity: 1, x: 0 }}
                           transition={{ delay: index * 0.02 }}
+                          title="點擊跳至此章節"
                         >
                           {ch.visited ? (
                             <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
@@ -328,7 +332,7 @@ const ProgressHUD = ({
                               {ch.character}
                             </span>
                           )}
-                        </motion.div>
+                        </motion.button>
                       ))}
                     </motion.div>
                   )}
