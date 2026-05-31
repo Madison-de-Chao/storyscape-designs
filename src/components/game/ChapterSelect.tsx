@@ -185,20 +185,20 @@ interface ChapterSelectProps {
 }
 
 const ChapterSelect = ({ isOpen, onClose }: ChapterSelectProps) => {
-  const { setCurrentNode, startGame, getChapterProgress } = useGameStore();
+  const { setCurrentNode, startGame, getChapterProgress, currentPart } = useGameStore();
+
+  const isPart2 = currentPart === 'yi-part2';
+  const chaptersForPart = isPart2 ? yi2Chapters : implementedChapters;
+  const partLabel = isPart2 ? '弧度歸零：伊' : '弧度歸零：壹';
 
   const handleSelectChapter = (chapter: ChapterInfo) => {
     if (!chapter.unlocked) return;
-    startGame('yi');
+    startGame(isPart2 ? 'yi-part2' : 'yi');
     setCurrentNode(chapter.startNodeId);
     onClose();
   };
 
-  const getChapterId = (chapter: ChapterInfo): string => {
-    if (chapter.id === 'preface') return 'preface';
-    if (chapter.id === 'prologue') return 'prologue';
-    return chapter.id;
-  };
+  const getChapterId = (chapter: ChapterInfo): string => chapter.id;
 
   return (
     <AnimatePresence>
