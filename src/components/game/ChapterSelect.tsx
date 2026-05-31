@@ -160,26 +160,45 @@ const implementedChapters: ChapterInfo[] = [
   },
 ];
 
+// 第二部「伊」章節（與 yi2ChaptersMeta.id 對齊）
+const yi2Chapters: ChapterInfo[] = [
+  { id: 'yi2-prologue', startNodeId: 'yi2-prologue-1', title: '序章', subtitle: '碎片', unlocked: true },
+  { id: 'yi2-preface', startNodeId: 'yi2-preface-1', title: '作者序', subtitle: '給正在打仗的你', unlocked: true },
+  { id: 'yi2-ch0', startNodeId: 'yi2-ch0-1', title: '第零章', subtitle: '日常', character: '林壹', unlocked: true },
+  { id: 'yi2-ch1', startNodeId: 'yi2-ch1-1', title: '第一章', subtitle: '刪除', character: '伊', unlocked: true },
+  { id: 'yi2-ch2', startNodeId: 'yi2-ch2-1', title: '第二章', subtitle: '空白', character: '伊', unlocked: true },
+  { id: 'yi2-ch3', startNodeId: 'yi2-ch3-1', title: '第三章', subtitle: '攻擊', character: '伊', unlocked: true },
+  { id: 'yi2-ch4', startNodeId: 'yi2-ch4-1', title: '第四章', subtitle: '受害', character: '小曼', unlocked: true },
+  { id: 'yi2-ch5', startNodeId: 'yi2-ch5-1', title: '第五章', subtitle: '夢露', character: '夢露', unlocked: true },
+  { id: 'yi2-ch6', startNodeId: 'yi2-ch6-1', title: '第六章', subtitle: '不完整的禮物', character: '伊', unlocked: true },
+  { id: 'yi2-ch7', startNodeId: 'yi2-ch7-1', title: '第七章', subtitle: '還站著的人', character: '林壹', unlocked: true },
+  { id: 'yi2-ch8', startNodeId: 'yi2-ch8-1', title: '第八章', subtitle: '對話', character: '伊', unlocked: true },
+  { id: 'yi2-ch9', startNodeId: 'yi2-ch9-1', title: '第九章', subtitle: '篩選', character: '小曼', unlocked: true },
+  { id: 'yi2-ch10', startNodeId: 'yi2-ch10-1', title: '第十章', subtitle: '庸才', character: '林媽媽', unlocked: true },
+  { id: 'yi2-ch11', startNodeId: 'yi2-ch11-1', title: '第十一章', subtitle: '回聲', character: '林爸爸', unlocked: true },
+  { id: 'yi2-ch12', startNodeId: 'yi2-ch12-1', title: '第十二章', subtitle: '歸途', character: '林壹', unlocked: true },
+];
+
 interface ChapterSelectProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
 const ChapterSelect = ({ isOpen, onClose }: ChapterSelectProps) => {
-  const { setCurrentNode, startGame, getChapterProgress } = useGameStore();
+  const { setCurrentNode, startGame, getChapterProgress, currentPart } = useGameStore();
+
+  const isPart2 = currentPart === 'yi-part2';
+  const chaptersForPart = isPart2 ? yi2Chapters : implementedChapters;
+  const partLabel = isPart2 ? '弧度歸零：伊' : '弧度歸零：壹';
 
   const handleSelectChapter = (chapter: ChapterInfo) => {
     if (!chapter.unlocked) return;
-    startGame('yi');
+    startGame(isPart2 ? 'yi-part2' : 'yi');
     setCurrentNode(chapter.startNodeId);
     onClose();
   };
 
-  const getChapterId = (chapter: ChapterInfo): string => {
-    if (chapter.id === 'preface') return 'preface';
-    if (chapter.id === 'prologue') return 'prologue';
-    return chapter.id;
-  };
+  const getChapterId = (chapter: ChapterInfo): string => chapter.id;
 
   return (
     <AnimatePresence>
@@ -208,7 +227,7 @@ const ChapterSelect = ({ isOpen, onClose }: ChapterSelectProps) => {
             <div className="flex items-center justify-between p-6 border-b border-border">
               <div>
                 <h2 className="text-xl font-serif-tc font-bold text-foreground">章節選擇</h2>
-                <p className="text-sm text-muted-foreground mt-1">弧度歸零：壹</p>
+                <p className="text-sm text-muted-foreground mt-1">{partLabel}</p>
               </div>
               <button
                 onClick={onClose}
@@ -221,7 +240,7 @@ const ChapterSelect = ({ isOpen, onClose }: ChapterSelectProps) => {
             {/* 章節列表 */}
             <div className="p-4 md:p-6 overflow-y-auto max-h-[calc(80vh-100px)]">
               <div className="grid gap-3">
-                {implementedChapters.map((chapter, index) => (
+                {chaptersForPart.map((chapter, index) => (
                   <motion.button
                     key={chapter.id}
                     onClick={() => handleSelectChapter(chapter)}
