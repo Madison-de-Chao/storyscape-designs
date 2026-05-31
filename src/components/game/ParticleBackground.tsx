@@ -20,7 +20,13 @@ const ParticleBackground = ({ arcValue = 180 }: ParticleBackgroundProps) => {
   const particlesRef = useRef<Particle[]>([]);
   const animationRef = useRef<number>();
   const lastFrameTimeRef = useRef(0);
+  const arcValueRef = useRef(arcValue);
   const isLowPerf = usePerformanceStore((state) => state.shouldSimplifyAnimations());
+
+  // arcValue 透過 ref 即時讀取，避免每次變動都重啟動畫迴圈
+  useEffect(() => {
+    arcValueRef.current = arcValue;
+  }, [arcValue]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -45,11 +51,9 @@ const ParticleBackground = ({ arcValue = 180 }: ParticleBackgroundProps) => {
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
 
-    // 根據設備性能調整粒子數量
+    // 初始化粒子（以目前 arcValue 推算密度，後續不重建）
     const baseCount = isLowPerf ? 10 : 30;
-    const particleCount = Math.floor(baseCount + (180 - arcValue) / (isLowPerf ? 10 : 3));
-    
-    // 初始化粒子
+    const particleCount = Math.floor(baseCount + (180 - arcValueRef.current) / (isLowPerf ? 10 : 3));
     particlesRef.current = Array.from({ length: particleCount }, () => ({
       x: Math.random() * window.innerWidth,
       y: Math.random() * window.innerHeight,
@@ -75,30 +79,27 @@ const ParticleBackground = ({ arcValue = 180 }: ParticleBackgroundProps) => {
       const height = window.innerHeight;
       ctx.clearRect(0, 0, width, height);
 
-      // 計算顏色：弧度大時偏藍灰，弧度小時偏金色
-      const progress = 1 - arcValue / 180;
+      // 即時讀取最新 arcValue 計算顏色
+      const currentArc = arcValueRef.current;
+      const progress = 1 - currentArc / 180;
       const hue = 220 - progress * 180;
       const saturation = 30 + progress * 50;
       const lightness = 40 + progress * 30;
 
       particlesRef.current.forEach((particle) => {
-        // 更新位置
         particle.x += particle.speedX;
         particle.y += particle.speedY;
 
-        // 邊界處理
         if (particle.x < 0) particle.x = width;
         if (particle.x > width) particle.x = 0;
         if (particle.y < 0) particle.y = height;
         if (particle.y > height) particle.y = 0;
 
-        // 繪製粒子
         ctx.beginPath();
         ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
         ctx.fillStyle = `hsla(${hue}, ${saturation}%, ${lightness}%, ${particle.opacity})`;
         ctx.fill();
 
-        // 低性能設備：跳過光暈效果
         if (!isLowPerf) {
           const gradient = ctx.createRadialGradient(
             particle.x, particle.y, 0,
@@ -122,7 +123,7 @@ const ParticleBackground = ({ arcValue = 180 }: ParticleBackgroundProps) => {
         cancelAnimationFrame(animationRef.current);
       }
     };
-  }, [arcValue, isLowPerf]);
+  }, [isLowPerf]);
 
   return (
     <motion.canvas
