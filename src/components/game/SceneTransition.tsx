@@ -84,7 +84,7 @@ const SceneTransition = ({
   useEffect(() => {
     if (isTransitioning) {
       completedRef.current = false;
-      const duration = transitionType === 'chapter' ? 2600 : 1200;
+      const duration = transitionType === 'chapter' ? 4000 : 1200;
       const timer = setTimeout(forceComplete, duration);
       // 安全超時：最多 5 秒強制結束，防止卡死
       const safetyTimer = setTimeout(forceComplete, 5000);
