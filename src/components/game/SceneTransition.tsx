@@ -55,10 +55,10 @@ const SceneTransition = ({
         setShowContent(true);
         setPhase('display');
       }, 300);
-      // 階段 2：展示（300-2200ms）- 延長以顯示金句
+      // 階段 2：展示（300-3500ms）- 延長以充分顯示金句
       const exitTimer = setTimeout(() => {
         setPhase('exit');
-      }, 2200);
+      }, 3500);
       return () => {
         clearTimeout(showTimer);
         clearTimeout(exitTimer);
@@ -84,7 +84,7 @@ const SceneTransition = ({
   useEffect(() => {
     if (isTransitioning) {
       completedRef.current = false;
-      const duration = transitionType === 'chapter' ? 2600 : 1200;
+      const duration = transitionType === 'chapter' ? 4000 : 1200;
       const timer = setTimeout(forceComplete, duration);
       // 安全超時：最多 5 秒強制結束，防止卡死
       const safetyTimer = setTimeout(forceComplete, 5000);

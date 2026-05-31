@@ -216,7 +216,7 @@ const ProgressHUD = ({
               </div>
 
               {/* Tab 內容 */}
-              <div className="p-4 max-h-80 overflow-y-auto">
+              <div className="p-4 max-h-[60vh] sm:max-h-80 overflow-y-auto">
                 <AnimatePresence mode="wait">
                   {activeTab === 'stats' && (
                     <motion.div
