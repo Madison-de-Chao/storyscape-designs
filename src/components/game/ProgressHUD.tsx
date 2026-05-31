@@ -95,7 +95,7 @@ const ProgressHUD = ({
     return activeChaptersMeta.map((ch, index) => {
       const chapterReadNodes = readNodes[ch.id] || [];
       const hasVisited = chapterReadNodes.length > 0;
-      const isCurrent = getChapterIndex(progress.currentNodeId) === index;
+      const isCurrent = getChapterIndex(progress.currentNodeId, activeChaptersMeta) === index;
       return {
         ...ch,
         visited: hasVisited,
