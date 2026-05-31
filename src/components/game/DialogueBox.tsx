@@ -793,7 +793,7 @@ const DialogueBox = ({ isHidden = false, onToggleHide, onScoreChange }: Dialogue
                       }}
                     >
                       {/* 伊的故障效果疊加層 */}
-                      {currentNode.speaker === 'yi' && (
+                      {currentNode.speaker === 'yi' && isTyping && (
                         <motion.div
                           className="absolute inset-0 pointer-events-none overflow-hidden"
                           animate={{
