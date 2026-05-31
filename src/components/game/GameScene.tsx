@@ -117,7 +117,7 @@ const getChapterKey = (nodeId: string, isYiPart: boolean): string => {
 };
 
 const GameScene = () => {
-  const { getCurrentProgress, returnToTitle, resetPart, currentPart, completeLesson } = useGameStore();
+  const { getCurrentProgress, getChapterProgress, returnToTitle, resetPart, currentPart, completeLesson } = useGameStore();
   const progress = getCurrentProgress();
   const arcValue = progress.arcValue;
   const currentNodeId = progress.currentNodeId;
@@ -852,7 +852,7 @@ const GameScene = () => {
 
       {/* 進度 HUD */}
       <ProgressHUD
-        chapterProgress={useGameStore.getState().getChapterProgress(getChapterKey(currentNodeId, isYiPart)) /* 0-100 百分比 */}
+        chapterProgress={getChapterProgress(getChapterKey(currentNodeId, isYiPart)) /* 0-100 百分比 */}
         currentChapterTitle={getChapterTitle(currentNodeId, isYiPart)}
         isVisible={isProgressHUDVisible}
         onToggle={() => setIsProgressHUDVisible(!isProgressHUDVisible)}
