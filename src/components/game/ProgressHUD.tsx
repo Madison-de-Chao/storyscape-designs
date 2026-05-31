@@ -12,18 +12,23 @@ interface ProgressHUDProps {
   onToggle: () => void;
 }
 
-// 章節 ID 到索引的映射
-const getChapterIndex = (nodeId: string): number => {
-  if (nodeId.includes('preface')) return 0;
-  if (nodeId.includes('prologue')) return 1;
-  if (nodeId.includes('epilogue')) return 16;
-  if (nodeId.includes('postscript')) return 17;
-  
-  // 從節點 ID 提取章節號
-  const match = nodeId.match(/ch(\d+)|chapter-(\d+)|chapter(\d+)/i);
+// 章節 ID 到索引的映射（依當前部別的 meta 順序對齊）
+const getChapterIndex = (nodeId: string, meta: { id: string }[]): number => {
+  // 第二部：依 yi2 章節 id 精準比對
+  if (nodeId.startsWith('yi2-')) {
+    const m = nodeId.match(/^(yi2-(?:preface|prologue|ch\d+))/);
+    const key = m ? m[1] : 'yi2-preface';
+    return meta.findIndex(c => c.id === key);
+  }
+
+  // 第一部
+  if (nodeId.includes('preface')) return meta.findIndex(c => c.id === 'preface');
+  if (nodeId.includes('prologue')) return meta.findIndex(c => c.id === 'prologue');
+  if (nodeId.includes('epilogue')) return meta.findIndex(c => c.id === 'epilogue');
+
+  const match = nodeId.match(/chapter-?(\d+)/i);
   if (match) {
-    const num = parseInt(match[1] || match[2] || match[3], 10);
-    return num + 1; // 章節 1 對應索引 2
+    return meta.findIndex(c => c.id === `chapter-${match[1]}`);
   }
   return -1;
 };
@@ -90,7 +95,7 @@ const ProgressHUD = ({
     return activeChaptersMeta.map((ch, index) => {
       const chapterReadNodes = readNodes[ch.id] || [];
       const hasVisited = chapterReadNodes.length > 0;
-      const isCurrent = getChapterIndex(progress.currentNodeId) === index;
+      const isCurrent = getChapterIndex(progress.currentNodeId, activeChaptersMeta) === index;
       return {
         ...ch,
         visited: hasVisited,
