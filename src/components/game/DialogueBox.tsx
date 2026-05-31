@@ -406,10 +406,10 @@ const DialogueBox = ({ isHidden = false, onToggleHide, onScoreChange }: Dialogue
     }
   };
 
-  const getEffectClass = () => {
+  const getEffectClass = (isMotionActive: boolean) => {
     switch (currentNode.effect) {
       case 'glitch':
-        return 'glitch';
+        return isMotionActive ? 'glitch' : '';
       case 'glow':
         return 'text-glow';
       default:
