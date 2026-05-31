@@ -125,7 +125,7 @@ export const yi2BgImageMap: Record<string, string> = {
   'yi2-apartment-night': bgApartmentNight,     // 公寓夜晚
   'yi2-apartment-333': bgComputerNight,        // 凌晨 3:33 → 深夜電腦
   'yi2-mirror-night': ch03BathroomMirror,      // 夜晚鏡子 → 浴室鏡子
-  'yi2-mirror-monroe': ch03MirrorSmash,        // 夢露鏡像 → 砸鏡場景
+  'yi2-mirror-monroe': ch05KvMonroeMirror,     // 夢露鏡像 → 夢露在鏡中（KV）
   'yi2-dream-stage': ch10StageWide,            // 夢中舞台 → 童年舞台廣角
   'yi2-stage-dream': ch10StageDynamic,         // 舞台夢境 → 童年舞台動態
   'yi2-dream-white-space': kvCosmicPassage,    // 白色空間夢境 → 宇宙通道
