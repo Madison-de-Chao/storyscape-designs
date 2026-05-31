@@ -688,7 +688,7 @@ const DialogueBox = ({ isHidden = false, onToggleHide, onScoreChange }: Dialogue
                 className={`
                   relative overflow-hidden cursor-pointer
                   rounded-xl sm:rounded-2xl border sm:border-2 border-border/30
-                  ${getEffectClass()}
+                  ${getEffectClass(isTextMotionActive)}
                 `}
                 onClick={handleClick}
                 whileHover={{ borderColor: 'hsl(var(--primary) / 0.4)' }}
@@ -805,7 +805,7 @@ const DialogueBox = ({ isHidden = false, onToggleHide, onScoreChange }: Dialogue
                       }}
                     >
                       {/* 伊的故障效果疊加層 */}
-                      {currentNode.speaker === 'yi' && isTyping && (
+                      {currentNode.speaker === 'yi' && isTextMotionActive && (
                         <motion.div
                           className="absolute inset-0 pointer-events-none overflow-hidden"
                           animate={{
@@ -1120,7 +1120,7 @@ const DialogueBox = ({ isHidden = false, onToggleHide, onScoreChange }: Dialogue
                                     '0 0 30px hsl(38 90% 55% / 1), 0 0 60px hsl(38 90% 55% / 0.6)',
                                     '0 0 20px hsl(38 90% 55% / 0.8), 0 0 40px hsl(38 90% 55% / 0.4)',
                                   ],
-                                } : currentNode.speaker === 'yi' && isTyping ? {
+                                } : currentNode.speaker === 'yi' && isTextMotionActive ? {
                                   x: [0, -1, 1, 0],
                                   opacity: [1, 0.8, 1, 0.9, 1],
                                 } : {}}
