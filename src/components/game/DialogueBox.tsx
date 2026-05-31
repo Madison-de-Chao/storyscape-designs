@@ -1108,7 +1108,7 @@ const DialogueBox = ({ isHidden = false, onToggleHide, onScoreChange }: Dialogue
                                     '0 0 30px hsl(38 90% 55% / 1), 0 0 60px hsl(38 90% 55% / 0.6)',
                                     '0 0 20px hsl(38 90% 55% / 0.8), 0 0 40px hsl(38 90% 55% / 0.4)',
                                   ],
-                                } : currentNode.speaker === 'yi' ? {
+                                } : currentNode.speaker === 'yi' && isTyping ? {
                                   x: [0, -1, 1, 0],
                                   opacity: [1, 0.8, 1, 0.9, 1],
                                 } : {}}
