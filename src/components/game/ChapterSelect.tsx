@@ -238,7 +238,7 @@ const ChapterSelect = ({ isOpen, onClose }: ChapterSelectProps) => {
             </div>
 
             {/* 章節列表 */}
-            <div className="p-4 md:p-6 overflow-y-auto max-h-[calc(80vh-100px)]">
+            <div className="p-4 md:p-6 overflow-y-auto max-h-[calc(100vh-9rem)] md:max-h-[calc(80vh-100px)]">
               <div className="grid gap-3">
                 {chaptersForPart.map((chapter, index) => (
                   <motion.button
