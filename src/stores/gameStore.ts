@@ -258,23 +258,45 @@ const chapterNodeCounts: Record<string, number> = {
   'chapter-10': 50,
   'chapter-11': 50,
   'chapter-12': 87,
+  // 第二部 yi2 章節（與 yi2ChaptersMeta.id 對齊）
+  'yi2-preface': 30,
+  'yi2-prologue': 40,
+  'yi2-ch0': 50,
+  'yi2-ch1': 60,
+  'yi2-ch2': 60,
+  'yi2-ch3': 60,
+  'yi2-ch4': 60,
+  'yi2-ch5': 60,
+  'yi2-ch6': 80,
+  'yi2-ch7': 80,
+  'yi2-ch8': 70,
+  'yi2-ch9': 60,
+  'yi2-ch10': 60,
+  'yi2-ch11': 60,
+  'yi2-ch12': 80,
 };
 
 // 根據節點 ID 獲取章節 ID
 function getChapterIdFromNodeId(nodeId: string): string {
-  // 統一移除 yi1- 前綴
+  // 第二部：yi2-preface / yi2-prologue / yi2-chN-...
+  if (nodeId.startsWith('yi2-')) {
+    const m = nodeId.match(/^(yi2-(?:preface|prologue|ch\d+))/);
+    return m ? m[1] : 'yi2-preface';
+  }
+
+  // 第一部：統一移除 yi1- 前綴
   const normalizedId = nodeId.replace(/^yi1-/, '');
-  
+
   if (normalizedId.startsWith('preface')) return 'preface';
   if (normalizedId.startsWith('prologue')) return 'prologue';
-  
+
   // 支援兩種格式：chapter-1- 和 chapter1-
   const matchDash = normalizedId.match(/^chapter-(\d+)/);
   if (matchDash) return `chapter-${matchDash[1]}`;
-  
+
   const matchNoDash = normalizedId.match(/^chapter(\d+)/);
   if (matchNoDash) return `chapter-${matchNoDash[1]}`;
-  
+
   return 'unknown';
 }
 
