@@ -3,6 +3,7 @@ import { useGameStore, type Choice } from '@/stores/gameStore';
 import { BookOpen, Sparkles, Moon, ChevronRight, Clock, CheckCircle2, Circle } from 'lucide-react';
 import { useState, useEffect, useMemo } from 'react';
 import { yi1ChaptersMeta } from '@/data/yi1/chapters';
+import { yi2ChaptersMeta } from '@/data/yi2/chapters';
 
 interface ProgressHUDProps {
   chapterProgress: number; // 0-100
@@ -81,9 +82,12 @@ const ProgressHUD = ({
   const baseHue = currentPart === 'yi' ? 38 : 350;
   const arcCompletionPercent = Math.round(((180 - arcValue) / 180) * 100);
 
+  // 依照當前部別選擇章節元資料
+  const activeChaptersMeta = currentPart === 'yi-part2' ? yi2ChaptersMeta : yi1ChaptersMeta;
+
   // 計算各章節進度
   const chapterProgressList = useMemo(() => {
-    return yi1ChaptersMeta.map((ch, index) => {
+    return activeChaptersMeta.map((ch, index) => {
       const chapterReadNodes = readNodes[ch.id] || [];
       const hasVisited = chapterReadNodes.length > 0;
       const isCurrent = getChapterIndex(progress.currentNodeId) === index;
@@ -94,11 +98,11 @@ const ProgressHUD = ({
         nodeCount: chapterReadNodes.length,
       };
     });
-  }, [readNodes, progress.currentNodeId]);
+  }, [readNodes, progress.currentNodeId, activeChaptersMeta]);
 
   // 已訪問章節數
   const visitedChapters = chapterProgressList.filter(c => c.visited).length;
-  const totalChapters = yi1ChaptersMeta.length;
+  const totalChapters = activeChaptersMeta.length;
 
   // 選擇時間線（從 arcHistory 構建）
   const choiceTimeline = useMemo(() => {
