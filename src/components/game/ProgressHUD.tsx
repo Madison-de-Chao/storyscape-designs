@@ -3,6 +3,7 @@ import { useGameStore, type Choice } from '@/stores/gameStore';
 import { BookOpen, Sparkles, Moon, ChevronRight, Clock, CheckCircle2, Circle } from 'lucide-react';
 import { useState, useEffect, useMemo } from 'react';
 import { yi1ChaptersMeta } from '@/data/yi1/chapters';
+import { yi2ChaptersMeta } from '@/data/yi2/chapters';
 
 interface ProgressHUDProps {
   chapterProgress: number; // 0-100
