@@ -850,7 +850,7 @@ const GameScene = () => {
 
       {/* 進度 HUD */}
       <ProgressHUD
-        chapterProgress={useGameStore.getState().getChapterProgress(getChapterKey(currentNodeId, isYiPart))}
+        chapterProgress={useGameStore.getState().getChapterProgress(getChapterKey(currentNodeId, isYiPart)) /* 0-100 百分比 */}
         currentChapterTitle={getChapterTitle(currentNodeId, isYiPart)}
         isVisible={isProgressHUDVisible}
         onToggle={() => setIsProgressHUDVisible(!isProgressHUDVisible)}
