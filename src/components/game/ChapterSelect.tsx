@@ -227,7 +227,7 @@ const ChapterSelect = ({ isOpen, onClose }: ChapterSelectProps) => {
             <div className="flex items-center justify-between p-6 border-b border-border">
               <div>
                 <h2 className="text-xl font-serif-tc font-bold text-foreground">章節選擇</h2>
-                <p className="text-sm text-muted-foreground mt-1">弧度歸零：壹</p>
+                <p className="text-sm text-muted-foreground mt-1">{partLabel}</p>
               </div>
               <button
                 onClick={onClose}
