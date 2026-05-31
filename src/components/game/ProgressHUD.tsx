@@ -55,7 +55,28 @@ const ProgressHUD = ({
   isVisible,
   onToggle,
 }: ProgressHUDProps) => {
-  const { getCurrentProgress, currentPart } = useGameStore();
+  const { getCurrentProgress, currentPart, setCurrentNode, startGame } = useGameStore();
+
+  // 章節 → 起始節點 ID
+  const getChapterStartNodeId = (chapterId: string): string => {
+    if (chapterId.startsWith('yi2-')) {
+      if (chapterId === 'yi2-preface') return 'yi2-preface-1';
+      if (chapterId === 'yi2-prologue') return 'yi2-prologue-1';
+      return `${chapterId}-1`; // yi2-chN-1
+    }
+    if (chapterId === 'preface') return 'yi1-preface-1';
+    if (chapterId === 'prologue') return 'yi1-prologue-1';
+    if (chapterId === 'epilogue') return 'yi1-epilogue-intro';
+    return `yi1-${chapterId.replace('chapter-', 'ch')}-intro`;
+  };
+
+  const handleJumpToChapter = (chapterId: string) => {
+    const startNodeId = getChapterStartNodeId(chapterId);
+    startGame(currentPart);
+    setCurrentNode(startNodeId);
+    onToggle(); // 關閉面板
+  };
+
   const progress = getCurrentProgress();
   const arcValue = progress.arcValue;
   const shadowLevel = progress.shadowLevel;
