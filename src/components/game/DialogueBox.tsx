@@ -350,8 +350,8 @@ const DialogueBox = ({ isHidden = false, onToggleHide, onScoreChange }: Dialogue
     playSFX('click');
   }, [playSFX]);
 
-  // 獲取對話歷史 - 必須在 early return 之前
-  const dialogueHistory = getDialogueHistory();
+  // 獲取對話歷史 - 必須在 early return 之前；memoize 避免每次 render 都產生新陣列
+  const dialogueHistory = useMemo(() => getDialogueHistory(), [getDialogueHistory, currentNode]);
 
   if (!currentNode) return null;
 

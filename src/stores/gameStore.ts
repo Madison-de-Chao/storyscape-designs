@@ -289,6 +289,8 @@ function getChapterIdFromNodeId(nodeId: string): string {
 
   if (normalizedId.startsWith('preface')) return 'preface';
   if (normalizedId.startsWith('prologue')) return 'prologue';
+  if (normalizedId.startsWith('epilogue')) return 'epilogue';
+  if (normalizedId.startsWith('postscript')) return 'postscript';
 
   // 支援兩種格式：chapter-1- 和 chapter1-
   const matchDash = normalizedId.match(/^chapter-(\d+)/);

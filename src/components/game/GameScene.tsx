@@ -117,7 +117,7 @@ const getChapterKey = (nodeId: string, isYiPart: boolean): string => {
 };
 
 const GameScene = () => {
-  const { getCurrentProgress, returnToTitle, resetPart, currentPart, completeLesson } = useGameStore();
+  const { getCurrentProgress, getChapterProgress, returnToTitle, resetPart, currentPart, completeLesson } = useGameStore();
   const progress = getCurrentProgress();
   const arcValue = progress.arcValue;
   const currentNodeId = progress.currentNodeId;
@@ -448,6 +448,15 @@ const GameScene = () => {
       stopAmbient();
     };
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // 第二部：背景圖載入後解鎖至藝廊（移出 render 避免 React 嚴格模式重複觸發）
+  useEffect(() => {
+    if (isYiPart) return;
+    const yi2Scene = getYi2SceneConfig(currentNodeId, currentNode || undefined);
+    if (yi2Scene.background.type === 'image' && yi2Scene.background.value) {
+      useGameStore.getState().unlockImage(yi2Scene.background.value);
+    }
+  }, [currentNodeId, isYiPart, currentNode]);
   
   return (
     <div className="relative min-h-screen overflow-hidden">
@@ -505,21 +514,14 @@ const GameScene = () => {
       )}
 
       {/* 第二部：CharacterScene 背景 + 人物立繪 */}
-      {!isYiPart && (() => {
-        const yi2Scene = getYi2SceneConfig(currentNodeId, currentNode || undefined);
-        if (yi2Scene.background.type === 'image' && yi2Scene.background.value) {
-          // 解鎖 KV / 背景圖至藝廊
-          useGameStore.getState().unlockImage(yi2Scene.background.value);
-        }
-        return (
-          <CharacterScene
-            chapterKey={getYi2ChapterKey(currentNodeId)}
-            background={yi2Scene.background}
-            characters={yi2Scene.characters}
-            hideOverlay={isDialogueHidden}
-          />
-        );
-      })()}
+      {!isYiPart && (
+        <CharacterScene
+          chapterKey={getYi2ChapterKey(currentNodeId)}
+          background={getYi2SceneConfig(currentNodeId, currentNode || undefined).background}
+          characters={getYi2SceneConfig(currentNodeId, currentNode || undefined).characters}
+          hideOverlay={isDialogueHidden}
+        />
+      )}
 
       {/* 粒子背景 */}
       <ParticleBackground arcValue={arcValue} />
@@ -850,7 +852,7 @@ const GameScene = () => {
 
       {/* 進度 HUD */}
       <ProgressHUD
-        chapterProgress={useGameStore.getState().getChapterProgress(getChapterKey(currentNodeId, isYiPart)) /* 0-100 百分比 */}
+        chapterProgress={getChapterProgress(getChapterKey(currentNodeId, isYiPart)) /* 0-100 百分比 */}
         currentChapterTitle={getChapterTitle(currentNodeId, isYiPart)}
         isVisible={isProgressHUDVisible}
         onToggle={() => setIsProgressHUDVisible(!isProgressHUDVisible)}
