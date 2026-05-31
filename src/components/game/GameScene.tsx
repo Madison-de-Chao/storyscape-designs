@@ -255,14 +255,20 @@ const GameScene = () => {
     }
   }, [currentNodeId, currentNode, stopBGM]);
 
-  // 禪意時刻結束後恢復 BGM
+  // 禪意時刻結束後恢復 BGM，並自動推進到下一節點
+  // （避免玩家以為遊戲結束，停在沒有提示的對話框上）
   const handleZenMomentComplete = useCallback(() => {
     setShowZenMoment(false);
     setZenConfig(null);
     // 恢復播放背景音樂
     const bgmType = getBGMForNode(currentNodeId);
     playBGM(bgmType);
-  }, [currentNodeId, playBGM]);
+    // 自動前進：禪意時刻通常是段落收束，玩家不會預期還要再點一下
+    const { advanceToNextNode } = useGameStore.getState();
+    if (currentNode?.nextNodeId && !currentNode.choices) {
+      advanceToNextNode(currentNode.nextNodeId);
+    }
+  }, [currentNodeId, currentNode, playBGM]);
 
   // 啟示時刻結束後恢復 BGM
   const handleRevelationComplete = useCallback(() => {
