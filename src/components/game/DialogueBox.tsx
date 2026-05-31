@@ -55,6 +55,7 @@ const DialogueBox = ({ isHidden = false, onToggleHide, onScoreChange }: Dialogue
   
    const [displayedText, setDisplayedText] = useState('');
    const [isTyping, setIsTyping] = useState(true);
+   const [isTextMotionActive, setIsTextMotionActive] = useState(false);
    const typingCancelledRef = useRef(false);
   const [currentNode, setCurrentNode] = useState<DialogueNode | null>(null);
   const [isAutoForward, setIsAutoForward] = useState(false);
@@ -101,6 +102,7 @@ const DialogueBox = ({ isHidden = false, onToggleHide, onScoreChange }: Dialogue
       setCurrentNode(node);
       setDisplayedText('');
       setIsTyping(true);
+      setIsTextMotionActive(false);
       markNodeAsRead(currentNodeId);
 
       // 記錄對話歷史（用於回顧模式）
@@ -136,12 +138,14 @@ const DialogueBox = ({ isHidden = false, onToggleHide, onScoreChange }: Dialogue
     const text = currentNode.text;
     setDisplayedText('');
     setIsTyping(true);
+    setIsTextMotionActive(true);
     typingCancelledRef.current = false;
 
     // 特殊文字效果：跳過打字機，由逐字動畫控制顯示
     if (currentNode.textEffect === 'materialize' || currentNode.textEffect === 'whisper' || currentNode.textEffect === 'heavy-reveal' || currentNode.textEffect === 'emotion-cascade') {
       setDisplayedText(text);
       setIsTyping(false);
+      setIsTextMotionActive(false);
       return;
     }
 
@@ -150,6 +154,7 @@ const DialogueBox = ({ isHidden = false, onToggleHide, onScoreChange }: Dialogue
       const timer = setTimeout(() => {
         setDisplayedText(text);
         setIsTyping(false);
+        setIsTextMotionActive(false);
       }, 100);
       return () => clearTimeout(timer);
     }
@@ -166,13 +171,14 @@ const DialogueBox = ({ isHidden = false, onToggleHide, onScoreChange }: Dialogue
         const char = text[index];
         
         // 使用 functional update 避免閉包問題，減少重新創建字串
-        setDisplayedText(text.slice(0, index + 1));
+        const nextIndex = index + 1;
+        setDisplayedText(text.slice(0, nextIndex));
         index++;
         
         // 智能延遲：標點符號後暫停更長時間，提升閱讀節奏感
         let delay = baseSpeed;
         if (!isAutoForward) {
-          if ('。！？…」』' .includes(char)) {
+          if ('。！？…」』'.includes(char)) {
             delay = 180; // 結束標點：長暫停
           } else if ('，、；：「『（）' .includes(char)) {
             delay = 90;  // 中間標點：中等暫停
@@ -180,6 +186,10 @@ const DialogueBox = ({ isHidden = false, onToggleHide, onScoreChange }: Dialogue
             delay = 120; // 換行：額外暫停
           }
         }
+
+        // 震動只跟「正在吐字」同步；遇到句末暫停或整句顯示完畢就停，避免讀完後仍晃動。
+        const isSentenceBoundary = '。！？…」』'.includes(char);
+        setIsTextMotionActive(!isSentenceBoundary && nextIndex < text.length);
         
         timeoutId = setTimeout(() => {
           // 使用 requestAnimationFrame 確保在繪製幀前更新
@@ -187,6 +197,7 @@ const DialogueBox = ({ isHidden = false, onToggleHide, onScoreChange }: Dialogue
         }, delay);
       } else {
         setIsTyping(false);
+        setIsTextMotionActive(false);
       }
     };
 
@@ -198,6 +209,7 @@ const DialogueBox = ({ isHidden = false, onToggleHide, onScoreChange }: Dialogue
     return () => {
       if (timeoutId) clearTimeout(timeoutId);
       if (animationFrameId) cancelAnimationFrame(animationFrameId);
+      setIsTextMotionActive(false);
     };
   }, [currentNode, isAutoForward, shouldSimplify]);
 
@@ -394,10 +406,10 @@ const DialogueBox = ({ isHidden = false, onToggleHide, onScoreChange }: Dialogue
     }
   };
 
-  const getEffectClass = () => {
+  const getEffectClass = (isMotionActive: boolean) => {
     switch (currentNode.effect) {
       case 'glitch':
-        return 'glitch';
+        return isMotionActive ? 'glitch' : '';
       case 'glow':
         return 'text-glow';
       default:
@@ -676,7 +688,7 @@ const DialogueBox = ({ isHidden = false, onToggleHide, onScoreChange }: Dialogue
                 className={`
                   relative overflow-hidden cursor-pointer
                   rounded-xl sm:rounded-2xl border sm:border-2 border-border/30
-                  ${getEffectClass()}
+                  ${getEffectClass(isTextMotionActive)}
                 `}
                 onClick={handleClick}
                 whileHover={{ borderColor: 'hsl(var(--primary) / 0.4)' }}
@@ -793,7 +805,7 @@ const DialogueBox = ({ isHidden = false, onToggleHide, onScoreChange }: Dialogue
                       }}
                     >
                       {/* 伊的故障效果疊加層 */}
-                      {currentNode.speaker === 'yi' && isTyping && (
+                      {currentNode.speaker === 'yi' && isTextMotionActive && (
                         <motion.div
                           className="absolute inset-0 pointer-events-none overflow-hidden"
                           animate={{
@@ -1108,7 +1120,7 @@ const DialogueBox = ({ isHidden = false, onToggleHide, onScoreChange }: Dialogue
                                     '0 0 30px hsl(38 90% 55% / 1), 0 0 60px hsl(38 90% 55% / 0.6)',
                                     '0 0 20px hsl(38 90% 55% / 0.8), 0 0 40px hsl(38 90% 55% / 0.4)',
                                   ],
-                                } : currentNode.speaker === 'yi' && isTyping ? {
+                                } : currentNode.speaker === 'yi' && isTextMotionActive ? {
                                   x: [0, -1, 1, 0],
                                   opacity: [1, 0.8, 1, 0.9, 1],
                                 } : {}}
