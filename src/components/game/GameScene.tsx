@@ -448,6 +448,15 @@ const GameScene = () => {
       stopAmbient();
     };
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // 第二部：背景圖載入後解鎖至藝廊（移出 render 避免 React 嚴格模式重複觸發）
+  useEffect(() => {
+    if (isYiPart) return;
+    const yi2Scene = getYi2SceneConfig(currentNodeId, currentNode || undefined);
+    if (yi2Scene.background.type === 'image' && yi2Scene.background.value) {
+      useGameStore.getState().unlockImage(yi2Scene.background.value);
+    }
+  }, [currentNodeId, isYiPart, currentNode]);
   
   return (
     <div className="relative min-h-screen overflow-hidden">
