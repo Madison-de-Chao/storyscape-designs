@@ -204,10 +204,11 @@ const CharacterScene = ({
             <motion.div
               key={char.id}
               className={`absolute bottom-0 z-[5] ${positionStyles[char.position]}`}
-              initial={variants.initial}
+              initial={{ ...variants.initial, scale, y: offsetY }}
               animate={{
                 ...variants.animate,
-                // 非說話者降低不透明度
+                scale,
+                y: offsetY,
                 opacity: 1,
                 filter: char.isSpeaking
                   ? 'brightness(1.1) drop-shadow(0 0 20px ' + themeToHSL(theme, 0.3) + ')'
@@ -216,7 +217,6 @@ const CharacterScene = ({
               exit={{ opacity: 0 }}
               transition={{ duration: 0.6, ease: 'easeOut' }}
               style={{
-                transform: `scale(${scale}) translateY(${offsetY}px)`,
                 transformOrigin: 'bottom center',
                 maxHeight: '85vh',
                 willChange: 'opacity, filter',
