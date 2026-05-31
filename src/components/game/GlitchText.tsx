@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useRef } from 'react';
 import { motion } from 'framer-motion';
 
 interface GlitchTextProps {
@@ -25,6 +25,10 @@ export const GlitchText = ({
     medium: { speed: 30, iterations: 3 },
     high: { speed: 20, iterations: 5 }
   }), []);
+
+  // 用 ref 穩定 onComplete，避免父組件 re-render 時重啟 glitch
+  const onCompleteRef = useRef(onComplete);
+  useEffect(() => { onCompleteRef.current = onComplete; }, [onComplete]);
 
   useEffect(() => {
     let iteration = 0;
@@ -53,13 +57,13 @@ export const GlitchText = ({
         clearInterval(interval);
         setDisplayText(text);
         setIsGlitching(false);
-        onComplete?.();
+        onCompleteRef.current?.();
       }
       iteration += 1;
     }, config[intensity].speed);
 
     return () => clearInterval(interval);
-  }, [text, intensity, config, onComplete]);
+  }, [text, intensity, config]);
 
   return (
     <motion.span 

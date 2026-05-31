@@ -10,6 +10,7 @@ interface IntroVideoProps {
 const IntroVideo = ({ onComplete }: IntroVideoProps) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
   const [showSkip, setShowSkip] = useState(false);
   const [isFadingOut, setIsFadingOut] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
@@ -109,6 +110,8 @@ const IntroVideo = ({ onComplete }: IntroVideoProps) => {
           onLoadedData={handleVideoLoaded}
           onEnded={handleVideoEnd}
           onClick={handlePlayClick}
+          onPlay={() => setIsPlaying(true)}
+          onPause={() => setIsPlaying(false)}
         />
 
         {/* 控制按鈕區 */}
@@ -167,7 +170,7 @@ const IntroVideo = ({ onComplete }: IntroVideoProps) => {
         </AnimatePresence>
 
         {/* 點擊播放提示（自動播放被阻止時） */}
-        {isLoaded && videoRef.current?.paused && (
+        {isLoaded && !isPlaying && !isFadingOut && (
           <motion.div
             className="absolute inset-0 flex items-center justify-center cursor-pointer"
             initial={{ opacity: 0 }}
@@ -191,7 +194,7 @@ const IntroVideo = ({ onComplete }: IntroVideoProps) => {
 
         {/* 靜音提示 */}
         <AnimatePresence>
-          {isLoaded && isMuted && !videoRef.current?.paused && (
+          {isLoaded && isMuted && isPlaying && (
             <motion.div
               className="absolute top-8 left-1/2 -translate-x-1/2"
               initial={{ opacity: 0, y: -10 }}
