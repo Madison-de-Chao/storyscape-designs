@@ -505,21 +505,14 @@ const GameScene = () => {
       )}
 
       {/* 第二部：CharacterScene 背景 + 人物立繪 */}
-      {!isYiPart && (() => {
-        const yi2Scene = getYi2SceneConfig(currentNodeId, currentNode || undefined);
-        if (yi2Scene.background.type === 'image' && yi2Scene.background.value) {
-          // 解鎖 KV / 背景圖至藝廊
-          useGameStore.getState().unlockImage(yi2Scene.background.value);
-        }
-        return (
-          <CharacterScene
-            chapterKey={getYi2ChapterKey(currentNodeId)}
-            background={yi2Scene.background}
-            characters={yi2Scene.characters}
-            hideOverlay={isDialogueHidden}
-          />
-        );
-      })()}
+      {!isYiPart && (
+        <CharacterScene
+          chapterKey={getYi2ChapterKey(currentNodeId)}
+          background={getYi2SceneConfig(currentNodeId, currentNode || undefined).background}
+          characters={getYi2SceneConfig(currentNodeId, currentNode || undefined).characters}
+          hideOverlay={isDialogueHidden}
+        />
+      )}
 
       {/* 粒子背景 */}
       <ParticleBackground arcValue={arcValue} />
