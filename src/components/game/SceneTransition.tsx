@@ -55,10 +55,10 @@ const SceneTransition = ({
         setShowContent(true);
         setPhase('display');
       }, 300);
-      // 階段 2：展示（300-2200ms）- 延長以顯示金句
+      // 階段 2：展示（300-3500ms）- 延長以充分顯示金句
       const exitTimer = setTimeout(() => {
         setPhase('exit');
-      }, 2200);
+      }, 3500);
       return () => {
         clearTimeout(showTimer);
         clearTimeout(exitTimer);
