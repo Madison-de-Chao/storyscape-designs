@@ -285,7 +285,7 @@ const Gallery = ({ isOpen, onClose }: GalleryProps) => {
                     藝廊
                   </h2>
                   <p className="text-sm text-muted-foreground mt-1">
-                    已解鎖 <span className="text-primary font-semibold">{unlockedImages.length}</span> / {totalImages} 張圖片
+                    已解鎖 <span className="text-primary font-semibold">{displayedUnlockedCount}</span> / {totalImages} 張圖片
                   </p>
                 </div>
               </div>
