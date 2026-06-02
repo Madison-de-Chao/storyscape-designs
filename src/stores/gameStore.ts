@@ -52,6 +52,7 @@ export type SpeakerType =
   | 'narrator' | 'protagonist' | 'yi' | 'mentor' | 'wenxin' | 'wendu' 
   | 'sushi' | 'wangyangming' | 'simaqian' | 'wuzetian' | 'libai' 
   | 'mandela' | 'caesar' | 'cleopatra' | 'lincoln' | 'jobs' | 'vangogh' | 'helenkeller'
+  | 'monroe' | 'xiangyu' | 'quyuan' | 'hemingway' | 'woolf'
   | 'system' | 'editor' | 'other';
 
 export interface DialogueNode {
