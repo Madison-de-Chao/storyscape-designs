@@ -223,7 +223,7 @@ export const speakerEmotionSFXConfig: Record<SpeakerType, SpeakerEmotionConfig> 
   // 主角（女性）- 恐懼、驚訝、哀傷 + 環境音效
   protagonist: {
     default: FEMALE_SAD_SIGH,
-    probability: 0.08, // 降低基礎機率，避免頻繁觸發
+    probability: 0.20,
     onEffect: {
       glitch: ['fear', 'fear_1', 'surprise', ...DIGITAL_BREAK, ...EAR_RINGING],
       glow: ['surprise', ...HOLY_BELL],

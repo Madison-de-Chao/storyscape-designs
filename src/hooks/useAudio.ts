@@ -189,7 +189,7 @@ export const nodeMoodMapping: NodeMoodConfig[] = [
   { nodeIdPattern: /^yi1-chapter-4-([7-9][0-9]|1[0-9]{2})$/, mood: 'revelation' },
   
   // 第六章 龍場悟道 - 寧靜莊嚴的哲學對話，啟示氛圍
-  { nodeIdPattern: /^yi1-ch6-/, mood: 'revelation' },
+  { nodeIdPattern: /^yi2-ch6-/, mood: 'revelation' },
 ];
 
 // 根據節點 ID 獲取氛圍類型
