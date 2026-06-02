@@ -9,6 +9,7 @@ import { getYi1NodeById } from '@/data/yi1';
 import { getYi2NodeById } from '@/data/yi2';
 import { DialogueNode } from '@/stores/gameStore';
 import { useSFX } from '@/hooks/useAudio';
+import { getMoodForNode } from '@/hooks/useAudio';
 import { getSpeakerEmotionSFX, shouldPlayEmotionSFX, type SpeakerType } from '@/utils/speakerEmotionSFX';
 import ChoiceButton from './ChoiceButton';
 import DialogueHistory from './DialogueHistory';
