@@ -196,6 +196,8 @@ const Gallery = ({ isOpen, onClose }: GalleryProps) => {
   }, [activeTab]);
 
   const totalImages = Object.values(imagesByChapter).flat().length;
+  // 第二部所有已註冊背景視為解鎖；第一部以實際解鎖列表為準
+  const displayedUnlockedCount = activeTab === 'yi2' ? totalImages : unlockedImages.length;
 
   const isImageUnlocked = (imageUrl: string) => {
     // 第二部：所有已註冊的背景都視為已解鎖（因為是場景背景而非敘事進度圖）
