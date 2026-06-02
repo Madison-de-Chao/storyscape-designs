@@ -28,6 +28,7 @@ const JourneyReflection = lazy(() => import('./JourneyReflection'));
 const GameEndOverlay = lazy(() => import('./GameEndOverlay'));
 const Yi2ChapterIntro = lazy(() => import('./Yi2ChapterIntro'));
 import { useAchievements } from '@/hooks/useAchievements';
+import { useYi2Achievements } from '@/hooks/useYi2Achievements';
 import { getNodeById } from '@/data/prologueStory';
 import { getYi1NodeById } from '@/data/yi1';
 import { getYi2NodeById } from '@/data/yi2';
