@@ -32,7 +32,10 @@ const TitleScreen = () => {
   const { playBGM, stopBGM } = useBGM();
   
   // 計算已解鎖的圖片數量
-  const galleryCount = (yiProgress.unlockedImages || []).length;
+  // 第一部以實際解鎖列表計數；第二部一旦開始即視為背景全可瀏覽
+  const yi1GalleryCount = (yiProgress.unlockedImages || []).length;
+  const yi2GalleryAvailable = yiPart2Progress.hasStarted;
+  const galleryCount = yi1GalleryCount + (yi2GalleryAvailable ? 1 : 0); // 僅用於決定按鈕顯示
 
   // 取得最新存檔
   const allSaves = getSaveSlots();
