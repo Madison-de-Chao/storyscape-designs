@@ -181,8 +181,12 @@ const GameScene = () => {
   const [showGameEndOverlay, setShowGameEndOverlay] = useState(false);
   const gameEndShownRef = useRef(false);
 
-  // 成就系統
+  // 成就系統（依當前部別分流，避免混淆）
   const { pendingAchievement, dismissAchievement, unlockAchievement } = useAchievements();
+  const {
+    pendingAchievement: pendingYi2Achievement,
+    dismissAchievement: dismissYi2Achievement,
+  } = useYi2Achievements();
 
   const visualProgress = 1 - arcValue / 180;
   const isYiPart = currentPart === 'yi';
