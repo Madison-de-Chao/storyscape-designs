@@ -196,6 +196,8 @@ const Gallery = ({ isOpen, onClose }: GalleryProps) => {
   }, [activeTab]);
 
   const totalImages = Object.values(imagesByChapter).flat().length;
+  // 第二部所有已註冊背景視為解鎖；第一部以實際解鎖列表為準
+  const displayedUnlockedCount = activeTab === 'yi2' ? totalImages : unlockedImages.length;
 
   const isImageUnlocked = (imageUrl: string) => {
     // 第二部：所有已註冊的背景都視為已解鎖（因為是場景背景而非敘事進度圖）
@@ -283,7 +285,7 @@ const Gallery = ({ isOpen, onClose }: GalleryProps) => {
                     藝廊
                   </h2>
                   <p className="text-sm text-muted-foreground mt-1">
-                    已解鎖 <span className="text-primary font-semibold">{unlockedImages.length}</span> / {totalImages} 張圖片
+                    已解鎖 <span className="text-primary font-semibold">{displayedUnlockedCount}</span> / {totalImages} 張圖片
                   </p>
                 </div>
               </div>
@@ -329,9 +331,10 @@ const Gallery = ({ isOpen, onClose }: GalleryProps) => {
             <div className="mb-6">
               <div className="h-2 bg-muted/30 rounded-full overflow-hidden">
                 <motion.div
-                  className="h-full bg-gradient-to-r from-primary via-primary/80 to-primary rounded-full"
+                  key={activeTab}
+                  className={`h-full rounded-full bg-gradient-to-r ${activeTab === 'yi2' ? 'from-accent via-rose-500 to-accent' : 'from-primary via-primary/80 to-primary'}`}
                   initial={{ width: 0 }}
-                  animate={{ width: `${(unlockedImages.length / totalImages) * 100}%` }}
+                  animate={{ width: `${totalImages > 0 ? (displayedUnlockedCount / totalImages) * 100 : 0}%` }}
                   transition={{ duration: 1, ease: 'easeOut' }}
                 />
               </div>
