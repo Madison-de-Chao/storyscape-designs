@@ -72,8 +72,10 @@ const saveUnlockedIds = (ids: string[]) => {
  * 第二部獨立成就系統
  */
 export const useYi2Achievements = () => {
-  const { yiPart2Progress } = useGameStore();
+  const { yiPart2Progress, currentPart } = useGameStore();
   const progress = yiPart2Progress;
+  // 僅在第二部進行中時追蹤
+  const isActive = currentPart === 'yi-part2';
 
   const [unlockedIds, setUnlockedIds] = useState<string[]>(getUnlockedIds);
   const [pendingAchievement, setPendingAchievement] = useState<Achievement | null>(null);
