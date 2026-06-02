@@ -80,6 +80,7 @@ export const useAchievements = () => {
 
   // 檢查成就條件
   useEffect(() => {
+    if (!isActive) return; // 第二部不觸發第一部成就
     const choicesCount = Object.keys(progress.choicesHistory || {}).length;
     const arcValue = progress.arcValue || 0;
     const shadowLevel = progress.shadowLevel || 0;
