@@ -4,6 +4,7 @@ import { BookOpen, Image, Music, Volume2, Trophy, Play } from 'lucide-react';
 import { useGameStore } from '@/stores/gameStore';
 import { useSFX, useBGM } from '@/hooks/useAudio';
 import { useAchievements } from '@/hooks/useAchievements';
+import { useYi2Achievements } from '@/hooks/useYi2Achievements';
 import ParticleBackground from './ParticleBackground';
 import ChapterSelect from './ChapterSelect';
 import Gallery from './Gallery';
