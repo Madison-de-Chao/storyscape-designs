@@ -536,7 +536,7 @@ export const chapter5Nodes: DialogueNode[] = [
     speaker: 'monroe',
     speakerName: '夢露',
     text: '嗨。妳今天看了我一整天。',
-    effect: 'whisper',
+    effect: 'fade-in-slow',
     nextNodeId: 'yi2-ch5-dream-4',
   },
   {
@@ -551,7 +551,7 @@ export const chapter5Nodes: DialogueNode[] = [
     speaker: 'monroe',
     speakerName: '夢露',
     text: '在妳的夢裡，我是真的。',
-    effect: 'whisper',
+    effect: 'fade-in-slow',
     nextNodeId: 'yi2-ch5-dream-6',
   },
   {
@@ -604,7 +604,7 @@ export const chapter5Nodes: DialogueNode[] = [
     speaker: 'monroe',
     speakerName: '夢露',
     text: '妳不會想成為我們的。\n\n答應我，好好活到老。\n\n哪怕沒人記得妳。',
-    effect: 'whisper',
+    effect: 'fade-in-slow',
     nextNodeId: 'yi2-ch5-dream-13',
   },
   {
