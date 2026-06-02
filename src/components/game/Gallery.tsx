@@ -331,9 +331,10 @@ const Gallery = ({ isOpen, onClose }: GalleryProps) => {
             <div className="mb-6">
               <div className="h-2 bg-muted/30 rounded-full overflow-hidden">
                 <motion.div
-                  className="h-full bg-gradient-to-r from-primary via-primary/80 to-primary rounded-full"
+                  key={activeTab}
+                  className={`h-full rounded-full bg-gradient-to-r ${activeTab === 'yi2' ? 'from-accent via-rose-500 to-accent' : 'from-primary via-primary/80 to-primary'}`}
                   initial={{ width: 0 }}
-                  animate={{ width: `${(unlockedImages.length / totalImages) * 100}%` }}
+                  animate={{ width: `${totalImages > 0 ? (displayedUnlockedCount / totalImages) * 100 : 0}%` }}
                   transition={{ duration: 1, ease: 'easeOut' }}
                 />
               </div>
