@@ -165,14 +165,36 @@ const AchievementsOverview = ({ isOpen, onClose }: AchievementsOverviewProps) =>
                 </div>
               </div>
 
+              {/* 部別切換 */}
+              <div className="flex gap-2 mb-3">
+                {([
+                  { id: 'yi1', label: '第一部・弧度歸零', count: yi1.unlockedCount, total: yi1.totalCount },
+                  { id: 'yi2', label: '第二部・元壹境', count: yi2.unlockedCount, total: yi2.totalCount },
+                ] as const).map(t => (
+                  <button
+                    key={t.id}
+                    onClick={() => setActivePart(t.id)}
+                    className={`flex-1 px-3 py-2 rounded-lg text-sm transition-colors ${
+                      activePart === t.id
+                        ? 'bg-primary/20 text-primary border border-primary/40'
+                        : 'bg-muted/20 text-muted-foreground hover:bg-muted/30 border border-transparent'
+                    }`}
+                  >
+                    <div className="font-medium">{t.label}</div>
+                    <div className="text-[10px] opacity-80">{t.count} / {t.total}</div>
+                  </button>
+                ))}
+              </div>
+
               {/* 總進度條 */}
               <div className="space-y-2">
                 <div className="flex justify-between text-sm">
-                  <span className="text-muted-foreground">總進度</span>
+                  <span className="text-muted-foreground">本部進度</span>
                   <span className="text-primary font-medium">{unlockedCount} / {totalCount} ({progressPercent}%)</span>
                 </div>
                 <div className="h-3 bg-muted/30 rounded-full overflow-hidden">
                   <motion.div
+                    key={activePart}
                     className="h-full bg-gradient-to-r from-primary to-accent rounded-full"
                     initial={{ width: 0 }}
                     animate={{ width: `${progressPercent}%` }}
@@ -181,6 +203,7 @@ const AchievementsOverview = ({ isOpen, onClose }: AchievementsOverviewProps) =>
                 </div>
               </div>
             </div>
+
 
             {/* 成就列表 */}
             <div className="overflow-y-auto max-h-[calc(85vh-180px)] p-6 space-y-6">
