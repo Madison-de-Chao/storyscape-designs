@@ -9,6 +9,7 @@ import { getYi1NodeById } from '@/data/yi1';
 import { getYi2NodeById } from '@/data/yi2';
 import { DialogueNode } from '@/stores/gameStore';
 import { useSFX } from '@/hooks/useAudio';
+import { getMoodForNode } from '@/hooks/useAudio';
 import { getSpeakerEmotionSFX, shouldPlayEmotionSFX, type SpeakerType } from '@/utils/speakerEmotionSFX';
 import ChoiceButton from './ChoiceButton';
 import DialogueHistory from './DialogueHistory';
@@ -116,16 +117,24 @@ const DialogueBox = ({ isHidden = false, onToggleHide, onScoreChange }: Dialogue
 
       // 根據說話者和節點效果播放情緒音效
       if (shouldPlayEmotionSFX()) {
-        const emotionSFX = getSpeakerEmotionSFX(
-          node.speaker as SpeakerType,
-          node.effect,
-          node.emotionSFX
-        );
-        if (emotionSFX) {
-          // 延遲播放，讓對話開始後才播放音效
-          setTimeout(() => {
-            playEmotionSFX(emotionSFX);
-          }, 500);
+        const mood = getMoodForNode(currentNodeId);
+        // 在悟道/冥想氛圍（revelation/calm）中，主角不播放 default 情緒音效
+        // 只保留特殊效果（glow/glitch 等）觸發的音效，保持莊嚴清靜
+        const isSereneMood = mood === 'revelation' || mood === 'calm';
+        const shouldSkipDefault = isSereneMood && node.speaker === 'protagonist' && !node.effect;
+        
+        if (!shouldSkipDefault) {
+          const emotionSFX = getSpeakerEmotionSFX(
+            node.speaker as SpeakerType,
+            node.effect,
+            node.emotionSFX
+          );
+          if (emotionSFX) {
+            // 延遲播放，讓對話開始後才播放音效
+            setTimeout(() => {
+              playEmotionSFX(emotionSFX);
+            }, 500);
+          }
         }
       }
     }
