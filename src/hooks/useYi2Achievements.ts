@@ -155,7 +155,7 @@ export const useYi2Achievements = () => {
     setPrevChoicesCount(choicesCount);
     setPrevArcValue(arcValue);
     setPrevShadowLevel(shadowLevel);
-  }, [progress, prevChoicesCount, prevArcValue, prevShadowLevel, unlockAchievement]);
+  }, [progress, prevChoicesCount, prevArcValue, prevShadowLevel, unlockAchievement, isActive]);
 
   return {
     achievements: YI2_ACHIEVEMENTS,
