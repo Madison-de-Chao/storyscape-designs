@@ -49,8 +49,10 @@ const saveUnlockedAchievements = (ids: string[]) => {
  * 成就系統 Hook
  */
 export const useAchievements = () => {
-  const { getCurrentProgress } = useGameStore();
+  const { getCurrentProgress, currentPart } = useGameStore();
   const progress = getCurrentProgress();
+  // 僅在第一部時追蹤本系統，避免與第二部成就混淆
+  const isActive = currentPart === 'yi';
   
   const [unlockedIds, setUnlockedIds] = useState<string[]>(getUnlockedAchievements);
   const [pendingAchievement, setPendingAchievement] = useState<Achievement | null>(null);
