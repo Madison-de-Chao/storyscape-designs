@@ -863,11 +863,12 @@ const GameScene = () => {
         onToggle={() => setIsProgressHUDVisible(!isProgressHUDVisible)}
       />
 
-      {/* 成就通知 */}
+      {/* 成就通知（依當前部別顯示對應系統） */}
       <AchievementToast
-        achievement={pendingAchievement}
-        onClose={dismissAchievement}
+        achievement={isYiPart ? pendingAchievement : pendingYi2Achievement}
+        onClose={isYiPart ? dismissAchievement : dismissYi2Achievement}
       />
+
 
       {/* 對話框（可隱藏） */}
       <DialogueBox 
