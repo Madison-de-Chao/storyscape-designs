@@ -131,7 +131,7 @@ export const useAchievements = () => {
     setPrevChoicesCount(choicesCount);
     setPrevArcValue(arcValue);
     setPrevShadowLevel(shadowLevel);
-  }, [progress, prevChoicesCount, prevArcValue, prevShadowLevel, unlockAchievement]);
+  }, [progress, prevChoicesCount, prevArcValue, prevShadowLevel, unlockAchievement, isActive]);
 
   return {
     achievements: ACHIEVEMENTS,
