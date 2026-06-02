@@ -25,7 +25,10 @@ const TitleScreen = () => {
   const [isMusicGeneratorOpen, setIsMusicGeneratorOpen] = useState(false);
   const [isAchievementsOpen, setIsAchievementsOpen] = useState(false);
   const { playSFX } = useSFX();
-  const { unlockedCount: achievementCount, totalCount } = useAchievements();
+  const yi1A = useAchievements();
+  const yi2A = useYi2Achievements();
+  const achievementCount = yi1A.unlockedCount + yi2A.unlockedCount;
+  const totalCount = yi1A.totalCount + yi2A.totalCount;
   const { playBGM, stopBGM } = useBGM();
   
   // 計算已解鎖的圖片數量
