@@ -1,6 +1,8 @@
 import { motion, AnimatePresence } from 'framer-motion';
+import { useState } from 'react';
 import { X, Trophy, Compass, Eye, Book, Star, Sparkles, Zap, Flame, Heart, Shield, Lock } from 'lucide-react';
 import { useAchievements } from '@/hooks/useAchievements';
+import { useYi2Achievements } from '@/hooks/useYi2Achievements';
 
 interface AchievementsOverviewProps {
   isOpen: boolean;
