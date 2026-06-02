@@ -28,6 +28,7 @@ const JourneyReflection = lazy(() => import('./JourneyReflection'));
 const GameEndOverlay = lazy(() => import('./GameEndOverlay'));
 const Yi2ChapterIntro = lazy(() => import('./Yi2ChapterIntro'));
 import { useAchievements } from '@/hooks/useAchievements';
+import { useYi2Achievements } from '@/hooks/useYi2Achievements';
 import { getNodeById } from '@/data/prologueStory';
 import { getYi1NodeById } from '@/data/yi1';
 import { getYi2NodeById } from '@/data/yi2';
@@ -180,8 +181,12 @@ const GameScene = () => {
   const [showGameEndOverlay, setShowGameEndOverlay] = useState(false);
   const gameEndShownRef = useRef(false);
 
-  // 成就系統
+  // 成就系統（依當前部別分流，避免混淆）
   const { pendingAchievement, dismissAchievement, unlockAchievement } = useAchievements();
+  const {
+    pendingAchievement: pendingYi2Achievement,
+    dismissAchievement: dismissYi2Achievement,
+  } = useYi2Achievements();
 
   const visualProgress = 1 - arcValue / 180;
   const isYiPart = currentPart === 'yi';
@@ -858,11 +863,12 @@ const GameScene = () => {
         onToggle={() => setIsProgressHUDVisible(!isProgressHUDVisible)}
       />
 
-      {/* 成就通知 */}
+      {/* 成就通知（依當前部別顯示對應系統） */}
       <AchievementToast
-        achievement={pendingAchievement}
-        onClose={dismissAchievement}
+        achievement={isYiPart ? pendingAchievement : pendingYi2Achievement}
+        onClose={isYiPart ? dismissAchievement : dismissYi2Achievement}
       />
+
 
       {/* 對話框（可隱藏） */}
       <DialogueBox 

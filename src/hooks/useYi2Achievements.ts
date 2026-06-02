@@ -72,8 +72,10 @@ const saveUnlockedIds = (ids: string[]) => {
  * 第二部獨立成就系統
  */
 export const useYi2Achievements = () => {
-  const { yiPart2Progress } = useGameStore();
+  const { yiPart2Progress, currentPart } = useGameStore();
   const progress = yiPart2Progress;
+  // 僅在第二部進行中時追蹤
+  const isActive = currentPart === 'yi-part2';
 
   const [unlockedIds, setUnlockedIds] = useState<string[]>(getUnlockedIds);
   const [pendingAchievement, setPendingAchievement] = useState<Achievement | null>(null);
@@ -96,6 +98,7 @@ export const useYi2Achievements = () => {
   }, []);
 
   useEffect(() => {
+    if (!isActive) return;
     if (!progress) return;
 
     const choicesHistory = progress.choicesHistory || {};
@@ -152,7 +155,7 @@ export const useYi2Achievements = () => {
     setPrevChoicesCount(choicesCount);
     setPrevArcValue(arcValue);
     setPrevShadowLevel(shadowLevel);
-  }, [progress, prevChoicesCount, prevArcValue, prevShadowLevel, unlockAchievement]);
+  }, [progress, prevChoicesCount, prevArcValue, prevShadowLevel, unlockAchievement, isActive]);
 
   return {
     achievements: YI2_ACHIEVEMENTS,

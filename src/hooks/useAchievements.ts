@@ -49,8 +49,10 @@ const saveUnlockedAchievements = (ids: string[]) => {
  * 成就系統 Hook
  */
 export const useAchievements = () => {
-  const { getCurrentProgress } = useGameStore();
+  const { getCurrentProgress, currentPart } = useGameStore();
   const progress = getCurrentProgress();
+  // 僅在第一部時追蹤本系統，避免與第二部成就混淆
+  const isActive = currentPart === 'yi';
   
   const [unlockedIds, setUnlockedIds] = useState<string[]>(getUnlockedAchievements);
   const [pendingAchievement, setPendingAchievement] = useState<Achievement | null>(null);
@@ -78,6 +80,7 @@ export const useAchievements = () => {
 
   // 檢查成就條件
   useEffect(() => {
+    if (!isActive) return; // 第二部不觸發第一部成就
     const choicesCount = Object.keys(progress.choicesHistory || {}).length;
     const arcValue = progress.arcValue || 0;
     const shadowLevel = progress.shadowLevel || 0;
@@ -128,7 +131,7 @@ export const useAchievements = () => {
     setPrevChoicesCount(choicesCount);
     setPrevArcValue(arcValue);
     setPrevShadowLevel(shadowLevel);
-  }, [progress, prevChoicesCount, prevArcValue, prevShadowLevel, unlockAchievement]);
+  }, [progress, prevChoicesCount, prevArcValue, prevShadowLevel, unlockAchievement, isActive]);
 
   return {
     achievements: ACHIEVEMENTS,

@@ -1,6 +1,8 @@
 import { motion, AnimatePresence } from 'framer-motion';
+import { useState } from 'react';
 import { X, Trophy, Compass, Eye, Book, Star, Sparkles, Zap, Flame, Heart, Shield, Lock } from 'lucide-react';
 import { useAchievements } from '@/hooks/useAchievements';
+import { useYi2Achievements } from '@/hooks/useYi2Achievements';
 
 interface AchievementsOverviewProps {
   isOpen: boolean;
@@ -65,17 +67,17 @@ const categories = [
   { id: 'chapter', name: '章節', description: '歷史人物的相遇' },
 ];
 
-// 成就分類映射
+// 成就分類映射（第一部）
 const achievementCategories: Record<string, string> = {
   first_choice: 'progress',
   five_choices: 'progress',
   ten_choices: 'progress',
   twenty_choices: 'progress',
   all_choices: 'progress',
-  arc_rising: 'arc',
-  arc_100: 'arc',
-  arc_50: 'arc',
-  arc_zero: 'arc',
+  arc_first_lesson: 'arc',
+  arc_halfway: 'arc',
+  arc_almost: 'arc',
+  arc_complete: 'arc',
   shadow_embrace: 'shadow',
   shadow_deep: 'shadow',
   shadow_master: 'shadow',
@@ -86,14 +88,42 @@ const achievementCategories: Record<string, string> = {
   complete_journey: 'chapter',
 };
 
+// 第二部分類映射
+const yi2Categories = [
+  { id: 'progress', name: '進度', description: '第二部探索足跡' },
+  { id: 'arc', name: '弧度', description: '再次圓滿之路' },
+  { id: 'shadow', name: '陰影', description: '與陰影共處' },
+  { id: 'chapter', name: '章節', description: '伊的故事' },
+  { id: 'funny', name: '彩蛋', description: '不正經選項' },
+];
+
+const yi2AchievementCategories: Record<string, string> = {
+  yi2_first_choice: 'progress', yi2_ten_choices: 'progress', yi2_twenty_choices: 'progress', yi2_all_choices: 'progress',
+  yi2_arc_start: 'arc', yi2_arc_halfway: 'arc', yi2_arc_almost: 'arc', yi2_arc_complete: 'arc',
+  yi2_shadow_touch: 'shadow', yi2_shadow_fifty: 'shadow',
+  yi2_mirror_scene: 'chapter', yi2_meet_yi: 'chapter', yi2_meet_monroe: 'chapter', yi2_meet_vangogh: 'chapter', yi2_dad_message: 'chapter', yi2_complete: 'chapter',
+  yi2_funny_first: 'funny', yi2_funny_five: 'funny', yi2_funny_ten: 'funny', yi2_funny_all: 'funny',
+  yi2_hungry: 'funny', yi2_go_home: 'funny', yi2_fourth_wall: 'funny', yi2_snooze: 'funny', yi2_sass_mirror: 'funny',
+};
+
 const AchievementsOverview = ({ isOpen, onClose }: AchievementsOverviewProps) => {
-  const { achievements, unlockedIds, unlockedCount, totalCount } = useAchievements();
-  const progressPercent = Math.round((unlockedCount / totalCount) * 100);
+  const yi1 = useAchievements();
+  const yi2 = useYi2Achievements();
+  const [activePart, setActivePart] = useState<'yi1' | 'yi2'>('yi1');
+
+  const isYi1 = activePart === 'yi1';
+  const achievements = isYi1 ? yi1.achievements : yi2.achievements;
+  const unlockedIds = isYi1 ? yi1.unlockedIds : yi2.unlockedIds;
+  const unlockedCount = isYi1 ? yi1.unlockedCount : yi2.unlockedCount;
+  const totalCount = isYi1 ? yi1.totalCount : yi2.totalCount;
+  const activeCategories = isYi1 ? categories : yi2Categories;
+  const activeCatMap = isYi1 ? achievementCategories : yi2AchievementCategories;
+  const progressPercent = totalCount > 0 ? Math.round((unlockedCount / totalCount) * 100) : 0;
 
   // 按分類分組成就
-  const groupedAchievements = categories.map(cat => ({
+  const groupedAchievements = activeCategories.map(cat => ({
     ...cat,
-    achievements: achievements.filter(a => achievementCategories[a.id] === cat.id),
+    achievements: achievements.filter(a => activeCatMap[a.id] === cat.id),
   }));
 
   return (
@@ -135,14 +165,36 @@ const AchievementsOverview = ({ isOpen, onClose }: AchievementsOverviewProps) =>
                 </div>
               </div>
 
+              {/* 部別切換 */}
+              <div className="flex gap-2 mb-3">
+                {([
+                  { id: 'yi1', label: '第一部・弧度歸零', count: yi1.unlockedCount, total: yi1.totalCount },
+                  { id: 'yi2', label: '第二部・元壹境', count: yi2.unlockedCount, total: yi2.totalCount },
+                ] as const).map(t => (
+                  <button
+                    key={t.id}
+                    onClick={() => setActivePart(t.id)}
+                    className={`flex-1 px-3 py-2 rounded-lg text-sm transition-colors ${
+                      activePart === t.id
+                        ? 'bg-primary/20 text-primary border border-primary/40'
+                        : 'bg-muted/20 text-muted-foreground hover:bg-muted/30 border border-transparent'
+                    }`}
+                  >
+                    <div className="font-medium">{t.label}</div>
+                    <div className="text-[10px] opacity-80">{t.count} / {t.total}</div>
+                  </button>
+                ))}
+              </div>
+
               {/* 總進度條 */}
               <div className="space-y-2">
                 <div className="flex justify-between text-sm">
-                  <span className="text-muted-foreground">總進度</span>
+                  <span className="text-muted-foreground">本部進度</span>
                   <span className="text-primary font-medium">{unlockedCount} / {totalCount} ({progressPercent}%)</span>
                 </div>
                 <div className="h-3 bg-muted/30 rounded-full overflow-hidden">
                   <motion.div
+                    key={activePart}
                     className="h-full bg-gradient-to-r from-primary to-accent rounded-full"
                     initial={{ width: 0 }}
                     animate={{ width: `${progressPercent}%` }}
@@ -151,6 +203,7 @@ const AchievementsOverview = ({ isOpen, onClose }: AchievementsOverviewProps) =>
                 </div>
               </div>
             </div>
+
 
             {/* 成就列表 */}
             <div className="overflow-y-auto max-h-[calc(85vh-180px)] p-6 space-y-6">
