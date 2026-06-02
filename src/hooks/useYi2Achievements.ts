@@ -98,6 +98,7 @@ export const useYi2Achievements = () => {
   }, []);
 
   useEffect(() => {
+    if (!isActive) return;
     if (!progress) return;
 
     const choicesHistory = progress.choicesHistory || {};
