@@ -440,8 +440,8 @@ const TitleScreen = () => {
             <span className="text-[10px] sm:text-xs text-amber-400">({achievementCount}/{totalCount})</span>
           </button>
 
-          {/* 藝廊按鈕 - 手機優化 */}
-          {(yiProgress.unlockedImages || []).length > 0 && (
+          {/* 藝廊按鈕 - 第一部解鎖過任一張，或第二部已啟程即顯示 */}
+          {galleryCount > 0 && (
             <button
               onClick={() => setIsGalleryOpen(true)}
               className="
@@ -455,7 +455,12 @@ const TitleScreen = () => {
             >
               <Image className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
               藝廊
-              <span className="text-[10px] sm:text-xs text-primary">({(yiProgress.unlockedImages || []).length})</span>
+              {yi1GalleryCount > 0 && (
+                <span className="text-[10px] sm:text-xs text-primary">({yi1GalleryCount}{yi2GalleryAvailable ? '+伊' : ''})</span>
+              )}
+              {yi1GalleryCount === 0 && yi2GalleryAvailable && (
+                <span className="text-[10px] sm:text-xs text-accent">(伊)</span>
+              )}
             </button>
           )}
 
