@@ -4,6 +4,7 @@ import { BookOpen, Image, Music, Volume2, Trophy, Play } from 'lucide-react';
 import { useGameStore } from '@/stores/gameStore';
 import { useSFX, useBGM } from '@/hooks/useAudio';
 import { useAchievements } from '@/hooks/useAchievements';
+import { useYi2Achievements } from '@/hooks/useYi2Achievements';
 import ParticleBackground from './ParticleBackground';
 import ChapterSelect from './ChapterSelect';
 import Gallery from './Gallery';
@@ -24,7 +25,10 @@ const TitleScreen = () => {
   const [isMusicGeneratorOpen, setIsMusicGeneratorOpen] = useState(false);
   const [isAchievementsOpen, setIsAchievementsOpen] = useState(false);
   const { playSFX } = useSFX();
-  const { unlockedCount: achievementCount, totalCount } = useAchievements();
+  const yi1A = useAchievements();
+  const yi2A = useYi2Achievements();
+  const achievementCount = yi1A.unlockedCount + yi2A.unlockedCount;
+  const totalCount = yi1A.totalCount + yi2A.totalCount;
   const { playBGM, stopBGM } = useBGM();
   
   // 計算已解鎖的圖片數量
@@ -279,16 +283,24 @@ const TitleScreen = () => {
                 className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"
               />
               
-              {/* 進度標籤 */}
+              {/* 進度條 */}
               {yiProgress.hasStarted && (
                 <div className="
                   absolute bottom-2 left-2 right-2
-                  px-2 py-1 rounded-lg
+                  px-2 py-1.5 rounded-lg
                   bg-background/80 backdrop-blur-sm
-                  text-[10px] sm:text-xs text-primary text-center
                   border border-primary/30
                 ">
-                  進度：{yiProgress.arcValue}°
+                  <div className="flex justify-between items-center text-[10px] sm:text-xs text-primary mb-1">
+                    <span>進度</span>
+                    <span>{yiProgress.arcValue}° / 360°</span>
+                  </div>
+                  <div className="h-1 bg-muted/40 rounded-full overflow-hidden">
+                    <div
+                      className="h-full bg-gradient-to-r from-primary to-accent rounded-full transition-all duration-500"
+                      style={{ width: `${Math.min(100, (yiProgress.arcValue / 360) * 100)}%` }}
+                    />
+                  </div>
                 </div>
               )}
             </div>
@@ -377,16 +389,24 @@ const TitleScreen = () => {
                 className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"
               />
               
-              {/* 進度標籤 */}
+              {/* 進度條 */}
               {yiPart2Progress.hasStarted && (
                 <div className="
                   absolute bottom-2 left-2 right-2
-                  px-2 py-1 rounded-lg
+                  px-2 py-1.5 rounded-lg
                   bg-background/80 backdrop-blur-sm
-                  text-[10px] sm:text-xs text-accent text-center
                   border border-accent/30
                 ">
-                  進度：{yiPart2Progress.arcValue}°
+                  <div className="flex justify-between items-center text-[10px] sm:text-xs text-accent mb-1">
+                    <span>進度</span>
+                    <span>{yiPart2Progress.arcValue}° / 360°</span>
+                  </div>
+                  <div className="h-1 bg-muted/40 rounded-full overflow-hidden">
+                    <div
+                      className="h-full bg-gradient-to-r from-accent to-rose-500 rounded-full transition-all duration-500"
+                      style={{ width: `${Math.min(100, (yiPart2Progress.arcValue / 360) * 100)}%` }}
+                    />
+                  </div>
                 </div>
               )}
             </div>
