@@ -186,6 +186,7 @@ const GameScene = () => {
   const {
     pendingAchievement: pendingYi2Achievement,
     dismissAchievement: dismissYi2Achievement,
+    unlockAchievement: unlockYi2Achievement,
   } = useYi2Achievements();
 
   const visualProgress = 1 - arcValue / 180;
