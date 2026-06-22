@@ -306,21 +306,27 @@ const GameScene = () => {
 
   // 月明值系統：選項的影響對玩家隱藏，不需要顯示反饋
 
-  // 檢測遊戲結束節點（postscript-end）
+  // 檢測遊戲結束節點（第一部 postscript-end / 第二部 yi2-ch12-end）
   useEffect(() => {
     const normalizedId = currentNodeId.replace(/^yi1-/, '');
-    if (normalizedId === 'postscript-end' && !gameEndShownRef.current) {
+    const isYi1End = normalizedId === 'postscript-end';
+    const isYi2End = currentNodeId === 'yi2-ch12-end';
+    if ((isYi1End || isYi2End) && !gameEndShownRef.current) {
       gameEndShownRef.current = true;
       // 延遲顯示遊戲結束覆蓋層，讓玩家看完最後一段文字
       const timer = setTimeout(() => {
         stopBGM(true);
         setShowGameEndOverlay(true);
-        // 解鎖完成遊戲成就
-        unlockAchievement('complete_journey');
+        // 解鎖完成遊戲成就（依當前部別分流）
+        if (isYi1End) {
+          unlockAchievement('complete_journey');
+        } else {
+          unlockYi2Achievement('yi2_complete');
+        }
       }, 3000);
       return () => clearTimeout(timer);
     }
-  }, [currentNodeId, stopBGM, unlockAchievement]);
+  }, [currentNodeId, stopBGM, unlockAchievement, unlockYi2Achievement]);
 
   // 處理遊戲結束覆蓋層點擊
   const handleChapterTransitionComplete = useCallback(() => {
@@ -329,10 +335,15 @@ const GameScene = () => {
 
   const handleGameEndComplete = useCallback(() => {
     setShowGameEndOverlay(false);
+    // 重置當前部的進度節點，避免再次進入時直接跳到結束畫面
+    // （成就、選擇紀錄、月明值、弧度仍保留於 progress 中）
+    resetPart(currentPart);
     // 顯示成就統計頁面，標記為從遊戲結束打開
     setIsEndingStatsFromGameEnd(true);
     setIsEndingStatsOpen(true);
-  }, []);
+    // 重置 ref，避免下次到達結束節點時不觸發
+    gameEndShownRef.current = false;
+  }, [resetPart, currentPart]);
 
   // 檢測序章開始節點，觸發直排禪意開場動畫
   useEffect(() => {
