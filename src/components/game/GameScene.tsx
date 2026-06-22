@@ -335,15 +335,16 @@ const GameScene = () => {
 
   const handleGameEndComplete = useCallback(() => {
     setShowGameEndOverlay(false);
-    // 重置當前部的進度節點，避免再次進入時直接跳到結束畫面
+    // 將當前部的節點重置為起始節點，避免再次進入時直接跳到結束畫面
     // （成就、選擇紀錄、月明值、弧度仍保留於 progress 中）
-    resetPart(currentPart);
+    const startNodeId = currentPart === 'yi' ? 'preface-1' : 'yi2-preface-1';
+    setCurrentNode(startNodeId);
     // 顯示成就統計頁面，標記為從遊戲結束打開
     setIsEndingStatsFromGameEnd(true);
     setIsEndingStatsOpen(true);
     // 重置 ref，避免下次到達結束節點時不觸發
     gameEndShownRef.current = false;
-  }, [resetPart, currentPart]);
+  }, [currentPart, setCurrentNode]);
 
   // 檢測序章開始節點，觸發直排禪意開場動畫
   useEffect(() => {
