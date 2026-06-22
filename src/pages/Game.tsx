@@ -49,26 +49,25 @@ const Index = () => {
   };
 
   return (
-    <MemberGate>
-      <motion.div
-        variants={pageVariants}
-        initial="initial"
-        animate="animate"
-        exit="exit"
-        transition={{ duration: 0.8, ease: "easeInOut" }}
-        className="min-h-screen bg-background"
-      >
-        <NodeIntegrityAlert />
-        
-        {/* 開場動畫 */}
-        {showIntroVideo && (
-          <IntroVideo onComplete={handleIntroComplete} />
-        )}
-        
-        {isPlaying ? <GameScene /> : <TitleScreen />}
-      </motion.div>
-    </MemberGate>
+    <motion.div
+      variants={pageVariants}
+      initial="initial"
+      animate="animate"
+      exit="exit"
+      transition={{ duration: 0.8, ease: "easeInOut" }}
+      className="min-h-screen bg-background"
+    >
+      <NodeIntegrityAlert />
+      
+      {/* 開場動畫 */}
+      {showIntroVideo && (
+        <IntroVideo onComplete={handleIntroComplete} />
+      )}
+      
+      {isPlaying ? <GameScene /> : <TitleScreen />}
+    </motion.div>
   );
 };
+
 
 export default Index;
