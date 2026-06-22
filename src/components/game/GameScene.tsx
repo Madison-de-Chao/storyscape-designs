@@ -118,7 +118,7 @@ const getChapterKey = (nodeId: string, isYiPart: boolean): string => {
 };
 
 const GameScene = () => {
-  const { getCurrentProgress, getChapterProgress, returnToTitle, resetPart, currentPart, completeLesson } = useGameStore();
+  const { getCurrentProgress, getChapterProgress, returnToTitle, resetPart, currentPart, completeLesson, setCurrentNode } = useGameStore();
   const progress = getCurrentProgress();
   const arcValue = progress.arcValue;
   const currentNodeId = progress.currentNodeId;
