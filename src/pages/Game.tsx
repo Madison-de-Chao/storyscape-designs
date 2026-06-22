@@ -4,7 +4,7 @@ import GameScene from "@/components/game/GameScene";
 import NodeIntegrityAlert from "@/components/game/NodeIntegrityAlert";
 import TitleScreen from "@/components/game/TitleScreen";
 import IntroVideo from "@/components/game/IntroVideo";
-import MemberGate from "@/components/member/MemberGate";
+// MemberGate disabled
 import { useGameStore } from "@/stores/gameStore";
 
 const pageVariants = {
@@ -49,26 +49,25 @@ const Index = () => {
   };
 
   return (
-    <MemberGate>
-      <motion.div
-        variants={pageVariants}
-        initial="initial"
-        animate="animate"
-        exit="exit"
-        transition={{ duration: 0.8, ease: "easeInOut" }}
-        className="min-h-screen bg-background"
-      >
-        <NodeIntegrityAlert />
-        
-        {/* 開場動畫 */}
-        {showIntroVideo && (
-          <IntroVideo onComplete={handleIntroComplete} />
-        )}
-        
-        {isPlaying ? <GameScene /> : <TitleScreen />}
-      </motion.div>
-    </MemberGate>
+    <motion.div
+      variants={pageVariants}
+      initial="initial"
+      animate="animate"
+      exit="exit"
+      transition={{ duration: 0.8, ease: "easeInOut" }}
+      className="min-h-screen bg-background"
+    >
+      <NodeIntegrityAlert />
+      
+      {/* 開場動畫 */}
+      {showIntroVideo && (
+        <IntroVideo onComplete={handleIntroComplete} />
+      )}
+      
+      {isPlaying ? <GameScene /> : <TitleScreen />}
+    </motion.div>
   );
 };
+
 
 export default Index;
