@@ -191,41 +191,10 @@ const Landing = () => {
                 "
               >
                 <Play className="w-5 h-5 mr-2" />
-                {isAuthenticated() ? '進入遊戲' : '開始體驗'}
+                開始體驗
               </Button>
-
-              {!isAuthenticated() && (
-                <div className="flex gap-3">
-                  <Link
-                    to="/game"
-                    className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-stone-600 hover:border-amber-500/50 text-stone-300 hover:text-amber-400 transition-colors"
-                  >
-                    <UserPlus className="w-4 h-4" />
-                    註冊帳號
-                  </Link>
-                  <Link
-                    to="/game"
-                    className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-stone-600 hover:border-amber-500/50 text-stone-300 hover:text-amber-400 transition-colors"
-                  >
-                    <LogIn className="w-4 h-4" />
-                    會員登入
-                  </Link>
-                </div>
-              )}
             </motion.div>
 
-            {/* Member Status */}
-            {isAuthenticated() && member && (
-              <motion.p
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.7 }}
-                className="mt-4 text-sm text-stone-500"
-              >
-                已登入：{maskEmail(member.email)}
-              </motion.p>
-            )}
-          </motion.div>
 
           {/* Scroll Indicator */}
           <motion.div
