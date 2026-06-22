@@ -3,9 +3,6 @@ import { motion } from 'framer-motion';
 import { useNavigate, Link } from 'react-router-dom';
 import { 
   Play, 
-  UserPlus, 
-  LogIn, 
-  LogOut,
   Sparkles,
   BookOpen,
   Heart,
@@ -13,7 +10,6 @@ import {
   ChevronDown
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { useMemberStore } from '@/stores/memberStore';
 import PublicFooter from '@/components/PublicFooter';
 
 // Import cover images
@@ -29,7 +25,6 @@ import heroVideo from '@/assets/landing-hero-video.mp4';
 
 const Landing = () => {
   const navigate = useNavigate();
-  const { isAuthenticated, member, logout } = useMemberStore();
   const [scrollY, setScrollY] = useState(0);
 
   useEffect(() => {
@@ -40,15 +35,6 @@ const Landing = () => {
 
   const handleEnterGame = () => {
     navigate('/game');
-  };
-
-  // Mask email for privacy display (e.g., momo****@gmail.com)
-  const maskEmail = (email: string) => {
-    const [localPart, domain] = email.split('@');
-    if (!domain) return email;
-    const visibleChars = Math.min(4, localPart.length);
-    const masked = localPart.slice(0, visibleChars) + '****';
-    return `${masked}@${domain}`;
   };
 
   const features = [
@@ -101,45 +87,16 @@ const Landing = () => {
           </Link>
           
           <nav className="flex items-center gap-4 sm:gap-6">
-            {isAuthenticated() && member ? (
-              <>
-                <span className="text-xs sm:text-sm text-stone-400">
-                  {maskEmail(member.email)}
-                </span>
-                <Link
-                  to="/game"
-                  className="text-xs sm:text-sm text-amber-400 hover:text-amber-300 transition-colors font-medium"
-                >
-                  進入遊戲
-                </Link>
-                <button
-                  onClick={logout}
-                  className="flex items-center gap-1 text-xs sm:text-sm text-stone-500 hover:text-red-400 transition-colors"
-                  title="登出"
-                >
-                  <LogOut className="w-3.5 h-3.5" />
-                  <span className="hidden sm:inline">登出</span>
-                </button>
-              </>
-            ) : (
-              <>
-                <Link
-                  to="/game"
-                  className="text-xs sm:text-sm text-stone-400 hover:text-amber-400 transition-colors"
-                >
-                  登入
-                </Link>
-                <Link
-                  to="/game"
-                  className="text-xs sm:text-sm px-3 py-1.5 rounded-lg bg-amber-600/20 text-amber-400 hover:bg-amber-600/30 transition-colors"
-                >
-                  註冊
-                </Link>
-              </>
-            )}
+            <Link
+              to="/game"
+              className="text-xs sm:text-sm text-amber-400 hover:text-amber-300 transition-colors font-medium"
+            >
+              進入遊戲
+            </Link>
           </nav>
         </div>
       </header>
+
 
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16">
@@ -234,41 +191,13 @@ const Landing = () => {
                 "
               >
                 <Play className="w-5 h-5 mr-2" />
-                {isAuthenticated() ? '進入遊戲' : '開始體驗'}
+                開始體驗
               </Button>
-
-              {!isAuthenticated() && (
-                <div className="flex gap-3">
-                  <Link
-                    to="/game"
-                    className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-stone-600 hover:border-amber-500/50 text-stone-300 hover:text-amber-400 transition-colors"
-                  >
-                    <UserPlus className="w-4 h-4" />
-                    註冊帳號
-                  </Link>
-                  <Link
-                    to="/game"
-                    className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-stone-600 hover:border-amber-500/50 text-stone-300 hover:text-amber-400 transition-colors"
-                  >
-                    <LogIn className="w-4 h-4" />
-                    會員登入
-                  </Link>
-                </div>
-              )}
             </motion.div>
-
-            {/* Member Status */}
-            {isAuthenticated() && member && (
-              <motion.p
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.7 }}
-                className="mt-4 text-sm text-stone-500"
-              >
-                已登入：{maskEmail(member.email)}
-              </motion.p>
-            )}
           </motion.div>
+
+
+
 
           {/* Scroll Indicator */}
           <motion.div
