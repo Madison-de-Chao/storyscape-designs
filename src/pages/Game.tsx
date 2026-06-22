@@ -4,7 +4,7 @@ import GameScene from "@/components/game/GameScene";
 import NodeIntegrityAlert from "@/components/game/NodeIntegrityAlert";
 import TitleScreen from "@/components/game/TitleScreen";
 import IntroVideo from "@/components/game/IntroVideo";
-import MemberGate from "@/components/member/MemberGate";
+// MemberGate disabled
 import { useGameStore } from "@/stores/gameStore";
 
 const pageVariants = {
