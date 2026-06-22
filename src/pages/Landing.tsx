@@ -87,45 +87,16 @@ const Landing = () => {
           </Link>
           
           <nav className="flex items-center gap-4 sm:gap-6">
-            {isAuthenticated() && member ? (
-              <>
-                <span className="text-xs sm:text-sm text-stone-400">
-                  {maskEmail(member.email)}
-                </span>
-                <Link
-                  to="/game"
-                  className="text-xs sm:text-sm text-amber-400 hover:text-amber-300 transition-colors font-medium"
-                >
-                  進入遊戲
-                </Link>
-                <button
-                  onClick={logout}
-                  className="flex items-center gap-1 text-xs sm:text-sm text-stone-500 hover:text-red-400 transition-colors"
-                  title="登出"
-                >
-                  <LogOut className="w-3.5 h-3.5" />
-                  <span className="hidden sm:inline">登出</span>
-                </button>
-              </>
-            ) : (
-              <>
-                <Link
-                  to="/game"
-                  className="text-xs sm:text-sm text-stone-400 hover:text-amber-400 transition-colors"
-                >
-                  登入
-                </Link>
-                <Link
-                  to="/game"
-                  className="text-xs sm:text-sm px-3 py-1.5 rounded-lg bg-amber-600/20 text-amber-400 hover:bg-amber-600/30 transition-colors"
-                >
-                  註冊
-                </Link>
-              </>
-            )}
+            <Link
+              to="/game"
+              className="text-xs sm:text-sm text-amber-400 hover:text-amber-300 transition-colors font-medium"
+            >
+              進入遊戲
+            </Link>
           </nav>
         </div>
       </header>
+
 
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16">
