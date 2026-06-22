@@ -492,7 +492,7 @@ const Gallery = ({ isOpen, onClose }: GalleryProps) => {
           <AnimatePresence>
             {selectedImage && (
               <motion.div
-                className="fixed inset-0 z-60 flex items-center justify-center bg-background/98"
+                className="fixed inset-0 z-[60] flex items-center justify-center bg-background/98"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
