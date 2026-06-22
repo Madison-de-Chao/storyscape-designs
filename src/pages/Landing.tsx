@@ -3,9 +3,6 @@ import { motion } from 'framer-motion';
 import { useNavigate, Link } from 'react-router-dom';
 import { 
   Play, 
-  UserPlus, 
-  LogIn, 
-  LogOut,
   Sparkles,
   BookOpen,
   Heart,
@@ -13,7 +10,6 @@ import {
   ChevronDown
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { useMemberStore } from '@/stores/memberStore';
 import PublicFooter from '@/components/PublicFooter';
 
 // Import cover images
@@ -29,7 +25,6 @@ import heroVideo from '@/assets/landing-hero-video.mp4';
 
 const Landing = () => {
   const navigate = useNavigate();
-  const { isAuthenticated, member, logout } = useMemberStore();
   const [scrollY, setScrollY] = useState(0);
 
   useEffect(() => {
@@ -40,15 +35,6 @@ const Landing = () => {
 
   const handleEnterGame = () => {
     navigate('/game');
-  };
-
-  // Mask email for privacy display (e.g., momo****@gmail.com)
-  const maskEmail = (email: string) => {
-    const [localPart, domain] = email.split('@');
-    if (!domain) return email;
-    const visibleChars = Math.min(4, localPart.length);
-    const masked = localPart.slice(0, visibleChars) + '****';
-    return `${masked}@${domain}`;
   };
 
   const features = [
