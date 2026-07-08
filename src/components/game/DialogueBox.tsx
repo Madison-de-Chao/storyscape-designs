@@ -705,8 +705,8 @@ const DialogueBox = ({ isHidden = false, onToggleHide, onScoreChange }: Dialogue
                 style={{
                   background: `linear-gradient(
                     180deg, 
-                    hsl(222 47% 10% / 0.65) 0%, 
-                    hsl(222 47% 7% / 0.7) 100%
+                    hsl(222 47% 8% / 0.92) 0%, 
+                    hsl(222 47% 5% / 0.95) 100%
                   )`,
                   boxShadow: `
                     0 -8px 50px hsl(222 47% 4% / 0.4),
@@ -714,8 +714,6 @@ const DialogueBox = ({ isHidden = false, onToggleHide, onScoreChange }: Dialogue
                     inset 0 1px 0 hsl(45 30% 90% / 0.08),
                     inset 0 -1px 0 hsl(45 30% 90% / 0.03)
                   `,
-                  backdropFilter: 'blur(24px)',
-                  WebkitBackdropFilter: 'blur(24px)',
                   // 桌面版左邊留空給立繪
                   marginLeft: currentNode.speaker !== 'narrator' ? undefined : undefined,
                 }}
